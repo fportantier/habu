@@ -1,0 +1,10 @@
+test:
+  script:
+  - apt-get update -qy
+  - apt-get install -y python3-dev python3-pip
+  - pip3 install virtualenv
+  - virtualenv --python=/usr/bin/python3 venv
+  - venv/bin/pip install -r requirements.txt
+  - venv/bin/pip install -r dev-requirements.txt
+  - venv/bin/pip install -e .
+  - venv/bin/python setup.py pytest
