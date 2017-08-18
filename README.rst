@@ -1,9 +1,9 @@
-Habu: Ethical Hacking utilities / library
-=========================================
+Habu: Network Hacking Toolkit
+=============================
 
 These are basic functions that help with some tasks for Ethical Hacking and Penetration Testing.
 
-I'm developing Habu to teach (and learn) some concepts about Python and Hacking.
+I'm developing Habu to teach (and learn) some concepts about Python and Network Hacking.
 
 Much of the functions are really basic (like get our public IP address), but are really useful in some cases.
 
@@ -21,5 +21,4 @@ Dependencies
 Habu requires:
 
 - Python (3.x),
-- Requests (2.x),
-- Click (6.x).
+- Scapy-Python3
