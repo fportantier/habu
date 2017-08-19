@@ -7,6 +7,7 @@ hosts = {}
 
 mac2vendor = habu.lib.manuf.MacParser()
 
+
 def procpkt(pkt):
 
     now = time()
