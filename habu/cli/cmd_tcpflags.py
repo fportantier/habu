@@ -8,7 +8,7 @@ from scapy.all import ICMP, IP, conf, sr, sr1, TCP
 @click.option('-f', 'flags', default=None, help='Flags that must be sent ever (default: fuzz with all flags)')
 @click.option('-r', 'rflags', default=None, help='Filter by response flags (default: show all responses)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_tcpflag(ip, port, flags, rflags, verbose):
+def cmd_tcpflags(ip, port, flags, rflags, verbose):
 
     conf.verb = False
 
@@ -26,5 +26,5 @@ def cmd_tcpflag(ip, port, flags, rflags, verbose):
     return True
 
 if __name__ == '__main__':
-    cmd_tcpflag()
+    cmd_tcpflags()
 
