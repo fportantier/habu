@@ -26,11 +26,14 @@ setup(
         habu.arpoison=habu.cli.cmd_arpoison:cmd_arpoison
         habu.arpsniff=habu.cli.cmd_arpsniff:cmd_arpsniff
         habu.contest=habu.cli.cmd_contest:cmd_contest
+        habu.dhcp_discover=habu.cli.cmd_dhcp_discover:cmd_dhcp_discover
         habu.eicar=habu.cli.cmd_eicar:cmd_eicar
         habu.forkbomb=habu.cli.cmd_forkbomb:cmd_forkbomb
         habu.hasher=habu.cli.cmd_hasher:cmd_hasher
         habu.help=habu.cli.cmd_help:cmd_help
         habu.ip=habu.cli.cmd_ip:cmd_ip
+        habu.snmp_crack=habu.cli.cmd_snmp_crack:cmd_snmp_crack
+        habu.traceroute=habu.cli.cmd_traceroute:cmd_traceroute
         habu.update=habu.cli.cmd_update:cmd_update
         habu.xor=habu.cli.cmd_xor:cmd_xor
     ''',
