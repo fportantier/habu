@@ -34,6 +34,7 @@ setup(
         habu.help=habu.cli.cmd_help:cmd_help
         habu.ip=habu.cli.cmd_ip:cmd_ip
         habu.isn=habu.cli.cmd_isn:cmd_isn
+        habu.land=habu.cli.cmd_land:cmd_land
         habu.ping=habu.cli.cmd_ping:cmd_ping
         habu.snmp_crack=habu.cli.cmd_snmp_crack:cmd_snmp_crack
         habu.tcpflags=habu.cli.cmd_tcpflags:cmd_tcpflags
