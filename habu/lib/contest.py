@@ -4,6 +4,7 @@ import socket
 dns_servers = ['8.8.8.8', '8.8.4.4']
 ftp_servers = ['ftp.debian.org', 'ftp.redhat.com']
 http_servers = ['www.google.com', 'www.ibm.com']
+ssh_servers = ['www.github.com']
 
 def check_ip():
     for server in dns_servers:
@@ -54,6 +55,18 @@ def check_ftp():
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((server, 21))
+            return True
+        except Exception:
+            pass
+
+    return False
+
+
+def check_ssh():
+    for server in ftp_servers:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((server, 22))
             return True
         except Exception:
             pass

@@ -13,6 +13,7 @@ setup(
     url='https://github.com/portantier/habu',
     license='Copyright Fabian Martinez Portantier',
     install_requires=[
+        'requests',
         'scapy-python3',
     ],
     tests_require=[
@@ -32,7 +33,10 @@ setup(
         habu.hasher=habu.cli.cmd_hasher:cmd_hasher
         habu.help=habu.cli.cmd_help:cmd_help
         habu.ip=habu.cli.cmd_ip:cmd_ip
+        habu.isn=habu.cli.cmd_isn:cmd_isn
+        habu.ping=habu.cli.cmd_ping:cmd_ping
         habu.snmp_crack=habu.cli.cmd_snmp_crack:cmd_snmp_crack
+        habu.tcpflags=habu.cli.cmd_tcpflags:cmd_tcpflags
         habu.traceroute=habu.cli.cmd_traceroute:cmd_traceroute
         habu.update=habu.cli.cmd_update:cmd_update
         habu.xor=habu.cli.cmd_xor:cmd_xor
