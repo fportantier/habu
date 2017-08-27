@@ -36,4 +36,4 @@ def cmd_land(ip, count, port, verbose):
     return True
 
 if __name__ == '__main__':
-    cmd_ping()
+    cmd_land()

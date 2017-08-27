@@ -40,6 +40,7 @@ setup(
         habu.tcpflags=habu.cli.cmd_tcpflags:cmd_tcpflags
         habu.traceroute=habu.cli.cmd_traceroute:cmd_traceroute
         habu.update=habu.cli.cmd_update:cmd_update
+        habu.synflood=habu.cli.cmd_synflood:cmd_synflood
         habu.xor=habu.cli.cmd_xor:cmd_xor
     ''',
     classifiers=[
