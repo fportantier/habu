@@ -29,6 +29,7 @@ setup(
         habu.contest=habu.cli.cmd_contest:cmd_contest
         habu.dhcp_discover=habu.cli.cmd_dhcp_discover:cmd_dhcp_discover
         habu.eicar=habu.cli.cmd_eicar:cmd_eicar
+        habu.firewall=habu.cli.cmd_firewall:cmd_firewall
         habu.forkbomb=habu.cli.cmd_forkbomb:cmd_forkbomb
         habu.hasher=habu.cli.cmd_hasher:cmd_hasher
         habu.help=habu.cli.cmd_help:cmd_help
@@ -36,6 +37,7 @@ setup(
         habu.isn=habu.cli.cmd_isn:cmd_isn
         habu.land=habu.cli.cmd_land:cmd_land
         habu.ping=habu.cli.cmd_ping:cmd_ping
+        habu.slowloris=habu.cli.cmd_slowloris:cmd_slowloris
         habu.snmp_crack=habu.cli.cmd_snmp_crack:cmd_snmp_crack
         habu.tcpflags=habu.cli.cmd_tcpflags:cmd_tcpflags
         habu.traceroute=habu.cli.cmd_traceroute:cmd_traceroute
