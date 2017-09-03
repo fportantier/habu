@@ -5,11 +5,11 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.14',
+    version='0.0.15',
     description='Network Hacking Toolkit',
     long_description=readme,
     author='Fabian Martinez Portantier',
-    author_email='fabian at portantier dot com',
+    author_email='fabian@portantier.com',
     url='https://github.com/portantier/habu',
     license='Copyright Fabian Martinez Portantier',
     install_requires=[
