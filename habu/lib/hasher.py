@@ -1,6 +1,6 @@
 import hashlib
 
-DESIRED_ALGOS = [
+ALGOS = [
     'md5',
     'sha1',
     'sha512',
@@ -9,7 +9,7 @@ DESIRED_ALGOS = [
 ]
 
 
-def hasher(data):
+def hasher(data, algos=ALGOS):
 
     try:
         data = data.encode()
@@ -19,7 +19,7 @@ def hasher(data):
     result = {}
 
     for algo in sorted(hashlib.algorithms_available):
-        if algo in DESIRED_ALGOS:
+        if algo in algos:
             h = hashlib.new(algo)
             h.update(data)
             result[algo] = h.hexdigest()
