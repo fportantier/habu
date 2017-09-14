@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.15',
+    version='0.0.20',
     description='Network Hacking Toolkit',
     long_description=readme,
     author='Fabian Martinez Portantier',
@@ -13,6 +13,7 @@ setup(
     url='https://github.com/portantier/habu',
     license='Copyright Fabian Martinez Portantier',
     install_requires=[
+        'click',
         'requests',
         'scapy-python3',
     ],
@@ -20,8 +21,6 @@ setup(
         'pytest',
         'pytest-runner',
     ],
-    packages=['habu'],
-    include_package_data=True,
     entry_points='''
         [console_scripts]
         habu.arpoison=habu.cli.cmd_arpoison:cmd_arpoison
@@ -55,6 +54,8 @@ setup(
         "Programming Language :: Python :: 3.0",
         "Programming Language :: Python :: 3.6",
     ],
+    packages=['habu', 'habu.lib', 'habu.cli'],
+    include_package_data=True,
     keywords=['security'],
     zip_safe=False,
     test_suite='py.test',

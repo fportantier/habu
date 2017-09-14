@@ -20,5 +20,7 @@ Dependencies
 ------------
 Habu requires:
 
+- Click
 - Python (3.x),
 - Scapy-Python3
+
