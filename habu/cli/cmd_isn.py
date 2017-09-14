@@ -29,6 +29,7 @@ def cmd_isn(ip, port, count, iface, graph, verbose):
                 ans.show2()
 
     if graph:
+
         try:
             import matplotlib.pyplot as plt
         except ImportError:
@@ -37,6 +38,11 @@ def cmd_isn(ip, port, count, iface, graph, verbose):
 
         plt.plot(range(len(isn_values)), isn_values, 'ro')
         plt.show()
+
+    else:
+
+        for v in isn_values:
+            print(v)
 
     return True
 
