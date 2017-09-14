@@ -2,6 +2,7 @@ import click
 from habu.lib.hasher import hasher
 
 
+
 @click.command()
 @click.argument('f', type=click.File('rb'))
 def cmd_hasher(f):
@@ -13,8 +14,7 @@ def cmd_hasher(f):
         print("Empty file or string!")
     else:
         for algo, result in hasher(data).items():
-            print("%s: %s" %(algo, result))
-
+            print("{:<12}: {}".format(algo, result))
 
 if __name__ == '__main__':
     cmd_hasher()
