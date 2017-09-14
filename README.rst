@@ -101,3 +101,26 @@ This command prints your current public IP based on the response from https://ap
 
     $ habu.ip 
     182.26.32.246
+
+habu.isn: Prints the TCP sequence numbers for an IP
+---------------------------------------------------
+This command creates TCP connections and prints the TCP initial sequence numbers for each connections.
+
+.. code-block:: bash
+
+    $ sudo habu.isn www.portantier.com
+    1962287220
+    1800895007
+    589617930
+    3393793979
+    469428558
+
+You can get a graphical representation (needs the matplotlib package) using the '-g' option:
+
+.. code-block:: bash
+
+    $ sudo habu.isn -g -c 10 www.portantier.com
+
+.. image:: img/isn.png
+
+**Note:** The above command uses '-c' option to define that 10 connections must be created.
