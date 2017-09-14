@@ -148,3 +148,11 @@ variants exists to call this command:
 
 **Note:** The output above shows only MD5 and SHA1 to make it short, but the real output 
 includes more algorithms.
+
+You can also specify which algorithm to use. In such case, the output is only the value 
+of the calculated hash:
+
+.. code-block:: bash
+
+    $ habu.hasher -a md5 README.rst
+    375375d9cfb2aacab7c8d1a9afd3d9b7
