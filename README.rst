@@ -74,3 +74,30 @@ This command tries to connect to various services and check if you can reach the
     HTTP:  True
     HTTPS: True
 
+habu.dhcp_discover: Discover DHCP servers
+-----------------------------------------
+This command send a DHCP request and shows what devices has replied. Using the '-v' parameter (verbose) you can 
+see all the options (like DNS servers) included on the responses.
+
+.. code-block:: bash
+
+    $ sudo habu.dhcp_discover 
+    Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.5:bootpc / BOOTP / DHCP
+
+habu.eicar: Prints the EICAR test string
+----------------------------------------
+This command prints the EICAR test string that can be used to test antimalware engines.
+
+.. code-block:: bash
+
+    $ habu.eicar 
+    X5O!P%@AP[4\XZP54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
+
+habu.ip: Prints your current public IP
+--------------------------------------
+This command prints your current public IP based on the response from https://api.ipify.org.
+
+.. code-block:: bash
+
+    $ habu.ip 
+    182.26.32.246
