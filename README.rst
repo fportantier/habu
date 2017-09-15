@@ -183,3 +183,15 @@ Windows NT 4.0. More information here: https://en.wikipedia.org/wiki/LAND
 
 **Note:** Each dot (.) is a sent packet. You can specify how many packets send with the '-c' option. The default is never stop. Also, you can specify the destination port, with the '-p' option.
 
+
+habu.ping: ICMP echo requests
+-----------------------------
+This command implements the classic 'ping' with ICMP echo requests.
+
+.. code-block:: bash
+
+    $ sudo habu.ping 8.8.8.8
+    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
