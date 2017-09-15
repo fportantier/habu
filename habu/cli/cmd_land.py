@@ -27,8 +27,12 @@ def cmd_land(ip, count, port, verbose):
     while True:
         send(pkt)
         counter += 1
-        print('.', end='')
-        sys.stdout.flush()
+
+        if verbose:
+            print(pkt.summary())
+        else:
+            print('.', end='')
+            sys.stdout.flush()
 
         if count != 0 and counter == count:
             break
