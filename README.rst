@@ -212,3 +212,21 @@ The dictionary used is the distributed with the onesixtyone tool
 
 **Note:** You can also receive messages like <UNIVERSAL> <class 'scapy.asn1.asn1.ASN1_Class_metaclass'>,
 I don't know how to supress them for now.
+
+habu.synflood: SYN Flood Attack Implementation
+---------------------------------------------
+This command launches a lot of TCP connections and keeps them opened. Some very old systems can 
+suffer a Denial of Service with this. More info: https://en.wikipedia.org/wiki/SYN_flood
+
+.. code-block:: bash
+
+    $ sudo habu.synflood 172.16.0.10
+    .................
+
+Each dot is a packet sent.
+
+You can use the options '-2' and '-3' to forge the layer 2/3 addresses. If you use them, each connection 
+will be sent from a random layer2 (MAC) and/or layer3 (IP) address.
+
+You can choose the number of connections to create with the option '-c'. The default is never stop 
+creating connections.
