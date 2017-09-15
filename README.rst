@@ -23,6 +23,7 @@ Habu requires:
 - Click
 - Python (3.x),
 - Scapy-Python3
+- Matplotlib (Optional, only needed if you want to make some graphs)
 
 habu.arpoison: ARP Poisoning
 ----------------------------
@@ -93,6 +94,38 @@ This command prints the EICAR test string that can be used to test antimalware e
     $ habu.eicar 
     X5O!P%@AP[4\XZP54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
 
+habu.hasher: Computes various hashes with the input data
+--------------------------------------------------------
+This command computes various hashes for the input data, that can be a file or a stream.
+
+If the filename is '-', the data is taken from the standard input (stdin) so, three different 
+variants exists to call this command:
+
+.. code-block:: bash
+
+    $ habu.hasher README.rst 
+    md5  : 375375d9cfb2aacab7c8d1a9afd3d9b7
+    sha1 : 21c67b9ef44bc24d47eef6adab648ba34662927e
+    
+    $ cat README.rst | habu.hasher -
+    md5  : 375375d9cfb2aacab7c8d1a9afd3d9b7
+    sha1 : 21c67b9ef44bc24d47eef6adab648ba34662927e
+    
+    $ habu.hasher - < README.rst 
+    md5  : 375375d9cfb2aacab7c8d1a9afd3d9b7
+    sha1 : 21c67b9ef44bc24d47eef6adab648ba34662927e
+
+**Note:** The output above shows only MD5 and SHA1 to make it short, but the real output 
+includes more algorithms.
+
+You can also specify which algorithm to use. In such case, the output is only the value 
+of the calculated hash:
+
+.. code-block:: bash
+
+    $ habu.hasher -a md5 README.rst
+    375375d9cfb2aacab7c8d1a9afd3d9b7
+
 habu.ip: Prints your current public IP
 --------------------------------------
 This command prints your current public IP based on the response from https://api.ipify.org.
@@ -125,34 +158,3 @@ You can get a graphical representation (needs the matplotlib package) using the 
 
 **Note:** The above command uses '-c' option to define that 10 connections must be created.
 
-habu.hasher: Computes various hashes with the input data
---------------------------------------------------------
-This command computes various hashes for the input data, that can be a file or a stream.
-
-If the filename is '-', the data is taken from the standard input (stdin) so, three different 
-variants exists to call this command:
-
-.. code-block:: bash
-
-    $ habu.hasher README.rst 
-    md5  : 375375d9cfb2aacab7c8d1a9afd3d9b7
-    sha1 : 21c67b9ef44bc24d47eef6adab648ba34662927e
-    
-    $ cat README.rst | habu.hasher -
-    md5  : 375375d9cfb2aacab7c8d1a9afd3d9b7
-    sha1 : 21c67b9ef44bc24d47eef6adab648ba34662927e
-    
-    $ habu.hasher - < README.rst 
-    md5  : 375375d9cfb2aacab7c8d1a9afd3d9b7
-    sha1 : 21c67b9ef44bc24d47eef6adab648ba34662927e
-
-**Note:** The output above shows only MD5 and SHA1 to make it short, but the real output 
-includes more algorithms.
-
-You can also specify which algorithm to use. In such case, the output is only the value 
-of the calculated hash:
-
-.. code-block:: bash
-
-    $ habu.hasher -a md5 README.rst
-    375375d9cfb2aacab7c8d1a9afd3d9b7
