@@ -195,3 +195,20 @@ This command implements the classic 'ping' with ICMP echo requests.
     IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
     IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
     IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+
+habu.snmp_crack: SNMP Community Cracker
+---------------------------------------
+This command launches snmp-get queries against an IP, and tells you when finds a valid 
+community string (is a simple SNMP cracker).
+
+The dictionary used is the distributed with the onesixtyone tool 
+(https://github.com/trailofbits/onesixtyone)
+
+.. code-block:: bash
+
+    $ sudo habu.snmp_crack 179.125.234.210 
+    Community found: private
+    Community found: public
+
+**Note:** You can also receive messages like <UNIVERSAL> <class 'scapy.asn1.asn1.ASN1_Class_metaclass'>,
+I don't know how to supress them for now.
