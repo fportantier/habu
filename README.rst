@@ -218,7 +218,7 @@ The dictionary used is the distributed with the onesixtyone tool
 I don't know how to supress them for now.
 
 habu.synflood: SYN Flood Attack Implementation
----------------------------------------------
+----------------------------------------------
 This command launches a lot of TCP connections and keeps them opened. Some very old systems can 
 suffer a Denial of Service with this. More info: https://en.wikipedia.org/wiki/SYN_flood
 
@@ -236,7 +236,7 @@ You can choose the number of connections to create with the option '-c'. The def
 creating connections.
 
 habu.tcpflags: TCP Flag Fuzzer
------------------------------
+------------------------------
 This command send TCP packets with different flags and tell you what responses receives.
 
 It can be used to analyze how the different TCP/IP stack implementations and configurations responds to 
