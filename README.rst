@@ -97,12 +97,16 @@ see all the options (like DNS servers) included on the responses.
 
 habu.eicar: Prints the EICAR test string
 ----------------------------------------
-This command prints the EICAR test string that can be used to test antimalware engines.
+This command prints the EICAR test string that can be used to test antimalware engines. More info: 
+http://www.eicar.org/86-0-Intended-use.html
 
 .. code-block:: bash
 
     $ habu.eicar 
     X5O!P%@AP[4\XZP54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
+
+**Note:** The below string is incorrect because is not a good idea write the complete in this text file. 
+Some antivirus program can be detect it like a virus.  :)
 
 habu.hasher: Computes various hashes with the input data
 --------------------------------------------------------
