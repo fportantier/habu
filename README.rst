@@ -158,3 +158,18 @@ You can get a graphical representation (needs the matplotlib package) using the 
 
 **Note:** The above command uses '-c' option to define that 10 connections must be created.
 
+habu.land: Implements the LAND attack
+-------------------------------------
+This command implements the LAND attack, that sends packets forging the source IP address 
+to be the same that the destination IP. Also uses the same source and destination port.
+
+The attack is very old, and can be used to make a Denial of Service on old systems, like 
+Windows NT 4.0. More information here: https://en.wikipedia.org/wiki/LAND
+
+.. code-block:: bash
+
+    sudo habu.land 172.16.0.10
+    ............
+
+**Note:** Each dot (.) is a sent packet. You can specify how many packets send with the '-c' option. The default is never stop. Also, you can specify the destination port, with the '-p' option.
+
