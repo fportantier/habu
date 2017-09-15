@@ -234,3 +234,35 @@ will be sent from a random layer2 (MAC) and/or layer3 (IP) address.
 
 You can choose the number of connections to create with the option '-c'. The default is never stop 
 creating connections.
+
+habu.tcpflags: TCP Flag Fuzzer
+-----------------------------
+This command send TCP packets with different flags and tell you what responses receives.
+
+It can be used to analyze how the different TCP/IP stack implementations and configurations responds to 
+packet with various flag combinations.
+
+.. code-block:: bash
+
+    $ sudo habu.tcpflags www.portantier.com
+    S  -> SA
+    FS -> SA
+    FA -> R
+    SA -> R
+
+By default, the command sends all possible flag combinations. You can specify with flags must ever be 
+present (reducing the quantity of possible combinations), with the option '-f'.
+
+Also, you can specify which flags you want to be present on the response packets to show, with the 
+option '-r'.
+
+With the next command, you send all the possible combinations that have the FIN (F) flag set, and 
+generates a response that contains the RST (R) flag.
+
+
+.. code-block:: bash
+
+    $ sudo habu.tcpflags -f F -r R www.portantier.com
+    FPA  -> R       
+    FSPA -> R       
+    FAU  -> R       
