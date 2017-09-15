@@ -58,7 +58,7 @@ that using:
     echo 1 > /proc/sys/net/ipv4/ip_forward
 
 habu.arpsniff: Discover devices on your LAN capturing ARP packets
-----------------------------------------------------------------
+-----------------------------------------------------------------
 This command listen for ARP packets and shows information each device.
 
 Columns: Seconds from last packet | IP | MAC | Vendor
