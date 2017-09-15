@@ -256,9 +256,8 @@ present (reducing the quantity of possible combinations), with the option '-f'.
 Also, you can specify which flags you want to be present on the response packets to show, with the 
 option '-r'.
 
-With the next command, you send all the possible combinations that have the FIN (F) flag set, and 
+With the next command, you see all the possible combinations that have the FIN (F) flag set and 
 generates a response that contains the RST (R) flag.
-
 
 .. code-block:: bash
 
