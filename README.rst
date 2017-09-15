@@ -25,6 +25,16 @@ Habu requires:
 - Scapy-Python3
 - Matplotlib (Optional, only needed if you want to make some graphs)
 
+Get Help
+--------
+All the commands implement the option '--help', that shows the help, arguments, 
+options, and default values.
+
+Verbose Mode
+------------
+Almost all commands implement the verbose mode with the '-v' option. This can give 
+you some extra info about what habu is doing.
+
 habu.arpoison: ARP Poisoning
 ----------------------------
 This command sends ARP 'is-at' packets to each victim, poisoning their ARP tables
