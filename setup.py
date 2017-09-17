@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.25',
+    version='0.0.27',
     description='Network Hacking Toolkit',
     long_description=readme,
     author='Fabian Martinez Portantier',
@@ -38,6 +38,7 @@ setup(
         habu.ping=habu.cli.cmd_ping:cmd_ping
         habu.snmp_crack=habu.cli.cmd_snmp_crack:cmd_snmp_crack
         habu.tcpflags=habu.cli.cmd_tcpflags:cmd_tcpflags
+        habu.tcpscan=habu.cli.cmd_tcpscan:cmd_tcpscan
         habu.traceroute=habu.cli.cmd_traceroute:cmd_traceroute
         habu.synflood=habu.cli.cmd_synflood:cmd_synflood
         habu.xor=habu.cli.cmd_xor:cmd_xor
