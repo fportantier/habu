@@ -95,6 +95,17 @@ see all the options (like DNS servers) included on the responses.
     $ sudo habu.dhcp_discover 
     Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.5:bootpc / BOOTP / DHCP
 
+habu.dhcp_starvation: Fill the DHCP leases
+------------------------------------------
+This command send multiple DHCP requests from forged MAC addresses to fill the DHCP server leases. When all the available network addresses are assigned, the DHCP server don't send responses. So, some attacks, like DHCP spoofing can be made.
+
+.. code-block:: bash
+
+    $ sudo habu.dhcp_starvation 
+    Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.6:bootpc / BOOTP / DHCP
+    Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.7:bootpc / BOOTP / DHCP
+    Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.8:bootpc / BOOTP / DHCP
+
 habu.eicar: Prints the EICAR test string
 ----------------------------------------
 This command prints the EICAR test string that can be used to test antimalware engines. More info: 
