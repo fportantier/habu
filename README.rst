@@ -246,6 +246,22 @@ will be sent from a random layer2 (MAC) and/or layer3 (IP) address.
 You can choose the number of connections to create with the option '-c'. The default is never stop 
 creating connections.
 
+**Note:** If you send the packets from your real IP address and you want to keep the connections 
+half-open, you need to setup for firewall to don't send the RST packets. With habu, you can do this with 
+the following command (only works with Linux+IPTables):
+
+.. code-block:: bash
+
+    $ sudo habu.firewall --no-rst
+
+You can check the results with "iptables -L -n", and you will see something like this:
+
+.. code-block:: bash
+
+    Chain OUTPUT (policy ACCEPT)
+    target     prot opt source               destination         
+    DROP       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp flags:0x04/0x04
+
 habu.tcpflags: TCP Flag Fuzzer
 ------------------------------
 This command send TCP packets with different flags and tell you what responses receives.
