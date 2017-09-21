@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.27',
+    version='0.0.28',
     description='Network Hacking Toolkit',
     long_description=readme,
     author='Fabian Martinez Portantier',
@@ -27,6 +27,7 @@ setup(
         habu.arpsniff=habu.cli.cmd_arpsniff:cmd_arpsniff
         habu.contest=habu.cli.cmd_contest:cmd_contest
         habu.dhcp_discover=habu.cli.cmd_dhcp_discover:cmd_dhcp_discover
+        habu.dhcp_starvation=habu.cli.cmd_dhcp_starvation:cmd_dhcp_starvation
         habu.eicar=habu.cli.cmd_eicar:cmd_eicar
         habu.firewall=habu.cli.cmd_firewall:cmd_firewall
         habu.forkbomb=habu.cli.cmd_forkbomb:cmd_forkbomb
