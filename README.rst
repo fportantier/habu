@@ -29,7 +29,7 @@ To install Habu, simply:
 
 .. code-block:: bash
 
-    $ pip install habu
+    $ pip3 install habu
 
 
 Dependencies
