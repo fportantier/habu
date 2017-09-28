@@ -33,7 +33,7 @@ def cmd_snmp_crack(ip, port, stop, verbose):
         pkt[SNMP].community=community
         ans = sr1(pkt, timeout=0.5, verbose=0)
 
-        if ans:
+        if ans and UDP in ans:
             print('\nCommunity found:', community)
             if stop:
                 break
