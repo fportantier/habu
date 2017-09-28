@@ -31,8 +31,15 @@ def procpkt(pkt):
 
 
 @click.command()
+@click.option('-i', 'iface', default=None, help='Interface to use')
 def cmd_arpsniff():
     """ ARP Sniffer """
+
+    conf.verb = False
+
+    if iface:
+        conf.iface = iface
+
     sniff(filter="arp", store=False, prn=procpkt)
 
 
