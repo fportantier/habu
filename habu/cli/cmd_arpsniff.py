@@ -32,7 +32,7 @@ def procpkt(pkt):
 
 @click.command()
 @click.option('-i', 'iface', default=None, help='Interface to use')
-def cmd_arpsniff():
+def cmd_arpsniff(iface):
     """ ARP Sniffer """
 
     conf.verb = False

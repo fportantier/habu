@@ -10,7 +10,7 @@ from scapy.all import ARP, Ether, conf, getmacbyip, sendp
 @click.argument('t2')
 @click.option('-i', 'iface', default=None, help='Interface to use')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_arpoison(t1, t2, verbose):
+def cmd_arpoison(t1, t2, iface, verbose):
     """ARP cache poison"""
 
     conf.verb = False
