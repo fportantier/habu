@@ -7,10 +7,14 @@ import sys
 @click.argument('ip')
 @click.option('-c', 'count', default=0, help='How many packets send (default: infinit)')
 @click.option('-p', 'port', default=135, help='Port to use (default: 135)')
+@click.option('-i', 'iface', default=None, help='Interface to use')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_land(ip, count, port, verbose):
+def cmd_land(ip, count, port, iface, verbose):
 
     conf.verb = False
+
+    if iface:
+        conf.iface = iface
 
     layer3 = IP()
     layer3.dst = ip
