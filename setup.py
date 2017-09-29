@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.33',
+    version='0.0.35',
     description='Network Hacking Toolkit',
     long_description=readme,
     author='Fabian Martinez Portantier',
@@ -14,6 +14,7 @@ setup(
     license='Copyright Fabian Martinez Portantier',
     install_requires=[
         'click',
+        'delegator.py',
         'requests',
         'scapy-python3',
     ],
@@ -23,8 +24,10 @@ setup(
     ],
     entry_points='''
         [console_scripts]
+        habu.arping=habu.cli.cmd_arping:cmd_arping
         habu.arpoison=habu.cli.cmd_arpoison:cmd_arpoison
         habu.arpsniff=habu.cli.cmd_arpsniff:cmd_arpsniff
+        habu.b64=habu.cli.cmd_b64:cmd_b64
         habu.contest=habu.cli.cmd_contest:cmd_contest
         habu.dhcp_discover=habu.cli.cmd_dhcp_discover:cmd_dhcp_discover
         habu.dhcp_starvation=habu.cli.cmd_dhcp_starvation:cmd_dhcp_starvation
@@ -33,6 +36,7 @@ setup(
         habu.forkbomb=habu.cli.cmd_forkbomb:cmd_forkbomb
         habu.hasher=habu.cli.cmd_hasher:cmd_hasher
         habu.help=habu.cli.cmd_help:cmd_help
+        habu.hex2ascii=habu.cli.cmd_hex2ascii:cmd_hex2ascii
         habu.ip=habu.cli.cmd_ip:cmd_ip
         habu.isn=habu.cli.cmd_isn:cmd_isn
         habu.land=habu.cli.cmd_land:cmd_land

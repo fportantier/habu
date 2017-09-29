@@ -37,6 +37,7 @@ Dependencies
 Habu requires:
 
 - Click
+- Delegator.py
 - Python (3.x),
 - Scapy-Python3
 - Matplotlib (Optional, only needed if you want to make some graphs)

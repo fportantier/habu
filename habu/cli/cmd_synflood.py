@@ -33,6 +33,8 @@ def cmd_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
 
     counter = 0
 
+    print("please, remember to block your RST responses")
+
     while True:
         if forgeip:
             pkt[IP].src = "%s.%s" %(pkt[IP].src.rsplit('.', maxsplit=1)[0], randint(1, 254))
