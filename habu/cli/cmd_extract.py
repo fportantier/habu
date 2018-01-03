@@ -1,7 +1,6 @@
 import click
 from habu.lib import extract
 
-
 @click.command()
 @click.option('-k', default='0', help='Encryption key')
 @click.option('-i', type=click.File('rb'), required=True, help='Input file')
@@ -13,3 +12,4 @@ def cmd_extract(k, i, o):
 
 if __name__ == '__main__':
     cmd_xor()
+
