@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.35',
+    version='0.0.36',
     description='Network Hacking Toolkit',
     long_description=readme,
     author='Fabian Martinez Portantier',
@@ -13,9 +13,12 @@ setup(
     url='https://github.com/portantier/habu',
     license='Copyright Fabian Martinez Portantier',
     install_requires=[
+        'bs4',
         'click',
         'delegator.py',
+        'regex',
         'requests',
+        'requests-cache',
         'scapy-python3',
     ],
     tests_require=[
@@ -46,6 +49,7 @@ setup(
         habu.tcpscan=habu.cli.cmd_tcpscan:cmd_tcpscan
         habu.traceroute=habu.cli.cmd_traceroute:cmd_traceroute
         habu.synflood=habu.cli.cmd_synflood:cmd_synflood
+        habu.webid=habu.cli.cmd_webid:cmd_webid
         habu.xor=habu.cli.cmd_xor:cmd_xor
     ''',
     classifiers=[
