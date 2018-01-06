@@ -2,13 +2,16 @@ import json
 import logging
 import sys
 from pprint import pprint
+import os.path
 
 import click
 import regex as re
 import requests
 import requests_cache
 from bs4 import BeautifulSoup
+from pathlib import Path
 
+DATADIR = Path(os.path.abspath(os.path.join(os.path.dirname(__file__), '../data')))
 
 @click.command()
 @click.argument('url')
@@ -29,7 +32,7 @@ def cmd_webid(url, no_cache, verbose, output):
         logging.error(e)
         sys.exit(1)
 
-    with open('../data/apps.json') as f:
+    with (DATADIR / 'apps.json').open() as f:
         data = json.load(f)
 
     apps = data['apps']

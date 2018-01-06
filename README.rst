@@ -36,9 +36,11 @@ Dependencies
 ------------
 Habu requires:
 
+- bs4
 - Click
 - Delegator.py
 - Python (3.x),
+- regex
 - Scapy-Python3
 - Matplotlib (Optional, only needed if you want to make some graphs)
 
@@ -323,4 +325,16 @@ generates a response that contains the RST (R) flag.
     $ sudo habu.tcpflags -f F -r R www.portantier.com
     FPA  -> R       
     FSPA -> R       
-    FAU  -> R       
+    FAU  -> R     
+
+  
+habu.webid: Identify Web Technologies
+-------------------------------------
+This command uses Wappalyzer apps.json database to identify technologies used on a web application.
+
+
+.. code-block:: bash
+
+    $ habu.webid https://woocomerce.com
+
+
