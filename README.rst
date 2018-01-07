@@ -232,6 +232,24 @@ You can get a graphical representation (needs the matplotlib package) using the 
 **Note:** The above command uses '-c' option to define that 10 connections must be created.
 
 
+habu.karma: Karma API client
+----------------------------
+Uses the Karma service (https://karma.securetia.com) to check an IP against a lot of 
+Threat Intelligence / Reputation lists.
+
+.. code-block:: bash
+
+    habu.karma www.google.com
+    www.google.com -> 64.233.190.99
+    [
+        "hphosts_fsa",
+        "hphosts_psh",
+        "hphosts_emd"
+    ]
+ 
+**Note:** You can use the hostname or the IP of the host to query.
+
+
 habu.land: Implements the LAND attack
 -------------------------------------
 This command implements the LAND attack, that sends packets forging the source IP address 
