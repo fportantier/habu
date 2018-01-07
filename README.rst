@@ -20,6 +20,7 @@ Some techniques implemented in the current version are:
 - TCP Flags Analysis
 - TCP ISN Analysis
 - TCP Port Scan
+- Web Techonologies Identification
 
 
 Installation
@@ -336,5 +337,16 @@ This command uses Wappalyzer apps.json database to identify technologies used on
 .. code-block:: bash
 
     $ habu.webid https://woocomerce.com
-
+    [
+        "Facebook",
+        "Google Tag Manager",
+        "Nginx",
+        "PHP",
+        "Prototype",
+        "RequireJS",
+        "Visual Website Optimizer",
+        "WooCommerce 4.8",
+        "WordPress 4.8",
+        "Yoast SEO 4.8"
+    ]
 

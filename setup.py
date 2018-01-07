@@ -5,17 +5,17 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.37',
-    description='Network Hacking Toolkit',
+    version='0.0.40',
+    description='Python Network Hacking Toolkit',
     long_description=readme,
     author='Fabian Martinez Portantier',
     author_email='fabian@portantier.com',
     url='https://github.com/portantier/habu',
     license='Copyright Fabian Martinez Portantier',
     install_requires=[
-        'bs4',
+        'beautifulsoup4',
         'click',
-        'delegator.py',
+        #'delegator.py',
         'regex',
         'requests',
         'requests-cache',
