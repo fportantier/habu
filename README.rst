@@ -191,6 +191,23 @@ This command prints your current public IP based on the response from https://ap
     182.26.32.246
 
 
+habu.ip2asn: IP to ASN mapping
+---------------------------
+This command uses Team Cymru ip2asn service to get information about a public IPv4/IPv6.
+
+.. code-block:: bash
+
+    $ habu.ip2asn 8.8.8.8
+    {
+        "asn": "15169",
+        "net": "8.8.8.0/24",
+        "cc": "US",
+        "rir": "ARIN",
+        "asname": "GOOGLE - Google LLC, US",
+        "country": "United States"
+    }
+ 
+
 habu.isn: Prints the TCP sequence numbers for an IP
 ---------------------------------------------------
 This command creates TCP connections and prints the TCP initial sequence numbers for each connections.
