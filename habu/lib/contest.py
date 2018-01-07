@@ -6,6 +6,8 @@ ftp_servers = ['ftp.debian.org', 'ftp.redhat.com']
 http_servers = ['www.google.com', 'www.ibm.com']
 ssh_servers = ['www.github.com']
 
+socket.settimeout(2)
+
 def check_ip():
     for server in dns_servers:
         try:
@@ -63,10 +65,10 @@ def check_ftp():
 
 
 def check_ssh():
-    for server in ftp_servers:
+    for server in ssh_servers:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((server, 22))
+            s.connect(('sdf.org', 22))
             return True
         except Exception:
             pass
