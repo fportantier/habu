@@ -1,5 +1,5 @@
-Habu: Network Hacking Toolkit
-=============================
+Habu: Python Network Hacking Toolkit
+====================================
 
 I'm developing Habu to teach (and learn) some concepts about Python and Network Hacking.
 
@@ -364,6 +364,23 @@ generates a response that contains the RST (R) flag.
     FAU  -> R     
 
   
+habu.vhosts: Get vhosts of an IP address
+----------------------------------------
+This command uses Bing to query the websites hosted on the same IP address.
+
+
+.. code-block:: bash
+
+    $ habu.vhosts www.telefonica.com
+    www.telefonica.com -> 212.170.36.79
+    [
+        'www.telefonica.es',
+        'www.movistar.com',
+        'universitas.telefonica.com',
+        'www.telefonica.com',
+    ]
+
+
 habu.webid: Identify Web Technologies
 -------------------------------------
 This command uses Wappalyzer apps.json database to identify technologies used on a web application.
