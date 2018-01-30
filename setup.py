@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.42',
+    version='0.0.45',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     author='Fabian Martinez Portantier',
@@ -15,7 +15,6 @@ setup(
     install_requires=[
         'beautifulsoup4',
         'click',
-        #'delegator.py',
         'regex',
         'requests',
         'requests-cache',
@@ -52,6 +51,7 @@ setup(
         habu.traceroute=habu.cli.cmd_traceroute:cmd_traceroute
         habu.synflood=habu.cli.cmd_synflood:cmd_synflood
         habu.webid=habu.cli.cmd_webid:cmd_webid
+        habu.vhosts=habu.cli.cmd_vhosts:cmd_vhosts
         habu.xor=habu.cli.cmd_xor:cmd_xor
     ''',
     classifiers=[

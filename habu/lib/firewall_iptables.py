@@ -1,5 +1,5 @@
 
-import delegator
+from habu.lib import delegator
 import ipaddress
 import sys
 

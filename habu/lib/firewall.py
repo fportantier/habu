@@ -1,7 +1,6 @@
 #from habu.lib.firewall_bsd import FirewallBSD
 from habu.lib.firewall_iptables import FirewallIPTables
-
-import delegator
+from habu.lib import delegator
 
 class Firewall():
 

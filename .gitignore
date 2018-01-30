@@ -18,6 +18,7 @@ eggs/
 .eggs/
 parts/
 sdist/
+testing/
 var/
 *.egg-info/
 .installed.cfg
