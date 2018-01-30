@@ -13,7 +13,7 @@ setup(
     url='https://github.com/portantier/habu',
     license='Copyright Fabian Martinez Portantier',
     install_requires=[
-        'beautifulsoup4',
+        'bs4',
         'click',
         'regex',
         'requests',
