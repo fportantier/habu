@@ -35,15 +35,15 @@ To install Habu, simply:
 
 Dependencies
 ------------
-Habu requires:
+Habu requires Python3 and the following packages:
 
 - bs4
-- Click
-- Delegator.py
-- Python (3.x),
+- click
 - regex
-- Scapy-Python3
-- Matplotlib (Optional, only needed if you want to make some graphs)
+- requests
+- requests-cache
+- scapy-python3
+- matplotlib (Optional, only needed if you want to make some graphs)
 
 
 Get Help
