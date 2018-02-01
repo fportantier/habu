@@ -385,6 +385,7 @@ habu.webid: Identify Web Technologies
 -------------------------------------
 This command uses Wappalyzer apps.json database to identify technologies used on a web application.
 
+**Note:** This tool only sends one request. So, it's stealth and not suspicious.
 
 .. code-block:: bash
 
