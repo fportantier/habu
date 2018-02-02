@@ -347,7 +347,7 @@ packet with various flag combinations.
     FA -> R
     SA -> R
 
-By default, the command sends all possible flag combinations. You can specify with flags must ever be 
+By default, the command sends all possible flag combinations. You can specify which flags must ever be 
 present (reducing the quantity of possible combinations), with the option '-f'.
 
 Also, you can specify which flags you want to be present on the response packets to show, with the 
