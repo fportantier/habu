@@ -26,13 +26,13 @@ Some techniques implemented in the current version are:
 Installation
 ------------
 
-Kali Linux
-==========
+**Kali Linux:**
+
 You can install the package created for Kali Linux. See the "releases" for the project.
 
 
-Python Package (PyPi)
-=====================
+**Python Package (PyPi):**
+
 Habu is on PyPi, so you can install it directly with pip:
 
 .. code-block:: bash
