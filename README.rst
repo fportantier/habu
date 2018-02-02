@@ -29,7 +29,7 @@ Installation
 **Kali Linux:**
 
 You can install the package created for Kali Linux.
-See [https://github.com/portantier/habu/releases](https://github.com/portantier/habu/releases)
+See [https://github.com/portantier/habu/releases]
 
 
 **Python Package (PyPi):**
