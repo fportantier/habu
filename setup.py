@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.45',
+    version='0.0.47',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     author='Fabian Martinez Portantier',
@@ -13,7 +13,8 @@ setup(
     url='https://github.com/portantier/habu',
     license='Copyright Fabian Martinez Portantier',
     install_requires=[
-        'bs4',
+        #'bs4',
+        'beautifulsoup4',
         'click',
         'regex',
         'requests',
@@ -31,6 +32,7 @@ setup(
         habu.arpsniff=habu.cli.cmd_arpsniff:cmd_arpsniff
         habu.b64=habu.cli.cmd_b64:cmd_b64
         habu.contest=habu.cli.cmd_contest:cmd_contest
+        habu.ctfr=habu.cli.cmd_ctfr:cmd_ctfr
         habu.dhcp_discover=habu.cli.cmd_dhcp_discover:cmd_dhcp_discover
         habu.dhcp_starvation=habu.cli.cmd_dhcp_starvation:cmd_dhcp_starvation
         habu.eicar=habu.cli.cmd_eicar:cmd_eicar

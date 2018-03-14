@@ -118,6 +118,27 @@ This command tries to connect to various services and check if you can reach the
     HTTPS: True
 
 
+habu.ctfr: Subdomain mapping
+----------------------------
+This command downloads the certificate transparency logs for a domain and check with DNS queries if each 
+subdomain exists.
+
+Uses multithreading to improve the performance of the DNS queries. 
+
+.. code-block:: bash
+
+    $ sudo habu.ctrf securetia.com
+    [
+        "karma.securetia.com.",
+        "www.securetia.com."
+    ]
+    ...
+
+You can disable the DNS verification with the option '-n'.
+
+**Note**: This command it's based on code from https://github.com/UnaPibaGeek/ctfr
+
+
 habu.dhcp_discover: Discover DHCP servers
 -----------------------------------------
 This command send a DHCP request and shows what devices has replied. Using the '-v' parameter (verbose) you can 
