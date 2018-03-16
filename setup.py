@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.48',
+    version='0.0.49',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     author='Fabian Martinez Portantier',

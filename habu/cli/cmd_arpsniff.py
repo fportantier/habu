@@ -1,7 +1,7 @@
 from time import time
 import click
 import habu.lib.manuf
-from scapy.all import ARP, IP, TCP, sniff
+from scapy.all import ARP, IP, TCP, sniff, conf
 
 hosts = {}
 
