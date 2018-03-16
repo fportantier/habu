@@ -3,6 +3,9 @@ from time import sleep
 
 import click
 import logging
+
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+
 from scapy.all import IP, TCP, conf, sr, sr1
 
 

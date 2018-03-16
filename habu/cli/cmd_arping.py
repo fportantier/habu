@@ -4,6 +4,8 @@ from time import sleep
 
 import click
 
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+
 from scapy.all import ARP, IP, TCP, Ether, conf, srp
 
 

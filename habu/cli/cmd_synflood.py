@@ -1,7 +1,10 @@
 import sys
+import logging
 from random import randint
 
 import click
+
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
 from scapy.all import IP, TCP, Ether, RandMAC, conf, sendp
 
@@ -33,7 +36,7 @@ def cmd_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
 
     counter = 0
 
-    print("please, remember to block your RST responses")
+    print("Please, remember to block your RST responses", file=sys.stderr)
 
     while True:
         if forgeip:
