@@ -6,7 +6,7 @@ ftp_servers = ['ftp.debian.org', 'ftp.redhat.com']
 http_servers = ['www.google.com', 'www.ibm.com']
 ssh_servers = ['www.github.com']
 
-socket.settimeout(2)
+socket.setdefaulttimeout(2)
 
 def check_ip():
     for server in dns_servers:
