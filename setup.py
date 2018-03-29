@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.50',
+    version='0.0.51',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     author='Fabian Martinez Portantier',
@@ -20,6 +20,7 @@ setup(
         'requests',
         'requests-cache',
         'scapy-python3',
+        'websockets',
     ],
     tests_require=[
         'pytest',
@@ -44,6 +45,7 @@ setup(
         habu.ip=habu.cli.cmd_ip:cmd_ip
         habu.ip2asn=habu.cli.cmd_ip2asn:cmd_ip2asn
         habu.isn=habu.cli.cmd_isn:cmd_isn
+        habu.jshell=habu.cli.cmd_jshell:cmd_jshell
         habu.karma=habu.cli.cmd_karma:cmd_karma
         habu.land=habu.cli.cmd_land:cmd_land
         habu.ping=habu.cli.cmd_ping:cmd_ping
@@ -66,7 +68,7 @@ setup(
         "Programming Language :: Python :: 3.0",
         "Programming Language :: Python :: 3.6",
     ],
-    packages=['habu', 'habu.lib', 'habu.cli'],
+    packages=['habu', 'habu.lib', 'habu.lib.completeme', 'habu.cli'],
     include_package_data=True,
     keywords=['security'],
     zip_safe=False,
