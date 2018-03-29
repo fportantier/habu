@@ -22,6 +22,13 @@ Some techniques implemented in the current version are:
 - TCP Port Scan
 - Web Techonologies Identification
 
+Telegram Group
+--------------
+If you want to discuss some Habu features, possible improvements, etc, you can use the Habu Telegram
+Group: https://t.me/python_habu
+
+Issues and pull requests must be sent to github repo: https://github.com/portantier/habu
+
 
 Installation
 ------------
