@@ -28,7 +28,7 @@ Usage Videos
 ------------
 The following Youtube Playlist has videos that shows the installation and usage:
 
-https://www.youtube.com/playlist?list=PL4HZnX8VnFXqSvNw7x-bXOn0dgxNdfnVD
+https://www.youtube.com/watch?v=rgp9seLLyqE&list=PL4HZnX8VnFXqSvNw7x-bXOn0dgxNdfnVD
 
 Telegram Group
 --------------
