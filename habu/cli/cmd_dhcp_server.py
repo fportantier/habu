@@ -1,6 +1,9 @@
-import click
-from scapy.all import ICMP, IP, conf, sr1, UDP, TCP, Ether, BOOTP, DHCP, get_if_raw_hwaddr, RandMAC, srp, DHCP_am
 from time import sleep
+
+import click
+from scapy.all import (BOOTP, DHCP, ICMP, IP, TCP, UDP, DHCP_am, Ether,
+                       RandMAC, conf, get_if_raw_hwaddr, sr1, srp)
+
 
 @click.command()
 @click.option('-i', 'iface', default=None, help='Interface to use')
@@ -33,4 +36,3 @@ def cmd_dhcp_server(iface, verbose):
 
 if __name__ == '__main__':
     cmd_dhcp_server()
-

@@ -1,7 +1,10 @@
+from time import sleep
+
 import click
 from scapy.all import ICMP, IP, conf, sr1
-from time import sleep
+
 from habu.lib.firewall import Firewall
+
 
 @click.command()
 @click.option('--disable', is_flag=True, default=False, help='Disable firewalling')
@@ -27,4 +30,3 @@ def cmd_firewall(disable, no_rst, verbose):
 
 if __name__ == '__main__':
     cmd_firewall()
-

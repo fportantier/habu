@@ -1,4 +1,5 @@
 import click
+
 from habu.lib.xor import xor
 
 

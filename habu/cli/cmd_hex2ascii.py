@@ -1,5 +1,6 @@
-import click
 import codecs
+
+import click
 
 
 @click.command()
@@ -22,4 +23,3 @@ def cmd_hex2ascii(f):
 
 if __name__ == '__main__':
     cmd_hex2ascii()
-

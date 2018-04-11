@@ -1,5 +1,7 @@
 import click
+
 from habu.lib import contest
+
 
 @click.command()
 def cmd_contest():
@@ -14,4 +16,3 @@ def cmd_contest():
 
 if __name__ == '__main__':
     cmd_contest()
-

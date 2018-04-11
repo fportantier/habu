@@ -1,7 +1,9 @@
-import click
-from scapy.all import TCP, IP, conf, send
-from time import sleep
 import sys
+from time import sleep
+
+import click
+from scapy.all import IP, TCP, conf, send
+
 
 @click.command()
 @click.argument('ip')

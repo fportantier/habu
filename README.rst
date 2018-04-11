@@ -16,11 +16,19 @@ Some techniques implemented in the current version are:
 - DHCP Starvation
 - LAND Attack
 - SNMP Cracking
+- Subdomains Identification
 - SYN Flooding
 - TCP Flags Analysis
 - TCP ISN Analysis
 - TCP Port Scan
+- Virtual Hosts Identification
 - Web Techonologies Identification
+
+Usage Videos
+------------
+The following Youtube Playlist has videos that shows the installation and usage:
+
+https://www.youtube.com/playlist?list=PL4HZnX8VnFXqSvNw7x-bXOn0dgxNdfnVD
 
 Telegram Group
 --------------

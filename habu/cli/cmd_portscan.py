@@ -1,9 +1,10 @@
-import click
 import logging
+
+import click
+from scapy.all import ICMP, IP, TCP, conf, sr, sr1
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from scapy.all import ICMP, IP, conf, sr, sr1, TCP
 
 
 @click.command()
@@ -31,4 +32,3 @@ def cmd_protoscan(ip, verbose):
 
 if __name__ == '__main__':
     cmd_protoscan()
-

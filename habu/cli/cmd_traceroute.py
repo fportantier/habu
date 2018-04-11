@@ -1,9 +1,10 @@
-import click
 import logging
+
+import click
+from scapy.all import ICMP, IP, TCP, UDP, conf, sr1
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from scapy.all import ICMP, IP, conf, sr1, UDP, TCP
 
 
 @click.command()
@@ -37,4 +38,3 @@ def cmd_traceroute(ip, port, iface):
 
 if __name__ == '__main__':
     cmd_traceroute()
-

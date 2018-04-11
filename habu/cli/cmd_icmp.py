@@ -1,5 +1,6 @@
 import click
-from scapy.all import ICMP, IP, conf, sr, sr1, TCP, icmpcodes
+from scapy.all import ICMP, IP, TCP, conf, icmpcodes, sr, sr1
+
 
 @click.command()
 @click.argument('ip')
@@ -55,4 +56,3 @@ def cmd_icmp(ip, verbose):
 
 if __name__ == '__main__':
     cmd_icmp()
-

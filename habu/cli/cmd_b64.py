@@ -1,6 +1,8 @@
-import click
 import base64
 import sys
+
+import click
+
 #import codecs
 
 
@@ -27,4 +29,3 @@ def cmd_b64(f, do_decode):
 
 if __name__ == '__main__':
     cmd_b64()
-

@@ -3,10 +3,10 @@ import re
 from time import sleep
 
 import click
+from scapy.all import ARP, IP, TCP, Ether, conf, srp
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from scapy.all import ARP, IP, TCP, Ether, conf, srp
 
 
 @click.command()
@@ -34,4 +34,3 @@ def cmd_arping(ip, iface, verbose):
 
 if __name__ == '__main__':
     cmd_arping()
-

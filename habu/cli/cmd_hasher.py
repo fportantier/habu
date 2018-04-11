@@ -1,5 +1,6 @@
 import click
-from habu.lib.hasher import hasher, ALGOS
+
+from habu.lib.hasher import ALGOS, hasher
 
 
 @click.command()
@@ -22,4 +23,3 @@ def cmd_hasher(f, algorithm):
 
 if __name__ == '__main__':
     cmd_hasher()
-

@@ -1,15 +1,17 @@
 import json
 import logging
-import sys
-from pprint import pprint
+import os
 import os.path
+import pwd
+import sys
+from pathlib import Path
+from pprint import pprint
 
 import click
 import regex as re
 import requests
 import requests_cache
 from bs4 import BeautifulSoup
-from pathlib import Path
 
 DATADIR = Path(os.path.abspath(os.path.join(os.path.dirname(__file__), '../data')))
 
@@ -24,7 +26,8 @@ def cmd_webid(url, no_cache, verbose, output):
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     if not no_cache:
-        requests_cache.install_cache('/tmp/habu_requests_cache')
+        homedir = pwd.getpwuid(os.getuid()).pw_dir
+        requests_cache.install_cache(homedir + '/.habu_requests_cache')
 
     try:
         r = requests.get(url)
@@ -50,11 +53,6 @@ def cmd_webid(url, no_cache, verbose, output):
     soup = BeautifulSoup(content, "lxml")
     tech = {}
 
-    with open('/tmp/habu.webid.html', 'w') as out:
-        out.write(content)
-
-    # pprint(dict(r.headers))
-
     for app in apps:
 
         version_group = False
@@ -74,9 +72,12 @@ def cmd_webid(url, no_cache, verbose, output):
                         tech[app] = apps[app]
 
                     if version_group and version_group.isdigit():
-                        version = match.group(int(version_group))
-                        if version:
-                            tech[app]['version'] = version
+                        try:
+                            version = match.group(int(version_group))
+                            if version:
+                                tech[app]['version'] = version
+                        except IndexError:
+                            pass
 
         for key in ['script', 'html']:
 
@@ -95,9 +96,13 @@ def cmd_webid(url, no_cache, verbose, output):
                         tech[app] = apps[app]
 
                     if version_group and version_group.isdigit():
-                        version = match.group(int(version_group))
-                        if version:
-                            tech[app]['version'] = version
+
+                        try:
+                            version = match.group(int(version_group))
+                            if version:
+                                tech[app]['version'] = version
+                        except IndexError:
+                            pass
 
         for url_regex in apps[app].get('url', []):
             match = re.search(url_regex, url, flags=re.IGNORECASE & re.MULTILINE)
@@ -126,9 +131,13 @@ def cmd_webid(url, no_cache, verbose, output):
                         tech[app] = apps[app]
 
                     if version_group and version_group.isdigit():
-                        version = match.group(int(version_group))
-                        if version:
-                            tech[app]['version'] = version
+
+                        try:
+                            version = match.group(int(version_group))
+                            if version:
+                                tech[app]['version'] = version
+                        except IndexError:
+                            pass
 
     for t in list(tech.keys()):
         for imply in tech[t].get('implies', []):
@@ -136,7 +145,10 @@ def cmd_webid(url, no_cache, verbose, output):
             tech[imply] = apps[imply]
 
     for t in list(tech.keys()):
-        tech[t]['category'] = categories[tech[t]['cats'][0]]['name']
+        try:
+            tech[t]['category'] = categories[tech[t]['cats'][0]]['name']
+        except KeyError:
+            pass
 
     for t in list(tech.keys()):
         for exclude in tech[t].get('excludes', []):
@@ -151,6 +163,7 @@ def cmd_webid(url, no_cache, verbose, output):
             response.append('{app}'.format(app=t))
 
     output.write(json.dumps(response, indent=4))
+    output.write('\n')
 
 if __name__ == '__main__':
     cmd_webid()

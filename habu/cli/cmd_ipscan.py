@@ -1,9 +1,9 @@
+import logging
 import re
 from time import sleep
 
 import click
-import logging
-from scapy.all import IP, ICMP, conf, sr, sr1
+from scapy.all import ICMP, IP, conf, sr, sr1
 
 
 @click.command()

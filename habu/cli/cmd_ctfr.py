@@ -2,14 +2,15 @@
 
 import json
 import logging
+import os
+import pwd
+import sys
 
 import click
 import requests
 import requests_cache
 
 from habu.lib.dns import query_bulk
-
-requests_cache.install_cache('/tmp/habu_requests_cache')
 
 @click.command()
 @click.argument('domain')
@@ -22,9 +23,13 @@ def cmd_ctfr(domain, no_cache, no_validate, verbose):
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     if not no_cache:
-        requests_cache.install_cache('/tmp/habu_requests_cache')
+        homedir = pwd.getpwuid(os.getuid()).pw_dir
+        requests_cache.install_cache(homedir + '/.habu_requests_cache')
 
     subdomains = set()
+
+    if verbose:
+        print("Downloading subdomain list from https://crt.sh ...", file=sys.stderr)
 
     req = requests.get("https://crt.sh/?q=%.{d}&output=json".format(d=domain))
 
@@ -44,6 +49,9 @@ def cmd_ctfr(domain, no_cache, no_validate, verbose):
     if no_validate:
         print(json.dumps(sorted(subdomains), indent=4))
         return True
+
+    if verbose:
+        print("Validating subdomains against DNS servers ...", file=sys.stderr)
 
     answers = query_bulk(subdomains)
 

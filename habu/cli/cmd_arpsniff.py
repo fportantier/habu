@@ -1,11 +1,13 @@
-from time import time
-import click
-import habu.lib.manuf
 import logging
+from time import time
+
+import click
+from scapy.all import ARP, IP, TCP, conf, sniff
+
+import habu.lib.manuf
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from scapy.all import ARP, IP, TCP, sniff, conf
 
 hosts = {}
 
@@ -51,4 +53,3 @@ def cmd_arpsniff(iface):
 
 if __name__ == '__main__':
     cmd_arpsniff()
-

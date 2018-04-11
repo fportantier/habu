@@ -1,5 +1,7 @@
 import click
+
 import habu.lib.manuf
+
 
 @click.command()
 def cmd_update():
@@ -9,4 +11,3 @@ def cmd_update():
 
 if __name__ == '__main__':
     cmd_update()
-

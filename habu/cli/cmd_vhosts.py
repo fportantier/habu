@@ -35,4 +35,3 @@ def cmd_vhosts(host, no_cache, pages, first):
 
 if __name__ == '__main__':
     cmd_vhosts()
-

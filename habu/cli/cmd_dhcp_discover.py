@@ -1,9 +1,11 @@
-import click
 import logging
+
+import click
+from scapy.all import (BOOTP, DHCP, ICMP, IP, TCP, UDP, Ether, conf,
+                       get_if_raw_hwaddr, sr1, srp)
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from scapy.all import ICMP, IP, conf, sr1, UDP, TCP, Ether, BOOTP, DHCP, get_if_raw_hwaddr, srp
 
 
 @click.command()
@@ -40,4 +42,3 @@ def cmd_dhcp_discover(iface, timeout, verbose):
 
 if __name__ == '__main__':
     cmd_dhcp_discover()
-

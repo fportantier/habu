@@ -1,14 +1,15 @@
+import json
 import logging
 import re
+import sys
+from pprint import pprint
 
 import click
+import regex as re
 import requests
 import requests_cache
-import sys
-import json
-from pprint import pprint
-import regex as re
 from bs4 import BeautifulSoup
+
 
 @click.command()
 @click.argument('url')
@@ -63,5 +64,3 @@ def cmd_webheaders(url, no_cache, verbose):
 
 if __name__ == '__main__':
     cmd_webheaders()
-
-

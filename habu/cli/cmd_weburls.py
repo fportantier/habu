@@ -1,13 +1,13 @@
+import json
 import logging
 import re
+import sys
+from pprint import pprint
 
 import click
+import regex as re
 import requests
 import requests_cache
-import sys
-import json
-from pprint import pprint
-import regex as re
 from bs4 import BeautifulSoup
 
 requests_cache.install_cache('/tmp/habu_requests_cache')

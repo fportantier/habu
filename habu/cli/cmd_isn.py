@@ -1,7 +1,8 @@
-import click
-
-from scapy.all import ICMP, IP, conf, sr1, UDP, TCP, srloop, send, RandShort
 from time import sleep
+
+import click
+from scapy.all import ICMP, IP, TCP, UDP, RandShort, conf, send, sr1, srloop
+
 
 @click.command()
 @click.argument('ip')
@@ -49,4 +50,3 @@ def cmd_isn(ip, port, count, iface, graph, verbose):
 
 if __name__ == '__main__':
     cmd_isn()
-

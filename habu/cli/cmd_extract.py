@@ -1,15 +1,16 @@
 import json
 import logging
-import sys
-from pprint import pprint
 import os.path
+import sys
+from pathlib import Path
+from pprint import pprint
 
 import click
 import regex as re
 import requests
 import requests_cache
 from bs4 import BeautifulSoup
-from pathlib import Path
+
 
 def extract_ip(data):
 
@@ -59,4 +60,3 @@ def cmd_extract(infile, verbose, jsonout, what):
 
 if __name__ == '__main__':
     cmd_extract()
-

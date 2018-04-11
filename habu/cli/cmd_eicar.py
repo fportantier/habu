@@ -1,5 +1,7 @@
 import click
+
 from habu.lib.eicar import eicar
+
 
 @click.command()
 def cmd_eicar():

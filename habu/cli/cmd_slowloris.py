@@ -1,6 +1,3 @@
-import click
-from scapy.all import TCP, IP, conf, send
-from time import sleep
 import argparse
 import logging
 import random
@@ -8,6 +5,11 @@ import socket
 import ssl
 import sys
 import time
+from time import sleep
+
+import click
+from scapy.all import IP, TCP, conf, send
+
 
 def init_socket(host, port, https=False):
 
@@ -100,4 +102,3 @@ while True:
 #for num in range(count):
 #    socklist[num].send("X-LAST: 1\r\n\r\n".encode())
 '''
-

@@ -1,11 +1,13 @@
-import click
-import sys
-import logging
+import ipaddress
 #from habu.lib.ip2asn import ip2asn
 import json
-import requests
-import ipaddress
+import logging
 import socket
+import sys
+
+import click
+import requests
+
 
 @click.command()
 @click.argument('host')
@@ -32,4 +34,3 @@ def cmd_karma(host):
 
 if __name__ == '__main__':
     cmd_karma()
-

@@ -1,7 +1,6 @@
-import click
-import logging
 import ipaddress
 import json
+import logging
 import os
 import pwd
 import re
@@ -9,12 +8,13 @@ import sys
 import time
 from pathlib import Path
 
+import click
 from dnslib import QTYPE, RR, A
 from dnslib.server import BaseResolver, DNSServer
+from scapy.all import ICMP, IP, conf, sr1
 
 #logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from scapy.all import ICMP, IP, conf, sr1
 #from time import sleep
 
 
@@ -135,4 +135,3 @@ def cmd_dnsd(iface, ipv4, ipv6, verbose):
 
 if __name__ == '__main__':
     cmd_dnsd()
-

@@ -1,6 +1,8 @@
+from time import sleep
+
 import click
 from scapy.all import *
-from time import sleep
+
 
 @click.command()
 #@click.option('-i', 'iface', default=None, help='Interface to use')
@@ -35,4 +37,3 @@ def cmd_icmp_data(src, dst, verbose):
 
 if __name__ == '__main__':
     cmd_icmp_data()
-
