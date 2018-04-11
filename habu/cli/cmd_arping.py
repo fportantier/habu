@@ -24,7 +24,13 @@ def cmd_arping(ip, iface, verbose):
         conf.iface = iface
 
     res, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst=ip), timeout=2)
-    res.show()
+
+    for _, pkt in res:
+        if verbose:
+            print(pkt.show())
+        else:
+            print(pkt.summary())
+
 
 if __name__ == '__main__':
     cmd_arping()
