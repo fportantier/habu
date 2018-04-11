@@ -2,10 +2,10 @@ import logging
 import time
 
 import click
-from scapy.all import ARP, Ether, conf, getmacbyip, sendp
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
+from scapy.all import ARP, Ether, conf, getmacbyip, sendp
 
 
 @click.command()

@@ -11,6 +11,9 @@ from pathlib import Path
 import click
 from dnslib import QTYPE, RR, A
 from dnslib.server import BaseResolver, DNSServer
+
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+
 from scapy.all import ICMP, IP, conf, sr1
 
 #logging.getLogger("scapy.runtime").setLevel(logging.ERROR)

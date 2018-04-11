@@ -2,11 +2,12 @@ import logging
 from time import time
 
 import click
-from scapy.all import ARP, IP, TCP, conf, sniff
 
 import habu.lib.manuf
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+
+from scapy.all import ARP, IP, TCP, conf, sniff
 
 
 hosts = {}

@@ -3,10 +3,10 @@ import re
 from time import sleep
 
 import click
-from scapy.all import IP, TCP, conf, sr, sr1
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
+from scapy.all import IP, TCP, conf, sr, sr1
 
 
 @click.command()

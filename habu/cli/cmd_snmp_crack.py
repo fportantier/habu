@@ -4,10 +4,10 @@ import sys
 from pathlib import Path
 
 import click
-from scapy.all import ASN1_OID, IP, SNMP, UDP, SNMPget, SNMPvarbind, conf, sr1
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
+from scapy.all import ASN1_OID, IP, SNMP, UDP, SNMPget, SNMPvarbind, conf, sr1
 
 
 @click.command()

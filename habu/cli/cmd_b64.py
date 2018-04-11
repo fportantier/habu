@@ -3,8 +3,6 @@ import sys
 
 import click
 
-#import codecs
-
 
 @click.command()
 @click.argument('f', type=click.File('rb'))

@@ -3,10 +3,10 @@ import sys
 from random import randint
 
 import click
-from scapy.all import IP, TCP, Ether, RandMAC, conf, sendp
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
+from scapy.all import IP, TCP, Ether, RandMAC, conf, sendp
 
 
 @click.command()
