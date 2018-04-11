@@ -44,6 +44,8 @@ def cmd_arpsniff(iface):
     if iface:
         conf.iface = iface
 
+    print("Waiting for ARP packets...")
+
     sniff(filter="arp", store=False, prn=procpkt)
 
 
