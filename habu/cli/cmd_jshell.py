@@ -46,12 +46,21 @@ class MyWebSocketServerProtocol(websockets.server.WebSocketServerProtocol):
 
         print('>>> HTTP Request received from {}. Sending hookjs'.format(self.remote_address[0]))
 
+        if path.endswith('.js'):
+            response_headers = [
+                ('Content-Lenght', len(hook_js)),
+                ('Content-type', 'application/javascript'),
+            ]
+            return (HTTPStatus.OK, response_headers, hook_js.encode())
+
+        document = '<html><body><script>' + hook_js + '</script></body></html>'
+
         response_headers = [
-            ('Content-Lenght', len(hook_js)),
-            ('Content-type', 'application/javascript'),
+            ('Content-Lenght', len(document)),
+            ('Content-type', 'text/html'),
         ]
 
-        return (HTTPStatus.OK, response_headers, hook_js.encode())
+        return (HTTPStatus.OK, response_headers, document.encode())
 
 
 class Runner():

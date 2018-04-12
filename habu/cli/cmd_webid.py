@@ -38,8 +38,14 @@ def cmd_webid(url, no_cache, verbose, output):
     with (DATADIR / 'apps.json').open() as f:
         data = json.load(f)
 
+    with (DATADIR / 'apps-habu.json').open() as f:
+        data_custom = json.load(f)
+
     apps = data['apps']
     categories = data['categories']
+
+    apps.update(data_custom['apps'])
+    categories.update(data_custom['categories'])
 
     # convertir los strings a listas, para que siempre los valores sean listas
     for app in apps:
@@ -111,6 +117,15 @@ def cmd_webid(url, no_cache, verbose, output):
                 if app not in tech:
                     tech[app] = apps[app]
 
+        for cookie_name in apps[app].get('cookies', []):
+
+            for cookie in r.cookies:
+                if cookie_name == cookie.name:
+                    logging.info("{app} detected by cookie {cookie}".format(app=app, cookie=cookie.name))
+
+                    if app not in tech:
+                        tech[app] = apps[app]
+
         for meta in apps[app].get('meta', []):
 
             version_group = False
@@ -122,7 +137,11 @@ def cmd_webid(url, no_cache, verbose, output):
                     version_group = meta_regex.split('\;version:\\')[1]
 
                 meta_regex = meta_regex.split('\;')[0]
-                match = re.search(meta_regex, tag['content'], flags=re.IGNORECASE)
+
+                try:
+                    match = re.search(meta_regex, tag['content'], flags=re.IGNORECASE)
+                except KeyError:
+                    continue
 
                 if match:
                     logging.info("{app} detected by meta {meta} tag with regex {regex}".format(app=app, meta=meta, regex=meta_regex))
@@ -141,6 +160,7 @@ def cmd_webid(url, no_cache, verbose, output):
 
     for t in list(tech.keys()):
         for imply in tech[t].get('implies', []):
+            imply = imply.split('\\;')[0]
             logging.info("{imply} detected because implied by {t}".format(imply=imply, t=t))
             tech[imply] = apps[imply]
 

