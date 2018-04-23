@@ -31,7 +31,7 @@ def webid(url, no_cache=False, verbose=False):
     #    data = json.load(f)
 
     with (DATADIR / 'apps-habu.json').open() as f:
-        data_custom = json.load(f)
+        data = json.load(f)
 
     apps = data['apps']
     categories = data['categories']
