@@ -167,12 +167,12 @@ def webid(url, no_cache=False, verbose=False):
             logging.info("removing {exlude} because its excluded by {t}".format(exlude=exclude, t=t))
             del(tech[t])
 
-    response = []
+    response = {}
     for t in sorted(tech):
         if 'version' in tech[t]:
-            response.append('{app} {version}'.format(app=t, version=version))
+            response[t] = version #version.append('{app} {version}'.format(app=t, version=version))
         else:
-            response.append('{app}'.format(app=t))
+            response[t] = None #.append('{app}'.format(app=t))
 
     return response
 
