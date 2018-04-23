@@ -27,8 +27,8 @@ def webid(url, no_cache=False, verbose=False):
         logging.error(e)
         return False
 
-    with (DATADIR / 'apps.json').open() as f:
-        data = json.load(f)
+    #with (DATADIR / 'apps.json').open() as f:
+    #    data = json.load(f)
 
     with (DATADIR / 'apps-habu.json').open() as f:
         data_custom = json.load(f)
@@ -36,16 +36,19 @@ def webid(url, no_cache=False, verbose=False):
     apps = data['apps']
     categories = data['categories']
 
-    apps.update(data_custom['apps'])
-    categories.update(data_custom['categories'])
+    #apps.update(data_custom['apps'])
+    #categories.update(data_custom['categories'])
 
     # convertir los strings a listas, para que siempre los valores sean listas
-    for app in apps:
-        for field in ['url', 'html', 'env', 'script', 'implies', 'excludes']:
+    #for app in apps:
+    #    for field in ['url', 'html', 'env', 'script', 'implies', 'excludes']:
+    #
+    #        if field in apps[app]:
+    #            if not isinstance(apps[app][field], list):
+    #                apps[app][field] = [apps[app][field]]
 
-            if field in apps[app]:
-                if not isinstance(apps[app][field], list):
-                    apps[app][field] = [apps[app][field]]
+    #with (DATADIR / 'apps-habu.json').open('w') as f:
+    #    f.write(json.dumps({'apps':apps, 'categories': categories}, indent=4)) #data_custom = json.load(f)
 
     content = r.text
     soup = BeautifulSoup(content, "lxml")

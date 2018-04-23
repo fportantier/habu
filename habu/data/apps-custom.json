@@ -1,0 +1,75 @@
+{
+  "$schema": "../schema.json",
+  "apps": {
+    "Barracuda Web Application Firewall": {
+      "cats": [
+        100
+      ],
+      "icon": null,
+      "cookies": {
+        "barracuda_ci_csrf_token": "",
+        "barracuda_ci_session": ""
+      },
+      "implies": [],
+      "website": null
+    },
+    "Cloudflare Web Application Firewall": {
+      "cats": [
+        100
+      ],
+      "icon": null,
+      "headers": {
+        "Server": "cloudflare-nginx"
+      },
+      "cookies": {
+        "__cfduid": ""
+      },
+      "implies": [],
+      "website": null
+    },
+    "F5 BIG-IP APM": {
+      "cats": [
+        100
+      ],
+      "icon": null,
+      "headers": {
+        "Server": "F5|BigIP|BIG-IP|BIGIP"
+      },
+      "cookies": {
+        "BIGipServer": "",
+        "F5_fullWT": "",
+        "F5_ST": "",
+        "F5_HT_shrinked": ""
+      },
+      "implies": [],
+      "website": null
+    },
+    "Sucuri Web Application Firewall": {
+      "cats": [
+        100
+      ],
+      "icon": null,
+      "html": "INEVERWILLMATCH",
+      "script": "INEVERWILLMATCH",
+      "headers": {
+        "Server": "Sucuri/Cloudproxy",
+        "X-Sucuri-Cache": ""
+      },
+      "cookies": {
+        "X-Sucuri-ID": ""
+      },
+      "meta": {
+        "generator": "INEVERWILLMATCH"
+      },
+      "implies": [],
+      "url": "INEVERWILLMATCH",
+      "website": null
+    }
+  },
+  "categories": {
+    "100": {
+      "name": "Web Application Firewalls",
+      "priority": 1
+    }
+  }
+}
