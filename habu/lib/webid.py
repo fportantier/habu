@@ -27,28 +27,11 @@ def webid(url, no_cache=False, verbose=False):
         logging.error(e)
         return False
 
-    #with (DATADIR / 'apps.json').open() as f:
-    #    data = json.load(f)
-
     with (DATADIR / 'apps-habu.json').open() as f:
         data = json.load(f)
 
     apps = data['apps']
     categories = data['categories']
-
-    #apps.update(data_custom['apps'])
-    #categories.update(data_custom['categories'])
-
-    # convertir los strings a listas, para que siempre los valores sean listas
-    #for app in apps:
-    #    for field in ['url', 'html', 'env', 'script', 'implies', 'excludes']:
-    #
-    #        if field in apps[app]:
-    #            if not isinstance(apps[app][field], list):
-    #                apps[app][field] = [apps[app][field]]
-
-    #with (DATADIR / 'apps-habu.json').open('w') as f:
-    #    f.write(json.dumps({'apps':apps, 'categories': categories}, indent=4)) #data_custom = json.load(f)
 
     content = r.text
     soup = BeautifulSoup(content, "lxml")
@@ -160,24 +143,21 @@ def webid(url, no_cache=False, verbose=False):
             tech[imply] = apps[imply]
 
     for t in list(tech.keys()):
-        try:
-            tech[t]['category'] = categories[tech[t]['cats'][0]]['name']
-        except KeyError:
-            pass
-
-    for t in list(tech.keys()):
         for exclude in tech[t].get('excludes', []):
             logging.info("removing {exlude} because its excluded by {t}".format(exlude=exclude, t=t))
             del(tech[t])
 
     response = {}
+
     for t in sorted(tech):
+        response[t] = {'categories':[]}
         if 'version' in tech[t]:
-            response[t] = version #version.append('{app} {version}'.format(app=t, version=version))
-        else:
-            response[t] = None #.append('{app}'.format(app=t))
+            response[t]['version'] = version
+        for category in tech[t]['cats']:
+            response[t]['categories'].append(categories[str(category)]['name'])
 
     return response
 
 if __name__ == '__main__':
     print(webid('https://www.woocommerce.com'))
+
