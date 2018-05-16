@@ -1,6 +1,8 @@
 Habu: Python Network Hacking Toolkit
 ====================================
 
+.. image:: logo.jpeg
+
 I'm developing Habu to teach (and learn) some concepts about Python and Network Hacking.
 
 These are basic functions that help with some tasks for Ethical Hacking and Penetration Testing.
