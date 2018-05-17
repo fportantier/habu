@@ -1,6 +1,6 @@
 from setuptools import setup
 
-with open('README.rst') as f:
+with open('README.md') as f:
     readme = f.read()
 
 setup(
@@ -13,7 +13,6 @@ setup(
     url='https://github.com/portantier/habu',
     license='Copyright Fabian Martinez Portantier',
     install_requires=[
-        #'bs4',
         'beautifulsoup4',
         'click',
         'lxml',
@@ -64,6 +63,7 @@ setup(
         "Intended Audience :: Developers",
         "Intended Audience :: Information Technology",
         "Intended Audience :: System Administrators",
+        "License :: OSI Approved :: BSD License",
         "Topic :: Security",
         "Topic :: System :: Networking",
         "Programming Language :: Python :: 3.0",
