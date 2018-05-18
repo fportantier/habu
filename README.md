@@ -1,5 +1,4 @@
-Habu: Python Network Hacking Toolkit
-====================================
+# Habu: Python Network Hacking Toolkit
 
 ![image](logo.jpeg)
 
@@ -29,16 +28,14 @@ Some techniques implemented in the current version are:
 -   Virtual Hosts Identification
 -   Web Techonologies Identification
 
-Usage Videos
-------------
+## Usage Videos
 
 The following Youtube Playlist has videos that shows the installation
 and usage:
 
 <https://www.youtube.com/watch?v=rgp9seLLyqE&list=PL4HZnX8VnFXqSvNw7x-bXOn0dgxNdfnVD>
 
-Telegram Group
---------------
+## Telegram Group
 
 If you want to discuss some Habu features, possible improvements, etc,
 you can use the Habu Telegram Group: <https://t.me/python_habu>
@@ -46,8 +43,7 @@ you can use the Habu Telegram Group: <https://t.me/python_habu>
 Issues and pull requests must be sent to github repo:
 <https://github.com/portantier/habu>
 
-Installation
-------------
+## Installation
 
 **Kali Linux:**
 
@@ -62,33 +58,33 @@ Habu is on PyPi, so you can install it directly with pip:
 $ pip3 install habu
 ```
 
-Dependencies
-------------
+## Dependencies
 
 Habu requires Python3 and the following packages:
 
--   bs4
--   click
--   regex
--   requests
--   requests-cache
--   scapy-python3
--   matplotlib (Optional, only needed if you want to make some graphs)
+- beautifulsoup4
+- click
+- lxml
+- prompt\_toolkit
+- pygments
+- regex
+- requests
+- requests-cache
+- scapy-python3
+- websockets
+- matplotlib (Optional, only needed if you want to make some graphs)
 
-Get Help
---------
+## Get Help
 
 All the commands implement the option '--help', that shows the help,
 arguments, options, and default values.
 
-Verbose Mode
-------------
+## Verbose Mode
 
 Almost all commands implement the verbose mode with the '-v' option.
 This can give you some extra info about what habu is doing.
 
-habu.arpoison: ARP Poisoning
-----------------------------
+## habu.arpoison: ARP Poisoning
 
 This command sends ARP 'is-at' packets to each victim, poisoning their
 ARP tables for send the traffic to your system.
@@ -110,8 +106,7 @@ router. You can do that using:
 echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 
-habu.arpsniff: Discover devices on your LAN capturing ARP packets
------------------------------------------------------------------
+## habu.arpsniff: Discover devices on your LAN capturing ARP packets
 
 This command listen for ARP packets and shows information each device.
 
@@ -124,8 +119,7 @@ Columns: Seconds from last packet | IP | MAC | Vendor
 6   192.168.0.7     54:f2:01:db:35:58   Samsung Electronics Co.,Ltd
 ```
 
-habu.contest: Check your connection capabilities
-------------------------------------------------
+## habu.contest: Check your connection capabilities
 
 This command tries to connect to various services and check if you can
 reach them using your internet connection.
@@ -140,8 +134,7 @@ HTTP:  True
 HTTPS: True
 ```
 
-habu.ctfr: Subdomain mapping
-----------------------------
+## habu.ctfr: Subdomain mapping
 
 This command downloads the certificate transparency logs for a domain
 and check with DNS queries if each subdomain exists.
@@ -162,8 +155,7 @@ You can disable the DNS verification with the option '-n'.
 **Note**: This command it's based on code from
 <https://github.com/UnaPibaGeek/ctfr>
 
-habu.dhcp\_discover: Discover DHCP servers
-------------------------------------------
+## habu.dhcp\_discover: Discover DHCP servers
 
 This command send a DHCP request and shows what devices has replied.
 Using the '-v' parameter (verbose) you can see all the options (like DNS
@@ -174,8 +166,7 @@ $ sudo habu.dhcp_discover
 Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.5:bootpc / BOOTP / DHCP
 ```
 
-habu.dhcp\_starvation: Fill the DHCP leases
--------------------------------------------
+## habu.dhcp\_starvation: Fill the DHCP leases
 
 This command send multiple DHCP requests from forged MAC addresses to
 fill the DHCP server leases. When all the available network addresses
@@ -189,8 +180,7 @@ Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.7:bootpc / BOOTP / DHCP
 Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.8:bootpc / BOOTP / DHCP
 ```
 
-habu.eicar: Prints the EICAR test string
-----------------------------------------
+## habu.eicar: Prints the EICAR test string
 
 This command prints the EICAR test string that can be used to test
 antimalware engines. More info:
@@ -205,8 +195,7 @@ X5O!P%@AP[4\XZP54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
 the complete in this text file. Some antivirus program can be detect it
 like a virus. :)
 
-habu.hasher: Computes various hashes with the input data
---------------------------------------------------------
+## habu.hasher: Computes various hashes with the input data
 
 This command computes various hashes for the input data, that can be a
 file or a stream.
@@ -239,8 +228,7 @@ $ habu.hasher -a md5 README.rst
 375375d9cfb2aacab7c8d1a9afd3d9b7
 ```
 
-habu.ip: Prints your current public IP
---------------------------------------
+## habu.ip: Prints your current public IP
 
 This command prints your current public IP based on the response from
 <https://api.ipify.org>.
@@ -266,8 +254,7 @@ $ habu.ip2asn 8.8.8.8
 }
 ```
 
-habu.isn: Prints the TCP sequence numbers for an IP
----------------------------------------------------
+## habu.isn: Prints the TCP sequence numbers for an IP
 
 This command creates TCP connections and prints the TCP initial sequence
 numbers for each connections.
@@ -293,8 +280,7 @@ $ sudo habu.isn -g -c 10 www.portantier.com
 **Note:** The above command uses '-c' option to define that 10
 connections must be created.
 
-habu.jshell: JavaScript Shell that uses WebSockets
---------------------------------------------------
+## habu.jshell: JavaScript Shell that uses WebSockets
 
 This is one of the most complex commands in Habu. When you start it,
 binds a port (default: 3333) and listen for HTTP connections. If
@@ -335,8 +321,7 @@ $ document.location
 http://192.168.0.10:3333/
 ```
 
-habu.karma: Karma API client
-----------------------------
+## habu.karma: Karma API client
 
 Uses the Karma service (<https://karma.securetia.com>) to check an IP
 against a lot of Threat Intelligence / Reputation lists.
@@ -353,8 +338,7 @@ www.google.com -> 64.233.190.99
 
 **Note:** You can use the hostname or the IP of the host to query.
 
-habu.land: Implements the LAND attack
--------------------------------------
+## habu.land: Implements the LAND attack
 
 This command implements the LAND attack, that sends packets forging the
 source IP address to be the same that the destination IP. Also uses the
@@ -373,8 +357,7 @@ sudo habu.land 172.16.0.10
 packets send with the '-c' option. The default is never stop. Also, you
 can specify the destination port, with the '-p' option.
 
-habu.ping: ICMP echo requests
------------------------------
+## habu.ping: ICMP echo requests
 
 This command implements the classic 'ping' with ICMP echo requests.
 
@@ -386,8 +369,7 @@ IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
 IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
 ```
 
-habu.snmp\_crack: SNMP Community Cracker
-----------------------------------------
+## habu.snmp\_crack: SNMP Community Cracker
 
 This command launches snmp-get queries against an IP, and tells you when
 finds a valid community string (is a simple SNMP cracker).
@@ -405,8 +387,7 @@ Community found: public
 'scapy.asn1.asn1.ASN1\_Class\_metaclass'\>, I don't know how to supress
 them for now.
 
-habu.synflood: SYN Flood Attack Implementation
-----------------------------------------------
+## habu.synflood: SYN Flood Attack Implementation
 
 This command launches a lot of TCP connections and keeps them opened.
 Some very old systems can suffer a Denial of Service with this. More
@@ -444,8 +425,7 @@ target     prot opt source               destination
 DROP       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp flags:0x04/0x04
 ```
 
-habu.tcpflags: TCP Flag Fuzzer
-------------------------------
+## habu.tcpflags: TCP Flag Fuzzer
 
 This command send TCP packets with different flags and tell you what
 responses receives.
@@ -479,8 +459,7 @@ FSPA -> R
 FAU  -> R     
 ```
 
-habu.vhosts: Get vhosts of an IP address
-----------------------------------------
+## habu.vhosts: Get vhosts of an IP address
 
 This command uses Bing to query the websites hosted on the same IP
 address.
@@ -496,8 +475,7 @@ www.telefonica.com -> 212.170.36.79
 ]
 ```
 
-habu.webid: Identify Web Technologies
--------------------------------------
+## habu.webid: Identify Web Technologies
 
 This command uses Wappalyzer apps.json database to identify technologies
 used on a web application.
@@ -520,4 +498,3 @@ $ habu.webid https://woocomerce.com
     "Yoast SEO 4.8"
 ]
 ```
-

@@ -5,9 +5,10 @@ with open('README.md') as f:
 
 setup(
     name='habu',
-    version='0.0.61',
+    version='0.0.64',
     description='Python Network Hacking Toolkit',
     long_description=readme,
+    long_description_content_type='text/markdown',
     author='Fabian Martinez Portantier',
     author_email='fabian@portantier.com',
     url='https://github.com/portantier/habu',
@@ -16,6 +17,8 @@ setup(
         'beautifulsoup4',
         'click',
         'lxml',
+        'prompt_toolkit',
+        'pygments',
         'regex',
         'requests',
         'requests-cache',
