@@ -238,8 +238,8 @@ $ habu.ip
 182.26.32.246
 ```
 
-habu.ip2asn: IP to ASN mapping ---------------------------This command
-uses Team Cymru ip2asn service to get information about a public
+## habu.ip2asn: IP to ASN mapping
+This command uses Team Cymru ip2asn service to get information about a public
 IPv4/IPv6.
 
 ``` {.sourceCode .bash}
@@ -479,6 +479,8 @@ www.telefonica.com -> 212.170.36.79
 
 This command uses Wappalyzer apps.json database to identify technologies
 used on a web application.
+
+More info about Wappalyzer: <https://github.com/AliasIO/Wappalyzer/>
 
 **Note:** This tool only sends one request. So, it's stealth and not
 suspicious.
