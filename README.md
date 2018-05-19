@@ -487,16 +487,28 @@ suspicious.
 
 ``` {.sourceCode .bash}
 $ habu.webid https://woocomerce.com
-[
-    "Facebook",
-    "Google Tag Manager",
-    "Nginx",
-    "PHP",
-    "Prototype",
-    "RequireJS",
-    "Visual Website Optimizer",
-    "WooCommerce 4.8",
-    "WordPress 4.8",
-    "Yoast SEO 4.8"
-]
+{
+    "Nginx": {
+        "categories": [
+            "Web Servers"
+        ]
+    },
+    "PHP": {
+        "categories": [
+            "Programming Languages"
+        ]
+    },
+    "WooCommerce": {
+        "categories": [
+            "Ecommerce"
+        ],
+        "version": "6.3.1"
+    },
+    "WordPress": {
+        "categories": [
+            "CMS",
+            "Blogs"
+        ]
+    },
+}
 ```
