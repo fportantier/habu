@@ -499,6 +499,42 @@ FSPA -> R
 FAU  -> R     
 ```
 
+## habu.virustotal: VirusTotal API client
+
+This command sends a file to VirusTotal and prints the report in JSON format.
+
+**Note:** Before send a file, habu will check if the file has been analyzed 
+before (sending the sha256 of the file to VirusTotal), if a report exists, 
+no submission will be made, and you will see the last report.
+
+``` {.sourceCode .bash}
+$ habu.virustotal meterpreter.exe
+
+{
+    "md5": "0ddb015b5328eb4d0cc2b87c39c49686",
+    "permalink": "https://www.virustotal.com/file/c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23/analysis/1526850717/",
+    "positives": 49,
+    "resource": "c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23",
+    "response_code": 1,
+    "scan_date": "2018-05-20 21:11:57",
+    "scan_id": "c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23-1526850717",
+    "scans": {
+        "ALYac": {
+            "detected": true,
+            "result": "Trojan.CryptZ.Gen",
+            "update": "20180520",
+            "version": "1.1.1.5"
+        },
+        ... The other scanners ...
+    },
+    "sha1": "5fa33cab1729480dd023b08f7b91a945c16d0a9e",
+    "sha256": "c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23",
+    "total": 67,
+    "verbose_msg": "Scan finished, information embedded"
+}
+```
+
+
 ## habu.vhosts: Get vhosts of an IP address
 
 This command uses Bing to query the websites hosted on the same IP
@@ -509,7 +545,6 @@ $ habu.vhosts www.telefonica.com
 www.telefonica.com -> 212.170.36.79
 [
     'www.telefonica.es',
-    'www.movistar.com',
     'universitas.telefonica.com',
     'www.telefonica.com',
 ]
