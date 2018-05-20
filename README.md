@@ -369,6 +369,46 @@ IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
 IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
 ```
 
+## habu.shodan: Shodan API client
+
+This command is a simple shodan API client with prints the json result 
+of a shodan query (or saves it on a file).
+
+**Note:** Output cut for brevity.
+
+``` {.sourceCode .bash}
+$ habu.shodan 8.8.8.8
+{
+    "hostnames": [
+        "google-public-dns-a.google.com"
+    ],
+    "country_code": "US",
+    "org": "Google",
+    "data": [
+        {
+            "isp": "Google",
+            "transport": "udp",
+            "data": "\nRecursion: enabled",
+            "asn": "AS15169",
+            "port": 53,
+            "hostnames": [
+                "google-public-dns-a.google.com"
+            ],
+            "location": {
+                "longitude": -97.822,
+                "country_code3": "USA",
+                "latitude": 37.751000000000005,
+                "country_code": "US",
+                "country_name": "United States"
+            }
+        }
+    ],
+    "ports": [
+        53
+    ]
+}
+```
+
 ## habu.snmp\_crack: SNMP Community Cracker
 
 This command launches snmp-get queries against an IP, and tells you when
