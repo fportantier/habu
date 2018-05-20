@@ -501,7 +501,8 @@ FAU  -> R
 
 ## habu.virustotal: VirusTotal API client
 
-This command sends a file to VirusTotal and prints the report in JSON format.
+This command sends a file to VirusTotal <https://www.virustotal.com/> and 
+prints the report in JSON format.
 
 **Note:** Before send a file, habu will check if the file has been analyzed 
 before (sending the sha256 of the file to VirusTotal), if a report exists, 
