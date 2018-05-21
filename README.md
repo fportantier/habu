@@ -119,6 +119,25 @@ Columns: Seconds from last packet | IP | MAC | Vendor
 6   192.168.0.7     54:f2:01:db:35:58   Samsung Electronics Co.,Ltd
 ```
 
+## habu.asydns: AsyDNS protocol client
+
+This command requests DNS domain names based on public and private 
+RSA keys using the AsyDNS protocol (<https://github.com/portantier/asydns>).
+
+``` {.sourceCode .bash}
+$ habu.asydns -v
+Generating RSA key ...
+Loading RSA key ...
+{
+    "ip": "181.31.41.231",
+    "name": "07286e90fd6e7e6be61d6a7919967c7cf3bbfb23a36edbc72b6d7c53.a.asydns.org"
+}
+
+$ dig +short 07286e90fd6e7e6be61d6a7919967c7cf3bbfb23a36edbc72b6d7c53.a.asydns.org
+181.31.41.231
+```
+
+
 ## habu.contest: Check your connection capabilities
 
 This command tries to connect to various services and check if you can
