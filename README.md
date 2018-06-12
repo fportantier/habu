@@ -25,6 +25,7 @@ Some techniques implemented in the current version are:
 -   TCP Flags Analysis
 -   TCP ISN Analysis
 -   TCP Port Scan
+-   Username check on social networks
 -   Virtual Hosts Identification
 -   Web Techonologies Identification
 
@@ -516,6 +517,27 @@ $ sudo habu.tcpflags -f F -r R www.portantier.com
 FPA  -> R       
 FSPA -> R       
 FAU  -> R     
+```
+
+## habu.usercheck: Check username on social networks
+
+This command checks if the given username exists on various social 
+networks and other popular sites.
+
+``` {.sourceCode .bash}
+$ habu.usercheck portantier
+{
+    "aboutme": "https://about.me/portantier",
+    "disqus": "https://disqus.com/by/portantier/",
+    "github": "https://github.com/portantier/",
+    "ifttt": "https://ifttt.com/p/portantier",
+    "lastfm": "https://www.last.fm/user/portantier",
+    "medium": "https://medium.com/@portantier",
+    "pastebin": "https://pastebin.com/u/portantier",
+    "pinterest": "https://in.pinterest.com/portantier/",
+    "twitter": "https://twitter.com/portantier",
+    "vimeo": "https://vimeo.com/portantier"
+}
 ```
 
 ## habu.virustotal: VirusTotal API client

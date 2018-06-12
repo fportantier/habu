@@ -1,38 +1,42 @@
 import json
 import logging
-import os.path
-import sys
-from pathlib import Path
-from pprint import pprint
 
 import click
 import regex as re
-import requests
-import requests_cache
-from bs4 import BeautifulSoup
 
 
-def extract_ip(data):
+def extract_ipv4(data):
 
-    regexp = re.compile(r'^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$', flags=re.MULTILINE)
+    regexp = re.compile(r'((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)', flags=re.MULTILINE)
 
     match = regexp.finditer(data)
 
     result = []
+
     for m in match:
         result.append(m.group(0))
 
     return result
 
-supported = [
-    'ip',
-]
+def extract_email(data):
+
+    regexp = re.compile(r"([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)")
+
+    match = regexp.finditer(data)
+
+    result = []
+
+    for m in match:
+        result.append(m.group(0))
+
+    return result
+
 
 @click.command()
 @click.argument('infile', type=click.File('r'), default='-')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 @click.option('-j', 'jsonout', is_flag=True, default=False, help='JSON output')
-@click.option('-w', 'what', default='ip', type=click.Choice(supported), help='What do you want to extract')
+@click.option('-w', 'what', required=True, type=click.Choice(['email', 'ipv4']), help='What do you want to extract')
 def cmd_extract(infile, verbose, jsonout, what):
 
     if verbose:
@@ -43,14 +47,11 @@ def cmd_extract(infile, verbose, jsonout, what):
     result = []
 
     functions = {
-        'ip' : [ extract_ip ]
+        'ipv4' : extract_ipv4,
+        'email' : extract_email,
     }
 
-    for f in functions[what]:
-        #print(f)
-        result += f(data)
-
-    result = sorted(set(result))
+    result = functions[what](data)
 
     if jsonout:
         print(json.dumps(result, indent=4))

@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name='habu',
-    version='0.0.70',
+    version='0.0.71',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -62,6 +62,7 @@ setup(
         habu.tcpscan=habu.cli.cmd_tcpscan:cmd_tcpscan
         habu.traceroute=habu.cli.cmd_traceroute:cmd_traceroute
         habu.synflood=habu.cli.cmd_synflood:cmd_synflood
+        habu.usercheck=habu.cli.cmd_usercheck:cmd_usercheck
         habu.virustotal=habu.cli.cmd_virustotal:cmd_virustotal
         habu.vhosts=habu.cli.cmd_vhosts:cmd_vhosts
         habu.webid=habu.cli.cmd_webid:cmd_webid
