@@ -18,9 +18,11 @@ Some techniques implemented in the current version are:
 -   ARP Sniffing
 -   DHCP Discover
 -   DHCP Starvation
+-   Fake FTP Server
 -   LAND Attack
 -   SNMP Cracking
 -   Subdomains Identification
+-   SSL/TLS Certificate Cloner
 -   SYN Flooding
 -   TCP Flags Analysis
 -   TCP ISN Analysis
@@ -28,6 +30,7 @@ Some techniques implemented in the current version are:
 -   Username check on social networks
 -   Virtual Hosts Identification
 -   Web Techonologies Identification
+
 
 ## Usage Videos
 
@@ -65,6 +68,7 @@ Habu requires Python3 and the following packages:
 
 - beautifulsoup4
 - click
+- cryptography
 - lxml
 - prompt\_toolkit
 - pygments
@@ -138,6 +142,16 @@ $ dig +short 07286e90fd6e7e6be61d6a7919967c7cf3bbfb23a36edbc72b6d7c53.a.asydns.o
 181.31.41.231
 ```
 
+## habu.certclone: Clone a SSL/TLS server certificate
+
+This command tries to connect to a SSL/TLS server, gets the certificate and generates 
+a certificate with the same options and field values.
+
+**Note**: The generated certificate it's invalid, but can be used for social engineering attacks
+
+``` {.sourceCode .bash}
+$ habu.certclone www.google.com 443 /tmp/key.pem /tmp/cert.pem
+```
 
 ## habu.contest: Check your connection capabilities
 
@@ -387,6 +401,18 @@ IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
 IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
 IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
 IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+```
+
+## habu.server.ftp: Fake FTP Server
+
+This command implements a basic fake FTP server, whith the only purpose to 
+steal user credentials. The server supports SSL/TLS.
+
+``` {.sourceCode .bash}
+$ sudo habu.server.ftp -p 21 --ssl --ssl-cert /tmp/cert.pem --ssl-key /tmp/key.pem
+Listening on port 2121
+Accepted connection from ('192.168.0.27', 56832)
+Credentials collected from 192.168.0.27! fabian 123456
 ```
 
 ## habu.shodan: Shodan API client

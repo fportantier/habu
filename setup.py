@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name='habu',
-    version='0.0.71',
+    version='0.0.72',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -15,6 +15,7 @@ setup(
     license='Copyright Fabian Martinez Portantier',
     install_requires=[
         'beautifulsoup4',
+        'cryptography',
         'click',
         'lxml',
         'prompt_toolkit',
@@ -37,6 +38,7 @@ setup(
         habu.arpsniff=habu.cli.cmd_arpsniff:cmd_arpsniff
         habu.asydns=habu.cli.cmd_asydns:cmd_asydns
         habu.b64=habu.cli.cmd_b64:cmd_b64
+        habu.certclone=habu.cli.cmd_certclone:cmd_certclone
         habu.contest=habu.cli.cmd_contest:cmd_contest
         habu.ctfr=habu.cli.cmd_ctfr:cmd_ctfr
         habu.cve_2018_9995=habu.cli.cmd_cve_2018_9995:cmd_cve_2018_9995
@@ -56,6 +58,7 @@ setup(
         habu.land=habu.cli.cmd_land:cmd_land
         habu.mhr=habu.cli.cmd_mhr:cmd_mhr
         habu.ping=habu.cli.cmd_ping:cmd_ping
+        habu.server.ftp=habu.cli.cmd_server_ftp:cmd_server_ftp
         habu.shodan=habu.cli.cmd_shodan:cmd_shodan
         habu.snmp_crack=habu.cli.cmd_snmp_crack:cmd_snmp_crack
         habu.tcpflags=habu.cli.cmd_tcpflags:cmd_tcpflags

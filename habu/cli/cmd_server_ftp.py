@@ -96,15 +96,22 @@ class ServerFTP(asyncio.Protocol):
 @click.option('-a', 'address', default=None, help='Address to bind (default: all)')
 @click.option('-p', 'port', default=21, help='Which port to use (default: 21)')
 @click.option('--ssl', 'enable_ssl', is_flag=True, default=False, help='Enable SSL/TLS (default: False)')
+@click.option('--ssl-cert', 'ssl_cert', default=None, help='SSL/TLS Cert file')
+@click.option('--ssl-key', 'ssl_key', default=None, help='SSL/TLS Key file')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_server_ftp(address, port, enable_ssl, verbose):
+def cmd_server_ftp(address, port, enable_ssl, ssl_cert, ssl_key, verbose):
 
     ssl_context = None
 
     if enable_ssl:
+
+        if not (ssl_cert and ssl_key):
+            print('Please, specify --ssl-cert and --ssl-key to enable SSL/TLS')
+            return False
+
         ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
         ssl_context.check_hostname = False
-        ssl_context.load_cert_chain('pymotw.crt', 'pymotw.key')
+        ssl_context.load_cert_chain(ssl_cert, ssl_key)
 
     loop = asyncio.get_event_loop()
     coro = loop.create_server(ServerFTP, host=address, port=port, ssl=ssl_context, reuse_address=True, reuse_port=True)

@@ -16,9 +16,11 @@ Some techniques implemented in the current version are:
 - ARP Sniffing
 - DHCP Discover
 - DHCP Starvation
+- Fake FTP Server
 - LAND Attack
 - SNMP Cracking
 - Subdomains Identification
+- SSL/TLS Certificate Cloner
 - SYN Flooding
 - TCP Flags Analysis
 - TCP ISN Analysis
