@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from datetime import datetime, timedelta
+
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes, serialization
@@ -7,7 +9,7 @@ from cryptography.hazmat.primitives.asymmetric import ec, rsa
 from cryptography.x509 import Extensions
 
 
-def certclone(cert_data, copy_extensions=False):
+def certclone(cert_data, copy_extensions=False, expired=False):
 
     try:
         original = x509.load_pem_x509_certificate(cert_data, default_backend())
@@ -34,7 +36,12 @@ def certclone(cert_data, copy_extensions=False):
     cert = cert.issuer_name(original.issuer)
     cert = cert.serial_number(original.serial_number)
     cert = cert.not_valid_before(original.not_valid_before)
-    cert = cert.not_valid_after(original.not_valid_after)
+
+    if expired:
+        cert = cert.not_valid_after(datetime.now() - timedelta(days=1))
+    else:
+        cert = cert.not_valid_after(original.not_valid_after)
+
     cert = cert.public_key(key.public_key())
 
     if copy_extensions:

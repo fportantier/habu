@@ -24,6 +24,7 @@ var/
 .installed.cfg
 *.egg
 habu*.tar.gz
+beta*.py
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
