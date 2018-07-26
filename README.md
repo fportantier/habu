@@ -168,6 +168,30 @@ HTTP:  True
 HTTPS: True
 ```
 
+## habu.contest: Check your connection capabilities
+
+a Luhn algorithm number cracker.
+
+You can pass an incomplete creditcard-like number and you will receive the
+valid number combinations based on all the posibilities that validates
+against the Luhn algorithm.
+
+Other numbers that use the Luhn algorithm for validation are IMEI numbers,
+National Provider Identifier numbers in the United States, Canadian Social
+Insurance Numbers, Israel ID Numbers and Greek Social Security Numbers
+(ΑΜΚΑ).
+
+The '-' characters are ignored.
+
+Define the missing numbers with the 'x' character.
+
+$ habu.crack_luhn 4509-xxxx-3160-6445
+
+Reference: https://en.wikipedia.org/wiki/Luhn_algorithm
+
+Usage: habu.crack.luhn [OPTIONS] NUMBER
+
+
 ## habu.ctfr: Subdomain mapping
 
 This command downloads the certificate transparency logs for a domain
@@ -383,13 +407,45 @@ old systems, like Windows NT 4.0. More information here:
 <https://en.wikipedia.org/wiki/LAND>
 
 ``` {.sourceCode .bash}
-sudo habu.land 172.16.0.10
+$ sudo habu.land 172.16.0.10
 ............
 ```
 
 **Note:** Each dot (.) is a sent packet. You can specify how many
 packets send with the '-c' option. The default is never stop. Also, you
 can specify the destination port, with the '-p' option.
+
+## habu.nc: Netcat like program
+
+This command is some kind of netcat/ncat replacement.
+
+The execution emulates the feeling of this popular tools.
+
+``` {.sourceCode .bash}
+Usage: habu.nc [OPTIONS] HOST PORT
+
+Options:
+  --family [4|6|46]            IP Address Family
+  --ssl                        Enable SSL
+  --crlf                       Use CRLF for EOL sequence
+  --protocol [tcp|udp]         Layer 4 protocol to use
+  --source-ip TEXT             Source IP to use
+  --source-port INTEGER RANGE  Source port to use
+
+Example:
+
+$ habu.nc --crlf www.portantier.com 80
+Connected to 45.77.113.133 80
+HEAD / HTTP/1.0
+
+HTTP/1.0 301 Moved Permanently
+Date: Thu, 26 Jul 2018 21:10:51 GMT
+Server: OpenBSD httpd
+Connection: close
+Content-Type: text/html
+Content-Length: 443
+Location: https://www.portantier.com/
+```
 
 ## habu.ping: ICMP echo requests
 
