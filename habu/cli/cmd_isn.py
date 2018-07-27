@@ -1,3 +1,5 @@
+import logging
+
 from time import sleep
 
 import click
@@ -15,6 +17,20 @@ from scapy.all import ICMP, IP, TCP, UDP, RandShort, conf, send, sr1, srloop
 @click.option('-g', 'graph', is_flag=True, default=False, help='Graph (requires matplotlib)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 def cmd_isn(ip, port, count, iface, graph, verbose):
+    """This command creates TCP connections and prints the TCP initial sequence
+    numbers for each connections.
+
+    \b
+    $ sudo habu.isn -c 5 www.portantier.com
+    1962287220
+    1800895007
+    589617930
+    3393793979
+    469428558
+
+    Note: You can get a graphical representation (needs the matplotlib package)
+    using the '-g' option to better understand the randomness.
+    """
 
     conf.verb = False
 

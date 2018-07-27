@@ -15,6 +15,22 @@ from scapy.all import IP, TCP, conf, send
 @click.option('-i', 'iface', default=None, help='Interface to use')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
 def cmd_land(ip, count, port, iface, verbose):
+    """This command implements the LAND attack, that sends packets forging the
+    source IP address to be the same that the destination IP. Also uses the
+    same source and destination port.
+
+    The attack is very old, and can be used to make a Denial of Service on
+    old systems, like Windows NT 4.0. More information here:
+    https://en.wikipedia.org/wiki/LAND
+
+    \b
+    $ sudo habu.land 172.16.0.10
+    ............
+
+    Note: Each dot (.) is a sent packet. You can specify how many
+    packets send with the '-c' option. The default is never stop. Also, you
+    can specify the destination port, with the '-p' option.
+    """
 
     conf.verb = False
 

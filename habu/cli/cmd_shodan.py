@@ -18,6 +18,42 @@ from habu.lib.loadcfg import loadcfg
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 @click.option('-o', 'output', type=click.File('w'), default='-', help='Output file (default: stdout)')
 def cmd_shodan(ip, no_cache, verbose, output):
+    """Simple shodan API client with prints the json result of a shodan query
+
+    Example:
+
+    \b
+    $ habu.shodan 8.8.8.8
+    {
+        "hostnames": [
+            "google-public-dns-a.google.com"
+        ],
+        "country_code": "US",
+        "org": "Google",
+        "data": [
+            {
+                "isp": "Google",
+                "transport": "udp",
+                "data": "\nRecursion: enabled",
+                "asn": "AS15169",
+                "port": 53,
+                "hostnames": [
+                    "google-public-dns-a.google.com"
+                ],
+                "location": {
+                    "longitude": -97.822,
+                    "country_code3": "USA",
+                    "latitude": 37.751000000000005,
+                    "country_code": "US",
+                    "country_name": "United States"
+                }
+            }
+        ],
+        "ports": [
+            53
+        ]
+    }
+    """
 
     habucfg = loadcfg()
 

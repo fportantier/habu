@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import select
@@ -28,6 +28,26 @@ def which_source_for(ip):
 @click.option('--source-ip', type=click.STRING, default=None, help='Source IP to use')
 @click.option('--source-port', type=click.IntRange(0, 65535), default=0, help='Source port to use')
 def cmd_nc(host, port, family, ssl_enable, crlf, source_ip, source_port, protocol):
+    """This command is some kind of netcat/ncat replacement.
+
+    The execution emulates the feeling of this popular tools.
+
+    Example:
+
+    \b
+    $ habu.nc --crlf www.portantier.com 80
+    Connected to 45.77.113.133 80
+    HEAD / HTTP/1.0
+
+    \b
+    HTTP/1.0 301 Moved Permanently
+    Date: Thu, 26 Jul 2018 21:10:51 GMT
+    Server: OpenBSD httpd
+    Connection: close
+    Content-Type: text/html
+    Content-Length: 443
+    Location: https://www.portantier.com/
+    """
 
     resolved = socket.getaddrinfo(host, port)
 

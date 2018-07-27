@@ -1,4 +1,4 @@
-# based on code from https://github.com/UnaPibaGeek/ctfr
+#!/usr/bin/env python3
 
 import json
 import logging
@@ -18,6 +18,20 @@ from habu.lib.dns import query_bulk
 @click.option('-n', 'no_validate', is_flag=True, default=False, help='Disable DNS subdomain validation')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 def cmd_ctfr(domain, no_cache, no_validate, verbose):
+    """This command downloads the certificate transparency logs for a domain
+    and check with DNS queries if each subdomain exists.
+
+    Uses multithreading to improve the performance of the DNS queries.
+
+    Example:
+
+    \b
+    $ sudo habu.ctrf securetia.com
+    [
+        "karma.securetia.com.",
+        "www.securetia.com."
+    ]
+    """
 
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')

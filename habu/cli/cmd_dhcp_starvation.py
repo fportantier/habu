@@ -14,6 +14,19 @@ from scapy.all import (BOOTP, DHCP, ICMP, IP, TCP, UDP, Ether, RandMAC, conf,
 @click.option('-s', 'sleeptime', default=0, help='Time (seconds) between requests')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 def cmd_dhcp_starvation(iface, timeout, sleeptime, verbose):
+    """This command send multiple DHCP requests from forged MAC addresses to
+    fill the DHCP server leases.
+
+    When all the available network addresses are assigned, the DHCP server don't send responses.
+
+    So, some attacks, like DHCP spoofing can be made.
+
+    \b
+    # habu.dhcp_starvation
+    Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.6:bootpc / BOOTP / DHCP
+    Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.7:bootpc / BOOTP / DHCP
+    Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.8:bootpc / BOOTP / DHCP
+    """
 
     conf.verb = False
 

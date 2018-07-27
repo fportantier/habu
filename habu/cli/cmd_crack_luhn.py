@@ -21,7 +21,7 @@ def luhn_validate(number):
 @click.command()
 @click.argument('number')
 def cmd_crack_luhn(number):
-    """a Luhn algorithm number cracker.
+    """Luhn algorithm number cracker.
 
     You can pass an incomplete creditcard-like number and you will receive
     the valid number combinations based on all the posibilities that
@@ -35,9 +35,13 @@ def cmd_crack_luhn(number):
 
     Define the missing numbers with the 'x' character.
 
-    $ habu.crack_luhn 4509-xxxx-3160-6445
+    Reference: https://en.wikipedia.org/wiki/Luhn_algorithm
 
-    Reference: https://en.wikipedia.org/wiki/Luhn_algorithm"""
+    Example:
+
+    \b
+    $ habu.crack.luhn 4509-xxxx-3160-6445
+    """
 
     number = number.replace('-', '')
     unknown_count = number.count('x')

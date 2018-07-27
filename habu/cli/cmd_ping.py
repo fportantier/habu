@@ -16,6 +16,15 @@ from scapy.all import ICMP, IP, conf, sr1, L3RawSocket
 @click.option('-w', 'wait', default=1, help='How many seconds between packets (default: 1)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
 def cmd_ping(ip, interface, count, timeout, wait, verbose):
+    """This command implements the classic 'ping' with ICMP echo requests.
+
+    \b
+    # habu.ping 8.8.8.8
+    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+    """
 
     if interface:
         conf.iface = interface

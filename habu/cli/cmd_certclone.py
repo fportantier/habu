@@ -15,6 +15,17 @@ from habu.lib.certclone import certclone
 @click.option('--expired', 'expired', is_flag=True, default=False, help='Generate an expired certificate (default: False)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
 def cmd_certclone(hostname, port, keyfile, certfile, copy_extensions, expired, verbose):
+    """
+    This command tries to connect to an SSL/TLS server, gets the certificate and generates
+    a certificate with the same options and field values.
+
+    Note: The generated certificate is invalid, but can be used for social engineering attacks
+
+    Example:
+
+    \b
+    $ habu.certclone www.google.com 443 /tmp/key.pem /tmp/cert.pem
+    """
 
     context = ssl.create_default_context()
 

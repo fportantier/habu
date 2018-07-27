@@ -12,6 +12,20 @@ import requests
 @click.command()
 @click.argument('host')
 def cmd_karma(host):
+    """Uses the Karma service https://karma.securetia.com to check an IP
+    against a lot of Threat Intelligence / Reputation lists.
+
+    \b
+    $ habu.karma www.google.com
+    www.google.com -> 64.233.190.99
+    [
+        "hphosts_fsa",
+        "hphosts_psh",
+        "hphosts_emd"
+    ]
+
+    Note: You can use the hostname or the IP of the host to query.
+    """
 
     URL = 'https://karma.securetia.com/api/ip/'
 

@@ -18,6 +18,24 @@ from Crypto.Signature import PKCS1_v1_5
 @click.option('-r', 'revoke', is_flag=True, default=False, help='Revoke the public key')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 def cmd_asydns(url, generate, revoke, verbose):
+    """This command requests DNS domain names based on public and private
+    RSA keys using the AsyDNS protocol https://github.com/portantier/asydns>
+
+    Example:
+
+    \b
+    $ habu.asydns -v
+    Generating RSA key ...
+    Loading RSA key ...
+    {
+        "ip": "181.31.41.231",
+        "name": "07286e90fd6e7e6be61d6a7919967c7cf3bbfb23a36edbc72b6d7c53.a.asydns.org"
+    }
+
+    \b
+    $ dig +short 07286e90fd6e7e6be61d6a7919967c7cf3bbfb23a36edbc72b6d7c53.a.asydns.org
+    181.31.41.231
+    """
 
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')

@@ -100,6 +100,19 @@ class ServerFTP(asyncio.Protocol):
 @click.option('--ssl-key', 'ssl_key', default=None, help='SSL/TLS Key file')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
 def cmd_server_ftp(address, port, enable_ssl, ssl_cert, ssl_key, verbose):
+    """This command implements a basic fake FTP server, whith the only purpose to
+    steal user credentials.
+
+    The server supports SSL/TLS.
+
+    Example:
+
+    \b
+    $ sudo habu.server.ftp --ssl --ssl-cert /tmp/cert.pem --ssl-key /tmp/key.pem
+    Listening on port 21
+    Accepted connection from ('192.168.0.27', 56832)
+    Credentials collected from 192.168.0.27! fabian 123456
+    """
 
     ssl_context = None
 
