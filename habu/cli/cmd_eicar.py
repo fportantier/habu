@@ -7,8 +7,9 @@ from habu.lib.eicar import eicar
 
 @click.command()
 def cmd_eicar():
-    """This command prints the EICAR test string that can be used to test
-    antimalware engines. More info: http://www.eicar.org/86-0-Intended-use.html
+    """Print the EICAR test string that can be used to test antimalware engines.
+
+    More info: http://www.eicar.org/86-0-Intended-use.html
 
     Example:
 

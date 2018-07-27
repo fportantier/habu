@@ -100,10 +100,9 @@ class ServerFTP(asyncio.Protocol):
 @click.option('--ssl-key', 'ssl_key', default=None, help='SSL/TLS Key file')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
 def cmd_server_ftp(address, port, enable_ssl, ssl_cert, ssl_key, verbose):
-    """This command implements a basic fake FTP server, whith the only purpose to
-    steal user credentials.
+    """Basic fake FTP server, whith the only purpose to steal user credentials.
 
-    The server supports SSL/TLS.
+    Supports SSL/TLS.
 
     Example:
 

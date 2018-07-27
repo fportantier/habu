@@ -20,7 +20,9 @@ from habu.lib.loadcfg import loadcfg
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 @click.option('-o', 'output', type=click.File('w'), default='-', help='Output file (default: stdout)')
 def cmd_shodan(ip, no_cache, verbose, output):
-    """Simple shodan API client with prints the json result of a shodan query
+    """Simple shodan API client.
+
+    Prints the JSON result of a shodan query.
 
     Example:
 

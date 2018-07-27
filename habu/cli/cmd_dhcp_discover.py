@@ -15,7 +15,7 @@ from scapy.all import (BOOTP, DHCP, ICMP, IP, TCP, UDP, Ether, conf,
 @click.option('-t', 'timeout', default=5, help='Time (seconds) to wait for responses')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 def cmd_dhcp_discover(iface, timeout, verbose):
-    """This command sends a DHCP request and shows what devices has replied.
+    """Send a DHCP request and show what devices has replied.
 
     Note: Using '-v' you can see all the options (like DNS servers) included on the responses.
 

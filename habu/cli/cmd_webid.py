@@ -16,7 +16,7 @@ from habu.lib.webid import webid
 def cmd_webid(url, no_cache, verbose):
     """Use Wappalyzer apps.json database to identify technologies used on a web application.
 
-    More info about Wappalyzer: <https://github.com/AliasIO/Wappalyzer/>
+    Reference: https://github.com/AliasIO/Wappalyzer
 
     Note: This tool only sends one request. So, it's stealth and not suspicious.
 

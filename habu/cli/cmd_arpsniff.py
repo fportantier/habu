@@ -38,7 +38,7 @@ def procpkt(pkt):
 @click.command()
 @click.option('-i', 'iface', default=None, help='Interface to use')
 def cmd_arpsniff(iface):
-    """This command listen for ARP packets and shows information for each device.
+    """Listen for ARP packets and show information for each device.
 
     Columns: Seconds from last packet | IP | MAC | Vendor
 

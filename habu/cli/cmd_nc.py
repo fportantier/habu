@@ -28,7 +28,7 @@ def which_source_for(ip):
 @click.option('--source-ip', type=click.STRING, default=None, help='Source IP to use')
 @click.option('--source-port', type=click.IntRange(0, 65535), default=0, help='Source port to use')
 def cmd_nc(host, port, family, ssl_enable, crlf, source_ip, source_port, protocol):
-    """This command is some kind of netcat/ncat replacement.
+    """Some kind of netcat/ncat replacement.
 
     The execution emulates the feeling of this popular tools.
 

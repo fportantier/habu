@@ -7,7 +7,7 @@ from habu.lib import contest
 
 @click.command()
 def cmd_contest():
-    """This command tries to connect to various services and check if you can
+    """Try to connect to various services and check if can
     reach them using your internet connection.
 
     Example:

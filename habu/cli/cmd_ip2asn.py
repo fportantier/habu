@@ -13,7 +13,9 @@ from habu.lib.ip2asn import ip2asn
 @click.command()
 @click.argument('ip')
 def cmd_ip2asn(ip):
-    """Uses Team Cymru ip2asn service to get information about a public IPv4/IPv6.
+    """Use Team Cymru ip2asn service to get information about a public IPv4/IPv6.
+
+    Reference: https://www.team-cymru.com/IP-ASN-mapping.html
 
     \b
     $ habu.ip2asn 8.8.8.8

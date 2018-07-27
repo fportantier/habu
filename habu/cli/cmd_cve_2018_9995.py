@@ -12,8 +12,9 @@ import requests
 @click.option('-p', 'port', default=80, help='Port to use (default: 80)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
 def cmd_cve_2018_9995(ip, port, verbose):
-    """This command exploits the CVE-2018-9995 and its based on the original code
-    from Ezequiel Fernandez (@capitan_alfa).
+    """Exploit the CVE-2018-9995 vulnerability, present on various DVR systems.
+
+    Note: Based on the original code from Ezequiel Fernandez (@capitan_alfa).
 
     Reference: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-9995
 

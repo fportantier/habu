@@ -13,8 +13,8 @@ import requests
 @click.command()
 @click.argument('host')
 def cmd_karma(host):
-    """Uses the Karma service https://karma.securetia.com to check an IP
-    against a lot of Threat Intelligence / Reputation lists.
+    """Use the Karma service https://karma.securetia.com to check an IP
+    against various Threat Intelligence / Reputation lists.
 
     \b
     $ habu.karma www.google.com

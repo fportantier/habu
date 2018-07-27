@@ -16,7 +16,9 @@ from scapy.all import ICMP, IP, TCP, UDP, conf, sr1
 def cmd_traceroute(ip, port, iface):
     """TCP traceroute.
 
-    Identify one of the paths to a destination.
+    Identify the path to a destination getting the ttl-zero-during-transit messages.
+
+    Note: On the internet, you can have various valid paths to a device.
 
     Example:
 

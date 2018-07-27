@@ -9,8 +9,7 @@ from habu.lib.hasher import ALGOS, hasher
 @click.argument('f', type=click.File('rb'), default='-')
 @click.option('-a', 'algorithm', default=None, type=click.Choice(ALGOS), help='Only this algorithm (Default: all)')
 def cmd_hasher(f, algorithm):
-    """This command computes various hashes for the input data, that can be a
-    file or a stream.
+    """Computes various hashes for the input data, that can be a file or a stream.
 
     Example:
 

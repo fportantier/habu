@@ -18,7 +18,7 @@ from habu.lib.certclone import certclone
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
 def cmd_certclone(hostname, port, keyfile, certfile, copy_extensions, expired, verbose):
     """
-    This command tries to connect to an SSL/TLS server, gets the certificate and generates
+    Connect to an SSL/TLS server, get the certificate and generate
     a certificate with the same options and field values.
 
     Note: The generated certificate is invalid, but can be used for social engineering attacks

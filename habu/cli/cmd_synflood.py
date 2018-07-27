@@ -20,9 +20,11 @@ from scapy.all import IP, TCP, Ether, RandMAC, conf, sendp
 @click.option('-3', 'forgeip', is_flag=True, default=False, help='Forge layer3/IP address (default: No)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
 def cmd_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
-    """This command launches a lot of TCP connections and keeps them opened.
-    Some very old systems can suffer a Denial of Service with this. More
-    info: https://en.wikipedia.org/wiki/SYN_flood
+    """Launch a lot of TCP connections and keeps them opened.
+
+    Some very old systems can suffer a Denial of Service with this.
+
+    Reference: https://en.wikipedia.org/wiki/SYN_flood
 
     Example:
 

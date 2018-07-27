@@ -16,8 +16,7 @@ from scapy.all import ICMP, IP, TCP, conf, sr, sr1
 @click.option('-r', 'rflags', default=None, help='Filter by response flags (default: show all responses)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
 def cmd_tcpflags(ip, port, flags, rflags, verbose):
-    """This command send TCP packets with different flags and tell you what
-    responses receives.
+    """Send TCP packets with different flags and tell what responses receives.
 
     It can be used to analyze how the different TCP/IP stack implementations
     and configurations responds to packet with various flag combinations.

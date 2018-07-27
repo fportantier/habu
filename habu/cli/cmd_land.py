@@ -26,7 +26,7 @@ def cmd_land(ip, count, port, iface, verbose):
     https://en.wikipedia.org/wiki/LAND
 
     \b
-    $ sudo habu.land 172.16.0.10
+    # sudo habu.land 172.16.0.10
     ............
 
     Note: Each dot (.) is a sent packet. You can specify how many

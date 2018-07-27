@@ -23,14 +23,10 @@ def luhn_validate(number):
 @click.command()
 @click.argument('number')
 def cmd_crack_luhn(number):
-    """Luhn algorithm number cracker.
+    """Having known values for a Luhn validated number, obtain the possible unknown numbers.
 
-    You can pass an incomplete creditcard-like number and you will receive
-    the valid number combinations based on all the posibilities that
-    validates against the Luhn algorithm.
-
-    Other numbers that use the Luhn algorithm for validation are IMEI numbers,
-    National Provider Identifier numbers in the United States, Canadian Social
+    Numbers that use the Luhn algorithm for validation are Credit Cards, IMEI,
+    National Provider Identifier in the United States, Canadian Social
     Insurance Numbers, Israel ID Numbers and Greek Social Security Numbers (ΑΜΚΑ).
 
     The '-' characters are ignored.

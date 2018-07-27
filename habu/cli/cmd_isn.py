@@ -19,8 +19,8 @@ from scapy.all import ICMP, IP, TCP, UDP, RandShort, conf, send, sr1, srloop
 @click.option('-g', 'graph', is_flag=True, default=False, help='Graph (requires matplotlib)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 def cmd_isn(ip, port, count, iface, graph, verbose):
-    """This command creates TCP connections and prints the TCP initial sequence
-    numbers for each connections.
+    """Create TCP connections and print the TCP initial sequence
+    numbers for each one.
 
     \b
     $ sudo habu.isn -c 5 www.portantier.com

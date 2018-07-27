@@ -20,8 +20,8 @@ from habu.lib.loadcfg import loadcfg
 def cmd_virustotal(input, verbose):
     """Send a file to VirusTotal https://www.virustotal.com/ and print the report in JSON format.
 
-    Note: Before send a file, habu will check if the file has been analyzed before (sending the
-    sha256 of the file to VirusTotal), if a report exists, no submission will be made, and you will
+    Note: Before send a file, will check if the file has been analyzed before (sending the
+    sha256 of the file), if a report exists, no submission will be made, and you will
     see the last report.
 
     \b

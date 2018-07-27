@@ -12,7 +12,7 @@ import click
 @click.option('-d', 'do_decode', is_flag=True, default=False, help='decode instead of encode')
 def cmd_b64(f, do_decode):
     """
-    This command encodes/decodes data in base64, just like the command base64.
+    Encodes or decode data in base64, just like the command base64.
 
     \b
     $ echo awesome | habu.b64

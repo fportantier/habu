@@ -10,7 +10,7 @@ from habu.lib.xor import xor
 @click.option('-i', type=click.File('rb'), default='-', help='Input file')
 @click.option('-o', type=click.File('wb'), default='-', help='Output file')
 def cmd_xor(k, i, o):
-    """XOR cipher
+    """XOR cipher.
 
     Note: XOR is not a 'secure cipher'. If you need strong crypto you must use
     algorithms like AES.

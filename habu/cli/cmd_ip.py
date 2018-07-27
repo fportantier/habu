@@ -7,7 +7,7 @@ from habu.lib.ip import get_ip
 
 @click.command()
 def cmd_ip():
-    """Prints your current public IP based on the response from https://api.ipify.org
+    """Print your current public IP based on the response from https://api.ipify.org
 
     Example:
 
