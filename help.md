@@ -95,7 +95,7 @@ This can give you some extra info about what habu is doing.
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_arping.py [OPTIONS] IP
+Usage: habu.arping [OPTIONS] IP
 
   This command send ARP packets to check if a host it's alive in the local
   network.
@@ -116,7 +116,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_arpoison.py [OPTIONS] T1 T2
+Usage: habu.arpoison [OPTIONS] T1 T2
 
   This command sends ARP 'is-at' packets to each victim, poisoning their ARP
   tables for send the traffic to your system.
@@ -146,7 +146,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_arpsniff.py [OPTIONS]
+Usage: habu.arpsniff [OPTIONS]
 
   This command listen for ARP packets and shows information for each device.
 
@@ -169,7 +169,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_asydns.py [OPTIONS]
+Usage: habu.asydns [OPTIONS]
 
   This command requests DNS domain names based on public and private RSA
   keys using the AsyDNS protocol https://github.com/portantier/asydns>
@@ -200,7 +200,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_b64.py [OPTIONS] [F]
+Usage: habu.b64 [OPTIONS] [F]
 
   This command encodes/decodes data in base64, just like the command base64.
 
@@ -220,7 +220,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_certclone.py [OPTIONS] HOSTNAME PORT KEYFILE CERTFILE
+Usage: habu.certclone [OPTIONS] HOSTNAME PORT KEYFILE CERTFILE
 
   This command tries to connect to an SSL/TLS server, gets the certificate
   and generates a certificate with the same options and field values.
@@ -244,7 +244,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_contest.py [OPTIONS]
+Usage: habu.contest [OPTIONS]
 
   This command tries to connect to various services and check if you can
   reach them using your internet connection.
@@ -268,7 +268,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_crack_luhn.py [OPTIONS] NUMBER
+Usage: habu.crack.luhn [OPTIONS] NUMBER
 
   Luhn algorithm number cracker.
 
@@ -300,7 +300,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_crack_snmp.py [OPTIONS] IP
+Usage: habu.crack.snmp [OPTIONS] IP
 
   Launches snmp-get queries against an IP, and tells you when finds a valid
   community string (is a simple SNMP cracker).
@@ -330,7 +330,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_ctfr.py [OPTIONS] DOMAIN
+Usage: habu.ctfr [OPTIONS] DOMAIN
 
   This command downloads the certificate transparency logs for a domain and
   check with DNS queries if each subdomain exists.
@@ -357,7 +357,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_cve_2018_9995.py [OPTIONS] IP
+Usage: habu.cve.2018.9995 [OPTIONS] IP
 
   This command exploits the CVE-2018-9995 and its based on the original code
   from Ezequiel Fernandez (@capitan_alfa).
@@ -394,7 +394,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_dhcp_discover.py [OPTIONS]
+Usage: habu.dhcp.discover [OPTIONS]
 
   This command sends a DHCP request and shows what devices has replied.
 
@@ -416,7 +416,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_dhcp_starvation.py [OPTIONS]
+Usage: habu.dhcp.starvation [OPTIONS]
 
   This command send multiple DHCP requests from forged MAC addresses to fill
   the DHCP server leases.
@@ -444,7 +444,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_eicar.py [OPTIONS]
+Usage: habu.eicar [OPTIONS]
 
   This command prints the EICAR test string that can be used to test
   antimalware engines. More info: http://www.eicar.org/86-0-Intended-
@@ -464,7 +464,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_extract_email.py [OPTIONS] [INFILE]
+Usage: habu.extract.email [OPTIONS] [INFILE]
 
   Extract email addresses from a file or stdin.
 
@@ -486,7 +486,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_extract_ipv4.py [OPTIONS] [INFILE]
+Usage: habu.extract.ipv4 [OPTIONS] [INFILE]
 
   Extract IPv4 addresses from a file or stdin.
 
@@ -508,7 +508,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_forkbomb.py [OPTIONS] BOMB
+Usage: habu.forkbomb [OPTIONS] BOMB
 
   A shortcut to remember how to use fork bombs in different languages.
 
@@ -535,7 +535,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_hasher.py [OPTIONS] [F]
+Usage: habu.hasher [OPTIONS] [F]
 
   This command computes various hashes for the input data, that can be a
   file or a stream.
@@ -566,7 +566,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_ip2asn.py [OPTIONS] IP
+Usage: habu.ip2asn [OPTIONS] IP
 
   Uses Team Cymru ip2asn service to get information about a public
   IPv4/IPv6.
@@ -597,7 +597,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_isn.py [OPTIONS] IP
+Usage: habu.isn [OPTIONS] IP
 
   This command creates TCP connections and prints the TCP initial sequence
   numbers for each connections.
@@ -626,7 +626,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_jshell.py [OPTIONS]
+Usage: habu.jshell [OPTIONS]
 
 Options:
   -v          Verbose
@@ -640,7 +640,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_karma.py [OPTIONS] HOST
+Usage: habu.karma [OPTIONS] HOST
 
   Uses the Karma service https://karma.securetia.com to check an IP against
   a lot of Threat Intelligence / Reputation lists.
@@ -664,7 +664,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_land.py [OPTIONS] IP
+Usage: habu.land [OPTIONS] IP
 
   This command implements the LAND attack, that sends packets forging the
   source IP address to be the same that the destination IP. Also uses the
@@ -694,7 +694,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_nc.py [OPTIONS] HOST PORT
+Usage: habu.nc [OPTIONS] HOST PORT
 
   This command is some kind of netcat/ncat replacement.
 
@@ -729,7 +729,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_ping.py [OPTIONS] IP
+Usage: habu.ping [OPTIONS] IP
 
   This command implements the classic 'ping' with ICMP echo requests.
 
@@ -753,7 +753,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_protoscan.py [OPTIONS] IP
+Usage: habu.protoscan [OPTIONS] IP
 
   Send IP packets with different protocol field content to guess what layer
   4 protocols are available.
@@ -793,7 +793,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_server_ftp.py [OPTIONS]
+Usage: habu.server.ftp [OPTIONS]
 
   This command implements a basic fake FTP server, whith the only purpose to
   steal user credentials.
@@ -822,7 +822,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_shodan.py [OPTIONS] IP
+Usage: habu.shodan [OPTIONS] IP
 
   Simple shodan API client with prints the json result of a shodan query
 
@@ -864,7 +864,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_synflood.py [OPTIONS] IP
+Usage: habu.synflood [OPTIONS] IP
 
   This command launches a lot of TCP connections and keeps them opened. Some
   very old systems can suffer a Denial of Service with this. More info:
@@ -904,7 +904,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_tcpflags.py [OPTIONS] IP
+Usage: habu.tcpflags [OPTIONS] IP
 
   This command send TCP packets with different flags and tell you what
   responses receives.
@@ -950,7 +950,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_tcpscan.py [OPTIONS] IP
+Usage: habu.tcpscan [OPTIONS] IP
 
   TCP Port Scanner.
 
@@ -982,7 +982,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_traceroute.py [OPTIONS] IP
+Usage: habu.traceroute [OPTIONS] IP
 
   TCP traceroute.
 
@@ -1012,7 +1012,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_usercheck.py [OPTIONS] USERNAME
+Usage: habu.usercheck [OPTIONS] USERNAME
 
   Check if the given username exists on various social networks and other
   popular sites.
@@ -1043,7 +1043,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_vhosts.py [OPTIONS] HOST
+Usage: habu.vhosts [OPTIONS] HOST
 
   Use Bing to query the websites hosted on the same IP address.
 
@@ -1067,7 +1067,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_virustotal.py [OPTIONS] INPUT
+Usage: habu.virustotal [OPTIONS] INPUT
 
   Send a file to VirusTotal https://www.virustotal.com/ and print the report
   in JSON format.
@@ -1113,7 +1113,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_webid.py [OPTIONS] URL
+Usage: habu.webid [OPTIONS] URL
 
   Use Wappalyzer apps.json database to identify technologies used on a web
   application.
@@ -1160,7 +1160,7 @@ Options:
 
 
 ``` {.sourceCode .bash}
-Usage: cmd_xor.py [OPTIONS]
+Usage: habu.xor [OPTIONS]
 
   XOR cipher
 
