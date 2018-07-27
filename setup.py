@@ -17,8 +17,9 @@ setup(
         'beautifulsoup4',
         'cryptography',
         'click',
+        'dnspython',
         'lxml',
-        'prompt_toolkit',
+        'prompt_toolkit==1.0.15',
         'pycrypto',
         'pygments',
         'regex',
@@ -53,7 +54,6 @@ setup(
         habu.hasher=habu.cli.cmd_hasher:cmd_hasher
         habu.ip=habu.cli.cmd_ip:cmd_ip
         habu.ip2asn=habu.cli.cmd_ip2asn:cmd_ip2asn
-        habu.ipscan=habu.cli.cmd_ipscan:cmd_ipscan
         habu.isn=habu.cli.cmd_isn:cmd_isn
         habu.jshell=habu.cli.cmd_jshell:cmd_jshell
         habu.karma=habu.cli.cmd_karma:cmd_karma

@@ -15,7 +15,7 @@ from scapy.all import IP, conf, sr
 @click.option('-t', 'timeout', default=2, help='Timeout for each probe (default: 2 seconds)')
 @click.option('--all', 'all_protocols', is_flag=True, default=False, help='Probe all protocols (default: Defined in /etc/protocols)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_ipscan(ip, iface, timeout, all_protocols, verbose):
+def cmd_protoscan(ip, iface, timeout, all_protocols, verbose):
     """
     Send IP packets with different protocol field content to guess what
     layer 4 protocols are available.

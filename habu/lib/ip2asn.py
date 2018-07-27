@@ -2,7 +2,6 @@
 import ipaddress
 
 import dns.resolver
-import pycountry
 
 
 def ip2asn(ipaddr):
@@ -13,14 +12,12 @@ def ip2asn(ipaddr):
     {'asn': '15169',
      'asname': 'GOOGLE - Google Inc., US',
      'cc': 'US',
-     'country': 'United States',
      'net': '8.8.8.0/24',
      'rir': 'ARIN'}
     >>> pprint(ip2asn('2001:4860:4860::8888'))
     {'asn': '15169',
      'asname': 'GOOGLE - Google Inc., US',
      'cc': 'US',
-     'country': 'United States',
      'net': '2001:4860::/32',
      'rir': 'ARIN'}
     >>> pprint(ip2asn('unk'))
@@ -67,12 +64,6 @@ def ip2asn(ipaddr):
     r['cc'] = response[0].to_text().split('|')[2].strip(" \"")
     r['rir'] = response[0].to_text().split('|')[3].strip(" \"").upper()
     r['asname'] = 'unknown'
-
-    # Convert ISO Contry name to real country name (AR -> Argentina)
-    try:
-        r['country'] = pycountry.countries.lookup(r['cc']).name
-    except KeyError:
-        r['country'] = ''
 
     # Get AS Name
     # "15169 | US | arin | 2000-03-30 | GOOGLE - Google Inc.,US"
