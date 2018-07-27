@@ -25,7 +25,7 @@ def extract_email(data):
 @click.argument('infile', type=click.File('r'), default='-')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 @click.option('-j', 'jsonout', is_flag=True, default=False, help='JSON output')
-def cmd_extract(infile, verbose, jsonout):
+def cmd_extract_email(infile, verbose, jsonout):
     """Extract email addresses from a file or stdin.
 
     Example:
