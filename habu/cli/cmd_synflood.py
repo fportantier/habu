@@ -18,6 +18,30 @@ from scapy.all import IP, TCP, Ether, RandMAC, conf, sendp
 @click.option('-3', 'forgeip', is_flag=True, default=False, help='Forge layer3/IP address (default: No)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
 def cmd_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
+    """This command launches a lot of TCP connections and keeps them opened.
+    Some very old systems can suffer a Denial of Service with this. More
+    info: https://en.wikipedia.org/wiki/SYN_flood
+
+    Example:
+
+    \b
+    $ sudo habu.synflood 172.16.0.10
+    .................
+
+    Each dot is a packet sent.
+
+    You can use the options '-2' and '-3' to forge the layer 2/3 addresses.
+
+    If you use them, each connection will be sent from a random layer2 (MAC)
+    and/or layer3 (IP) address.
+
+    You can choose the number of connections to create with the option '-c'.
+    The default is never stop creating connections.
+
+    Note: If you send the packets from your real IP address and you want
+    to keep the connections half-open, you need to setup for firewall to
+    don't send the RST packets.
+    """
 
     conf.verb = False
 
