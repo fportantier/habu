@@ -7,8 +7,8 @@ from habu.lib.xor import xor
 
 @click.command()
 @click.option('-k', default='0', help='Encryption key')
-@click.option('-i', type=click.File('rb'), default='-', help='Input file')
-@click.option('-o', type=click.File('wb'), default='-', help='Output file')
+@click.option('-i', type=click.File('rb'), default='-', help='Input file (default: stdin)')
+@click.option('-o', type=click.File('wb'), default='-', help='Output file (default: stdout)')
 def cmd_xor(k, i, o):
     """XOR cipher.
 
