@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json
 import logging
 import socket
@@ -14,6 +16,17 @@ from habu.lib.vhosts import get_vhosts
 @click.option('-p', 'pages', default=10, help='Pages count (Default: 10)')
 @click.option('-f', 'first', default=1, help='First result to get (Default: 1)')
 def cmd_vhosts(host, no_cache, pages, first):
+    """Use Bing to query the websites hosted on the same IP address.
+
+    \b
+    $ habu.vhosts www.telefonica.com
+    www.telefonica.com -> 212.170.36.79
+    [
+        'www.telefonica.es',
+        'universitas.telefonica.com',
+        'www.telefonica.com',
+    ]
+    """
 
     try:
         resolved = socket.gethostbyname(host)
@@ -29,7 +42,7 @@ def cmd_vhosts(host, no_cache, pages, first):
     for num in range(pages):
         vhosts += get_vhosts(resolved, no_cache=no_cache, first=first+num*10)
 
-    vhosts = list(set(vhosts))
+    vhosts = list(sorted(set(vhosts)))
 
     print(json.dumps(vhosts, indent=4))
 

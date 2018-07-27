@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import logging
 import sys
 from random import randint
@@ -25,7 +27,7 @@ def cmd_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
     Example:
 
     \b
-    $ sudo habu.synflood 172.16.0.10
+    # sudo habu.synflood 172.16.0.10
     .................
 
     Each dot is a packet sent.

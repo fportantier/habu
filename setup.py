@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name='habu',
-    version='0.0.75',
+    version='0.0.76',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -41,35 +41,35 @@ setup(
         habu.certclone=habu.cli.cmd_certclone:cmd_certclone
         habu.contest=habu.cli.cmd_contest:cmd_contest
         habu.crack.luhn=habu.cli.cmd_crack_luhn:cmd_crack_luhn
+        habu.crack.snmp=habu.cli.cmd_crack_snamp:cmd_crack_snmp
         habu.ctfr=habu.cli.cmd_ctfr:cmd_ctfr
-        habu.cve_2018_9995=habu.cli.cmd_cve_2018_9995:cmd_cve_2018_9995
-        habu.dhcp_discover=habu.cli.cmd_dhcp_discover:cmd_dhcp_discover
-        habu.dhcp_starvation=habu.cli.cmd_dhcp_starvation:cmd_dhcp_starvation
+        habu.cve.2018-9995=habu.cli.cmd_cve_2018_9995:cmd_cve_2018_9995
+        habu.dhcp.discover=habu.cli.cmd_dhcp_discover:cmd_dhcp_discover
+        habu.dhcp.starvation=habu.cli.cmd_dhcp_starvation:cmd_dhcp_starvation
         habu.eicar=habu.cli.cmd_eicar:cmd_eicar
-        habu.firewall=habu.cli.cmd_firewall:cmd_firewall
+        habu.extract.ipv4=habu.cli.cmd_extract_ipv4:cmd_extract_ipv4
+        habu.extract.email=habu.cli.cmd_extract_email:cmd_extract_email
         habu.forkbomb=habu.cli.cmd_forkbomb:cmd_forkbomb
         habu.hasher=habu.cli.cmd_hasher:cmd_hasher
-        habu.help=habu.cli.cmd_help:cmd_help
-        habu.hex2ascii=habu.cli.cmd_hex2ascii:cmd_hex2ascii
         habu.ip=habu.cli.cmd_ip:cmd_ip
         habu.ip2asn=habu.cli.cmd_ip2asn:cmd_ip2asn
+        habu.ipscan=habu.cli.cmd_ipscan:cmd_ipscan
         habu.isn=habu.cli.cmd_isn:cmd_isn
         habu.jshell=habu.cli.cmd_jshell:cmd_jshell
         habu.karma=habu.cli.cmd_karma:cmd_karma
         habu.land=habu.cli.cmd_land:cmd_land
-        habu.mhr=habu.cli.cmd_mhr:cmd_mhr
         habu.nc=habu.cli.cmd_nc:cmd_nc
         habu.ping=habu.cli.cmd_ping:cmd_ping
+        habu.protoscan=habu.cli.cmd_protoscan:cmd_protoscan
         habu.server.ftp=habu.cli.cmd_server_ftp:cmd_server_ftp
         habu.shodan=habu.cli.cmd_shodan:cmd_shodan
-        habu.snmp_crack=habu.cli.cmd_snmp_crack:cmd_snmp_crack
+        habu.synflood=habu.cli.cmd_synflood:cmd_synflood
         habu.tcpflags=habu.cli.cmd_tcpflags:cmd_tcpflags
         habu.tcpscan=habu.cli.cmd_tcpscan:cmd_tcpscan
         habu.traceroute=habu.cli.cmd_traceroute:cmd_traceroute
-        habu.synflood=habu.cli.cmd_synflood:cmd_synflood
         habu.usercheck=habu.cli.cmd_usercheck:cmd_usercheck
-        habu.virustotal=habu.cli.cmd_virustotal:cmd_virustotal
         habu.vhosts=habu.cli.cmd_vhosts:cmd_vhosts
+        habu.virustotal=habu.cli.cmd_virustotal:cmd_virustotal
         habu.webid=habu.cli.cmd_webid:cmd_webid
         habu.xor=habu.cli.cmd_xor:cmd_xor
     ''',

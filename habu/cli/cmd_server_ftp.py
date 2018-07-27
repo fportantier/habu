@@ -108,7 +108,7 @@ def cmd_server_ftp(address, port, enable_ssl, ssl_cert, ssl_key, verbose):
     Example:
 
     \b
-    $ sudo habu.server.ftp --ssl --ssl-cert /tmp/cert.pem --ssl-key /tmp/key.pem
+    # sudo habu.server.ftp --ssl --ssl-cert /tmp/cert.pem --ssl-key /tmp/key.pem
     Listening on port 21
     Accepted connection from ('192.168.0.27', 56832)
     Credentials collected from 192.168.0.27! fabian 123456

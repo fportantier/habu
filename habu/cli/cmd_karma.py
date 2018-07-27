@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
+
 import ipaddress
-#from habu.lib.ip2asn import ip2asn
 import json
 import logging
 import socket

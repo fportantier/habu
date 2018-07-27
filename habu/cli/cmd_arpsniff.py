@@ -1,18 +1,16 @@
+#!/usr/bin/env python3
+
 import logging
 from time import time
+import sys
 
 import click
-
-import habu.lib.manuf
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
 from scapy.all import ARP, IP, TCP, conf, sniff
 
-
 hosts = {}
-
-mac2vendor = habu.lib.manuf.MacParser()
 
 
 def procpkt(pkt):
@@ -23,7 +21,7 @@ def procpkt(pkt):
     if 'ARP' in pkt:
         hosts[pkt[ARP].psrc] = {}
         hosts[pkt[ARP].psrc]['hwaddr'] = pkt[ARP].hwsrc
-        hosts[pkt[ARP].psrc]['vendor'] = mac2vendor.get_comment(pkt[ARP].hwsrc)
+        hosts[pkt[ARP].psrc]['vendor'] = conf.manufdb._get_manuf(pkt[ARP].hwsrc)
         hosts[pkt[ARP].psrc]['time'] = time()
 
         click.clear()
@@ -58,7 +56,7 @@ def cmd_arpsniff(iface):
     if iface:
         conf.iface = iface
 
-    print("Waiting for ARP packets...")
+    print("Waiting for ARP packets...", file=sys.stderr)
 
     sniff(filter="arp", store=False, prn=procpkt)
 

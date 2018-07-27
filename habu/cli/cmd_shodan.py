@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json
 import logging
 import os
@@ -34,19 +36,12 @@ def cmd_shodan(ip, no_cache, verbose, output):
             {
                 "isp": "Google",
                 "transport": "udp",
-                "data": "\nRecursion: enabled",
+                "data": "Recursion: enabled",
                 "asn": "AS15169",
                 "port": 53,
                 "hostnames": [
                     "google-public-dns-a.google.com"
-                ],
-                "location": {
-                    "longitude": -97.822,
-                    "country_code3": "USA",
-                    "latitude": 37.751000000000005,
-                    "country_code": "US",
-                    "country_name": "United States"
-                }
+                ]
             }
         ],
         "ports": [

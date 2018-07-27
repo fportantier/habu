@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import json
 import logging
 import os
@@ -75,8 +77,24 @@ urls = {
 @click.option('-c', 'no_cache', is_flag=True, default=False, help='Disable cache')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 @click.option('-w', 'wopen', is_flag=True, default=False, help='Open each valid url in a webbrowser')
-@click.option('-o', 'output', type=click.File('w'), default='-', help='Output file (default: stdout)')
-def cmd_usercheck(username, no_cache, verbose, wopen, output):
+def cmd_usercheck(username, no_cache, verbose, wopen):
+    """Check if the given username exists on various social networks and other popular sites.
+
+    \b
+    $ habu.usercheck portantier
+    {
+        "aboutme": "https://about.me/portantier",
+        "disqus": "https://disqus.com/by/portantier/",
+        "github": "https://github.com/portantier/",
+        "ifttt": "https://ifttt.com/p/portantier",
+        "lastfm": "https://www.last.fm/user/portantier",
+        "medium": "https://medium.com/@portantier",
+        "pastebin": "https://pastebin.com/u/portantier",
+        "pinterest": "https://in.pinterest.com/portantier/",
+        "twitter": "https://twitter.com/portantier",
+        "vimeo": "https://vimeo.com/portantier"
+    }
+    """
 
     habucfg = loadcfg()
 
@@ -105,8 +123,7 @@ def cmd_usercheck(username, no_cache, verbose, wopen, output):
                 if wopen:
                     webbrowser.open_new_tab(u)
 
-    output.write(json.dumps(existent, indent=4))
-    output.write('\n')
+    print(json.dumps(existent, indent=4))
 
 if __name__ == '__main__':
     cmd_usercheck()

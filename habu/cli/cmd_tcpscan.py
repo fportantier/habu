@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import logging
 import re
 from time import sleep
@@ -19,6 +21,21 @@ from scapy.all import IP, TCP, conf, sr, sr1
 @click.option('-a', 'show_all', is_flag=True, default=False, help='Show all responses (default: Only containing SYN flag)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 def cmd_tcpscan(ip, port, iface, flags, sleeptime, timeout, show_all, verbose):
+    """TCP Port Scanner.
+
+    Prints the ports that generated a response with the SYN flag or (if show use -a) all the
+    ports that generated a response.
+
+    It's really basic compared with nmap, but who is comparing?
+
+    Example:
+
+    \b
+    # habu.tcpscan -p 22,23,80,443 -s 1 45.77.113.133
+    22 S -> SA
+    80 S -> SA
+    443 S -> SA
+    """
 
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')

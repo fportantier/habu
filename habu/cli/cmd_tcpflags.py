@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import logging
 
 import click
@@ -28,7 +30,6 @@ def cmd_tcpflags(ip, port, flags, rflags, verbose):
     FS -> SA
     FA -> R
     SA -> R
-    ```
 
     By default, the command sends all possible flag combinations. You can
     specify which flags must ever be present (reducing the quantity of

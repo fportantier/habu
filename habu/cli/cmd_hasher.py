@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import click
 
 from habu.lib.hasher import ALGOS, hasher
