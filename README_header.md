@@ -69,6 +69,7 @@ Habu requires Python3 and the following packages:
 - beautifulsoup4
 - click
 - cryptography
+- dnspython
 - lxml
 - prompt\_toolkit
 - pygments

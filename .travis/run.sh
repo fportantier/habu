@@ -2,7 +2,7 @@
 
 pip install -e .
 
-for cmd in $(whereis habu | tr " " "\n" | grep "habu\." | grep -v "/usr/")
+for cmd in $(whereis habu | tr " " "\n" | grep "habu\.")
 do
     echo $cmd
     $cmd --help > /dev/null

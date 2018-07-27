@@ -69,6 +69,7 @@ Habu requires Python3 and the following packages:
 - beautifulsoup4
 - click
 - cryptography
+- dnspython
 - lxml
 - prompt\_toolkit
 - pygments
@@ -1218,7 +1219,7 @@ Usage: habu.xor [OPTIONS]
 
 Options:
   -k TEXT      Encryption key
-  -i FILENAME  Input file
-  -o FILENAME  Output file
+  -i FILENAME  Input file (default: stdin)
+  -o FILENAME  Output file (default: stdout)
   --help       Show this message and exit.
 ```
