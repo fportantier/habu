@@ -92,11 +92,11 @@ This can give you some extra info about what habu is doing.
 
 
 
-## habu.arping
+## habu.arp.ping
 
 
 ``` {.sourceCode .bash}
-Usage: habu.arping [OPTIONS] IP
+Usage: habu.arp.ping [OPTIONS] IP
 
   Send ARP packets to check if a host it's alive in the local network.
 
@@ -112,11 +112,11 @@ Options:
 ```
 
 
-## habu.arpoison
+## habu.arp.poison
 
 
 ``` {.sourceCode .bash}
-Usage: habu.arpoison [OPTIONS] VICTIM1 VICTIM2
+Usage: habu.arp.poison [OPTIONS] VICTIM1 VICTIM2
 
   Send ARP 'is-at' packets to each victim, poisoning their ARP tables for
   send the traffic to your system.
@@ -142,11 +142,11 @@ Options:
 ```
 
 
-## habu.arpsniff
+## habu.arp.sniff
 
 
 ``` {.sourceCode .bash}
-Usage: habu.arpsniff [OPTIONS]
+Usage: habu.arp.sniff [OPTIONS]
 
   Listen for ARP packets and show information for each device.
 
@@ -237,6 +237,69 @@ Options:
   --expired          Generate an expired certificate (default: False)
   -v                 Verbose
   --help             Show this message and exit.
+```
+
+
+## habu.config.del
+
+
+``` {.sourceCode .bash}
+Usage: habu.config.del [OPTIONS] KEY
+
+  Delete a KEY from the configuration.
+
+  Note: By default, KEY is converted to uppercase.
+
+  Example:
+
+  $ habu.config.del DNS_SERVER
+
+Options:
+  --help  Show this message and exit.
+```
+
+
+## habu.config
+
+
+``` {.sourceCode .bash}
+Usage: habu.config [OPTIONS]
+
+  Show the current config.
+
+  Note: By default, the options with 'KEY' in their name are shadowed.
+
+  Example:
+
+  $ habu.config
+  {
+      "DNS_SERVER": "8.8.8.8",
+      "FERNET_KEY": "*************"
+  }
+
+Options:
+  --show-keys       Show also the key values
+  --option TEXT...  Write to the config(KEY VALUE)
+  --help            Show this message and exit.
+```
+
+
+## habu.config.set
+
+
+``` {.sourceCode .bash}
+Usage: habu.config.set [OPTIONS] KEY VALUE
+
+  Set VALUE to the config KEY.
+
+  Note: By default, KEY is converted to uppercase.
+
+  Example:
+
+  $ habu.config.set DNS_SERVER 8.8.8.8
+
+Options:
+  --help  Show this message and exit.
 ```
 
 
@@ -502,6 +565,61 @@ Options:
 ```
 
 
+## habu.fernet.genkey
+
+
+``` {.sourceCode .bash}
+Usage: habu.fernet.genkey [OPTIONS]
+
+  Generate a new Fernet Key, optionally write it to ~/.habu.json
+
+  Example:
+
+  $ habu.fernet.genkey
+  xgvWCIvjwe9Uq7NBvwO796iI4dsGD623QOT9GWqnuhg=
+
+Options:
+  -w      Write this key to ~/.habu.json
+  --help  Show this message and exit.
+```
+
+
+## habu.fernet
+
+
+``` {.sourceCode .bash}
+Usage: habu.fernet [OPTIONS]
+
+  Fernet cipher.
+
+  Uses AES-128-CBC with HMAC
+
+  Note: You must use a key to cipher with Fernet.
+
+  Use the -k paramenter or set the FERNET_KEY configuration value.
+
+  The keys can be generated with the command habu.fernet.genkey
+
+  Reference: https://github.com/fernet/spec/blob/master/Spec.md
+
+  Example:
+
+  $ "I want to protect this string" | habu.fernet
+  gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA...
+
+  echo gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA... | habu.fernet -d
+  I want to protect this string
+
+Options:
+  -k TEXT        Key
+  -d             Decrypt instead of encrypt
+  --ttl INTEGER  Time To Live for timestamp verification
+  -i FILENAME    Input file (default: stdin)
+  -o FILENAME    Output file (default: stdout)
+  --help         Show this message and exit.
+```
+
+
 ## habu.forkbomb
 
 
@@ -557,6 +675,28 @@ Options:
   -a [md5|sha1|sha512|ripemd160|whirlpool]
                                   Only this algorithm (Default: all)
   --help                          Show this message and exit.
+```
+
+
+## habu.icmp.redirect
+
+
+``` {.sourceCode .bash}
+Usage: habu.icmp.redirect [OPTIONS] TARGET OLDGW NEWGW
+
+  The classic ping tool that send ICMP echo requests.
+
+  # habu.ping 8.8.8.8
+  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+
+Options:
+  -i TEXT     Wich interface to use (default: auto)
+  -c INTEGER  How many packets send (default: infinit)
+  -v          Verbose
+  --help      Show this message and exit.
 ```
 
 

@@ -15,7 +15,7 @@ from scapy.all import ARP, Ether, conf, getmacbyip, sendp
 @click.argument('victim2')
 @click.option('-i', 'iface', default=None, help='Interface to use')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_arpoison(victim1, victim2, iface, verbose):
+def cmd_arp_poison(victim1, victim2, iface, verbose):
     """Send ARP 'is-at' packets to each victim, poisoning their
     ARP tables for send the traffic to your system.
 
@@ -64,4 +64,4 @@ def cmd_arpoison(victim1, victim2, iface, verbose):
         pass
 
 if __name__ == '__main__':
-    cmd_arpoison()
+    cmd_arp_poison()

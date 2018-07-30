@@ -15,7 +15,7 @@ from scapy.all import ARP, IP, TCP, Ether, conf, srp
 @click.argument('ip')
 @click.option('-i', 'iface', default=None, help='Interface to use')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_arping(ip, iface, verbose):
+def cmd_arp_ping(ip, iface, verbose):
     """
     Send ARP packets to check if a host it's alive in the local network.
 
@@ -44,4 +44,4 @@ def cmd_arping(ip, iface, verbose):
 
 
 if __name__ == '__main__':
-    cmd_arping()
+    cmd_arp_ping()

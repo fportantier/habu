@@ -4,7 +4,7 @@ from pathlib import Path
 import json
 import sys
 
-def loadcfg():
+def loadcfg(environment=True):
 
     cfg = {}
 
@@ -19,11 +19,12 @@ def loadcfg():
             except Exception as e:
                 print('exception', e, file=sys.stderr)
 
-    for k,v in os.environ.items():
-        if k.startswith('HABU_'):
-            k = k.replace('HABU_', '')
-            cfg[k] = v
-            #print(k,v)
+    if environment:
+        for k,v in os.environ.items():
+            if k.startswith('HABU_'):
+                k = k.replace('HABU_', '')
+                cfg[k] = v
+                #print(k,v)
 
     return cfg
 

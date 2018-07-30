@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name='habu',
-    version='0.0.79',
+    version='0.0.80',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -34,12 +34,15 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        habu.arping=habu.cli.cmd_arping:cmd_arping
-        habu.arpoison=habu.cli.cmd_arpoison:cmd_arpoison
-        habu.arpsniff=habu.cli.cmd_arpsniff:cmd_arpsniff
+        habu.arp.ping=habu.cli.cmd_arp_ping:cmd_arp_ping
+        habu.arp.poison=habu.cli.cmd_arp_poison:cmd_arp_poison
+        habu.arp.sniff=habu.cli.cmd_arp_sniff:cmd_arp_sniff
         habu.asydns=habu.cli.cmd_asydns:cmd_asydns
         habu.b64=habu.cli.cmd_b64:cmd_b64
         habu.certclone=habu.cli.cmd_certclone:cmd_certclone
+        habu.config=habu.cli.cmd_config:cmd_config
+        habu.config.set=habu.cli.cmd_config_set:cmd_config_set
+        habu.config.del=habu.cli.cmd_config_del:cmd_config_del
         habu.contest=habu.cli.cmd_contest:cmd_contest
         habu.crack.luhn=habu.cli.cmd_crack_luhn:cmd_crack_luhn
         habu.crack.snmp=habu.cli.cmd_crack_snamp:cmd_crack_snmp
@@ -50,6 +53,8 @@ setup(
         habu.eicar=habu.cli.cmd_eicar:cmd_eicar
         habu.extract.ipv4=habu.cli.cmd_extract_ipv4:cmd_extract_ipv4
         habu.extract.email=habu.cli.cmd_extract_email:cmd_extract_email
+        habu.fernet=habu.cli.cmd_fernet:cmd_fernet
+        habu.fernet.genkey=habu.cli.cmd_fernet_genkey:cmd_fernet_genkey
         habu.forkbomb=habu.cli.cmd_forkbomb:cmd_forkbomb
         habu.hasher=habu.cli.cmd_hasher:cmd_hasher
         habu.ip=habu.cli.cmd_ip:cmd_ip
