@@ -15,18 +15,18 @@ def cmd_hasher(f, algorithm):
 
     \b
     $ habu.hasher README.rst
-    md5         : e5828c564f71fea3a12dde8bd5d27063
-    ripemd160   : ef6886c3b68cb34a44f9ca9336f3cd0732600a84
-    sha1        : 7bae8076a5771865123be7112468b79e9d78a640
-    sha512      : 65cfb1cf719b851b4aea5a7f5388068687b1fdfd290817a...
-    whirlpool   : eaccf718b31d8a01f76fc08e896a6d0d73dbeafc2621fe0...
+    md5          e5828c564f71fea3a12dde8bd5d27063 README.rst
+    ripemd160    ef6886c3b68cb34a44f9ca9336f3cd0732600a84 README.rst
+    sha1         7bae8076a5771865123be7112468b79e9d78a640 README.rst
+    sha512       65cfb1cf719b851b4aea5a7f5388068687b1fdfd290817a... README.rst
+    whirlpool    eaccf718b31d8a01f76fc08e896a6d0d73dbeafc2621fe0... README.rst
 
     You can also specify which algorithm to use. In such case, the output is
     only the value of the calculated hash:
 
     \b
     $ habu.hasher -a md5 README.rst
-    e5828c564f71fea3a12dde8bd5d27063
+    e5828c564f71fea3a12dde8bd5d27063 README.rst
     """
 
     data = f.read()
@@ -36,10 +36,12 @@ def cmd_hasher(f, algorithm):
         return 1
 
     if algorithm:
-        print(hasher(data, algorithm)[algorithm])
+        print(hasher(data, algorithm)[algorithm], f.name)
     else:
         for algo, result in hasher(data).items():
-            print("{:<12}: {}".format(algo, result))
+            print("{:<12} {} {}".format(algo, result, f.name))
+
 
 if __name__ == '__main__':
     cmd_hasher()
+
