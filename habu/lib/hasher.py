@@ -3,6 +3,7 @@ import hashlib
 ALGOS = [
     'md5',
     'sha1',
+    'sha256',
     'sha512',
     'ripemd160',
     'whirlpool',

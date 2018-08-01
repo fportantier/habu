@@ -15,6 +15,7 @@ def cmd_forkbomb(bomb):
     Example:
 
     \b
+    $ habu.forkbomb c
     #include <unistd.h>
     int main()
     {
