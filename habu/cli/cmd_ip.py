@@ -17,3 +17,6 @@ def cmd_ip():
 
     print(get_ip())
 
+
+if __name__ == '__main__':
+    cmd_ip()

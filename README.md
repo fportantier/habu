@@ -607,7 +607,7 @@ Usage: habu.fernet [OPTIONS]
   $ "I want to protect this string" | habu.fernet
   gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA...
 
-  echo gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA... | habu.fernet -d
+  $ echo gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA... | habu.fernet -d
   I want to protect this string
 
 Options:
@@ -632,6 +632,7 @@ Usage: habu.forkbomb [OPTIONS] BOMB
 
   Example:
 
+  $ habu.forkbomb c
   #include <unistd.h>
   int main()
   {
@@ -672,31 +673,9 @@ Usage: habu.hasher [OPTIONS] [F]
   e5828c564f71fea3a12dde8bd5d27063
 
 Options:
-  -a [md5|sha1|sha512|ripemd160|whirlpool]
+  -a [md5|sha1|sha256|sha512|ripemd160|whirlpool]
                                   Only this algorithm (Default: all)
   --help                          Show this message and exit.
-```
-
-
-## habu.icmp.redirect
-
-
-``` {.sourceCode .bash}
-Usage: habu.icmp.redirect [OPTIONS] TARGET OLDGW NEWGW
-
-  The classic ping tool that send ICMP echo requests.
-
-  # habu.ping 8.8.8.8
-  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-  IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-
-Options:
-  -i TEXT     Wich interface to use (default: auto)
-  -c INTEGER  How many packets send (default: infinit)
-  -v          Verbose
-  --help      Show this message and exit.
 ```
 
 
@@ -729,6 +708,18 @@ Options:
 
 
 ``` {.sourceCode .bash}
+Usage: habu.ip [OPTIONS]
+
+  Print your current public IP based on the response from
+  https://api.ipify.org
+
+  Example:
+
+  $ habu.ip
+  182.26.32.246
+
+Options:
+  --help  Show this message and exit.
 ```
 
 
