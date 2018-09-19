@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name='habu',
-    version='0.0.81',
+    version='0.0.82',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -25,7 +25,8 @@ setup(
         'regex',
         'requests',
         'requests-cache',
-        'scapy-python3',
+        #'scapy-python3',
+        'scapy',
         'websockets',
     ],
     tests_require=[
