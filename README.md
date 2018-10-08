@@ -620,38 +620,6 @@ Options:
 ```
 
 
-## habu.firewalk
-
-
-``` {.sourceCode .bash}
-Usage: habu.firewalk [OPTIONS] IP
-
-  TCP Port Scanner.
-
-  Print the ports that generated a response with the SYN flag or (if show
-  use -a) all the ports that generated a response.
-
-  It's really basic compared with nmap, but who is comparing?
-
-  Example:
-
-  # habu.tcpscan -p 22,23,80,443 -s 1 45.77.113.133
-  22 S -> SA
-  80 S -> SA
-  443 S -> SA
-
-Options:
-  -p TEXT     Ports to use (default: 80) example: 20-23,80,135
-  -i TEXT     Interface to use
-  -f TEXT     Flags to use (default: S)
-  -s TEXT     Time between probes (default: send all together)
-  -t INTEGER  Timeout for each probe (default: 2 seconds)
-  -a          Show all responses (default: Only containing SYN flag)
-  -v          Verbose output
-  --help      Show this message and exit.
-```
-
-
 ## habu.forkbomb
 
 
@@ -1197,39 +1165,6 @@ Options:
   -f TEXT     Flags that must be sent ever (default: fuzz with all flags)
   -r TEXT     Filter by response flags (default: show all responses)
   -v          Verbose
-  --help      Show this message and exit.
-```
-
-
-## habu.tcpscan-ng
-
-
-``` {.sourceCode .bash}
-Usage: habu.tcpscan-ng [OPTIONS] IP
-
-  TCP Port Scanner.
-
-  Print the ports that generated a response with the SYN flag or (if show
-  use -a) all the ports that generated a response.
-
-  It's really basic compared with nmap, but who is comparing?
-
-  Example:
-
-  # habu.tcpscan -p 22,23,80,443 -s 1 45.77.113.133
-  22 S -> SA
-  80 S -> SA
-  443 S -> SA
-
-Options:
-  -p TEXT     Ports to use (default: 80) example: 20-23,80,135
-  -i TEXT     Interface to use
-  -f TEXT     Flags to use (default: S)
-  -s TEXT     Time between probes (default: send all together)
-  -t INTEGER  Timeout for each probe (default: 2 seconds)
-  -a          Show all responses (default: Only containing SYN flag)
-  -v          Verbose output
-  -l TEXT     Load session from file
   --help      Show this message and exit.
 ```
 
