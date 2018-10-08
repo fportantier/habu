@@ -17,7 +17,6 @@ Some usefull commands that (maybe) will be implemented
 * port2service translation
 * retrieve ip data
 * default passwords database
-* luhn algorithm
 * show most used procotols and addrs on a PCAP
 * brute force services (like medusa, ncrack, patator, etc)
 * create customized wordlists (like crunch)

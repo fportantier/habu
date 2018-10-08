@@ -620,11 +620,43 @@ Options:
 ```
 
 
+## habu.firewalk
+
+
+``` {.sourceCode .bash}
+Usage: habu.firewalk [OPTIONS] IP
+
+  TCP Port Scanner.
+
+  Print the ports that generated a response with the SYN flag or (if show
+  use -a) all the ports that generated a response.
+
+  It's really basic compared with nmap, but who is comparing?
+
+  Example:
+
+  # habu.tcpscan -p 22,23,80,443 -s 1 45.77.113.133
+  22 S -> SA
+  80 S -> SA
+  443 S -> SA
+
+Options:
+  -p TEXT     Ports to use (default: 80) example: 20-23,80,135
+  -i TEXT     Interface to use
+  -f TEXT     Flags to use (default: S)
+  -s TEXT     Time between probes (default: send all together)
+  -t INTEGER  Timeout for each probe (default: 2 seconds)
+  -a          Show all responses (default: Only containing SYN flag)
+  -v          Verbose output
+  --help      Show this message and exit.
+```
+
+
 ## habu.forkbomb
 
 
 ``` {.sourceCode .bash}
-Usage: habu.forkbomb [OPTIONS] BOMB
+Usage: habu.forkbomb [OPTIONS] [bash|batch|c|haskell|perl|php|python|ruby]
 
   A shortcut to remember how to use fork bombs in different languages.
 
@@ -660,17 +692,17 @@ Usage: habu.hasher [OPTIONS] [F]
   Example:
 
   $ habu.hasher README.rst
-  md5         : e5828c564f71fea3a12dde8bd5d27063
-  ripemd160   : ef6886c3b68cb34a44f9ca9336f3cd0732600a84
-  sha1        : 7bae8076a5771865123be7112468b79e9d78a640
-  sha512      : 65cfb1cf719b851b4aea5a7f5388068687b1fdfd290817a...
-  whirlpool   : eaccf718b31d8a01f76fc08e896a6d0d73dbeafc2621fe0...
+  md5          e5828c564f71fea3a12dde8bd5d27063 README.rst
+  ripemd160    ef6886c3b68cb34a44f9ca9336f3cd0732600a84 README.rst
+  sha1         7bae8076a5771865123be7112468b79e9d78a640 README.rst
+  sha512       65cfb1cf719b851b4aea5a7f5388068687b1fdfd290817a... README.rst
+  whirlpool    eaccf718b31d8a01f76fc08e896a6d0d73dbeafc2621fe0... README.rst
 
   You can also specify which algorithm to use. In such case, the output is
   only the value of the calculated hash:
 
   $ habu.hasher -a md5 README.rst
-  e5828c564f71fea3a12dde8bd5d27063
+  e5828c564f71fea3a12dde8bd5d27063 README.rst
 
 Options:
   -a [md5|sha1|sha256|sha512|ripemd160|whirlpool]
@@ -893,6 +925,59 @@ Options:
 ```
 
 
+## habu.nmap.open
+
+
+``` {.sourceCode .bash}
+Usage: habu.nmap.open [OPTIONS] SCANFILE
+
+  Read an nmap report and print the open ports.
+
+  Print the ports that has been resulted open reading the generated nmap
+  output.
+
+  You can use it to rapidly reutilize the port list for the input of other
+  tools.
+
+  Supports and detects the 3 output formats (nmap, gnmap and xml)
+
+  Example:
+
+  # habu.nmap.open portantier.nmap
+  22,80,443
+
+Options:
+  -p [tcp|udp|sctp]  The protocol (default=tcp)
+  --help             Show this message and exit.
+```
+
+
+## habu.nmap.ports
+
+
+``` {.sourceCode .bash}
+Usage: habu.nmap.ports [OPTIONS] SCANFILE
+
+  Read an nmap report and print the tested ports.
+
+  Print the ports that has been tested reading the generated nmap output.
+
+  You can use it to rapidly reutilize the port list for the input of other
+  tools.
+
+  Supports and detects the 3 output formats (nmap, gnmap and xml)
+
+  Example:
+
+  # habu.nmap.ports portantier.nmap
+  21,22,23,80,443
+
+Options:
+  -p [tcp|udp|sctp]  The protocol (default=tcp)
+  --help             Show this message and exit.
+```
+
+
 ## habu.ping
 
 
@@ -1112,6 +1197,39 @@ Options:
   -f TEXT     Flags that must be sent ever (default: fuzz with all flags)
   -r TEXT     Filter by response flags (default: show all responses)
   -v          Verbose
+  --help      Show this message and exit.
+```
+
+
+## habu.tcpscan-ng
+
+
+``` {.sourceCode .bash}
+Usage: habu.tcpscan-ng [OPTIONS] IP
+
+  TCP Port Scanner.
+
+  Print the ports that generated a response with the SYN flag or (if show
+  use -a) all the ports that generated a response.
+
+  It's really basic compared with nmap, but who is comparing?
+
+  Example:
+
+  # habu.tcpscan -p 22,23,80,443 -s 1 45.77.113.133
+  22 S -> SA
+  80 S -> SA
+  443 S -> SA
+
+Options:
+  -p TEXT     Ports to use (default: 80) example: 20-23,80,135
+  -i TEXT     Interface to use
+  -f TEXT     Flags to use (default: S)
+  -s TEXT     Time between probes (default: send all together)
+  -t INTEGER  Timeout for each probe (default: 2 seconds)
+  -a          Show all responses (default: Only containing SYN flag)
+  -v          Verbose output
+  -l TEXT     Load session from file
   --help      Show this message and exit.
 ```
 
