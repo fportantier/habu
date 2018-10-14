@@ -386,11 +386,11 @@ Options:
 ```
 
 
-## habu.ctfr
+## habu.crtsh
 
 
 ``` {.sourceCode .bash}
-Usage: habu.ctfr [OPTIONS] DOMAIN
+Usage: habu.crtsh [OPTIONS] DOMAIN
 
   Downloads the certificate transparency logs for a domain and check with
   DNS queries if each subdomain exists.

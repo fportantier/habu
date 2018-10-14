@@ -17,7 +17,7 @@ from habu.lib.dns import query_bulk
 @click.option('-c', 'no_cache', is_flag=True, default=False, help='Disable cache')
 @click.option('-n', 'no_validate', is_flag=True, default=False, help='Disable DNS subdomain validation')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_ctfr(domain, no_cache, no_validate, verbose):
+def cmd_crtsh(domain, no_cache, no_validate, verbose):
     """Downloads the certificate transparency logs for a domain
     and check with DNS queries if each subdomain exists.
 
@@ -80,4 +80,4 @@ def cmd_ctfr(domain, no_cache, no_validate, verbose):
 
 
 if __name__ == '__main__':
-    cmd_ctfr()
+    cmd_crtsh()

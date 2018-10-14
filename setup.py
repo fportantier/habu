@@ -47,7 +47,7 @@ setup(
         habu.contest=habu.cli.cmd_contest:cmd_contest
         habu.crack.luhn=habu.cli.cmd_crack_luhn:cmd_crack_luhn
         habu.crack.snmp=habu.cli.cmd_crack_snamp:cmd_crack_snmp
-        habu.ctfr=habu.cli.cmd_ctfr:cmd_ctfr
+        habu.crtsh=habu.cli.cmd_crtsh:cmd_crtsh
         habu.cve.2018.9995=habu.cli.cmd_cve_2018_9995:cmd_cve_2018_9995
         habu.dhcp.discover=habu.cli.cmd_dhcp_discover:cmd_dhcp_discover
         habu.dhcp.starvation=habu.cli.cmd_dhcp_starvation:cmd_dhcp_starvation
