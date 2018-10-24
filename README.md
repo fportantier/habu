@@ -451,6 +451,80 @@ Options:
 ```
 
 
+## habu.cymon.ip
+
+
+``` {.sourceCode .bash}
+Usage: habu.cymon.ip [OPTIONS] IP
+
+  Simple cymon API client.
+
+  Prints the JSON result of a cymon IP query.
+
+  Example:
+
+  $ habu.cymon.ip 8.8.8.8
+  {
+      "addr": "8.8.8.8",
+      "created": "2015-03-23T12:03:42Z",
+      "updated": "2018-08-24T04:06:07Z",
+      "sources": [
+          "safeweb.norton.com",
+          "botscout.com",
+          "virustotal.com",
+          "phishtank"
+      ],
+      "events": "https://www.cymon.io/api/nexus/v1/ip/8.8.8.8/events",
+      "domains": "https://www.cymon.io/api/nexus/v1/ip/8.8.8.8/domains",
+      "urls": "https://www.cymon.io/api/nexus/v1/ip/8.8.8.8/urls"
+  }
+
+Options:
+  -c           Disable cache
+  -v           Verbose output
+  -o FILENAME  Output file (default: stdout)
+  --help       Show this message and exit.
+```
+
+
+## habu.cymon.ip.timeline
+
+
+``` {.sourceCode .bash}
+Usage: habu.cymon.ip.timeline [OPTIONS] IP
+
+  Simple cymon API client.
+
+  Prints the JSON result of a cymon IP timeline query.
+
+  Example:
+
+  $ habu.cymon.ip.timeline 8.8.8.8
+  {
+      "timeline": [
+          {
+              "time_label": "Aug. 18, 2018",
+              "events": [
+                  {
+                      "description": "Posted: 2018-08-18 23:37:39 CEST IDS Alerts: 0 URLQuery Alerts: 1 ...",
+                      "created": "2018-08-18T21:39:07Z",
+                      "title": "Malicious activity reported by urlquery.net",
+                      "details_url": "http://urlquery.net/report/b1393866-9b1f-4a8e-b02b-9636989050f3",
+                      "tag": "malicious activity"
+                  }
+              ]
+          },
+          ...
+
+Options:
+  -c           Disable cache
+  -v           Verbose output
+  -o FILENAME  Output file (default: stdout)
+  -p           Pretty output
+  --help       Show this message and exit.
+```
+
+
 ## habu.dhcp.discover
 
 
