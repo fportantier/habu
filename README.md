@@ -399,7 +399,7 @@ Usage: habu.crtsh [OPTIONS] DOMAIN
 
   Example:
 
-  $ sudo habu.ctrf securetia.com
+  $ sudo habu.crtsh securetia.com
   [
       "karma.securetia.com.",
       "www.securetia.com."
