@@ -26,7 +26,7 @@ def cmd_crtsh(domain, no_cache, no_validate, verbose):
     Example:
 
     \b
-    $ sudo habu.ctrf securetia.com
+    $ sudo habu.crtsh securetia.com
     [
         "karma.securetia.com.",
         "www.securetia.com."

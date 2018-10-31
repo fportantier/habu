@@ -49,6 +49,7 @@ def cmd_cymon_ip(ip, no_cache, verbose, output):
 
     if 'CYMON_APIKEY' not in habucfg:
         print('You must provide a cymon apikey. Use the ~/.habu.json file (variable CYMON_APIKEY), or export the variable HABU_CYMON_APIKEY')
+        print('Get your API key from https://www.cymon.io/')
         sys.exit(1)
 
     if verbose:
