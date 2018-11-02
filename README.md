@@ -1456,6 +1456,60 @@ Options:
 ```
 
 
+## habu.whois.domain
+
+
+``` {.sourceCode .bash}
+Usage: habu.whois.domain [OPTIONS] DOMAIN
+
+  Simple whois client to check domain names.
+
+  Example:
+
+  $ habu.whois.domain portantier.com
+  {
+      "domain_name": [
+          "portantier.com"
+      ],
+      "registrar": "Amazon Registrar, Inc.",
+      "whois_server": "whois.registrar.amazon.com",
+      "referral_url": null,
+      "updated_date": [
+          "2018-05-12 21:58:24",
+      ...
+
+Options:
+  --help  Show this message and exit.
+```
+
+
+## habu.whois.ip
+
+
+``` {.sourceCode .bash}
+Usage: habu.whois.ip [OPTIONS] IP
+
+  Simple whois client to check IP addresses (IPv4 and IPv6).
+
+  Example:
+
+  $ habu.whois.ip 8.8.8.8
+  {
+      "nir": null,
+      "asn_registry": "arin",
+      "asn": "15169",
+      "asn_cidr": "8.8.8.0/24",
+      "asn_country_code": "US",
+      "asn_date": "1992-12-01",
+      "asn_description": "GOOGLE - Google LLC, US",
+      "query": "8.8.8.8",
+      ...
+
+Options:
+  --help  Show this message and exit.
+```
+
+
 ## habu.xor
 
 
