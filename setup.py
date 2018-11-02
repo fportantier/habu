@@ -80,6 +80,8 @@ setup(
         habu.vhosts=habu.cli.cmd_vhosts:cmd_vhosts
         habu.virustotal=habu.cli.cmd_virustotal:cmd_virustotal
         habu.webid=habu.cli.cmd_webid:cmd_webid
+        habu.whois.domain=habu.cli.cmd_whois_domain:cmd_whois_domain
+        habu.whois.ip=habu.cli.cmd_whois_ip:cmd_whois_ip
         habu.xor=habu.cli.cmd_xor:cmd_xor
     ''',
     classifiers=[
