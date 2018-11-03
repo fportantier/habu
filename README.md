@@ -1468,14 +1468,9 @@ Usage: habu.whois.domain [OPTIONS] DOMAIN
 
   $ habu.whois.domain portantier.com
   {
-      "domain_name": [
-          "portantier.com"
-      ],
+      "domain_name": "portantier.com",
       "registrar": "Amazon Registrar, Inc.",
       "whois_server": "whois.registrar.amazon.com",
-      "referral_url": null,
-      "updated_date": [
-          "2018-05-12 21:58:24",
       ...
 
 Options:
