@@ -4,7 +4,13 @@ import json
 import warnings
 
 import click
-import whois
+
+# next lines because the pypi package python-whois uses the namespace 'whois' and
+# the Debian python3-pywhois uses the namespace 'pywhois' at least on 2018-11-03
+try:
+    import pywhois as whois
+except ModuleNotFoundError:
+    import whois
 
 
 def remove_duplicates(data):
