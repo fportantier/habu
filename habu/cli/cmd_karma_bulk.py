@@ -48,10 +48,9 @@ def cmd_karma_bulk(infile, jsonout, badonly, verbose):
             logging.info('Checking ' + ip)
             response = karma(ip)
             if response:
-                if not badonly:
-                    result[ip] = ['CLEAN']
-            else:
                 result[ip] = response
+            elif not badonly:
+                result[ip] = ['CLEAN']
 
     if jsonout:
         print(json.dumps(result, indent=4))
