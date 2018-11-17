@@ -878,6 +878,30 @@ Options:
 ```
 
 
+## habu.karma.bulk
+
+
+``` {.sourceCode .bash}
+Usage: habu.karma.bulk [OPTIONS] [INFILE]
+
+  Show which IP addresses are inside blacklists using the Karma online
+  service.
+
+  Example:
+
+  $ cat /var/log/auth.log | habu.extract.ipv4 | habu.karma.bulk
+  172.217.162.4   spamhaus_drop,alienvault_spamming
+  23.52.213.96    CLEAN
+  190.210.43.70   alienvault_malicious
+
+Options:
+  --json  JSON output
+  --bad   Show only entries in blacklists
+  -v      Verbose output
+  --help  Show this message and exit.
+```
+
+
 ## habu.karma
 
 
@@ -1514,7 +1538,7 @@ Usage: habu.xor [OPTIONS]
   XOR cipher.
 
   Note: XOR is not a 'secure cipher'. If you need strong crypto you must use
-  algorithms like AES.
+  algorithms like AES. You can use habu.fernet for that.
 
   Example:
 

@@ -13,7 +13,7 @@ def cmd_xor(k, i, o):
     """XOR cipher.
 
     Note: XOR is not a 'secure cipher'. If you need strong crypto you must use
-    algorithms like AES.
+    algorithms like AES. You can use habu.fernet for that.
 
     Example:
 
