@@ -617,6 +617,29 @@ Options:
 ```
 
 
+## habu.extract.hostname
+
+
+``` {.sourceCode .bash}
+Usage: habu.extract.hostname [OPTIONS] [INFILE]
+
+  Extract hostnames from a file or stdin.
+
+  Example:
+
+  $ cat /var/log/some.log | habu.extract.hostname
+  www.google.com
+  ibm.com
+  fileserver.redhat.com
+
+Options:
+  -c      Check if hostname resolves
+  -v      Verbose output
+  -j      JSON output
+  --help  Show this message and exit.
+```
+
+
 ## habu.extract.ipv4
 
 

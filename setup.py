@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name='habu',
-    version='0.0.90',
+    version='0.0.91',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -53,6 +53,7 @@ setup(
         habu.dhcp.discover=habu.cli.cmd_dhcp_discover:cmd_dhcp_discover
         habu.dhcp.starvation=habu.cli.cmd_dhcp_starvation:cmd_dhcp_starvation
         habu.eicar=habu.cli.cmd_eicar:cmd_eicar
+        habu.extract.hostname=habu.cli.cmd_extract_hostname:cmd_extract_hostname
         habu.extract.ipv4=habu.cli.cmd_extract_ipv4:cmd_extract_ipv4
         habu.extract.email=habu.cli.cmd_extract_email:cmd_extract_email
         habu.fernet=habu.cli.cmd_fernet:cmd_fernet
