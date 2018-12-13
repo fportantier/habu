@@ -15,39 +15,18 @@ from habu.lib.shodan import shodan_get_result
 @click.command()
 @click.argument('ip')
 @click.option('-c', 'no_cache', is_flag=True, default=False, help='Disable cache')
+@click.option('-j', 'json_output', is_flag=True, default=False, help='Output in JSON format')
+@click.option('-x', 'nmap_command', is_flag=True, default=False, help='Output an nmap command to scan open ports')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 @click.option('-o', 'output', type=click.File('w'), default='-', help='Output file (default: stdout)')
-def cmd_shodan(ip, no_cache, verbose, output):
-    """Simple shodan API client.
-
-    Prints the JSON result of a shodan query.
+def cmd_shodan_open(ip, no_cache, json_output, nmap_command, verbose, output):
+    """Output the open ports for an IP against shodan (nmap format).
 
     Example:
 
     \b
-    $ habu.shodan 8.8.8.8
-    {
-        "hostnames": [
-            "google-public-dns-a.google.com"
-        ],
-        "country_code": "US",
-        "org": "Google",
-        "data": [
-            {
-                "isp": "Google",
-                "transport": "udp",
-                "data": "Recursion: enabled",
-                "asn": "AS15169",
-                "port": 53,
-                "hostnames": [
-                    "google-public-dns-a.google.com"
-                ]
-            }
-        ],
-        "ports": [
-            53
-        ]
-    }
+    $ habu.shodan.open 8.8.8.8
+    T:53,U:53
     """
 
     habucfg = loadcfg()
@@ -61,9 +40,24 @@ def cmd_shodan(ip, no_cache, verbose, output):
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     data = shodan_get_result(ip, habucfg['SHODAN_APIKEY'], no_cache, verbose)
+    ports = []
 
-    output.write(json.dumps(data, indent=4))
-    output.write('\n')
+    if 'data' in data:
+        for service in data['data']:
+            ports.append('{}:{}'.format(
+                service['transport'][0].upper(),
+                service['port']
+            ))
+
+    if nmap_command:
+        if ports:
+            output.write('nmap -A -v -p {} {}'.format(','.join(ports), ip))
+    else:
+        if json_output:
+            output.write(json.dumps(ports, indent=4))
+            output.write('\n')
+        else:
+            output.write(','.join(ports))
 
 if __name__ == '__main__':
-    cmd_shodan()
+    cmd_shodan_open()

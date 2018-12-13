@@ -1159,6 +1159,29 @@ Options:
 ```
 
 
+## habu.shodan.open
+
+
+``` {.sourceCode .bash}
+Usage: habu.shodan.open [OPTIONS] IP
+
+  Output the open ports for an IP against shodan (nmap format).
+
+  Example:
+
+  $ habu.shodan.open 8.8.8.8
+  T:53,U:53
+
+Options:
+  -c           Disable cache
+  -j           Output in JSON format
+  -x           Output an nmap command to scan open ports
+  -v           Verbose output
+  -o FILENAME  Output file (default: stdout)
+  --help       Show this message and exit.
+```
+
+
 ## habu.shodan
 
 
