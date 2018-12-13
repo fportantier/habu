@@ -92,110 +92,58 @@ This can give you some extra info about what habu is doing.
 
 ## Commands Index
 
-
-[arp.ping](#habu.arp.ping)
-
-[arp.poison](#habu.arp.poison)
-
-[arp.sniff](#habu.arp.sniff)
-
-[asydns](#habu.asydns)
-
-[b64](#habu.b64)
-
-[certclone](#habu.certclone)
-
-[config.del](#habu.config.del)
-
-[config](#habu.config)
-
-[config.set](#habu.config.set)
-
-[contest](#habu.contest)
-
-[crack.luhn](#habu.crack.luhn)
-
-[crack.snmp](#habu.crack.snmp)
-
-[crtsh](#habu.crtsh)
-
-[cve.2018.9995](#habu.cve.2018.9995)
-
-[cymon.ip](#habu.cymon.ip)
-
-[cymon.ip.timeline](#habu.cymon.ip.timeline)
-
-[dhcp.discover](#habu.dhcp.discover)
-
-[dhcp.starvation](#habu.dhcp.starvation)
-
-[eicar](#habu.eicar)
-
-[extract.email](#habu.extract.email)
-
-[extract.hostname](#habu.extract.hostname)
-
-[extract.ipv4](#habu.extract.ipv4)
-
-[fernet.genkey](#habu.fernet.genkey)
-
-[fernet](#habu.fernet)
-
-[forkbomb](#habu.forkbomb)
-
-[hasher](#habu.hasher)
-
-[ip2asn](#habu.ip2asn)
-
-[ip](#habu.ip)
-
-[isn](#habu.isn)
-
-[jshell](#habu.jshell)
-
-[karma.bulk](#habu.karma.bulk)
-
-[karma](#habu.karma)
-
-[land](#habu.land)
-
-[nc](#habu.nc)
-
-[nmap.open](#habu.nmap.open)
-
-[nmap.ports](#habu.nmap.ports)
-
-[ping](#habu.ping)
-
-[protoscan](#habu.protoscan)
-
-[server.ftp](#habu.server.ftp)
-
-[shodan.open](#habu.shodan.open)
-
-[shodan](#habu.shodan)
-
-[synflood](#habu.synflood)
-
-[tcpflags](#habu.tcpflags)
-
-[tcpscan](#habu.tcpscan)
-
-[traceroute](#habu.traceroute)
-
-[usercheck](#habu.usercheck)
-
-[vhosts](#habu.vhosts)
-
-[virustotal](#habu.virustotal)
-
-[webid](#habu.webid)
-
-[whois.domain](#habu.whois.domain)
-
-[whois.ip](#habu.whois.ip)
-
-[xor](#habu.xor)
+- [arp.ping](#habuarpping)
+- [arp.poison](#habuarppoison)
+- [arp.sniff](#habuarpsniff)
+- [asydns](#habuasydns)
+- [b64](#habub64)
+- [certclone](#habucertclone)
+- [config.del](#habuconfigdel)
+- [config](#habuconfig)
+- [config.set](#habuconfigset)
+- [contest](#habucontest)
+- [crack.luhn](#habucrackluhn)
+- [crack.snmp](#habucracksnmp)
+- [crtsh](#habucrtsh)
+- [cve.2018.9995](#habucve20189995)
+- [cymon.ip](#habucymonip)
+- [cymon.ip.timeline](#habucymoniptimeline)
+- [dhcp.discover](#habudhcpdiscover)
+- [dhcp.starvation](#habudhcpstarvation)
+- [eicar](#habueicar)
+- [extract.email](#habuextractemail)
+- [extract.hostname](#habuextracthostname)
+- [extract.ipv4](#habuextractipv4)
+- [fernet.genkey](#habufernetgenkey)
+- [fernet](#habufernet)
+- [forkbomb](#habuforkbomb)
+- [hasher](#habuhasher)
+- [ip2asn](#habuip2asn)
+- [ip](#habuip)
+- [isn](#habuisn)
+- [jshell](#habujshell)
+- [karma.bulk](#habukarmabulk)
+- [karma](#habukarma)
+- [land](#habuland)
+- [nc](#habunc)
+- [nmap.open](#habunmapopen)
+- [nmap.ports](#habunmapports)
+- [ping](#habuping)
+- [protoscan](#habuprotoscan)
+- [server.ftp](#habuserverftp)
+- [shodan.open](#habushodanopen)
+- [shodan](#habushodan)
+- [synflood](#habusynflood)
+- [tcpflags](#habutcpflags)
+- [tcpscan](#habutcpscan)
+- [traceroute](#habutraceroute)
+- [usercheck](#habuusercheck)
+- [vhosts](#habuvhosts)
+- [virustotal](#habuvirustotal)
+- [webid](#habuwebid)
+- [whois.domain](#habuwhoisdomain)
+- [whois.ip](#habuwhoisip)
+- [xor](#habuxor)
 
 
 ## habu.arp.ping
