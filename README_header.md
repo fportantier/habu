@@ -90,3 +90,5 @@ arguments, options, and default values.
 Almost all commands implement the verbose mode with the '-v' option.
 This can give you some extra info about what habu is doing.
 
+## Commands Index
+
