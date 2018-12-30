@@ -58,7 +58,7 @@ You can install the package created for Kali Linux. See
 
 Habu is on PyPi, so you can install it directly with pip:
 
-``` {.sourceCode .bash}
+```
 $ pip3 install habu
 ```
 
@@ -152,7 +152,7 @@ This can give you some extra info about what habu is doing.
 ## habu.arp.ping
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.arp.ping [OPTIONS] IP
 
   Send ARP packets to check if a host it's alive in the local network.
@@ -172,7 +172,7 @@ Options:
 ## habu.arp.poison
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.arp.poison [OPTIONS] VICTIM1 VICTIM2
 
   Send ARP 'is-at' packets to each victim, poisoning their ARP tables for
@@ -202,7 +202,7 @@ Options:
 ## habu.arp.sniff
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.arp.sniff [OPTIONS]
 
   Listen for ARP packets and show information for each device.
@@ -225,7 +225,7 @@ Options:
 ## habu.asydns
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.asydns [OPTIONS]
 
   Requests a DNS domain name based on public and private RSA keys using the
@@ -256,7 +256,7 @@ Options:
 ## habu.b64
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.b64 [OPTIONS] [F]
 
   Encodes or decode data in base64, just like the command base64.
@@ -276,7 +276,7 @@ Options:
 ## habu.certclone
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.certclone [OPTIONS] HOSTNAME PORT KEYFILE CERTFILE
 
   Connect to an SSL/TLS server, get the certificate and generate a
@@ -300,7 +300,7 @@ Options:
 ## habu.config.del
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.config.del [OPTIONS] KEY
 
   Delete a KEY from the configuration.
@@ -319,7 +319,7 @@ Options:
 ## habu.config
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.config [OPTIONS]
 
   Show the current config.
@@ -344,7 +344,7 @@ Options:
 ## habu.config.set
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.config.set [OPTIONS] KEY VALUE
 
   Set VALUE to the config KEY.
@@ -363,7 +363,7 @@ Options:
 ## habu.contest
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.contest [OPTIONS]
 
   Try to connect to various services and check if can reach them using your
@@ -387,7 +387,7 @@ Options:
 ## habu.crack.luhn
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.crack.luhn [OPTIONS] NUMBER
 
   Having known values for a Luhn validated number, obtain the possible
@@ -416,7 +416,7 @@ Options:
 ## habu.crack.snmp
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.crack.snmp [OPTIONS] IP
 
   Launches snmp-get queries against an IP, and tells you when finds a valid
@@ -446,7 +446,7 @@ Options:
 ## habu.crtsh
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.crtsh [OPTIONS] DOMAIN
 
   Downloads the certificate transparency logs for a domain and check with
@@ -473,7 +473,7 @@ Options:
 ## habu.cve.2018.9995
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.cve.2018.9995 [OPTIONS] IP
 
   Exploit the CVE-2018-9995 vulnerability, present on various DVR systems.
@@ -511,7 +511,7 @@ Options:
 ## habu.cymon.ip
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.cymon.ip [OPTIONS] IP
 
   Simple cymon API client.
@@ -547,7 +547,7 @@ Options:
 ## habu.cymon.ip.timeline
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.cymon.ip.timeline [OPTIONS] IP
 
   Simple cymon API client.
@@ -585,7 +585,7 @@ Options:
 ## habu.dhcp.discover
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.dhcp.discover [OPTIONS]
 
   Send a DHCP request and show what devices has replied.
@@ -607,7 +607,7 @@ Options:
 ## habu.dhcp.starvation
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.dhcp.starvation [OPTIONS]
 
   Send multiple DHCP requests from forged MAC addresses to fill the DHCP
@@ -635,7 +635,7 @@ Options:
 ## habu.eicar
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.eicar [OPTIONS]
 
   Print the EICAR test string that can be used to test antimalware engines.
@@ -655,7 +655,7 @@ Options:
 ## habu.extract.email
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.extract.email [OPTIONS] [INFILE]
 
   Extract email addresses from a file or stdin.
@@ -677,7 +677,7 @@ Options:
 ## habu.extract.hostname
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.extract.hostname [OPTIONS] [INFILE]
 
   Extract hostnames from a file or stdin.
@@ -700,7 +700,7 @@ Options:
 ## habu.extract.ipv4
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.extract.ipv4 [OPTIONS] [INFILE]
 
   Extract IPv4 addresses from a file or stdin.
@@ -722,7 +722,7 @@ Options:
 ## habu.fernet.genkey
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.fernet.genkey [OPTIONS]
 
   Generate a new Fernet Key, optionally write it to ~/.habu.json
@@ -741,7 +741,7 @@ Options:
 ## habu.fernet
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.fernet [OPTIONS]
 
   Fernet cipher.
@@ -777,7 +777,7 @@ Options:
 ## habu.forkbomb
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.forkbomb [OPTIONS] [bash|batch|c|haskell|perl|php|python|ruby]
 
   A shortcut to remember how to use fork bombs in different languages.
@@ -805,7 +805,7 @@ Options:
 ## habu.gateway.find
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.gateway.find [OPTIONS] NETWORK
 
   Try to reach an external IP using any host has a router.
@@ -839,7 +839,7 @@ Options:
 ## habu.hasher
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.hasher [OPTIONS] [F]
 
   Computes various hashes for the input data, that can be a file or a
@@ -870,7 +870,7 @@ Options:
 ## habu.ip2asn
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.ip2asn [OPTIONS] IP
 
   Use Team Cymru ip2asn service to get information about a public IPv4/IPv6.
@@ -895,7 +895,7 @@ Options:
 ## habu.ip
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.ip [OPTIONS]
 
   Print your current public IP based on the response from
@@ -914,7 +914,7 @@ Options:
 ## habu.isn
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.isn [OPTIONS] IP
 
   Create TCP connections and print the TCP initial sequence numbers for each
@@ -943,7 +943,7 @@ Options:
 ## habu.jshell
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.jshell [OPTIONS]
 
   Control a web browser through Websockets.
@@ -995,7 +995,7 @@ Options:
 ## habu.karma.bulk
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.karma.bulk [OPTIONS] [INFILE]
 
   Show which IP addresses are inside blacklists using the Karma online
@@ -1019,7 +1019,7 @@ Options:
 ## habu.karma
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.karma [OPTIONS] HOST
 
   Use the Karma service https://karma.securetia.com to check an IP against
@@ -1043,7 +1043,7 @@ Options:
 ## habu.land
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.land [OPTIONS] IP
 
   This command implements the LAND attack, that sends packets forging the
@@ -1073,7 +1073,7 @@ Options:
 ## habu.nc
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.nc [OPTIONS] HOST PORT
 
   Some kind of netcat/ncat replacement.
@@ -1108,7 +1108,7 @@ Options:
 ## habu.nmap.open
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.nmap.open [OPTIONS] SCANFILE
 
   Read an nmap report and print the open ports.
@@ -1135,7 +1135,7 @@ Options:
 ## habu.nmap.ports
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.nmap.ports [OPTIONS] SCANFILE
 
   Read an nmap report and print the tested ports.
@@ -1161,7 +1161,7 @@ Options:
 ## habu.ping
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.ping [OPTIONS] IP
 
   The classic ping tool that send ICMP echo requests.
@@ -1185,7 +1185,7 @@ Options:
 ## habu.protoscan
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.protoscan [OPTIONS] IP
 
   Send IP packets with different protocol field content to guess what layer
@@ -1225,7 +1225,7 @@ Options:
 ## habu.server.ftp
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.server.ftp [OPTIONS]
 
   Basic fake FTP server, whith the only purpose to steal user credentials.
@@ -1253,7 +1253,7 @@ Options:
 ## habu.shodan.open
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.shodan.open [OPTIONS] IP
 
   Output the open ports for an IP against shodan (nmap format).
@@ -1276,7 +1276,7 @@ Options:
 ## habu.shodan
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.shodan [OPTIONS] IP
 
   Simple shodan API client.
@@ -1320,7 +1320,7 @@ Options:
 ## habu.synflood
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.synflood [OPTIONS] IP
 
   Launch a lot of TCP connections and keeps them opened.
@@ -1362,7 +1362,7 @@ Options:
 ## habu.tcpflags
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.tcpflags [OPTIONS] IP
 
   Send TCP packets with different flags and tell what responses receives.
@@ -1407,7 +1407,7 @@ Options:
 ## habu.tcpscan
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.tcpscan [OPTIONS] IP
 
   TCP Port Scanner.
@@ -1439,7 +1439,7 @@ Options:
 ## habu.traceroute
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.traceroute [OPTIONS] IP
 
   TCP traceroute.
@@ -1472,7 +1472,7 @@ Options:
 ## habu.usercheck
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.usercheck [OPTIONS] USERNAME
 
   Check if the given username exists on various social networks and other
@@ -1503,7 +1503,7 @@ Options:
 ## habu.vhosts
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.vhosts [OPTIONS] HOST
 
   Use Bing to query the websites hosted on the same IP address.
@@ -1527,7 +1527,7 @@ Options:
 ## habu.virustotal
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.virustotal [OPTIONS] INPUT
 
   Send a file to VirusTotal https://www.virustotal.com/ and print the report
@@ -1573,7 +1573,7 @@ Options:
 ## habu.webid
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.webid [OPTIONS] URL
 
   Use Wappalyzer apps.json database to identify technologies used on a web
@@ -1620,7 +1620,7 @@ Options:
 ## habu.web.report
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.web.report [OPTIONS] [F]
 
   Uses Firefox to take a screenshot of the websites. (you need firefox
@@ -1643,7 +1643,7 @@ Options:
 ## habu.web.screenshot
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.web.screenshot [OPTIONS] URL
 
   Uses Firefox to take a screenshot (you need firefox installed, obviously)
@@ -1659,7 +1659,7 @@ Options:
 ## habu.whois.domain
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.whois.domain [OPTIONS] DOMAIN
 
   Simple whois client to check domain names.
@@ -1681,7 +1681,7 @@ Options:
 ## habu.whois.ip
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.whois.ip [OPTIONS] IP
 
   Simple whois client to check IP addresses (IPv4 and IPv6).
@@ -1708,7 +1708,7 @@ Options:
 ## habu.xor
 
 
-``` {.sourceCode .bash}
+```
 Usage: habu.xor [OPTIONS]
 
   XOR cipher.

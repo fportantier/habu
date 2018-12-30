@@ -1,14 +1,14 @@
 from setuptools import setup
 
-with open('README.md') as f:
+with open('README.rst') as f:
     readme = f.read()
 
 setup(
     name='habu',
-    version='0.0.94',
+    version='0.0.95',
     description='Python Network Hacking Toolkit',
     long_description=readme,
-    long_description_content_type='text/markdown',
+    long_description_content_type='text/x-rst',
     author='Fabian Martinez Portantier',
     author_email='fabian@portantier.com',
     url='https://github.com/portantier/habu',

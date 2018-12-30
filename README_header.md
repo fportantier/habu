@@ -58,7 +58,7 @@ You can install the package created for Kali Linux. See
 
 Habu is on PyPi, so you can install it directly with pip:
 
-``` {.sourceCode .bash}
+```
 $ pip3 install habu
 ```
 

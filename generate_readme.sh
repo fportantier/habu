@@ -25,7 +25,7 @@ do
     cmdname=$(echo $cmdfile | sed s/'^cmd_'/'habu.'/g | tr '_' '.' | sed s/'.py$'//g)
 
     echo "\n\n## $cmdname\n\n" >> README.md
-    echo "\`\`\` {.sourceCode .bash}" >> README.md
+    echo "\`\`\`" >> README.md
     python3 $cmdfilepath --help | sed s/$cmdfile/$cmdname/g >> README.md
     echo "\`\`\`" >> README.md
 done
