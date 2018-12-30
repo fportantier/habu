@@ -48,7 +48,7 @@ def cmd_web_tech(url, no_cache, verbose):
     }
     """
 
-    response = webid(url, no_cache, verbose)
+    response = web_tech(url, no_cache, verbose)
     print(json.dumps(response, indent=4))
 
 if __name__ == '__main__':
