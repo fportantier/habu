@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.95',
+    version='0.0.96',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/x-rst',
@@ -83,9 +83,9 @@ setup(
         habu.usercheck=habu.cli.cmd_usercheck:cmd_usercheck
         habu.vhosts=habu.cli.cmd_vhosts:cmd_vhosts
         habu.virustotal=habu.cli.cmd_virustotal:cmd_virustotal
-        habu.webid=habu.cli.cmd_webid:cmd_webid
         habu.web.report=habu.cli.cmd_web_reportt:cmd_web_report
         habu.web.screenshot=habu.cli.cmd_web_screenshot:cmd_web_screenshot
+        habu.web.tech=habu.cli.cmd_web_tech:cmd_web_tech
         habu.whois.domain=habu.cli.cmd_whois_domain:cmd_whois_domain
         habu.whois.ip=habu.cli.cmd_whois_ip:cmd_whois_ip
         habu.xor=habu.cli.cmd_xor:cmd_xor

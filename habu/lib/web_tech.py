@@ -12,14 +12,14 @@ from bs4 import BeautifulSoup
 
 DATADIR = Path(os.path.abspath(os.path.join(os.path.dirname(__file__), '../data')))
 
-def webid(url, no_cache=False, verbose=False):
+def web_tech(url, no_cache=False, verbose=False):
 
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     if not no_cache:
         homedir = pwd.getpwuid(os.getuid()).pw_dir
-        requests_cache.install_cache(homedir + '/.habu_requests_cache')
+        requests_cache.install_cache(homedir + '/.habu_requests_cache', expire_after=7200)
 
     try:
         r = requests.get(url)
@@ -60,6 +60,7 @@ def webid(url, no_cache=False, verbose=False):
                             version = match.group(int(version_group))
                             if version:
                                 tech[app]['version'] = version
+                                logging.info("The version detected is {version}".format(version=version))
                         except IndexError:
                             pass
 
@@ -85,6 +86,7 @@ def webid(url, no_cache=False, verbose=False):
                             version = match.group(int(version_group))
                             if version:
                                 tech[app]['version'] = version
+                                logging.info("The version detected is {version}".format(version=version))
                         except IndexError:
                             pass
 
@@ -133,14 +135,17 @@ def webid(url, no_cache=False, verbose=False):
                             version = match.group(int(version_group))
                             if version:
                                 tech[app]['version'] = version
+                                logging.info("The version detected is {version}".format(version=version))
+
                         except IndexError:
                             pass
 
     for t in list(tech.keys()):
         for imply in tech[t].get('implies', []):
             imply = imply.split('\\;')[0]
-            logging.info("{imply} detected because implied by {t}".format(imply=imply, t=t))
-            tech[imply] = apps[imply]
+            if imply not in tech:
+                logging.info("{imply} detected because implied by {t}".format(imply=imply, t=t))
+                tech[imply] = apps[imply]
 
     for t in list(tech.keys()):
         for exclude in tech[t].get('excludes', []):
@@ -152,12 +157,12 @@ def webid(url, no_cache=False, verbose=False):
     for t in sorted(tech):
         response[t] = {'categories':[]}
         if 'version' in tech[t]:
-            response[t]['version'] = version
+            response[t]['version'] = tech[t]['version']
         for category in tech[t]['cats']:
             response[t]['categories'].append(categories[str(category)]['name'])
 
     return response
 
 if __name__ == '__main__':
-    print(webid('https://www.woocommerce.com'))
+    print(json.dumps(web_tech('https://www.woocommerce.com', verbose=True, no_cache=False), indent=4))
 

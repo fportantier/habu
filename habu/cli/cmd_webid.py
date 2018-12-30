@@ -7,13 +7,13 @@ from pathlib import Path
 
 import click
 
-from habu.lib.webid import webid
+from habu.lib.web_tech import web_tech
 
 @click.command()
 @click.argument('url')
 @click.option('-c', 'no_cache', is_flag=True, default=False, help='Disable cache')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_webid(url, no_cache, verbose):
+def cmd_web_tech(url, no_cache, verbose):
     """Use Wappalyzer apps.json database to identify technologies used on a web application.
 
     Reference: https://github.com/AliasIO/Wappalyzer
@@ -52,4 +52,4 @@ def cmd_webid(url, no_cache, verbose):
     print(json.dumps(response, indent=4))
 
 if __name__ == '__main__':
-    cmd_webid()
+    cmd_web_tech()
