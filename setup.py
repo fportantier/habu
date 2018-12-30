@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name='habu',
-    version='0.0.92',
+    version='0.0.94',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -59,6 +59,7 @@ setup(
         habu.fernet=habu.cli.cmd_fernet:cmd_fernet
         habu.fernet.genkey=habu.cli.cmd_fernet_genkey:cmd_fernet_genkey
         habu.forkbomb=habu.cli.cmd_forkbomb:cmd_forkbomb
+        habu.gateway.find=habu.cli.cmd_gateway_find:cmd_gateway_find
         habu.hasher=habu.cli.cmd_hasher:cmd_hasher
         habu.ip=habu.cli.cmd_ip:cmd_ip
         habu.ip2asn=habu.cli.cmd_ip2asn:cmd_ip2asn
@@ -83,6 +84,8 @@ setup(
         habu.vhosts=habu.cli.cmd_vhosts:cmd_vhosts
         habu.virustotal=habu.cli.cmd_virustotal:cmd_virustotal
         habu.webid=habu.cli.cmd_webid:cmd_webid
+        habu.web.report=habu.cli.cmd_web_reportt:cmd_web_report
+        habu.web.screenshot=habu.cli.cmd_web_screenshot:cmd_web_screenshot
         habu.whois.domain=habu.cli.cmd_whois_domain:cmd_whois_domain
         habu.whois.ip=habu.cli.cmd_whois_ip:cmd_whois_ip
         habu.xor=habu.cli.cmd_xor:cmd_xor

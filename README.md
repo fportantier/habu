@@ -117,6 +117,7 @@ This can give you some extra info about what habu is doing.
 - [fernet.genkey](#habufernetgenkey)
 - [fernet](#habufernet)
 - [forkbomb](#habuforkbomb)
+- [gateway.find](#habugatewayfind)
 - [hasher](#habuhasher)
 - [ip2asn](#habuip2asn)
 - [ip](#habuip)
@@ -141,6 +142,8 @@ This can give you some extra info about what habu is doing.
 - [vhosts](#habuvhosts)
 - [virustotal](#habuvirustotal)
 - [webid](#habuwebid)
+- [web.report](#habuwebreport)
+- [web.screenshot](#habuwebscreenshot)
 - [whois.domain](#habuwhoisdomain)
 - [whois.ip](#habuwhoisip)
 - [xor](#habuxor)
@@ -796,6 +799,40 @@ Usage: habu.forkbomb [OPTIONS] [bash|batch|c|haskell|perl|php|python|ruby]
 
 Options:
   --help  Show this message and exit.
+```
+
+
+## habu.gateway.find
+
+
+``` {.sourceCode .bash}
+Usage: habu.gateway.find [OPTIONS] NETWORK
+
+  Try to reach an external IP using any host has a router.
+
+  Useful to find routers in your network.
+
+  First, uses arping to detect alive hosts and obtain MAC addresses.
+
+  Later, create a network packet and put each MAC address as destination.
+
+  Last, print the devices that forwarded correctly the packets.
+
+  Example:
+
+  # habu.find.gateway 192.168.0.0/24
+  192.168.0.1 a4:08:f5:19:17:a4 Sagemcom
+  192.168.0.7 b0:98:2b:5d:22:70 Sagemcom
+  192.168.0.8 b0:98:2b:5d:1f:e8 Sagemcom
+
+Options:
+  -i TEXT                Interface to use
+  --host TEXT            Host to reach (default: 8.8.8.8)
+  --tcp                  Use TCP instead of ICMP
+  --dport INTEGER RANGE  Destination port for TCP (default: 80)
+  --timeout INTEGER      Timeout in seconds (default: 5)
+  -v                     Verbose output
+  --help                 Show this message and exit.
 ```
 
 
@@ -1577,6 +1614,45 @@ Options:
   -c      Disable cache
   -v      Verbose output
   --help  Show this message and exit.
+```
+
+
+## habu.web.report
+
+
+``` {.sourceCode .bash}
+Usage: habu.web.report [OPTIONS] [F]
+
+  Uses Firefox to take a screenshot of the websites. (you need firefox
+  installed, obviously)
+
+  Makes a report that includes the HTTP headers.
+
+  The expected format is one url per line.
+
+  Creates a directory called 'report' with the content inside.
+
+  $ echo https://www.portantier.com | habu.web.report
+
+Options:
+  -v      Verbose output
+  --help  Show this message and exit.
+```
+
+
+## habu.web.screenshot
+
+
+``` {.sourceCode .bash}
+Usage: habu.web.screenshot [OPTIONS] URL
+
+  Uses Firefox to take a screenshot (you need firefox installed, obviously)
+
+  $ habu.web.screenshot https://www.portantier.com
+
+Options:
+  -o TEXT  Output file. (default: screenshot.png)
+  --help   Show this message and exit.
 ```
 
 
