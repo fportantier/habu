@@ -10,8 +10,8 @@ git push
 python3 setup.py sdist upload --sign --identity fabian@portantier.com
 
 # Fix the readme problem - Step 1
-mv README.md README.mda
-sed -i s/README.md/README.txt/g setup.py
+mv README.rst _README.rst
+sed -i s/README.rst/README.txt/g setup.py
 
 # Main work
 python3 setup.py sdist
@@ -19,6 +19,6 @@ rm -Rf deb_dist
 python3 setup.py --command-packages=stdeb.command bdist_deb
 
 # Fix the readme problem - Step 2
-mv README.mda README.md
-sed -i s/README.txt/README.md/g setup.py
+mv _README.rst README.rst
+sed -i s/README.txt/README.rst/g setup.py
 
