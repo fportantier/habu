@@ -1,3 +1,5 @@
+This package includes a lot of useful hacking tools developed in Python3.
+
 Some techniques implemented in the current version are:
 
 - ARP Poisoning and Sniffing
@@ -13,4 +15,3 @@ Some techniques implemented in the current version are:
 - Virtual Hosts Identification
 - Web Techonologies Identification
 - Websockets-based JavaScript Shell
-
