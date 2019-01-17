@@ -22,7 +22,7 @@ def cmd_arp_ping(ip, iface, verbose):
     Example:
 
     \b
-    # habu.arping 192.168.0.1
+    # habu.arp.ping 192.168.0.1
     Ether / ARP is at a4:08:f5:19:17:a4 says 192.168.0.1 / Padding
     """
 

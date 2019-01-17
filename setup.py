@@ -45,7 +45,7 @@ setup(
         habu.config.del=habu.cli.cmd_config_del:cmd_config_del
         habu.contest=habu.cli.cmd_contest:cmd_contest
         habu.crack.luhn=habu.cli.cmd_crack_luhn:cmd_crack_luhn
-        habu.crack.snmp=habu.cli.cmd_crack_snamp:cmd_crack_snmp
+        habu.crack.snmp=habu.cli.cmd_crack_snmp:cmd_crack_snmp
         habu.crtsh=habu.cli.cmd_crtsh:cmd_crtsh
         habu.cymon.ip=habu.cli.cmd_cymon_ip:cmd_cymon_ip
         habu.cymon.ip.timeline=habu.cli.cmd_cymon_ip_timeline:cmd_cymon_ip_timeline
