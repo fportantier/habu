@@ -106,6 +106,7 @@ This can give you some extra info about what habu is doing.
 - [cve.2018.9995](#habucve20189995)
 - [cymon.ip](#habucymonip)
 - [cymon.ip.timeline](#habucymoniptimeline)
+- [decrypt.gppref](#habudecryptgppref)
 - [dhcp.discover](#habudhcpdiscover)
 - [dhcp.starvation](#habudhcpstarvation)
 - [eicar](#habueicar)
@@ -139,9 +140,9 @@ This can give you some extra info about what habu is doing.
 - [usercheck](#habuusercheck)
 - [vhosts](#habuvhosts)
 - [virustotal](#habuvirustotal)
-- [webid](#habuwebid)
 - [web.report](#habuwebreport)
 - [web.screenshot](#habuwebscreenshot)
+- [web.tech](#habuwebtech)
 - [whois.domain](#habuwhoisdomain)
 - [whois.ip](#habuwhoisip)
 - [xor](#habuxor)
@@ -157,7 +158,7 @@ Usage: habu.arp.ping [OPTIONS] IP
 
   Example:
 
-  # habu.arping 192.168.0.1
+  # habu.arp.ping 192.168.0.1
   Ether / ARP is at a4:08:f5:19:17:a4 says 192.168.0.1 / Padding
 
 Options:
@@ -577,6 +578,28 @@ Options:
   -o FILENAME  Output file (default: stdout)
   -p           Pretty output
   --help       Show this message and exit.
+```
+
+
+## habu.decrypt.gppref
+
+
+```
+Usage: habu.decrypt.gppref [OPTIONS] PASSWORD
+
+  Decrypt the password of local users added via Windows 2008 Group Policy
+  Preferences.
+
+  This value is the 'cpassword' attribute embedded in the Groups.xml file,
+  stored in the domain controller's Sysvol share.
+
+  Example:
+
+  # habu.decrypt.gpp AzVJmXh/J9KrU5n0czX1uBPLSUjzFE8j7dOltPD8tLk
+  testpassword
+
+Options:
+  --help  Show this message and exit.
 ```
 
 
@@ -1568,11 +1591,50 @@ Options:
 ```
 
 
-## habu.webid
+## habu.web.report
 
 
 ```
-Usage: habu.webid [OPTIONS] URL
+Usage: habu.web.report [OPTIONS] [F]
+
+  Uses Firefox to take a screenshot of the websites. (you need firefox
+  installed, obviously)
+
+  Makes a report that includes the HTTP headers.
+
+  The expected format is one url per line.
+
+  Creates a directory called 'report' with the content inside.
+
+  $ echo https://www.portantier.com | habu.web.report
+
+Options:
+  -v      Verbose output
+  --help  Show this message and exit.
+```
+
+
+## habu.web.screenshot
+
+
+```
+Usage: habu.web.screenshot [OPTIONS] URL
+
+  Uses Firefox to take a screenshot (you need firefox installed, obviously)
+
+  $ habu.web.screenshot https://www.portantier.com
+
+Options:
+  -o TEXT  Output file. (default: screenshot.png)
+  --help   Show this message and exit.
+```
+
+
+## habu.web.tech
+
+
+```
+Usage: habu.web.tech [OPTIONS] URL
 
   Use Wappalyzer apps.json database to identify technologies used on a web
   application.
@@ -1612,45 +1674,6 @@ Options:
   -c      Disable cache
   -v      Verbose output
   --help  Show this message and exit.
-```
-
-
-## habu.web.report
-
-
-```
-Usage: habu.web.report [OPTIONS] [F]
-
-  Uses Firefox to take a screenshot of the websites. (you need firefox
-  installed, obviously)
-
-  Makes a report that includes the HTTP headers.
-
-  The expected format is one url per line.
-
-  Creates a directory called 'report' with the content inside.
-
-  $ echo https://www.portantier.com | habu.web.report
-
-Options:
-  -v      Verbose output
-  --help  Show this message and exit.
-```
-
-
-## habu.web.screenshot
-
-
-```
-Usage: habu.web.screenshot [OPTIONS] URL
-
-  Uses Firefox to take a screenshot (you need firefox installed, obviously)
-
-  $ habu.web.screenshot https://www.portantier.com
-
-Options:
-  -o TEXT  Output file. (default: screenshot.png)
-  --help   Show this message and exit.
 ```
 
 

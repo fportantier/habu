@@ -2,12 +2,6 @@
 Habu: Python Network Hacking Toolkit
 ====================================
 
-
-.. image:: logo.jpeg
-   :target: logo.jpeg
-   :alt: image
-
-
 I'm developing Habu to teach (and learn) some concepts about Python and
 Network Hacking.
 
@@ -123,6 +117,7 @@ Commands Index
 * `cve.2018.9995 <#habucve20189995>`_
 * `cymon.ip <#habucymonip>`_
 * `cymon.ip.timeline <#habucymoniptimeline>`_
+* `decrypt.gppref <#habudecryptgppref>`_
 * `dhcp.discover <#habudhcpdiscover>`_
 * `dhcp.starvation <#habudhcpstarvation>`_
 * `eicar <#habueicar>`_
@@ -156,9 +151,9 @@ Commands Index
 * `usercheck <#habuusercheck>`_
 * `vhosts <#habuvhosts>`_
 * `virustotal <#habuvirustotal>`_
-* `webid <#habuwebid>`_
 * `web.report <#habuwebreport>`_
 * `web.screenshot <#habuwebscreenshot>`_
+* `web.tech <#habuwebtech>`_
 * `whois.domain <#habuwhoisdomain>`_
 * `whois.ip <#habuwhoisip>`_
 * `xor <#habuxor>`_
@@ -174,7 +169,7 @@ habu.arp.ping
 
      Example:
 
-     # habu.arping 192.168.0.1
+     # habu.arp.ping 192.168.0.1
      Ether / ARP is at a4:08:f5:19:17:a4 says 192.168.0.1 / Padding
 
    Options:
@@ -579,6 +574,27 @@ habu.cymon.ip.timeline
      -o FILENAME  Output file (default: stdout)
      -p           Pretty output
      --help       Show this message and exit.
+
+habu.decrypt.gppref
+-------------------
+
+.. code-block::
+
+   Usage: habu.decrypt.gppref [OPTIONS] PASSWORD
+
+     Decrypt the password of local users added via Windows 2008 Group Policy
+     Preferences.
+
+     This value is the 'cpassword' attribute embedded in the Groups.xml file,
+     stored in the domain controller's Sysvol share.
+
+     Example:
+
+     # habu.decrypt.gpp AzVJmXh/J9KrU5n0czX1uBPLSUjzFE8j7dOltPD8tLk
+     testpassword
+
+   Options:
+     --help  Show this message and exit.
 
 habu.dhcp.discover
 ------------------
@@ -1535,12 +1551,49 @@ habu.virustotal
      -v      Verbose output
      --help  Show this message and exit.
 
-habu.webid
-----------
+habu.web.report
+---------------
 
 .. code-block::
 
-   Usage: habu.webid [OPTIONS] URL
+   Usage: habu.web.report [OPTIONS] [F]
+
+     Uses Firefox to take a screenshot of the websites. (you need firefox
+     installed, obviously)
+
+     Makes a report that includes the HTTP headers.
+
+     The expected format is one url per line.
+
+     Creates a directory called 'report' with the content inside.
+
+     $ echo https://www.portantier.com | habu.web.report
+
+   Options:
+     -v      Verbose output
+     --help  Show this message and exit.
+
+habu.web.screenshot
+-------------------
+
+.. code-block::
+
+   Usage: habu.web.screenshot [OPTIONS] URL
+
+     Uses Firefox to take a screenshot (you need firefox installed, obviously)
+
+     $ habu.web.screenshot https://www.portantier.com
+
+   Options:
+     -o TEXT  Output file. (default: screenshot.png)
+     --help   Show this message and exit.
+
+habu.web.tech
+-------------
+
+.. code-block::
+
+   Usage: habu.web.tech [OPTIONS] URL
 
      Use Wappalyzer apps.json database to identify technologies used on a web
      application.
@@ -1580,43 +1633,6 @@ habu.webid
      -c      Disable cache
      -v      Verbose output
      --help  Show this message and exit.
-
-habu.web.report
----------------
-
-.. code-block::
-
-   Usage: habu.web.report [OPTIONS] [F]
-
-     Uses Firefox to take a screenshot of the websites. (you need firefox
-     installed, obviously)
-
-     Makes a report that includes the HTTP headers.
-
-     The expected format is one url per line.
-
-     Creates a directory called 'report' with the content inside.
-
-     $ echo https://www.portantier.com | habu.web.report
-
-   Options:
-     -v      Verbose output
-     --help  Show this message and exit.
-
-habu.web.screenshot
--------------------
-
-.. code-block::
-
-   Usage: habu.web.screenshot [OPTIONS] URL
-
-     Uses Firefox to take a screenshot (you need firefox installed, obviously)
-
-     $ habu.web.screenshot https://www.portantier.com
-
-   Options:
-     -o TEXT  Output file. (default: screenshot.png)
-     --help   Show this message and exit.
 
 habu.whois.domain
 -----------------
