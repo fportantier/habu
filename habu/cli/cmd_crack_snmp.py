@@ -15,9 +15,10 @@ from scapy.all import ASN1_OID, IP, SNMP, UDP, SNMPget, SNMPvarbind, conf, sr1
 @click.command()
 @click.argument('ip')
 @click.option('-p', 'port', default=161, help='Port to use')
+@click.option('-c', 'community', default=None, help='Community (default: list of most used)')
 @click.option('-s', 'stop', is_flag=True, default=False, help='Stop after first match')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_crack_snmp(ip, port, stop, verbose):
+def cmd_crack_snmp(ip, community, port, stop, verbose):
     """Launches snmp-get queries against an IP, and tells you when
     finds a valid community string (is a simple SNMP cracker).
 
@@ -40,26 +41,32 @@ def cmd_crack_snmp(ip, port, stop, verbose):
     DATADIR = os.path.abspath(os.path.join(FILEDIR, '../data'))
     COMMFILE = Path(os.path.abspath(os.path.join(DATADIR, 'dict_snmp.txt')))
 
-    with COMMFILE.open() as cf:
-        communities = cf.read().split('\n')
+    if community:
+        communities = [community]
+    else:
+        with COMMFILE.open() as cf:
+            communities = cf.read().split('\n')
 
     conf.verb = False
 
-    pkt = IP(dst=ip)/UDP(sport=port, dport=port)/SNMP(community="public", PDU=SNMPget(varbindlist=[SNMPvarbind(oid=ASN1_OID("1.3.6.1"))]))
-
-    for community in communities:
+    for pkt in IP(dst=ip)/UDP(sport=port, dport=port)/SNMP(community="public", PDU=SNMPget(varbindlist=[SNMPvarbind(oid=ASN1_OID("1.3.6.1"))])):
 
         if verbose:
-            print('.', end='')
-            sys.stdout.flush()
+            print(pkt[IP].dst)
 
-        pkt[SNMP].community=community
-        ans = sr1(pkt, timeout=0.5, verbose=0)
+        for community in communities:
 
-        if ans and UDP in ans:
-            print('\nCommunity found:', community)
-            if stop:
-                break
+            if verbose:
+                print('.', end='')
+                sys.stdout.flush()
+
+            pkt[SNMP].community=community
+            ans = sr1(pkt, timeout=0.5, verbose=0)
+
+            if ans and UDP in ans:
+                print('\n{} - Community found: {}'.format(pkt[IP].dst, community))
+                if stop:
+                    break
 
     return True
 

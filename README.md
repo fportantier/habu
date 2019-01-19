@@ -436,6 +436,7 @@ Usage: habu.crack.snmp [OPTIONS] IP
 
 Options:
   -p INTEGER  Port to use
+  -c TEXT     Community (default: list of most used)
   -s          Stop after first match
   -v          Verbose
   --help      Show this message and exit.
