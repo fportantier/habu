@@ -126,6 +126,7 @@ This can give you some extra info about what habu is doing.
 - [karma](#habukarma)
 - [land](#habuland)
 - [nc](#habunc)
+- [nmap.excluded](#habunmapexcluded)
 - [nmap.open](#habunmapopen)
 - [nmap.ports](#habunmapports)
 - [ping](#habuping)
@@ -1124,6 +1125,30 @@ Options:
   --source-ip TEXT             Source IP to use
   --source-port INTEGER RANGE  Source port to use
   --help                       Show this message and exit.
+```
+
+
+## habu.nmap.excluded
+
+
+```
+Usage: habu.nmap.excluded [OPTIONS]
+
+  Prints a random port that is not present on nmap-services file so is not
+  scanned automatically by nmap.
+
+  Useful for services like SSH or RDP, that are continuously scanned on
+  their default ports.
+
+  Example:
+
+  # habu.nmap.excluded
+  58567
+
+Options:
+  -l INTEGER RANGE  Lowest port to consider
+  -h INTEGER RANGE  Highest port to consider
+  --help            Show this message and exit.
 ```
 
 

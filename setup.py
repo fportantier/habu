@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.0.98',
+    version='0.0.99',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/x-rst',
@@ -68,6 +68,7 @@ setup(
         habu.karma=habu.cli.cmd_karma:cmd_karma
         habu.karma.bulk=habu.cli.cmd_karma_bulk:cmd_karma_bulk
         habu.land=habu.cli.cmd_land:cmd_land
+        habu.nmap.excluded=habu.cli.cmd_nmap_excluded:cmd_nmap_excluded
         habu.nmap.open=habu.cli.cmd_nmap_open:cmd_nmap_open
         habu.nmap.ports=habu.cli.cmd_nmap_ports:cmd_nmap_ports
         habu.nc=habu.cli.cmd_nc:cmd_nc
@@ -99,7 +100,7 @@ setup(
         "Topic :: Security",
         "Topic :: System :: Networking",
         "Programming Language :: Python :: 3.0",
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
     ],
     packages=['habu', 'habu.lib', 'habu.lib.completeme', 'habu.cli'],
     include_package_data=True,

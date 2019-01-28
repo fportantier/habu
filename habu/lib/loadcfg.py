@@ -26,7 +26,12 @@ def loadcfg(environment=True):
                 cfg[k] = v
                 #print(k,v)
 
+
+    cfg['BASEDIR'] = (Path(os.path.dirname(os.path.abspath(__file__))) / '..').resolve()
+    cfg['DATADIR'] = Path(cfg['BASEDIR'] / 'data')
+
     return cfg
 
 if __name__ == '__main__':
     loadcfg()
+

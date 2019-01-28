@@ -15,8 +15,6 @@ config = {
     'DATADIR' : Path(FILEDIR / 'data'),
 }
 
-
-
 if __name__ == '__main__':
     print(FILEDIR)
     print(DATADIR)
