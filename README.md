@@ -74,7 +74,7 @@ Habu requires Python3 and the following packages:
 - regex
 - requests
 - requests-cache
-- scapy
+- scapy-python3
 - websockets
 - matplotlib (Optional, only needed if you want to make some graphs)
 
