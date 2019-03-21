@@ -1,2 +1,3 @@
 [sdist_dsc]
 depends: python3-bs4 python3-scapy
+recommends: python3-ipwhois python3-pywhois
