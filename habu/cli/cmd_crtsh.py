@@ -38,7 +38,7 @@ def cmd_crtsh(domain, no_cache, no_validate, verbose):
 
     if not no_cache:
         homedir = pwd.getpwuid(os.getuid()).pw_dir
-        requests_cache.install_cache(homedir + '/.habu_requests_cache')
+        requests_cache.install_cache(homedir + '/.habu_requests_cache', expire_after=3600)
 
     subdomains = set()
 
@@ -50,6 +50,8 @@ def cmd_crtsh(domain, no_cache, no_validate, verbose):
     if req.status_code != 200:
         print("[X] Information not available!")
         exit(1)
+
+    print(req.text)
 
     json_data = json.loads(req.text)
 
