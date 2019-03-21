@@ -51,7 +51,7 @@ def cmd_crtsh(domain, no_cache, no_validate, verbose):
         print("[X] Information not available!")
         exit(1)
 
-    json_data = json.loads('[{}]'.format(req.text.replace('}{', '},{')))
+    json_data = json.loads(req.text.replace('}{', '},{'))
 
     for data in json_data:
         name = data['name_value'].lower()
