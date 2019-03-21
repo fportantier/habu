@@ -1707,21 +1707,6 @@ Options:
 
 
 ```
-Usage: habu.whois.domain [OPTIONS] DOMAIN
-
-  Simple whois client to check domain names.
-
-  Example:
-
-  $ habu.whois.domain portantier.com
-  {
-      "domain_name": "portantier.com",
-      "registrar": "Amazon Registrar, Inc.",
-      "whois_server": "whois.registrar.amazon.com",
-      ...
-
-Options:
-  --help  Show this message and exit.
 ```
 
 
@@ -1729,26 +1714,6 @@ Options:
 
 
 ```
-Usage: habu.whois.ip [OPTIONS] IP
-
-  Simple whois client to check IP addresses (IPv4 and IPv6).
-
-  Example:
-
-  $ habu.whois.ip 8.8.8.8
-  {
-      "nir": null,
-      "asn_registry": "arin",
-      "asn": "15169",
-      "asn_cidr": "8.8.8.0/24",
-      "asn_country_code": "US",
-      "asn_date": "1992-12-01",
-      "asn_description": "GOOGLE - Google LLC, US",
-      "query": "8.8.8.8",
-      ...
-
-Options:
-  --help  Show this message and exit.
 ```
 
 
