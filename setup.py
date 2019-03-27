@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name='habu',
-    version='0.1.1',
+    version='0.1.2',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/x-rst',
@@ -19,7 +19,7 @@ setup(
         'click',
         'dnspython',
         'lxml',
-        'prompt_toolkit==1.0.15',
+        #'prompt_toolkit==1.0.15',
         'pycrypto',
         'pygments',
         'regex',
