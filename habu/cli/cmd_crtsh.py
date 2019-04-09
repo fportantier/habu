@@ -51,8 +51,6 @@ def cmd_crtsh(domain, no_cache, no_validate, verbose):
         print("[X] Information not available!")
         exit(1)
 
-    print(req.text)
-
     json_data = json.loads(req.text)
 
     for data in json_data:
