@@ -1,8 +1,10 @@
-from habu.lib.tomorrow3 import threads
-from dns import reversename, resolver
-from time import sleep
-import socket
 import ipaddress
+import socket
+from time import sleep
+
+from dns import resolver, reversename
+
+from habu.lib.tomorrow3 import threads
 
 
 @threads(50)

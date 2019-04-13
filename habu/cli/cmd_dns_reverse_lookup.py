@@ -2,6 +2,7 @@
 import json
 import logging
 import sys
+
 import click
 
 from habu.lib.dns import reverse_lookup
