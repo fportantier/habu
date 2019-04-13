@@ -1,3 +1,4 @@
+"""Create the hash(es) of a string or a file."""
 import hashlib
 
 ALGOS = [
@@ -11,7 +12,7 @@ ALGOS = [
 
 
 def hasher(data, algos=ALGOS):
-
+    """Create the hash(es) of a given string or file."""
     try:
         data = data.encode()
     except Exception:
@@ -31,4 +32,3 @@ def hasher(data, algos=ALGOS):
 if __name__ == '__main__':
     from pprint import pprint
     pprint(hasher('password'))
-
