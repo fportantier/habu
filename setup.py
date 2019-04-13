@@ -52,6 +52,8 @@ setup(
         habu.cve.2018.9995=habu.cli.cmd_cve_2018_9995:cmd_cve_2018_9995
         habu.dhcp.discover=habu.cli.cmd_dhcp_discover:cmd_dhcp_discover
         habu.dhcp.starvation=habu.cli.cmd_dhcp_starvation:cmd_dhcp_starvation
+        habu.dns.forward_lookup=habu.cli.cmd_dns_forward_lookup:cmd_dns_forward_lookup
+        habu.dns.reverse_lookup=habu.cli.cmd_dns_reverse_lookup:cmd_dns_reverse_lookup
         habu.eicar=habu.cli.cmd_eicar:cmd_eicar
         habu.extract.hostname=habu.cli.cmd_extract_hostname:cmd_extract_hostname
         habu.extract.ipv4=habu.cli.cmd_extract_ipv4:cmd_extract_ipv4
