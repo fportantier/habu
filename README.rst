@@ -1628,7 +1628,7 @@ habu.web.tech
      Note: This tool only sends one request. So, it's stealth and not
      suspicious.
 
-     $ habu.webid https://woocomerce.com
+     $ habu.web.tech https://woocomerce.com
      {
          "Nginx": {
              "categories": [

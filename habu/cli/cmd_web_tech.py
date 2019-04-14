@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 
 import json
-import os
-import os.path
-from pathlib import Path
 
 import click
 
 from habu.lib.web_tech import web_tech
+
 
 @click.command()
 @click.argument('url')
@@ -21,7 +19,7 @@ def cmd_web_tech(url, no_cache, verbose):
     Note: This tool only sends one request. So, it's stealth and not suspicious.
 
     \b
-    $ habu.webid https://woocomerce.com
+    $ habu.web.tech https://woocomerce.com
     {
         "Nginx": {
             "categories": [
@@ -50,6 +48,7 @@ def cmd_web_tech(url, no_cache, verbose):
 
     response = web_tech(url, no_cache, verbose)
     print(json.dumps(response, indent=4))
+
 
 if __name__ == '__main__':
     cmd_web_tech()
