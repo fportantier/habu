@@ -13,7 +13,7 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as readme_file:
 
 entries = []
 for file in glob.glob("habu/cli/cmd_*.py"):
-    command = file.lstrip('habu/cli/cmd_').rstrip('.py')
+    command = file.lstrip('habu/cli/cmd_').rstrip('.py').replace('_', '.')
     entries.append("habu.{command} = habu.cli.cmd_{command}:cmd_{command}".format(command=command))
 
 setup(
