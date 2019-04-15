@@ -18,7 +18,7 @@ for file in glob.glob("habu/cli/cmd_*.py"):
 
 setup(
     name='habu',
-    version='0.1.2',
+    version='0.1.3',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/x-rst',

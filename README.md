@@ -109,6 +109,8 @@ This can give you some extra info about what habu is doing.
 - [decrypt.gppref](#habudecryptgppref)
 - [dhcp.discover](#habudhcpdiscover)
 - [dhcp.starvation](#habudhcpstarvation)
+- [dns.lookup.forward](#habudnslookupforward)
+- [dns.lookup.reverse](#habudnslookupreverse)
 - [eicar](#habueicar)
 - [extract.email](#habuextractemail)
 - [extract.hostname](#habuextracthostname)
@@ -655,6 +657,49 @@ Options:
 ```
 
 
+## habu.dns.lookup.forward
+
+
+```
+Usage: habu.dns.lookup.forward [OPTIONS] HOSTNAME
+
+  Perform a forward lookup of a given hostname.
+
+  Example:
+
+  $ habu.dns.lookup.forward google.com
+  {
+      "ipv4": "172.217.168.46",
+      "ipv6": "2a00:1450:400a:802::200e"
+  }
+
+Options:
+  -v      Verbose output
+  --help  Show this message and exit.
+```
+
+
+## habu.dns.lookup.reverse
+
+
+```
+Usage: habu.dns.lookup.reverse [OPTIONS] IP_ADDRESS
+
+  Perform a reverse lookup of a given IP address.
+
+  Example:
+
+  $ $ habu.dns.lookup.reverse 8.8.8.8
+  {
+      "hostname": "google-public-dns-a.google.com"
+  }
+
+Options:
+  -v      Verbose output
+  --help  Show this message and exit.
+```
+
+
 ## habu.eicar
 
 
@@ -865,8 +910,7 @@ Options:
 ```
 Usage: habu.hasher [OPTIONS] [F]
 
-  Computes various hashes for the input data, that can be a file or a
-  stream.
+  Compute various hashes for the input data, that can be a file or a stream.
 
   Example:
 
@@ -922,13 +966,14 @@ Options:
 ```
 Usage: habu.ip [OPTIONS]
 
-  Print your current public IP based on the response from
-  https://api.ipify.org
+  Get the public IP address of the connection from https://api.ipify.org.
 
   Example:
 
   $ habu.ip
-  182.26.32.246
+  {
+      "ip_external": "80.219.53.185"
+  }
 
 Options:
   --help  Show this message and exit.
