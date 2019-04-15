@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import json
 
 import click
 
@@ -7,15 +8,21 @@ from habu.lib.ip import get_ip
 
 @click.command()
 def cmd_ip():
-    """Print your current public IP based on the response from https://api.ipify.org
+    """Get the public IP address of the connection from https://api.ipify.org.
 
     Example:
 
     \b
     $ habu.ip
-    182.26.32.246"""
+    {
+        "ip_external": "80.219.53.185"
+    }
+    """
+    answer = get_ip()
 
-    print(get_ip())
+    print(json.dumps(answer, indent=4))
+
+    return True
 
 
 if __name__ == '__main__':
