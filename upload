@@ -1,0 +1,8 @@
+#!/bin/sh
+
+git add --all .
+git commit
+git push
+
+python3 setup.py sdist upload --sign --identity fabian@portantier.com
+

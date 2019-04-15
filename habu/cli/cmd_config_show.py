@@ -33,7 +33,7 @@ def cmd_config_show(option, show_keys):
             if 'KEY' in key:
                 habucfg[key] = '*************'
 
-    print(json.dumps(habucfg, indent=4, sort_keys=True))
+    print(json.dumps(habucfg, indent=4, sort_keys=True, default=str))
 
 
 if __name__ == '__main__':
