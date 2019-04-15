@@ -12,13 +12,15 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as readme_file:
     readme = readme_file.read()
 
 entries = []
-for file in glob.glob("habu/cli/cmd_*.py"):
-    command = file.lstrip('habu/cli/cmd_').rstrip('.py').replace('_', '.')
-    entries.append("habu.{command} = habu.cli.cmd_{command}:cmd_{command}".format(command=command))
+
+for file in sorted(glob.glob("habu/cli/cmd_*.py")):
+    cmd_file = file.replace('habu/cli/', '').replace('.py', '')
+    cmd_name = cmd_file.replace('cmd_', 'habu.').replace('_', '.')
+    entries.append("{cmd_name} = habu.cli.{cmd_file}:{cmd_file}".format(cmd_file=cmd_file, cmd_name=cmd_name))
 
 setup(
     name='habu',
-    version='0.1.3',
+    version='0.1.4',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/x-rst',

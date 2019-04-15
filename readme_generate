@@ -1,28 +1,48 @@
-#!/bin/sh
+#!/usr/bin/env python3
 
-cat README_header.md > README.md
+import logging
+import os.path
+import subprocess
+import sys
+from pathlib import Path
 
+here = Path(os.path.abspath(os.path.dirname(__file__)))
 
-for cmdfilepath in $(ls habu/cli/cmd_*.py)
-do
-    cmdfile=$(echo $cmdfilepath | awk -F '/' {'print $NF'})
-    cmdname=$(echo $cmdfile | sed s/'^cmd_'/'habu.'/g | tr '_' '.' | sed s/'.py$'//g)
-    cmdidx=$(echo $cmdname | sed s/'^habu.'/''/g)
-    cmdlink=$(echo $cmdname | sed s/'\.'/''/g)
-
-    echo "- [$cmdidx](#$cmdlink)" >> README.md
-done
+readme_index = ''
+readme_content = '\n'
 
 
+with (here / 'README_header.rst').open() as rheader:
+    readme_header = rheader.read()
 
-for cmdfilepath in $(ls habu/cli/cmd_*.py)
-do
-    cmdfile=$(echo $cmdfilepath | awk -F '/' {'print $NF'})
-    cmdname=$(echo $cmdfile | sed s/'^cmd_'/'habu.'/g | tr '_' '.' | sed s/'.py$'//g)
 
-    echo "\n\n## $cmdname\n\n" >> README.md
-    echo "\`\`\`" >> README.md
-    python3 $cmdfilepath --help | sed s/$cmdfile/$cmdname/g >> README.md
-    echo "\`\`\`" >> README.md
-done
+for cmd_file in sorted((here / 'habu' / 'cli').glob('cmd_*.py')):
+    cmd_name = 'habu.' + cmd_file.stem.replace('cmd_', '').replace('_', '.')
+    cmd_idx = cmd_name.replace('habu.', '')
+    cmd_link = cmd_name.replace('.', '')
 
+    readme_index += '* `{} <#{}>`_\n'.format(cmd_idx, cmd_link)
+
+    readme_content += cmd_name + '\n'
+    readme_content += '-' * len(cmd_name) + '\n\n'
+    readme_content += '.. code-block::\n\n'
+
+    p = subprocess.Popen([ 'python3', cmd_file, '--help'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    if p.returncode not in [0, None]:
+        logging.error('Error on {}'.format(cmd_name))
+        logging.error('Return code: {}'.format(p.returncode))
+        logging.error(p.stderr.read().decode())
+        logging.error('README.rst generation cancelled')
+        sys.exit(1)
+
+    for line in p.stdout.read().decode().split('\n'):
+        readme_content += '    ' + line.replace(cmd_file.name, cmd_name) + '\n' #p.stdout.read().decode()
+
+    readme_content += '\n'
+
+
+with (here / 'README.rst').open('w') as output:
+    output.write(readme_header)
+    output.write(readme_index)
+    output.write(readme_content)

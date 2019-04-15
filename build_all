@@ -1,7 +1,6 @@
 #!/bin/sh
 
 ./readme_generate
-./readme_md2rst
 
 git add --all .
 git commit
@@ -10,8 +9,8 @@ git push
 python3 setup.py sdist upload --sign --identity fabian@portantier.com
 
 # Fix the readme problem - Step 1
-mv README.rst _README.rst
-sed -i s/README.rst/README.txt/g setup.py
+#mv README.rst _README.rst
+#sed -i s/README.rst/README.txt/g setup.py
 
 # Main work
 python3 setup.py sdist
@@ -19,6 +18,6 @@ rm -Rf deb_dist
 python3 setup.py --command-packages=stdeb.command bdist_deb
 
 # Fix the readme problem - Step 2
-mv _README.rst README.rst
-sed -i s/README.txt/README.rst/g setup.py
+#mv _README.rst README.rst
+#sed -i s/README.txt/README.rst/g setup.py
 
