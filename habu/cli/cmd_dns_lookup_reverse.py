@@ -5,19 +5,19 @@ import sys
 
 import click
 
-from habu.lib.dns import reverse_lookup
+from habu.lib.dns import lookup_reverse
 
 
 @click.command()
 @click.argument('ip_address')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_dns_reverse_lookup(ip_address, verbose):
+def cmd_dns_lookup_reverse(ip_address, verbose):
     """Perform a reverse lookup of a given IP address.
 
     Example:
 
     \b
-    $ $ habu.dns.reverse_lookup 8.8.8.8
+    $ $ habu.dns.lookup.reverse 8.8.8.8
     {
         "hostname": "google-public-dns-a.google.com"
     }
@@ -26,7 +26,7 @@ def cmd_dns_reverse_lookup(ip_address, verbose):
         logging.basicConfig(level=logging.INFO, format='%(message)s')
         print("Looking up %s..." % ip_address, file=sys.stderr)
 
-    answer = reverse_lookup(ip_address)
+    answer = lookup_reverse(ip_address)
 
     if answer:
         print(json.dumps(answer, indent=4))
@@ -37,4 +37,4 @@ def cmd_dns_reverse_lookup(ip_address, verbose):
 
 
 if __name__ == '__main__':
-    cmd_dns_reverse_lookup()
+    cmd_dns_lookup_reverse()

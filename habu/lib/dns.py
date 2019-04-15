@@ -29,7 +29,7 @@ def query_bulk(names):
     return [answer.result() for answer in answers]
 
 
-def reverse_lookup(ip_address):
+def lookup_reverse(ip_address):
     """Perform a reverse lookup of IP address."""
     try:
         type(ipaddress.ip_address(ip_address))
@@ -41,7 +41,7 @@ def reverse_lookup(ip_address):
     return {'hostname': hostname}
 
 
-def forward_lookup(name):
+def lookup_forward(name):
     """Perform a forward lookup of a hostname."""
     ip_addresses = {}
 
