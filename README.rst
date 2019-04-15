@@ -104,9 +104,9 @@ Commands Index
 * `asydns <#habuasydns>`_
 * `b64 <#habub64>`_
 * `certclone <#habucertclone>`_
-* `config <#habuconfig>`_
 * `config.del <#habuconfigdel>`_
 * `config.set <#habuconfigset>`_
+* `config.show <#habuconfigshow>`_
 * `contest <#habucontest>`_
 * `crack.luhn <#habucrackluhn>`_
 * `crack.snmp <#habucracksnmp>`_
@@ -306,31 +306,6 @@ habu.certclone
       --help             Show this message and exit.
     
 
-habu.config
------------
-
-.. code-block::
-
-    Usage: habu.config [OPTIONS]
-    
-      Show the current config.
-    
-      Note: By default, the options with 'KEY' in their name are shadowed.
-    
-      Example:
-    
-      $ habu.config
-      {
-          "DNS_SERVER": "8.8.8.8",
-          "FERNET_KEY": "*************"
-      }
-    
-    Options:
-      --show-keys       Show also the key values
-      --option TEXT...  Write to the config(KEY VALUE)
-      --help            Show this message and exit.
-    
-
 habu.config.del
 ---------------
 
@@ -367,6 +342,31 @@ habu.config.set
     
     Options:
       --help  Show this message and exit.
+    
+
+habu.config.show
+----------------
+
+.. code-block::
+
+    Usage: habu.config.show [OPTIONS]
+    
+      Show the current config.
+    
+      Note: By default, the options with 'KEY' in their name are shadowed.
+    
+      Example:
+    
+      $ habu.config.show
+      {
+          "DNS_SERVER": "8.8.8.8",
+          "FERNET_KEY": "*************"
+      }
+    
+    Options:
+      --show-keys       Show also the key values
+      --option TEXT...  Write to the config(KEY VALUE)
+      --help            Show this message and exit.
     
 
 habu.contest

@@ -20,7 +20,7 @@ for file in sorted(glob.glob("habu/cli/cmd_*.py")):
 
 setup(
     name='habu',
-    version='0.1.4',
+    version='0.1.5',
     description='Python Network Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/x-rst',
