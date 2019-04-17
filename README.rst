@@ -130,6 +130,7 @@ Commands Index
 * `hasher <#habuhasher>`_
 * `ip <#habuip>`_
 * `ip2asn <#habuip2asn>`_
+* `ip.internal <#habuipinternal>`_
 * `isn <#habuisn>`_
 * `jshell <#habujshell>`_
 * `karma <#habukarma>`_
@@ -947,19 +948,6 @@ habu.ip
 
 .. code-block::
 
-    Usage: habu.ip [OPTIONS]
-    
-      Get the public IP address of the connection from https://api.ipify.org.
-    
-      Example:
-    
-      $ habu.ip
-      {
-          "ip_external": "80.219.53.185"
-      }
-    
-    Options:
-      --help  Show this message and exit.
     
 
 habu.ip2asn
@@ -984,6 +972,47 @@ habu.ip2asn
       }
     
     Options:
+      --help  Show this message and exit.
+    
+
+habu.ip.internal
+----------------
+
+.. code-block::
+
+    Usage: habu.ip.internal [OPTIONS]
+    
+      Get the local IP address(es) of the local interfaces.
+    
+      Example:
+    
+      $ habu.ip.internal
+      {
+        "lo": {
+          "ipv4": [
+            {
+              "addr": "127.0.0.1",
+              "netmask": "255.0.0.0",
+              "peer": "127.0.0.1"
+            }
+          ],
+          "link_layer": [
+            {
+              "addr": "00:00:00:00:00:00",
+              "peer": "00:00:00:00:00:00"
+            }
+          ],
+          "ipv6": [
+            {
+              "addr": "::1",
+              "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/128"
+            }
+          ]
+        },
+      ...
+    
+    Options:
+      -v      Verbose output.
       --help  Show this message and exit.
     
 
@@ -1021,51 +1050,6 @@ habu.jshell
 
 .. code-block::
 
-    Usage: habu.jshell [OPTIONS]
-    
-      Control a web browser through Websockets.
-    
-      Bind a port (default: 3333) and listen for HTTP connections.
-    
-      On connection, send a JavaScript code that opens a WebSocket that can be
-      used to send commands to the connected browser.
-    
-      You can write the commands directly in the shell, or use plugins, that are
-      simply external JavaScript files.
-    
-      Using habu.jshell you can completely control a web browser.
-    
-      Reference: https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
-    
-      Example:
-    
-      $ habu.jshell
-      >> Listening on 192.168.0.10:3333. Waiting for a victim connection.
-      >> HTTP Request received from 192.168.0.15. Sending hookjs
-      >> Connection from 192.168.0.15
-      $ _sessions
-      0 * 192.168.0.15:33432 Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
-      $ _info
-      {
-          "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0",
-          "location": "http://192.168.0.10:3333/",
-          "java-enabled": false,
-          "platform": "Linux x86_64",
-          "app-code-name": "Mozilla",
-          "app-name": "Netscape",
-          "app-version": "5.0 (X11)",
-          "cookie-enabled": true,
-          "language": "es-AR",
-          "online": true
-      }
-      $ document.location
-      http://192.168.0.10:3333/
-    
-    Options:
-      -v          Verbose
-      -i TEXT     IP to listen on
-      -p INTEGER  Port to listen on
-      --help      Show this message and exit.
     
 
 habu.karma
