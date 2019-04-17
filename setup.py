@@ -33,6 +33,7 @@ setup(
         'cryptography',
         'click',
         'dnspython',
+        'json2table',
         'lxml',
         #'prompt_toolkit==1.0.15',
         'pycrypto',
