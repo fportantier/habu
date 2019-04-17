@@ -35,7 +35,6 @@ def web_screenshot(url, outfile, browser):
     with subprocess.Popen(screenshot_cmd, stderr=subprocess.DEVNULL) as proc:
         for count in range(DURATION):
             sleep(1)
-            print(count)
             if outfile.is_file():
                 break
 
