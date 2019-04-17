@@ -2,9 +2,11 @@ import ipaddress
 import socket
 from time import sleep
 
-from dns import resolver, reversename
+from dns import resolver, reversename, flags, message, rdatatype, name, query
 
 from habu.lib.tomorrow3 import threads
+
+ADDITIONAL_RDCLASS = 65535
 
 
 @threads(50)
@@ -58,3 +60,15 @@ def lookup_forward(name):
             ip_addresses['ipv6'] = address
 
     return ip_addresses
+
+
+def _query(domain, name_server):
+    """Query a domain."""
+    request = message.make_query(domain, rdatatype.ANY)
+    request.flags |= flags.AD
+    request.find_rrset(
+        request.additional, name.root, ADDITIONAL_RDCLASS, rdatatype.OPT,
+        create=True, force_unique=True)
+    response = query.udp(request, name_server)
+
+    return response
