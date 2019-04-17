@@ -128,6 +128,9 @@ Commands Index
 * `forkbomb <#habuforkbomb>`_
 * `gateway.find <#habugatewayfind>`_
 * `hasher <#habuhasher>`_
+* `http.headers <#habuhttpheaders>`_
+* `http.options <#habuhttpoptions>`_
+* `http.subjugation <#habuhttpsubjugation>`_
 * `ip <#habuip>`_
 * `ip2asn <#habuip2asn>`_
 * `isn <#habuisn>`_
@@ -942,6 +945,106 @@ habu.hasher
       --help                          Show this message and exit.
     
 
+habu.http.headers
+-----------------
+
+.. code-block::
+
+    Usage: habu.http.headers [OPTIONS] SERVER
+    
+      Retrieve the HTTP headers of a web server.
+    
+      Example:
+    
+      $ habu.http.headers http://duckduckgo.com
+      {
+          "Server": "nginx",
+          "Date": "Sun, 14 Apr 2019 00:00:55 GMT",
+          "Content-Type": "text/html",
+          "Content-Length": "178",
+          "Connection": "keep-alive",
+          "Location": "https://duckduckgo.com/",
+          "X-Frame-Options": "SAMEORIGIN",
+          "Content-Security-Policy": "default-src https: blob: data: 'unsafe-inline' 'unsafe-eval'",
+          "X-XSS-Protection": "1;mode=block",
+          "X-Content-Type-Options": "nosniff",
+          "Referrer-Policy": "origin",
+          "Expect-CT": "max-age=0",
+          "Expires": "Mon, 13 Apr 2020 00:00:55 GMT",
+          "Cache-Control": "max-age=31536000"
+      }
+    
+    Options:
+      -v      Verbose output
+      --help  Show this message and exit.
+    
+
+habu.http.options
+-----------------
+
+.. code-block::
+
+    Usage: habu.http.options [OPTIONS] SERVER
+    
+      Retrieve the available HTTP methods of a web server.
+    
+      Example:
+    
+      $ habu.http.options -v http://google.com
+      {
+          "allowed": "GET, HEAD"
+      }
+    
+    Options:
+      -v      Verbose output
+      --help  Show this message and exit.
+    
+
+habu.http.subjugation
+---------------------
+
+.. code-block::
+
+    Usage: habu.http.subjugation [OPTIONS] SERVER
+    
+      Retrieve the redirect location of a web server.
+    
+      Example:
+    
+      $ habu.http.subjugation http://duckduckgo.com
+      {
+          "redirect": "https://duckduckgo.com/"
+      }
+    
+      $ habu.http.subjugation -f http://duckduckgo.com
+      {
+          "redirect": "https://duckduckgo.com/",
+          "headers": {
+              "Server": "nginx",
+              "Date": "Wed, 17 Apr 2019 16:39:00 GMT",
+              "Content-Type": "text/html; charset=UTF-8",
+              "Connection": "keep-alive",
+              "Vary": "Accept-Encoding",
+              "ETag": "W/\"5cb6a8b7-1529\"",
+              "Strict-Transport-Security": "max-age=31536000",
+              "X-Frame-Options": "SAMEORIGIN",
+              "Content-Security-Policy": "default-src https: blob: ...",
+              "X-XSS-Protection": "1;mode=block",
+              "X-Content-Type-Options": "nosniff",
+              "Referrer-Policy": "origin",
+              "Expect-CT": "max-age=0",
+              "Expires": "Wed, 17 Apr 2019 16:38:59 GMT",
+              "Cache-Control": "no-cache",
+              "Content-Encoding": "gzip"
+          }
+      }
+
+    Options:
+      -f      Follow the redirect.
+      -v      Verbose output.
+      --help  Show this message and exit.
+    
+
 habu.ip
 -------
 
@@ -1021,51 +1124,6 @@ habu.jshell
 
 .. code-block::
 
-    Usage: habu.jshell [OPTIONS]
-    
-      Control a web browser through Websockets.
-    
-      Bind a port (default: 3333) and listen for HTTP connections.
-    
-      On connection, send a JavaScript code that opens a WebSocket that can be
-      used to send commands to the connected browser.
-    
-      You can write the commands directly in the shell, or use plugins, that are
-      simply external JavaScript files.
-    
-      Using habu.jshell you can completely control a web browser.
-    
-      Reference: https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
-    
-      Example:
-    
-      $ habu.jshell
-      >> Listening on 192.168.0.10:3333. Waiting for a victim connection.
-      >> HTTP Request received from 192.168.0.15. Sending hookjs
-      >> Connection from 192.168.0.15
-      $ _sessions
-      0 * 192.168.0.15:33432 Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
-      $ _info
-      {
-          "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0",
-          "location": "http://192.168.0.10:3333/",
-          "java-enabled": false,
-          "platform": "Linux x86_64",
-          "app-code-name": "Mozilla",
-          "app-name": "Netscape",
-          "app-version": "5.0 (X11)",
-          "cookie-enabled": true,
-          "language": "es-AR",
-          "online": true
-      }
-      $ document.location
-      http://192.168.0.10:3333/
-    
-    Options:
-      -v          Verbose
-      -i TEXT     IP to listen on
-      -p INTEGER  Port to listen on
-      --help      Show this message and exit.
     
 
 habu.karma
@@ -1675,22 +1733,24 @@ habu.web.report
 
 .. code-block::
 
-    Usage: habu.web.report [OPTIONS] [F]
+    Usage: habu.web.report [OPTIONS] [URLS]
     
-      Uses Firefox to take a screenshot of the websites. (you need firefox
-      installed, obviously)
+      Use a browser to take a screenshot of the websites.
     
       Makes a report that includes the HTTP headers.
     
-      The expected format is one url per line.
+      The expected format for the input file is one URL per line.
     
-      Creates a directory called 'report' with the content inside.
+      Create a directory called 'report' with the content inside.
     
       $ echo https://www.portantier.com | habu.web.report
     
+      $ habu.web.report urls.txt
+    
     Options:
-      -v      Verbose output
-      --help  Show this message and exit.
+      -v                             Verbose output.
+      -b [firefox|chromium-browser]  Browser to use for screenshot.
+      --help                         Show this message and exit.
     
 
 habu.web.screenshot
@@ -1700,13 +1760,16 @@ habu.web.screenshot
 
     Usage: habu.web.screenshot [OPTIONS] URL
     
-      Uses Firefox to take a screenshot (you need firefox installed, obviously)
+      Use a browser to take a screenshot.
+    
+      You need a browser installed, obviously.
     
       $ habu.web.screenshot https://www.portantier.com
     
     Options:
-      -o TEXT  Output file. (default: screenshot.png)
-      --help   Show this message and exit.
+      -o TEXT                        Output file. (default: screenshot.png)
+      -b [firefox|chromium-browser]  Browser to use for screenshot.
+      --help                         Show this message and exit.
     
 
 habu.web.tech
