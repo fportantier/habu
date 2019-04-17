@@ -119,6 +119,7 @@ Commands Index
 * `dhcp.starvation <#habudhcpstarvation>`_
 * `dns.lookup.forward <#habudnslookupforward>`_
 * `dns.lookup.reverse <#habudnslookupreverse>`_
+* `dns.query <#habudnsquery>`_
 * `eicar <#habueicar>`_
 * `extract.email <#habuextractemail>`_
 * `extract.hostname <#habuextracthostname>`_
@@ -707,6 +708,53 @@ habu.dns.lookup.reverse
       --help  Show this message and exit.
     
 
+habu.dns.query
+--------------
+
+.. code-block::
+
+    Usage: habu.dns.query [OPTIONS] IP_ADDRESS
+    
+      Retrieve details about a domain.
+    
+      Example:
+    
+      $ habu.dns.server google.com
+      id 11316
+      opcode QUERY
+      rcode NOERROR
+      flags QR RD RA
+      edns 0
+      payload 512
+      ;QUESTION
+      google.com. IN ANY
+      ;ANSWER
+      google.com. 299 IN A 172.217.22.14
+      google.com. 299 IN AAAA 2a00:1450:4001:81a::200e
+      google.com. 21599 IN CAA 0 issue "pki.goog"
+      google.com. 599 IN MX 50 alt4.aspmx.l.google.com.
+      google.com. 599 IN MX 20 alt1.aspmx.l.google.com.
+      google.com. 599 IN MX 30 alt2.aspmx.l.google.com.
+      google.com. 599 IN MX 10 aspmx.l.google.com.
+      google.com. 599 IN MX 40 alt3.aspmx.l.google.com.
+      google.com. 21599 IN NS ns1.google.com.
+      google.com. 21599 IN NS ns4.google.com.
+      google.com. 21599 IN NS ns2.google.com.
+      google.com. 21599 IN NS ns3.google.com.
+      google.com. 299 IN TXT "v=spf1 include:_spf.google.com ~all"
+      google.com. 299 IN TXT "globalsign-smime-dv=CDYX+XF....vqKX8="
+      google.com. 299 IN TXT "facebook-domain-verification=22rm55....4h95"
+      google.com. 299 IN TXT "docusign=05958488-4752-4ef2-95eb-aa7ba8a3bd0e"
+      google.com. 59 IN SOA ns1.google.com. dns-admin.google.com. 244037683 900 900 1800 60
+      ;AUTHORITY
+      ;ADDITIONAL
+    
+    Options:
+      -v       Verbose output.
+      -n TEXT  Nameserver to use.
+      --help   Show this message and exit.
+    
+
 habu.eicar
 ----------
 
@@ -1021,51 +1069,6 @@ habu.jshell
 
 .. code-block::
 
-    Usage: habu.jshell [OPTIONS]
-    
-      Control a web browser through Websockets.
-    
-      Bind a port (default: 3333) and listen for HTTP connections.
-    
-      On connection, send a JavaScript code that opens a WebSocket that can be
-      used to send commands to the connected browser.
-    
-      You can write the commands directly in the shell, or use plugins, that are
-      simply external JavaScript files.
-    
-      Using habu.jshell you can completely control a web browser.
-    
-      Reference: https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
-    
-      Example:
-    
-      $ habu.jshell
-      >> Listening on 192.168.0.10:3333. Waiting for a victim connection.
-      >> HTTP Request received from 192.168.0.15. Sending hookjs
-      >> Connection from 192.168.0.15
-      $ _sessions
-      0 * 192.168.0.15:33432 Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0
-      $ _info
-      {
-          "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:57.0) Gecko/20100101 Firefox/57.0",
-          "location": "http://192.168.0.10:3333/",
-          "java-enabled": false,
-          "platform": "Linux x86_64",
-          "app-code-name": "Mozilla",
-          "app-name": "Netscape",
-          "app-version": "5.0 (X11)",
-          "cookie-enabled": true,
-          "language": "es-AR",
-          "online": true
-      }
-      $ document.location
-      http://192.168.0.10:3333/
-    
-    Options:
-      -v          Verbose
-      -i TEXT     IP to listen on
-      -p INTEGER  Port to listen on
-      --help      Show this message and exit.
     
 
 habu.karma
