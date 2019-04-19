@@ -30,6 +30,7 @@ Some techniques implemented in the current version are:
 * Virtual Hosts Identification
 * Web Techonologies Identification
 
+The development of this software is supported by Securetia SRL (https://www.securetia.com/)
 
 Usage Videos
 ------------
