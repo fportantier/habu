@@ -30,6 +30,7 @@ Some techniques implemented in the current version are:
 * Virtual Hosts Identification
 * Web Techonologies Identification
 
+The development of this software is supported by Securetia SRL (https://www.securetia.com/)
 
 Usage Videos
 ------------
@@ -128,6 +129,7 @@ Commands Index
 * `forkbomb <#habuforkbomb>`_
 * `gateway.find <#habugatewayfind>`_
 * `hasher <#habuhasher>`_
+* `host <#habuhost>`_
 * `ip <#habuip>`_
 * `ip2asn <#habuip2asn>`_
 * `ip.internal <#habuipinternal>`_
@@ -940,14 +942,7 @@ habu.hasher
     Options:
       -a [md5|sha1|sha256|sha512|ripemd160|whirlpool]
                                       Only this algorithm (Default: all)
-      --help                          Show this message and exit.
-    
-
-habu.ip
--------
-
-.. code-block::
-
+      --help                          Show this message and exit
     
 
 habu.ip2asn
