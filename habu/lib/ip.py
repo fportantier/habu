@@ -1,3 +1,4 @@
+
 from netifaces import (
     AF_INET, AF_INET6, AF_LINK, gateways, ifaddresses, interfaces)
 import requests
