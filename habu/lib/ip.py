@@ -1,8 +1,9 @@
 
 from netifaces import (
     AF_INET, AF_INET6, AF_LINK, gateways, ifaddresses, interfaces)
-import requests
 
+import requests
+import ipaddress
 
 def get_external_ip():
     """Get the external IP address for the connection."""
