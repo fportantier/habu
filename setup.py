@@ -34,6 +34,7 @@ setup(
         'click',
         'dnspython',
         'lxml',
+        'netifaces',
         #'prompt_toolkit==1.0.15',
         'pycrypto',
         'pygments',

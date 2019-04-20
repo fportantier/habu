@@ -3,7 +3,7 @@ import json
 
 import click
 
-from habu.lib.ip import get_ip
+from habu.lib.ip import get_external_ip
 
 
 @click.command()
@@ -18,7 +18,7 @@ def cmd_ip():
         "ip_external": "80.219.53.185"
     }
     """
-    answer = get_ip()
+    answer = get_external_ip()
 
     print(json.dumps(answer, indent=4))
 
