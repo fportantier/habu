@@ -26,6 +26,18 @@ def get_internal_ip():
     return nics
 
 
+def geo_location(ip_address):
+    """Get the Geolocation of an IP address."""
+    try:
+        type(ipaddress.ip_address(ip_address))
+    except ValueError:
+        return {}
+
+    data = requests.get(
+        'https://ipapi.co/{}/json/'.format(ip_address), timeout=5).json()
+    return data
+
+
 def get_gateways():
     """Get all gateways for the interfaces."""
     return gateways()
