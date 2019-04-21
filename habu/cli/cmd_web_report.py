@@ -12,9 +12,10 @@ from habu.lib.web_screenshot import web_screenshot
 
 @click.command()
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-@click.argument('f', type=click.File('rb'), default='-')
-def cmd_web_report(f, verbose):
-    """Uses Firefox to take a screenshot of the websites. (you need firefox installed, obviously)
+@click.option('-b', 'browser', default=None, type=click.Choice(['firefox', 'chromium-browser']), help='Browser to use for screenshot.')
+@click.argument('input_file', type=click.File('rb'), default='-')
+def cmd_web_report(input_file, verbose, browser):
+    """Uses Firefox or Chromium to take a screenshot of the websites.
 
     Makes a report that includes the HTTP headers.
 
@@ -26,7 +27,7 @@ def cmd_web_report(f, verbose):
     $ echo https://www.portantier.com | habu.web.report
     """
 
-    urls = f.read().decode().strip().split('\n')
+    urls = input_file.read().decode().strip().split('\n')
 
     report_dir = Path('report')
 
@@ -66,7 +67,7 @@ def cmd_web_report(f, verbose):
             outfile.write('</td><td>')
 
             if not error:
-                web_screenshot(url, report_dir / '{}.png'.format(i))
+                web_screenshot(url, report_dir / '{}.png'.format(i), browser=browser)
                 outfile.write('<img src={}.png style="max-width: 100%" />\n'.format(i))
 
             outfile.write('</td>\n')
