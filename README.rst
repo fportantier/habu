@@ -38,16 +38,16 @@ Usage Videos
 The following Youtube Playlist has videos that shows the installation
 and usage:
 
-<https://www.youtube.com/watch?v=rgp9seLLyqE&list=PL4HZnX8VnFXqSvNw7x-bXOn0dgxNdfnVD>
+https://www.youtube.com/watch?v=rgp9seLLyqE&list=PL4HZnX8VnFXqSvNw7x-bXOn0dgxNdfnVD
 
 Telegram Group
 --------------
 
 If you want to discuss some Habu features, possible improvements, etc,
-you can use the Habu Telegram Group: <https://t.me/python_habu>
+you can use the Habu Telegram Group: https://t.me/python_habu
 
 Issues and pull requests must be sent to github repo:
-<https://github.com/portantier/habu>
+https://github.com/portantier/habu
 
 Installation
 ------------
@@ -55,7 +55,7 @@ Installation
 **Kali Linux:**
 
 You can install the package created for Kali Linux. See
-<https://github.com/portantier/habu/releases>
+https://github.com/portantier/habu/releases
 
 **Python Package (PyPi):**
 
@@ -130,6 +130,8 @@ Commands Index
 * `gateway.find <#habugatewayfind>`_
 * `hasher <#habuhasher>`_
 * `host <#habuhost>`_
+* `http.headers <#habuhttpheaders>`_
+* `http.options <#habuhttpoptions>`_
 * `ip <#habuip>`_
 * `ip2asn <#habuip2asn>`_
 * `ip.geolocation <#habuipgeolocation>`_
@@ -951,42 +953,20 @@ habu.host
 
 .. code-block::
 
-    Usage: habu.host [OPTIONS]
     
-      Collect information about the host where habu is running.
+
+habu.http.headers
+-----------------
+
+.. code-block::
+
     
-      Example:
-    
-      $ habu.host
-      {
-          "kernel": [
-              "Linux",
-              "demo123",
-              "5.0.6-200.fc29.x86_64",
-              "#1 SMP Wed Apr 3 15:09:51 UTC 2019",
-              "x86_64",
-              "x86_64"
-          ],
-          "distribution": [
-              "Fedora",
-              "29",
-              "Twenty Nine"
-          ],
-          "libc": [
-              "glibc",
-              "2.2.5"
-          ],
-          "arch": "x86_64",
-          "python_version": "3.7.3",
-          "os_name": "Linux",
-          "cpu": "x86_64",
-          "static_hostname": "demo123",
-          "fqdn": "demo123.lab.sierra"
-      }
-    
-    Options:
-      -v      Verbose output.
-      --help  Show this message and exit.
+
+habu.http.options
+-----------------
+
+.. code-block::
+
     
 
 habu.ip
@@ -994,19 +974,6 @@ habu.ip
 
 .. code-block::
 
-    Usage: habu.ip [OPTIONS]
-    
-      Get the public IP address of the connection from https://api.ipify.org.
-    
-      Example:
-    
-      $ habu.ip
-      {
-          "ip_external": "80.219.53.185"
-      }
-    
-    Options:
-      --help  Show this message and exit.
     
 
 habu.ip2asn
@@ -1039,24 +1006,6 @@ habu.ip.geolocation
 
 .. code-block::
 
-    Usage: habu.ip.geolocation [OPTIONS] IP_ADDRESS
-    
-      Get the geolocation of an IP adddress from https://ipapi.co/.
-    
-      Example:
-    
-      $ habu.ip.geolocation 8.8.8.8
-      {
-          "ip": "8.8.8.8",
-          "city": "Mountain View",
-          ...
-          "asn": "AS15169",
-          "org": "Google LLC"
-      }
-    
-    Options:
-      -v      Verbose output.
-      --help  Show this message and exit.
     
 
 habu.ip.internal
@@ -1064,40 +1013,6 @@ habu.ip.internal
 
 .. code-block::
 
-    Usage: habu.ip.internal [OPTIONS]
-    
-      Get the local IP address(es) of the local interfaces.
-    
-      Example:
-    
-      $ habu.ip.internal
-      {
-        "lo": {
-          "ipv4": [
-            {
-              "addr": "127.0.0.1",
-              "netmask": "255.0.0.0",
-              "peer": "127.0.0.1"
-            }
-          ],
-          "link_layer": [
-            {
-              "addr": "00:00:00:00:00:00",
-              "peer": "00:00:00:00:00:00"
-            }
-          ],
-          "ipv6": [
-            {
-              "addr": "::1",
-              "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/128"
-            }
-          ]
-        },
-      ...
-    
-    Options:
-      -v      Verbose output.
-      --help  Show this message and exit.
     
 
 habu.isn
@@ -1788,10 +1703,9 @@ habu.web.report
 
 .. code-block::
 
-    Usage: habu.web.report [OPTIONS] [F]
+    Usage: habu.web.report [OPTIONS] [INPUT_FILE]
     
-      Uses Firefox to take a screenshot of the websites. (you need firefox
-      installed, obviously)
+      Uses Firefox or Chromium to take a screenshot of the websites.
     
       Makes a report that includes the HTTP headers.
     
@@ -1802,8 +1716,9 @@ habu.web.report
       $ echo https://www.portantier.com | habu.web.report
     
     Options:
-      -v      Verbose output
-      --help  Show this message and exit.
+      -v                             Verbose output
+      -b [firefox|chromium-browser]  Browser to use for screenshot.
+      --help                         Show this message and exit.
     
 
 habu.web.screenshot
@@ -1813,13 +1728,14 @@ habu.web.screenshot
 
     Usage: habu.web.screenshot [OPTIONS] URL
     
-      Uses Firefox to take a screenshot (you need firefox installed, obviously)
+      Uses Firefox or Chromium to take a screenshot of the website.
     
       $ habu.web.screenshot https://www.portantier.com
     
     Options:
-      -o TEXT  Output file. (default: screenshot.png)
-      --help   Show this message and exit.
+      -b [firefox|chromium-browser]  Browser to use for screenshot.
+      -o TEXT                        Output file. (default: screenshot.png)
+      --help                         Show this message and exit.
     
 
 habu.web.tech
