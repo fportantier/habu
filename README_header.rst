@@ -38,16 +38,16 @@ Usage Videos
 The following Youtube Playlist has videos that shows the installation
 and usage:
 
-<https://www.youtube.com/watch?v=rgp9seLLyqE&list=PL4HZnX8VnFXqSvNw7x-bXOn0dgxNdfnVD>
+https://www.youtube.com/watch?v=rgp9seLLyqE&list=PL4HZnX8VnFXqSvNw7x-bXOn0dgxNdfnVD
 
 Telegram Group
 --------------
 
 If you want to discuss some Habu features, possible improvements, etc,
-you can use the Habu Telegram Group: <https://t.me/python_habu>
+you can use the Habu Telegram Group: https://t.me/python_habu
 
 Issues and pull requests must be sent to github repo:
-<https://github.com/portantier/habu>
+https://github.com/portantier/habu
 
 Installation
 ------------
@@ -55,7 +55,7 @@ Installation
 **Kali Linux:**
 
 You can install the package created for Kali Linux. See
-<https://github.com/portantier/habu/releases>
+https://github.com/portantier/habu/releases
 
 **Python Package (PyPi):**
 
