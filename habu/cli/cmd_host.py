@@ -9,10 +9,10 @@ from habu.lib.host import gather_details
 
 
 @click.command()
-@click.option('-v', 'verbose', is_flag=True, default=False,
-              help='Verbose output.')
+@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output.')
 def cmd_host(verbose):
-    """Collect information about the host where habu is running.
+    """
+    Collect information about the host where habu is running.
 
     Example:
 

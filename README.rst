@@ -953,6 +953,42 @@ habu.host
 
 .. code-block::
 
+    Usage: habu.host [OPTIONS]
+    
+      Collect information about the host where habu is running.
+    
+      Example:
+    
+      $ habu.host
+      {
+          "kernel": [
+              "Linux",
+              "demo123",
+              "5.0.6-200.fc29.x86_64",
+              "#1 SMP Wed Apr 3 15:09:51 UTC 2019",
+              "x86_64",
+              "x86_64"
+          ],
+          "distribution": [
+              "Fedora",
+              "29",
+              "Twenty Nine"
+          ],
+          "libc": [
+              "glibc",
+              "2.2.5"
+          ],
+          "arch": "x86_64",
+          "python_version": "3.7.3",
+          "os_name": "Linux",
+          "cpu": "x86_64",
+          "static_hostname": "demo123",
+          "fqdn": "demo123.lab.sierra"
+      }
+    
+    Options:
+      -v      Verbose output.
+      --help  Show this message and exit.
     
 
 habu.http.headers
@@ -960,6 +996,33 @@ habu.http.headers
 
 .. code-block::
 
+    Usage: habu.http.headers [OPTIONS] SERVER
+    
+      Retrieve the HTTP headers of a web server.
+    
+      Example:
+    
+      $ habu.http.headers http://duckduckgo.com
+      {
+          "Server": "nginx",
+          "Date": "Sun, 14 Apr 2019 00:00:55 GMT",
+          "Content-Type": "text/html",
+          "Content-Length": "178",
+          "Connection": "keep-alive",
+          "Location": "https://duckduckgo.com/",
+          "X-Frame-Options": "SAMEORIGIN",
+          "Content-Security-Policy": "default-src https: blob: data: 'unsafe-inline' 'unsafe-eval'",
+          "X-XSS-Protection": "1;mode=block",
+          "X-Content-Type-Options": "nosniff",
+          "Referrer-Policy": "origin",
+          "Expect-CT": "max-age=0",
+          "Expires": "Mon, 13 Apr 2020 00:00:55 GMT",
+          "Cache-Control": "max-age=31536000"
+      }
+    
+    Options:
+      -v      Verbose output
+      --help  Show this message and exit.
     
 
 habu.http.options
@@ -967,6 +1030,20 @@ habu.http.options
 
 .. code-block::
 
+    Usage: habu.http.options [OPTIONS] SERVER
+    
+      Retrieve the available HTTP methods of a web server.
+    
+      Example:
+    
+      $ habu.http.options -v http://google.com
+      {
+          "allowed": "GET, HEAD"
+      }
+    
+    Options:
+      -v      Verbose output
+      --help  Show this message and exit.
     
 
 habu.ip
@@ -974,6 +1051,19 @@ habu.ip
 
 .. code-block::
 
+    Usage: habu.ip [OPTIONS]
+    
+      Get the public IP address of the connection from https://api.ipify.org.
+    
+      Example:
+    
+      $ habu.ip
+      {
+          "ip_external": "80.219.53.185"
+      }
+    
+    Options:
+      --help  Show this message and exit.
     
 
 habu.ip2asn
@@ -1006,6 +1096,24 @@ habu.ip.geolocation
 
 .. code-block::
 
+    Usage: habu.ip.geolocation [OPTIONS] IP_ADDRESS
+    
+      Get the geolocation of an IP adddress from https://ipapi.co/.
+    
+      Example:
+    
+      $ habu.ip.geolocation 8.8.8.8
+      {
+          "ip": "8.8.8.8",
+          "city": "Mountain View",
+          ...
+          "asn": "AS15169",
+          "org": "Google LLC"
+      }
+    
+    Options:
+      -v      Verbose output.
+      --help  Show this message and exit.
     
 
 habu.ip.internal
@@ -1013,6 +1121,40 @@ habu.ip.internal
 
 .. code-block::
 
+    Usage: habu.ip.internal [OPTIONS]
+    
+      Get the local IP address(es) of the local interfaces.
+    
+      Example:
+    
+      $ habu.ip.internal
+      {
+        "lo": {
+          "ipv4": [
+            {
+              "addr": "127.0.0.1",
+              "netmask": "255.0.0.0",
+              "peer": "127.0.0.1"
+            }
+          ],
+          "link_layer": [
+            {
+              "addr": "00:00:00:00:00:00",
+              "peer": "00:00:00:00:00:00"
+            }
+          ],
+          "ipv6": [
+            {
+              "addr": "::1",
+              "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff/128"
+            }
+          ]
+        },
+      ...
+    
+    Options:
+      -v      Verbose output.
+      --help  Show this message and exit.
     
 
 habu.isn
