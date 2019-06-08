@@ -4,6 +4,7 @@ import os
 import sys
 import glob
 
+from pathlib import Path
 from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
