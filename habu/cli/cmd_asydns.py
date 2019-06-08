@@ -2,16 +2,16 @@
 
 import base64
 import json
-from pathlib import Path
 import logging
-import click
-import pwd
 import os
+import pwd
+from pathlib import Path
+
+import click
 import requests
-from Crypto import Random
-from Crypto.Hash import SHA224
-from Crypto.PublicKey import RSA
-from Crypto.Signature import PKCS1_v1_5
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives.asymmetric import padding, rsa
 
 
 @click.command()
@@ -53,24 +53,44 @@ def cmd_asydns(url, generate, revoke, verbose):
     if generate or not key_file.is_file():
 
         logging.info('Generating RSA key ...')
-        random_generator = Random.new().read
-        key = RSA.generate(2048, random_generator)
-        pub = key.publickey()
+
+        key = rsa.generate_private_key(
+            public_exponent=65537,
+            key_size=2048,
+            backend=default_backend()
+        )
+
+        pub = key.public_key()
+
+        key_pem = key.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.TraditionalOpenSSL,
+            encryption_algorithm=serialization.NoEncryption()
+        )
+
+        pub_key = pub.public_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo
+        )
 
         with key_file.open('w') as k:
-            k.write(key.exportKey('PEM').decode())
+            k.write(key_pem.decode())
 
         with pub_file.open('w') as p:
-            p.write(pub.exportKey('PEM').decode())
+            p.write(pub_key.decode())
 
 
     logging.info('Loading RSA key ...')
-    with key_file.open() as k:
-        key = RSA.importKey(k.read())
 
-    with pub_file.open() as p:
-        pub = RSA.importKey(p.read())
+    with key_file.open("rb") as key_file:
+        key = serialization.load_pem_private_key(
+            key_file.read(),
+            password=None,
+            backend=default_backend()
+        )
 
+    with pub_file.open("r") as pub_file:
+        pub_pem = pub_file.read()
 
     r = requests.get(url + '/api')
 
@@ -82,14 +102,20 @@ def cmd_asydns(url, generate, revoke, verbose):
     j = r.json()
 
     challenge = base64.b64decode(j['challenge'])
-    signer = PKCS1_v1_5.new(key)
-    response = signer.sign(SHA224.new(challenge))
+
+    response = key.sign(
+        challenge,
+        padding.PKCS1v15(
+        ),
+        hashes.SHA224()
+    )
+
     response = base64.b64encode(response).decode()
 
     if revoke:
-        r = requests.delete(url + '/api', json={'pub': pub.exportKey('PEM').decode(), 'challenge' : j['challenge'], 'response': response})
+        r = requests.delete(url + '/api', json={'pub': pub_pem, 'challenge' : j['challenge'], 'response': response})
     else:
-        r = requests.post(url + '/api', json={'pub': pub.exportKey('PEM').decode(), 'challenge' : j['challenge'], 'response': response})
+        r = requests.post(url + '/api', json={'pub': pub_pem, 'challenge' : j['challenge'], 'response': response})
 
     if r.status_code != 200:
         logging.error('Error')
@@ -102,4 +128,3 @@ def cmd_asydns(url, generate, revoke, verbose):
 
 if __name__ == '__main__':
     cmd_asydns()
-
