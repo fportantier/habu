@@ -4,14 +4,14 @@ import json
 import logging
 import os
 import os.path
-import pwd
 import webbrowser
+
+from pathlib import Path
 
 import click
 import requests
 import requests_cache
 
-from habu.lib.loadcfg import loadcfg
 
 urls = {
     'aboutme': 'https://about.me/{}',
@@ -96,13 +96,11 @@ def cmd_usercheck(username, no_cache, verbose, wopen):
     }
     """
 
-    habucfg = loadcfg()
-
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     if not no_cache:
-        homedir = pwd.getpwuid(os.getuid()).pw_dir
+        homedir = Path(os.path.expanduser('~'))
         requests_cache.install_cache(homedir + '/.habu_requests_cache')
         logging.info('using cache on ' + homedir + '/.habu_requests_cache')
 

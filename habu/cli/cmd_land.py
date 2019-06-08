@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import sys
-from time import sleep
 import logging
 import click
 

@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 
 import logging
-import re
-from time import sleep
 
 import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from scapy.all import ARP, IP, TCP, Ether, conf, srp
+from scapy.all import ARP, Ether, conf, srp
 
 
 @click.command()

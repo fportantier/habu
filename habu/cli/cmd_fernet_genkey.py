@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
 
 import json
-import sys
 
 import click
 
 from pathlib import Path
-
-from habu.lib.xor import xor
-from habu.config import config
 
 from habu.lib.loadcfg import loadcfg
 

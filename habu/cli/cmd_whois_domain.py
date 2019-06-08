@@ -15,13 +15,13 @@ except ModuleNotFoundError:
 
 def remove_duplicates(data):
     for key in data.keys():
-        if type(data[key]) == type([]):
+        if isinstance(data[key], list):
             if hasattr(data[key][0], 'lower'):
                 data[key] = list(set([ item.lower() for item in data[key] ]))
             else:
                 data[key] = data[key][0]
 
-    if type(data['domain_name']) == type([]):
+    if isinstance(data['domain_name'], []):
         data['domain_name'] = data['domain_name'][0]
 
     return data

@@ -2,9 +2,6 @@
 
 import json
 import logging
-import os
-import os.path
-import pwd
 import sys
 
 import click

@@ -4,7 +4,7 @@ import base64
 import json
 import logging
 import os
-import pwd
+import os.path
 from pathlib import Path
 
 import click
@@ -42,7 +42,8 @@ def cmd_asydns(url, generate, revoke, verbose):
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
-    homedir = Path(pwd.getpwuid(os.getuid()).pw_dir)
+    #homedir = Path(pwd.getpwuid(os.getuid()).pw_dir)
+    homedir = Path(os.path.expanduser('~'))
 
     dotdir = homedir / '.asydns'
     dotdir.mkdir(exist_ok=True)

@@ -27,7 +27,7 @@ def drop_privileges():
     os.setuid(pwnam.pw_uid)
 
     # Ensure a reasonable umask
-    old_umask = os.umask(0o22)
+    os.umask(0o22)
 
     return True
 

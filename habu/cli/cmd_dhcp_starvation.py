@@ -8,8 +8,7 @@ import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from scapy.all import (BOOTP, DHCP, ICMP, IP, TCP, UDP, Ether, RandMAC, conf,
-                       get_if_raw_hwaddr, sr1, srp)
+from scapy.all import BOOTP, DHCP, IP, UDP, Ether, RandMAC, conf, srp
 
 
 @click.command()

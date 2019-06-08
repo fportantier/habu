@@ -4,8 +4,9 @@ import json
 import logging
 import os
 import os.path
-import pwd
 import sys
+
+from pathlib import Path
 
 import click
 import requests
@@ -56,7 +57,7 @@ def cmd_cymon_ip(ip, no_cache, verbose, output):
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     if not no_cache:
-        homedir = pwd.getpwuid(os.getuid()).pw_dir
+        homedir = Path(os.path.expanduser('~'))
         requests_cache.install_cache(homedir + '/.habu_requests_cache')
 
     url = 'https://www.cymon.io:443/api/nexus/v1/ip/{}'.format(ip)

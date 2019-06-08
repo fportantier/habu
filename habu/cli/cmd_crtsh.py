@@ -3,8 +3,10 @@
 import json
 import logging
 import os
-import pwd
+import os.path
 import sys
+
+from pathlib import Path
 
 import click
 import requests
@@ -37,7 +39,7 @@ def cmd_crtsh(domain, no_cache, no_validate, verbose):
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     if not no_cache:
-        homedir = pwd.getpwuid(os.getuid()).pw_dir
+        homedir = Path(os.path.expanduser('~'))
         requests_cache.install_cache(homedir + '/.habu_requests_cache', expire_after=3600)
 
     subdomains = set()

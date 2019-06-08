@@ -6,7 +6,7 @@ import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from scapy.all import ICMP, IP, TCP, conf, sr, sr1
+from scapy.all import IP, TCP, conf, sr1
 
 
 @click.command()

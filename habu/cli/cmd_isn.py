@@ -2,13 +2,11 @@
 
 import logging
 
-from time import sleep
-
 import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from scapy.all import ICMP, IP, TCP, UDP, RandShort, conf, send, sr1, srloop
+from scapy.all import IP, TCP, RandShort, conf, send, sr1
 
 
 @click.command()

@@ -1,12 +1,5 @@
 #!/usr/bin/env python3
 
-import shlex
-import subprocess
-import sys
-from pathlib import Path
-from shutil import which
-from time import sleep
-
 import click
 
 from habu.lib.web_screenshot import web_screenshot

@@ -8,7 +8,7 @@ import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from scapy.all import ARP, IP, TCP, conf, sniff
+from scapy.all import ARP, conf, sniff
 
 hosts = {}
 

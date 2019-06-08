@@ -1,5 +1,6 @@
 import pwd
 import os
+import os.path
 from pathlib import Path
 import json
 import sys
@@ -8,7 +9,7 @@ def loadcfg(environment=True):
 
     cfg = {}
 
-    homedir = Path(pwd.getpwuid(os.getuid()).pw_dir)
+    homedir = Path(os.path.expanduser('~'))
     cfgfile = homedir / '.habu.json'
 
     if cfgfile.is_file():

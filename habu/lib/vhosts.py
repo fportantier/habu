@@ -4,7 +4,7 @@ import json
 import logging
 import socket
 import sys
-import pwd
+#import pwd
 import os
 from pprint import pprint
 
@@ -21,7 +21,8 @@ def get_vhosts(ip, first=1, no_cache=False):
     """
 
     if not no_cache:
-        homedir = pwd.getpwuid(os.getuid()).pw_dir
+        #homedir = pwd.getpwuid(os.getuid()).pw_dir
+        homedir = Path(os.path.expanduser('~'))
         requests_cache.install_cache(homedir + '/.habu_requests_cache')
 
     url = "http://www.bing.com/search?q=ip:{ip}&first={first}".format(ip=ip, first=first)

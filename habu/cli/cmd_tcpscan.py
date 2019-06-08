@@ -2,7 +2,6 @@
 
 import logging
 import re
-from time import sleep
 
 import click
 
