@@ -21,7 +21,7 @@ for file in sorted(Path('habu/cli/').glob('cmd_*.py')):
 
 setup(
     name='habu',
-    version='0.1.9',
+    version='0.1.10',
     description='Python Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/x-rst',
@@ -37,7 +37,6 @@ setup(
         'lxml',
         'netifaces',
         #'prompt_toolkit==1.0.15',
-        'pycrypto',
         'pygments',
         'regex',
         'requests',
