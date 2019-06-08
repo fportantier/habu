@@ -18,13 +18,25 @@ def procpkt(pkt):
     now = time()
     output = '{seconds}\t{ip}\t{hwaddr}\t{vendor}'
 
+    if conf.manufdb:
+        manufdb_available = True
+    else:
+        manufdb_available = False
+
     if 'ARP' in pkt:
         hosts[pkt[ARP].psrc] = {}
         hosts[pkt[ARP].psrc]['hwaddr'] = pkt[ARP].hwsrc
-        hosts[pkt[ARP].psrc]['vendor'] = conf.manufdb._get_manuf(pkt[ARP].hwsrc)
         hosts[pkt[ARP].psrc]['time'] = time()
 
+        if manufdb_available:
+            hosts[pkt[ARP].psrc]['vendor'] = conf.manufdb._get_manuf(pkt[ARP].hwsrc)
+        else:
+            hosts[pkt[ARP].psrc]['vendor'] = 'unknown'
+
         click.clear()
+
+        if not manufdb_available:
+            click.echo('WARNING: manufdb is not available. Can\'t get vendor.')
 
         for ip in sorted(hosts):
             print(output.format(
