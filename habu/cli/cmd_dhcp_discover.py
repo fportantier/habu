@@ -26,7 +26,12 @@ def cmd_dhcp_discover(iface, timeout, verbose):
     conf.verb = False
 
     if iface:
-        conf.iface = iface
+        iface = search_iface(iface)
+        if iface:
+            conf.iface = iface['name']
+        else:
+            logging.error('Interface {} not found. Use habu.interfaces to show valid network interfaces'.format(iface))
+            return False
 
     conf.checkIPaddr = False
 

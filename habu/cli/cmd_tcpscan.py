@@ -42,7 +42,12 @@ def cmd_tcpscan(ip, port, iface, flags, sleeptime, timeout, show_all, verbose):
     conf.verb = False
 
     if iface:
-        conf.iface = iface
+        iface = search_iface(iface)
+        if iface:
+            conf.iface = iface['name']
+        else:
+            logging.error('Interface {} not found. Use habu.interfaces to show valid network interfaces'.format(iface))
+            return False
 
     port_regex = r'^[0-9,-]+$'
 

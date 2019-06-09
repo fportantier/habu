@@ -44,7 +44,12 @@ def cmd_gateway_find(network, iface, host, tcp, dport, timeout, verbose):
     conf.verb = False
 
     if iface:
-        conf.iface = iface
+        iface = search_iface(iface)
+        if iface:
+            conf.iface = iface['name']
+        else:
+            logging.error('Interface {} not found. Use habu.interfaces to show valid network interfaces'.format(iface))
+            return False
 
     res, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst=network), timeout=2)
 

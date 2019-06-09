@@ -38,7 +38,12 @@ def cmd_traceroute(ip, port, iface):
     conf.verb = False
 
     if iface:
-        conf.iface = iface
+        iface = search_iface(iface)
+        if iface:
+            conf.iface = iface['name']
+        else:
+            logging.error('Interface {} not found. Use habu.interfaces to show valid network interfaces'.format(iface))
+            return False
 
     pkts = IP(dst=ip, ttl=(1, 16)) / TCP(dport=port)
 
