@@ -1,5 +1,5 @@
-Habu: Python Network Hacking Toolkit
-====================================
+Habu: Hacking Toolkit
+=====================
 
 I'm developing Habu to teach (and learn) some concepts about Python and
 Network Hacking.
