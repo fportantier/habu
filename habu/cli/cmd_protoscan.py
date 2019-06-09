@@ -64,7 +64,7 @@ def cmd_protoscan(ip, iface, timeout, all_protocols, verbose):
         # convert "{name:num}" to {num:name}"
         protocols = { num:name for name,num in conf.protocols.__dict__.items() if isinstance(num, int) }
 
-    ans,unans=sr(IP(dst=ip, proto=protocols.keys())/"SCAPY", retry=0, timeout=timeout, verbose=verbose)
+    ans,unans=sr(IP(dst=ip, proto=[ int(p) for p in protocols.keys()])/"SCAPY", retry=0, timeout=timeout, verbose=verbose)
 
     allowed_protocols = [ pkt['IP'].proto for pkt in unans ]
 
