@@ -23,7 +23,7 @@ for file in sorted(Path('habu/cli/').glob('cmd_*.py')):
 
 setup(
     name='habu',
-    version='0.1.11',
+    version='0.1.13',
     description='Python Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/x-rst',
@@ -36,6 +36,7 @@ setup(
         'cryptography',
         'click',
         'dnspython',
+        'elevate',
         'lxml',
         'netifaces',
         #'prompt_toolkit==1.0.15',
@@ -64,7 +65,7 @@ setup(
         "Programming Language :: Python :: 3.0",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=['habu', 'habu.lib', 'habu.lib.completeme', 'habu.cli'],
+    packages=['habu', 'habu.lib', 'habu.lib.elevate', 'habu.lib.completeme', 'habu.cli'],
     include_package_data=True,
     keywords=['security'],
     zip_safe=False,

@@ -8,6 +8,7 @@ import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
+from habu.lib.iface import search_iface
 from scapy.all import ARP, conf, sniff
 
 hosts = {}

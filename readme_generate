@@ -28,6 +28,7 @@ for cmd_file in sorted((here / 'habu' / 'cli').glob('cmd_*.py')):
     readme_content += '.. code-block::\n\n'
 
     p = subprocess.Popen([ 'python3', cmd_file, '--help'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p.wait()
 
     if p.returncode not in [0, None]:
         logging.error('Error on {}'.format(cmd_name))
