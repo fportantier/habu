@@ -36,7 +36,6 @@ setup(
         'cryptography',
         'click',
         'dnspython',
-        'elevate',
         'lxml',
         'netifaces',
         #'prompt_toolkit==1.0.15',
