@@ -40,7 +40,7 @@ def cmd_crtsh(domain, no_cache, no_validate, verbose):
 
     if not no_cache:
         homedir = Path(os.path.expanduser('~'))
-        requests_cache.install_cache(homedir + '/.habu_requests_cache', expire_after=3600)
+        requests_cache.install_cache((homedir / '.habu_requests_cache'), expire_after=3600)
 
     subdomains = set()
 
