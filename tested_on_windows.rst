@@ -25,8 +25,8 @@ Testing Machine: Microsoft Windows 7 Professional SP1 32 bits.
 * extract.email
 * extract.ipv4
 * extract.hostname
-* fernet * vap
-* fernet.genkey * vap
+* fernet
+* fernet.genkey
 * forkbomb
 * gateway.find
 * hasher
@@ -54,8 +54,8 @@ Testing Machine: Microsoft Windows 7 Professional SP1 32 bits.
 * usercheck * vap
 * vhosts * vap
 * virustotal * vap
-* whois.domain * vap
-* whois.ip * vap
+* whois.domain
+* whois.ip
 
 
 Don't work (yet)

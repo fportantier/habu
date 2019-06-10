@@ -10,7 +10,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 @click.command()
 @click.argument('password')
-def decrypt_gppref(password):
+def cmd_decrypt_gppref(password):
 
     """
     Decrypt the password of local users added via Windows 2008 Group Policy Preferences.
@@ -45,4 +45,4 @@ def decrypt_gppref(password):
 
 
 if __name__ == '__main__':
-    decrypt_gppref()
+    cmd_decrypt_gppref()

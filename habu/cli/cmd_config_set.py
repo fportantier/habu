@@ -26,7 +26,7 @@ def cmd_config_set(key, value):
     habucfg = loadcfg(environment=False)
     habucfg[key.upper()] = value
     with Path('~/.habu.json').expanduser().open('w') as f:
-        f.write(json.dumps(habucfg, indent=4, sort_keys=True))
+        f.write(json.dumps(habucfg, indent=4, sort_keys=True, default=str))
 
 
 if __name__ == '__main__':

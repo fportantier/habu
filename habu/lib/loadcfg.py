@@ -17,7 +17,7 @@ def loadcfg(environment=True):
             try:
                 cfg = json.loads(f.read())
             except Exception as e:
-                print('exception', e, file=sys.stderr)
+                pass
 
     if environment:
         for k,v in os.environ.items():

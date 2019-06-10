@@ -6,7 +6,6 @@ import socket
 import sys
 
 import click
-
 from habu.lib.vhosts import get_vhosts
 
 
