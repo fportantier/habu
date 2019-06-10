@@ -10,7 +10,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 @click.command()
 @click.argument('password')
-def decrypt_gpp(password):
+def decrypt_gppref(password):
 
     """
     Decrypt the password of local users added via Windows 2008 Group Policy Preferences.
@@ -20,7 +20,7 @@ def decrypt_gpp(password):
     Example:
 
     \b
-    # habu.decrypt.gpp AzVJmXh/J9KrU5n0czX1uBPLSUjzFE8j7dOltPD8tLk
+    # habu.decrypt.gppref AzVJmXh/J9KrU5n0czX1uBPLSUjzFE8j7dOltPD8tLk
     testpassword
     """
 
@@ -45,4 +45,4 @@ def decrypt_gpp(password):
 
 
 if __name__ == '__main__':
-    decrypt_gpp()
+    decrypt_gppref()

@@ -21,7 +21,7 @@ def remove_duplicates(data):
             else:
                 data[key] = data[key][0]
 
-    if isinstance(data['domain_name'], []):
+    if isinstance(data['domain_name'], list):
         data['domain_name'] = data['domain_name'][0]
 
     return data

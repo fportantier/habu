@@ -1,12 +1,11 @@
 import ipaddress
-#from habu.lib.ip2asn import ip2asn
 import json
 import logging
 import socket
 import sys
-#import pwd
 import os
 from pprint import pprint
+from pathlib import Path
 
 import click
 import requests
@@ -21,9 +20,8 @@ def get_vhosts(ip, first=1, no_cache=False):
     """
 
     if not no_cache:
-        #homedir = pwd.getpwuid(os.getuid()).pw_dir
         homedir = Path(os.path.expanduser('~'))
-        requests_cache.install_cache(homedir + '/.habu_requests_cache')
+        requests_cache.install_cache((homedir / '.habu_requests_cache'), expire_after=3600)
 
     url = "http://www.bing.com/search?q=ip:{ip}&first={first}".format(ip=ip, first=first)
 
@@ -63,7 +61,6 @@ def cmd_vhosts(host, no_cache, pages, first):
     vhosts = []
 
     for num in range(pages):
-        #print("results", first+num*10)
         vhosts += get_vhosts(resolved, no_cache=no_cache, first=first+num*10)
 
     vhosts = list(set(vhosts))

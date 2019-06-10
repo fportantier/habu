@@ -101,7 +101,7 @@ def cmd_usercheck(username, no_cache, verbose, wopen):
 
     if not no_cache:
         homedir = Path(os.path.expanduser('~'))
-        requests_cache.install_cache(homedir + '/.habu_requests_cache')
+        requests_cache.install_cache((homedir / '.habu_requests_cache'), expire_after=3600)
         logging.info('using cache on ' + homedir + '/.habu_requests_cache')
 
     existent = {}

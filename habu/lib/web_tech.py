@@ -18,9 +18,8 @@ def web_tech(url, no_cache=False, verbose=False):
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     if not no_cache:
-        #homedir = pwd.getpwuid(os.getuid()).pw_dir
         homedir = Path(os.path.expanduser('~'))
-        requests_cache.install_cache(homedir + '/.habu_requests_cache', expire_after=7200)
+        requests_cache.install_cache((homedir / '.habu_requests_cache'), expire_after=3600)
 
     try:
         r = requests.get(url)

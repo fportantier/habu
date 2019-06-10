@@ -23,7 +23,7 @@ for file in sorted(Path('habu/cli/').glob('cmd_*.py')):
 
 setup(
     name='habu',
-    version='0.1.15',
+    version='0.1.16',
     description='Python Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/x-rst',
@@ -36,6 +36,7 @@ setup(
         'cryptography',
         'click',
         'dnspython',
+        'ipwhois',
         'lxml',
         'netifaces',
         #'prompt_toolkit==1.0.15',
@@ -43,6 +44,7 @@ setup(
         'regex',
         'requests',
         'requests-cache',
+        'python-whois',
         'scapy',
         'websockets',
     ],
