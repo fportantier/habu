@@ -69,7 +69,7 @@ def cmd_cymon_ip_timeline(ip, no_cache, verbose, output, pretty):
 
     if not no_cache:
         homedir = Path(os.path.expanduser('~'))
-        requests_cache.install_cache(homedir + '/.habu_requests_cache')
+        requests_cache.install_cache(str(homedir / '.habu_requests_cache'), expire_after=3600)
 
     url = 'https://www.cymon.io:443/api/nexus/v1/ip/{}/timeline/'.format(ip)
     headers = { 'Authorization': 'Token {}'.format(habucfg['CYMON_APIKEY']) }

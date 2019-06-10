@@ -16,7 +16,7 @@ def shodan_get_result(ip, api_key, no_cache=False, verbose=False):
 
     if not no_cache:
         homedir = pwd.getpwuid(os.getuid()).pw_dir
-        requests_cache.install_cache(homedir + '/.habu_requests_cache')
+        requests_cache.install_cache(str(homedir / '.habu_requests_cache'), expire_after=3600)
 
     url = 'https://api.shodan.io/shodan/host/{}?key={}'.format(ip, api_key)
 

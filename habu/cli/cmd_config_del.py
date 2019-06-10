@@ -25,7 +25,7 @@ def cmd_config_del(key):
     habucfg = loadcfg(environment=False)
     habucfg.pop(key.upper(), None)
     with Path('~/.habu.json').expanduser().open('w') as f:
-        f.write(json.dumps(habucfg, indent=4, sort_keys=True))
+        f.write(json.dumps(habucfg, indent=4, sort_keys=True, default=str))
 
 
 if __name__ == '__main__':
