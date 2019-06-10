@@ -45,7 +45,7 @@ Work
 * nmap.ports
 * nmap.excluded
 * protoscan
-* shodan * vap
+* shodan
 * synflood
 * tcpflags
 * tcpscan

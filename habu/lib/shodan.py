@@ -7,6 +7,7 @@ import os.path
 import requests
 import requests_cache
 
+from pathlib import Path
 
 def shodan_get_result(ip, api_key, no_cache=False, verbose=False):
 
@@ -14,7 +15,7 @@ def shodan_get_result(ip, api_key, no_cache=False, verbose=False):
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     if not no_cache:
-        homedir = pwd.getpwuid(os.getuid()).pw_dir
+        Path(os.path.expanduser('~'))
         requests_cache.install_cache(str(homedir / '.habu_requests_cache'), expire_after=3600)
 
     url = 'https://api.shodan.io/shodan/host/{}?key={}'.format(ip, api_key)
