@@ -3,21 +3,21 @@ Commands that have been tested on Microsoft Windows
 
 Testing Machine: Microsoft Windows 7 Professional SP1 32 bits.
 
+Work
+----
+
 * arp.ping
 * arp.sniff
 * arp.poison
 * asydns
 * b64
 * certclone
-* config * volver a probar
+* config
 * contest
 * crack.luhn
 * crack.snmp
-* crtsh * volver a probar
-* cymon.ip * volver a probar
-* cymon.ip.timeline * volver a probar
-* decrypt.gppref * vap
-* dhcp_discover * vap
+* crtsh
+* decrypt.gppref
 * dhcp_starvation
 * dns.lookup.forward
 * dns.lookup.reverse
@@ -30,7 +30,7 @@ Testing Machine: Microsoft Windows 7 Professional SP1 32 bits.
 * forkbomb
 * gateway.find
 * hasher
-* host (need improvements on windows)
+* host (needs improvements on windows)
 * http.headers
 * http.options
 * ip
@@ -43,30 +43,35 @@ Testing Machine: Microsoft Windows 7 Professional SP1 32 bits.
 * land
 * nmap.open
 * nmap.ports
-* nmap.excluded * vap
+* nmap.excluded
 * protoscan
-* server.ftp * vap
 * shodan * vap
 * synflood
 * tcpflags
 * tcpscan
 * traceroute
-* usercheck * vap
-* vhosts * vap
-* virustotal * vap
+* usercheck
+* vhosts
+* virustotal
 * whois.domain
 * whois.ip
 
 
 Don't work (yet)
+----------------
 
+* cymon.ip (service discontinued)
+* cymon.ip.timeline (service discontinued)
+* dhcp_discover
 * nc
 * ping
+* server.ftp
 * web.screenshot
 * web.report
 
 
 Not tested (yet, but maybe works)
+---------------------------------
 
 * jshell
 

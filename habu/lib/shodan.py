@@ -3,7 +3,6 @@
 import logging
 import os
 import os.path
-import pwd
 
 import requests
 import requests_cache
