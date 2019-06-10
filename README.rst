@@ -1,5 +1,5 @@
-Habu: Python Network Hacking Toolkit
-====================================
+Habu: Hacking Toolkit
+=====================
 
 I'm developing Habu to teach (and learn) some concepts about Python and
 Network Hacking.
@@ -132,6 +132,7 @@ Commands Index
 * `host <#habuhost>`_
 * `http.headers <#habuhttpheaders>`_
 * `http.options <#habuhttpoptions>`_
+* `interfaces <#habuinterfaces>`_
 * `ip <#habuip>`_
 * `ip2asn <#habuip2asn>`_
 * `ip.geolocation <#habuipgeolocation>`_
@@ -1043,6 +1044,29 @@ habu.http.options
     
     Options:
       -v      Verbose output
+      --help  Show this message and exit.
+    
+
+habu.interfaces
+---------------
+
+.. code-block::
+
+    Usage: habu.interfaces [OPTIONS]
+    
+      Show the network interfaces available on the system.
+    
+      Example:
+    
+      # habu.interfaces
+      #  NAME                            MAC                INET             INET6
+      0  eth0                            80:fa:5b:4b:f9:18  None             None
+      1  lo                              00:00:00:00:00:00  127.0.0.1        ::1
+      2  wlan0                           f4:96:34:e5:ae:1b  192.168.0.6      None
+      3  vboxnet0                        0a:00:27:00:00:00  192.168.56.1     fe80::800:27ff:fe00:0
+    
+    Options:
+      -j      Output in JSON format
       --help  Show this message and exit.
     
 
