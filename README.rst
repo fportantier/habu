@@ -4,13 +4,6 @@ Habu: Hacking Toolkit
 I'm developing Habu to teach (and learn) some concepts about Python and
 Network Hacking.
 
-These are basic functions that help with some tasks for Ethical Hacking
-and Penetration Testing.
-
-Most of them are related with networking, and the implementations are
-intended to be understandable for who wants to read the source code and
-learn from that.
-
 Some techniques implemented in the current version are:
 
 * ARP Poisoning
@@ -65,24 +58,9 @@ Habu is on PyPi, so you can install it directly with pip:
 $ pip3 install habu
 ```
 
-Dependencies
-------------
+**Microsoft Windows**:
 
-Habu requires Python3 and the following packages:
-
-* beautifulsoup4
-* click
-* cryptography
-* dnspython
-* lxml
-* prompt\_toolkit
-* pygments
-* regex
-* requests
-* requests-cache
-* scapy-python3
-* websockets
-* matplotlib (Optional, only needed if you want to make some graphs)
+Install it with the pip method.
 
 Get Help
 --------
@@ -614,7 +592,7 @@ habu.decrypt.gppref
     
       Example:
     
-      # habu.decrypt.gpp AzVJmXh/J9KrU5n0czX1uBPLSUjzFE8j7dOltPD8tLk
+      # habu.decrypt.gppref AzVJmXh/J9KrU5n0czX1uBPLSUjzFE8j7dOltPD8tLk
       testpassword
     
     Options:
