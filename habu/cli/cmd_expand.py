@@ -11,7 +11,7 @@ from habu.lib.expand import expand
 @click.command()
 @click.option('-i', 'infile', type=click.File('r'), default='-', help='Input file (Default: stdin)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_data_expand(infile, verbose):
+def cmd_expand(infile, verbose):
     """Expand data to add interesting information.
 
     Example:
@@ -51,4 +51,4 @@ def cmd_data_expand(infile, verbose):
 
 
 if __name__ == '__main__':
-    cmd_data_expand()
+    cmd_expand()
