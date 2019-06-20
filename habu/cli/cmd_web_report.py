@@ -3,21 +3,25 @@
 import html
 import sys
 import urllib.request
+import requests
 from pathlib import Path
+import urllib3
 
 import click
 
 from habu.lib.web_screenshot import web_screenshot
 
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 @click.command()
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.option('-s', 'screenshot', is_flag=True, default=False, help='Take a screenshot for each website')
 @click.option('-b', 'browser', default=None, type=click.Choice(['firefox', 'chromium-browser']), help='Browser to use for screenshot.')
 @click.argument('input_file', type=click.File('rb'), default='-')
-def cmd_web_report(input_file, verbose, browser):
-    """Uses Firefox or Chromium to take a screenshot of the websites.
+def cmd_web_report(input_file, verbose, browser, screenshot):
+    """Makes a report that includes HTTP headers of websites.
 
-    Makes a report that includes the HTTP headers.
+    Optionally, uses Firefox or Chromium to take a screenshot of the websites.
 
     The expected format is one url per line.
 
@@ -28,6 +32,8 @@ def cmd_web_report(input_file, verbose, browser):
     """
 
     urls = input_file.read().decode().strip().split('\n')
+
+    urls = [ url.strip() for url in urls if url.strip() ]
 
     report_dir = Path('report')
 
@@ -57,16 +63,20 @@ def cmd_web_report(input_file, verbose, browser):
             outfile.write('<p><strong>' + html.escape(url) + '</strong></p>\n')
 
             try:
-                req = urllib.request.Request(url, method='HEAD')
-                resp = urllib.request.urlopen(req)
-                outfile.write('<pre style="white-space: pre-wrap;">' + html.escape(str(resp.headers)) + '</pre>\n')
+                response = requests.head(url, verify=False, timeout=3)
+
+                headers = 'Status Code: {}\n'.format(response.status_code)
+                for name,value in response.headers.items():
+                    headers += '{}: {}\n'.format(name, value)
+
+                outfile.write('<pre style="white-space: pre-wrap;">' + html.escape(headers) + '</pre>\n')
             except Exception as e:
                 outfile.write('<pre>ERROR: ' + html.escape(str(e)) + '</pre>\n')
                 error = True
 
             outfile.write('</td><td>')
 
-            if not error:
+            if screenshot and not error:
                 web_screenshot(url, report_dir / '{}.png'.format(i), browser=browser)
                 outfile.write('<img src={}.png style="max-width: 100%" />\n'.format(i))
 

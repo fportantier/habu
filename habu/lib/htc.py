@@ -55,6 +55,5 @@ def crawl(url):
 
 
 if __name__ == '__main__':
-    crawl('http://spds.info/')
-
+    crawl('')
 
