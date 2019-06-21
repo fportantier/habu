@@ -88,7 +88,10 @@ def cmd_cert_names(infile, ports, timeout, verbose, network):
             click.echo(e, err=True)
             return False
 
-        hosts |= { host for host in network.hosts() }
+        if len(list(network.hosts())) == 0:
+            hosts |= set([ipaddress.ip_address(str(network).split('/')[0])])
+        else:
+            hosts |= { host for host in network.hosts() }
 
     if not infile.isatty():
         for network in infile.read().split('\n'):
