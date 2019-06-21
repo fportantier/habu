@@ -121,6 +121,7 @@ def cmd_cert_names(infile, ports, timeout, verbose, network):
             except Exception as e:
                 print(e)
 
+    print('')
     print('\n'.join(sorted(all_names)))
 
 
