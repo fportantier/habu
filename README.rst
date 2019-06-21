@@ -82,7 +82,8 @@ Commands Index
 * `arp.sniff <#habuarpsniff>`_
 * `asydns <#habuasydns>`_
 * `b64 <#habub64>`_
-* `certclone <#habucertclone>`_
+* `cert.clone <#habucertclone>`_
+* `cert.names <#habucertnames>`_
 * `config.del <#habuconfigdel>`_
 * `config.set <#habuconfigset>`_
 * `config.show <#habuconfigshow>`_
@@ -99,11 +100,14 @@ Commands Index
 * `dns.lookup.forward <#habudnslookupforward>`_
 * `dns.lookup.reverse <#habudnslookupreverse>`_
 * `eicar <#habueicar>`_
+* `expand <#habuexpand>`_
+* `extract.domain <#habuextractdomain>`_
 * `extract.email <#habuextractemail>`_
 * `extract.hostname <#habuextracthostname>`_
 * `extract.ipv4 <#habuextractipv4>`_
 * `fernet <#habufernet>`_
 * `fernet.genkey <#habufernetgenkey>`_
+* `filter <#habufilter>`_
 * `forkbomb <#habuforkbomb>`_
 * `gateway.find <#habugatewayfind>`_
 * `hasher <#habuhasher>`_
@@ -129,6 +133,7 @@ Commands Index
 * `server.ftp <#habuserverftp>`_
 * `shodan <#habushodan>`_
 * `shodan.open <#habushodanopen>`_
+* `shodan.query <#habushodanquery>`_
 * `synflood <#habusynflood>`_
 * `tcpflags <#habutcpflags>`_
 * `tcpscan <#habutcpscan>`_
@@ -267,12 +272,12 @@ habu.b64
       --help  Show this message and exit.
     
 
-habu.certclone
---------------
+habu.cert.clone
+---------------
 
 .. code-block::
 
-    Usage: habu.certclone [OPTIONS] HOSTNAME PORT KEYFILE CERTFILE
+    Usage: habu.cert.clone [OPTIONS] HOSTNAME PORT KEYFILE CERTFILE
     
       Connect to an SSL/TLS server, get the certificate and generate a
       certificate with the same options and field values.
@@ -289,6 +294,45 @@ habu.certclone
       --expired          Generate an expired certificate (default: False)
       -v                 Verbose
       --help             Show this message and exit.
+    
+
+habu.cert.names
+---------------
+
+.. code-block::
+
+    Usage: habu.cert.names [OPTIONS] [NETWORK]
+    
+      Connects to each host/port and shows a summary of the certificate names.
+    
+      The hosts to connect to are taken from two possible options:
+    
+      1) -i option (stdin by default). A file where each line is a host or
+      network 2) An argument that can be a host or network
+    
+      If you use both methods, the hosts and networks are merged into one list.
+    
+      Example:
+    
+      $ habu.cert.names 2.18.60.240/29
+      2.18.60.241         443 i.s-microsoft.com microsoft.com privacy.microsoft.com
+      2.18.60.242         443 aod-ssl.itunes.apple.com aod.itunes.apple.com aodp-ssl.itunes.apple.com
+      2.18.60.243         443 *.mlb.com mlb.com
+      2.18.60.244         443 [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1056)
+      2.18.60.245         443 cert2-cn-public-ubiservices.ubi.com cert2-cn-public-ws-ubiservices.ubi.com
+      2.18.60.246         443 *.blog.sina.com.cn *.dmp.sina.cn
+    
+      aod.itunes.apple.com aodp-ssl.itunes.apple.com aod-ssl.itunes.apple.com
+      *.blog.sina.com.cn cert2-cn-public-ubiservices.ubi.com cert2-cn-public-ws-
+      ubiservices.ubi.com *.dmp.sina.cn i.s-microsoft.com microsoft.com
+      *.mlb.com mlb.com privacy.microsoft.com
+    
+    Options:
+      -p TEXT      Ports to connect to (comma separated list)
+      -i FILENAME  Input file (Default: stdin)
+      -t FLOAT     Time to wait for each connection
+      -v           Verbose output
+      --help       Show this message and exit.
     
 
 habu.config.del
@@ -712,6 +756,70 @@ habu.eicar
       --help  Show this message and exit.
     
 
+habu.expand
+-----------
+
+.. code-block::
+
+    Usage: habu.expand [OPTIONS]
+    
+      Expand data to add interesting information.
+    
+      Example:
+    
+      $ cat /var/log/auth.log | habu.extract.ipv4 | habu.expand
+      [
+          {
+              "asset": "8.8.8.8",
+              "family": "IPAddress",
+              "asn": "15169",
+              "net": "8.8.8.0/24",
+              "cc": "US",
+              "rir": "ARIN",
+              "asname": "GOOGLE - Google LLC, US"
+          },
+          {
+              "asset": "8.8.4.4",
+              "family": "IPAddress",
+              "asn": "15169",
+              "net": "8.8.4.0/24",
+              "cc": "US",
+              "rir": "ARIN",
+              "asname": "GOOGLE - Google LLC, US"
+          }
+      ]
+    
+    Options:
+      -i FILENAME  Input file (Default: stdin)
+      -v           Verbose output
+      --help       Show this message and exit.
+    
+
+habu.extract.domain
+-------------------
+
+.. code-block::
+
+    Usage: habu.extract.domain [OPTIONS] [INFILE]
+    
+      Extract valid domains from a file or stdin.
+    
+      Optionally, check each domain for the presence of NS registers.
+    
+      Example:
+    
+      $ cat /var/log/some.log | habu.extract.domain -c
+      google.com
+      ibm.com
+      redhat.com
+    
+    Options:
+      -c      Check if domain has NS servers defined
+      -v      Verbose output
+      -j      JSON output
+      --help  Show this message and exit.
+    
+
 habu.extract.email
 ------------------
 
@@ -832,6 +940,38 @@ habu.fernet.genkey
     Options:
       -w      Write this key to ~/.habu.json
       --help  Show this message and exit.
+    
+
+habu.filter
+-----------
+
+.. code-block::
+
+    Usage: habu.filter [OPTIONS] FIELD [gt|lt|eq|ne|ge|le|in|contains|defined|un
+                         defined|true|false] [VALUE]
+    
+      Filter data based on operators.
+    
+      Example:
+    
+      $ cat /var/log/auth.log | habu.extract.ipv4 | habu.expand | habu.filter cc eq US
+      [
+          {
+              "asset": "8.8.8.8",
+              "family": "IPAddress",
+              "asn": "15169",
+              "net": "8.8.8.0/24",
+              "cc": "US",
+              "rir": "ARIN",
+              "asname": "GOOGLE - Google LLC, US"
+          }
+      ]
+    
+    Options:
+      -i FILENAME  Input file (Default: stdin)
+      -v           Verbose output
+      --not        Negate the comparison
+      --help       Show this message and exit.
     
 
 habu.forkbomb
@@ -1589,6 +1729,50 @@ habu.shodan.open
       --help       Show this message and exit.
     
 
+habu.shodan.query
+-----------------
+
+.. code-block::
+
+    Usage: habu.shodan.query [OPTIONS] QUERY
+    
+      Simple shodan API client.
+    
+      Prints the JSON result of a shodan query.
+    
+      Example:
+    
+      $ habu.shodan 8.8.8.8
+      {
+          "hostnames": [
+              "google-public-dns-a.google.com"
+          ],
+          "country_code": "US",
+          "org": "Google",
+          "data": [
+              {
+                  "isp": "Google",
+                  "transport": "udp",
+                  "data": "Recursion: enabled",
+                  "asn": "AS15169",
+                  "port": 53,
+                  "hostnames": [
+                      "google-public-dns-a.google.com"
+                  ]
+              }
+          ],
+          "ports": [
+              53
+          ]
+      }
+    
+    Options:
+      -c           Disable cache
+      -v           Verbose output
+      -o FILENAME  Output file (default: stdout)
+      --help       Show this message and exit.
+    
+
 habu.synflood
 -------------
 
@@ -1849,9 +2033,9 @@ habu.web.report
 
     Usage: habu.web.report [OPTIONS] [INPUT_FILE]
     
-      Uses Firefox or Chromium to take a screenshot of the websites.
+      Makes a report that includes HTTP headers of websites.
     
-      Makes a report that includes the HTTP headers.
+      Optionally, uses Firefox or Chromium to take a screenshot of the websites.
     
       The expected format is one url per line.
     
@@ -1861,6 +2045,7 @@ habu.web.report
     
     Options:
       -v                             Verbose output
+      -s                             Take a screenshot for each website
       -b [firefox|chromium-browser]  Browser to use for screenshot.
       --help                         Show this message and exit.
     
