@@ -16,7 +16,4 @@ def threaded_request(urls):
             break
         sleep(1)
 
-
-
-
     return answers

@@ -70,6 +70,12 @@ def operator_defined(item, field, value):
 def operator_undefined(item, field, value):
     return field not in item
 
+def operator_true(item, field, value):
+    return field in item and item[field] is True
+
+def operator_false(item, field, value):
+    return field in item and item[field] is False
+
 
 operators = {
     'gt': operator_gt,
@@ -82,6 +88,8 @@ operators = {
     'contains': operator_contains,
     'defined': operator_defined,
     'undefined': operator_undefined,
+    'true': operator_true,
+    'false': operator_false,
 }
 
 def operate(item, field, operator, value):
@@ -118,12 +126,13 @@ def cmd_filter(infile, verbose, negated, field, operator, value):
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
-    if value is None and operator not in ['defined', 'undefined']:
+    if value is None and operator not in ['defined', 'undefined', 'true', 'false']:
         click.echo('Operator {} requires a value'.format(operator), err=True)
 
     try:
         data = json.loads(infile.read())
-    except ValueError:
+    except ValueError as e:
+        print(e)
         click.echo('Invalid input data. Whe expect JSON here.', err=True)
         return False
 

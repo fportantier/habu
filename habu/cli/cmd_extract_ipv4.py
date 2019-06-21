@@ -9,14 +9,15 @@ import regex as re
 
 def extract_ipv4(data):
 
-    regexp = re.compile(r'((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)', flags=re.MULTILINE)
+    #regexp = re.compile(r'\s?((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\s?', flags=re.MULTILINE)
+    regexp = re.compile(r'[\s():{}\[\]]{1}((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)[\s():{}\[\]]{1}', flags=re.MULTILINE)
 
     match = regexp.finditer(data)
 
     result = []
 
     for m in match:
-        result.append(m.group(0))
+        result.append(m.group(0).strip(' ():{}[]'))
 
     return result
 

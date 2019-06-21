@@ -27,10 +27,10 @@ def ip2asn(ipaddr):
     try:
         ip = ipaddress.ip_network(ipaddr)
     except ValueError:
-        return None
+        return {}
 
     if ip.is_private:
-        return None
+        return {}
 
     if ip.version == 4:
 
@@ -55,7 +55,7 @@ def ip2asn(ipaddr):
     try:
         response = dns.resolver.query(name, 'TXT')
     except:
-        return None
+        return {}
 
     # "15169 | 8.8.4.0/24 | US | arin |"
     r = {}
