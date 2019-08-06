@@ -130,6 +130,7 @@ Commands Index
 * `nmap.ports <#habunmapports>`_
 * `ping <#habuping>`_
 * `protoscan <#habuprotoscan>`_
+* `select <#habuselect>`_
 * `server.ftp <#habuserverftp>`_
 * `shodan <#habushodan>`_
 * `shodan.open <#habushodanopen>`_
@@ -308,8 +309,7 @@ habu.cert.names
       The hosts to connect to are taken from two possible options:
     
       1) -i option (stdin by default). A file where each line is a host or
-      network
-      2) An argument that can be a host or network
+      network 2) An argument that can be a host or network
     
       If you use both methods, the hosts and networks are merged into one list.
     
@@ -1633,6 +1633,29 @@ habu.protoscan
       --all       Probe all protocols (default: Defined in /etc/protocols)
       -v          Verbose output
       --help      Show this message and exit.
+    
+
+habu.select
+-----------
+
+.. code-block::
+
+    Usage: habu.select [OPTIONS] FIELD
+    
+      Select a field from a JSON input.
+    
+      Example:
+    
+      $ cat /var/log/auth.log | habu.extract.ipv4 | habu.expand | habu.filter cc eq US | habu.select asset
+      8.8.8.7
+      8.8.8.8
+      8.8.8.9
+    
+    Options:
+      -i FILENAME  Input file (Default: stdin)
+      -j           JSON output
+      -v           Verbose output
+      --help       Show this message and exit.
     
 
 habu.server.ftp
