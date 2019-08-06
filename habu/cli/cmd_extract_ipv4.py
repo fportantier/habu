@@ -17,7 +17,10 @@ def extract_ipv4(data):
     result = []
 
     for m in match:
-        result.append(m.group(0).strip(' ():{}[]'))
+        ip = m.group(0).strip(' ():{}[]')
+        ip = ip.strip()
+        if ip:
+            result.append(ip)
 
     return result
 
@@ -41,8 +44,6 @@ def cmd_extract_ipv4(infile, jsonout, verbose):
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
     data = infile.read()
-
-    result = []
 
     result = extract_ipv4(data)
 
