@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import ipaddress
 import json
 import logging
 
@@ -12,15 +13,22 @@ def extract_ipv4(data):
     #regexp = re.compile(r'\s?((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\s?', flags=re.MULTILINE)
     regexp = re.compile(r'[\s():{}\[\]]{1}((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)[\s():{}\[\]]{1}', flags=re.MULTILINE)
 
+    regexp = re.compile(r'[^0-9]?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})[^0-9]?', flags=re.MULTILINE)
+
     match = regexp.finditer(data)
 
     result = []
 
     for m in match:
-        ip = m.group(0).strip(' ():{}[]')
-        ip = ip.strip()
-        if ip:
-            result.append(ip)
+        try:
+            ipaddress.ip_address(m.group(1))
+            result.append(m.group(1))
+        except ValueError:
+            continue
+        #ip = m.group(0).strip(' ():{}[]')
+        #ip = ip.strip()
+        #if ip:
+        #    result.append(ip)
 
     return result
 
