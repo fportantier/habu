@@ -150,7 +150,10 @@ def web_tech(url, no_cache=False, verbose=False):
     for t in list(tech.keys()):
         for exclude in tech[t].get('excludes', []):
             logging.info("removing {exlude} because its excluded by {t}".format(exlude=exclude, t=t))
-            del(tech[t])
+            try:
+                del(tech[t])
+            except KeyError:
+                pass
 
     response = {}
 
