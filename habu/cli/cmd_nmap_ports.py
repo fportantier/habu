@@ -33,9 +33,9 @@ def parse_format_xml(data, protocol):
     for line in data.split('\n'):
         m = line_regex.match(line)
         if m:
-            ports.add(m.group(1))
+            ports.add(int(m.group(1)))
 
-    return ','.join(ports)
+    return sorted(ports)
 
 
 
@@ -44,14 +44,14 @@ def parse_format_nmap(data, protocol):
     line_regex_str = r'(?P<port>\d+)/{}'.format(protocol)
     line_regex = re.compile(line_regex_str)
 
-    ports = []
+    ports = set()
 
     for line in data.split('\n'):
         m = line_regex.match(line)
         if m:
-            ports.append(m.group(1))
+            ports.add(int(m.group(1)))
 
-    return ','.join(ports)
+    return sorted(ports)
 
 
 
@@ -60,7 +60,7 @@ def parse_format_gnmap(data, protocol):
     line_regex_str = r'(?P<port>\d+)/\w+/{}'.format(protocol)
     line_regex = re.compile(line_regex_str)
 
-    ports = []
+    ports = set()
 
     for line in data.split('\n'):
         if 'Ports:' not in line:
@@ -71,9 +71,9 @@ def parse_format_gnmap(data, protocol):
             c = c.strip()
             m = line_regex.match(c)
             if m:
-                ports.append(m.group(1))
+                ports.add(int(m.group(1)))
 
-    return ','.join(ports)
+    return sorted(ports)
 
 
 
@@ -110,7 +110,7 @@ def cmd_nmap_ports(scanfile, protocol):
     elif fmt == 'xml':
         result = parse_format_xml(data, protocol)
 
-    print(result, end='')
+    print(','.join([ str(r) for r in result]), end='')
 
     return True
 
