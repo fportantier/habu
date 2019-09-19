@@ -28,12 +28,12 @@ def parse_format_xml(data, protocol):
     line_regex_str = r'<port protocol="{}" portid="(?P<port>\d+)"><state state="open"'.format(protocol)
     line_regex = re.compile(line_regex_str)
 
-    ports = []
+    ports = set()
 
     for line in data.split('\n'):
         m = line_regex.match(line)
         if m:
-            ports.append(m.group(1))
+            ports.add(m.group(1))
 
     return ','.join(ports)
 
