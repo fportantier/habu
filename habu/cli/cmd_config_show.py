@@ -8,7 +8,7 @@ from habu.lib.loadcfg import loadcfg
 
 
 @click.command()
-@click.option('--show-keys', is_flag=True, default=False, help='Show also the key values')
+@click.option('-k', '--show-keys', is_flag=True, default=False, help='Show also the key values')
 @click.option('--option', nargs=2, help='Write to the config(KEY VALUE)')
 def cmd_config_show(option, show_keys):
     """Show the current config.

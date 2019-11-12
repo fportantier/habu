@@ -1,6 +1,8 @@
 import ipaddress
 
 from habu.lib.identify import identify
+from habu.lib.extract import guess_item_type
+
 from habu.lib.ip2asn import ip2asn
 
 def expand_ip(addr):
@@ -24,25 +26,30 @@ def expand_ip(addr):
 
 
 expanders = {}
-expanders['IPAddress'] = []
-expanders['IPNetwork'] = []
-expanders['Unknown'] = []
+expanders['ipv4_address'] = []
+expanders['ipv4_network'] = []
+expanders['ipv6_address'] = []
+expanders['ipv6_network'] = []
+expanders['unknown'] = []
 #expanders['IPAddress'].append(ip2asn)
-expanders['IPAddress'].append(expand_ip)
-expanders['IPNetwork'].append(expand_ip)
+expanders['ipv4_address'].append(expand_ip)
+expanders['ipv4_network'].append(expand_ip)
+expanders['ipv6_address'].append(expand_ip)
+expanders['ipv6_network'].append(expand_ip)
 
 
-def expand(asset):
 
-    family = identify(asset)
+def expand(item):
+
+    family = guess_item_type(item)
 
     result = {
-        'asset': asset,
+        'item': item,
         'family' : family,
     }
 
     for expander in expanders[family]:
-        result.update(expander(asset))
+        result.update(expander(item))
 
     return result
 

@@ -44,7 +44,7 @@ def extract_domain(data):
 @click.option('-c', 'check', is_flag=True, default=False, help='Check if domain has NS servers defined')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 @click.option('-j', 'jsonout', is_flag=True, default=False, help='JSON output')
-def cmd_extract_domain(infile, check, verbose, jsonout):
+def cmd_data_extract_domain(infile, check, verbose, jsonout):
     """Extract valid domains from a file or stdin.
 
     Optionally, check each domain for the presence of NS registers.
@@ -52,7 +52,7 @@ def cmd_extract_domain(infile, check, verbose, jsonout):
     Example:
 
     \b
-    $ cat /var/log/some.log | habu.extract.domain -c
+    $ cat /var/log/some.log | habu.data.extract.domain -c
     google.com
     ibm.com
     redhat.com
@@ -76,4 +76,4 @@ def cmd_extract_domain(infile, check, verbose, jsonout):
 
 
 if __name__ == '__main__':
-    cmd_extract_domain()
+    cmd_data_extract_domain()

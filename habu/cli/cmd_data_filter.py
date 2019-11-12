@@ -103,17 +103,17 @@ def operate(item, field, operator, value):
 @click.argument('field', type=click.STRING)
 @click.argument('operator', type=click.Choice(operators.keys()))
 @click.argument('value', default=None, required=False)
-def cmd_filter(infile, verbose, negated, field, operator, value):
+def cmd_data_filter(infile, verbose, negated, field, operator, value):
     """Filter data based on operators.
 
     Example:
 
     \b
-    $ cat /var/log/auth.log | habu.extract.ipv4 | habu.expand | habu.filter cc eq US
+    $ cat /var/log/auth.log | habu.data.extract.ipv4 | habu.data.enrich | habu.data.filter cc eq US
     [
         {
-            "asset": "8.8.8.8",
-            "family": "IPAddress",
+            "item": "8.8.8.8",
+            "family": "ipv4_address",
             "asn": "15169",
             "net": "8.8.8.0/24",
             "cc": "US",
@@ -150,4 +150,4 @@ def cmd_filter(infile, verbose, negated, field, operator, value):
 
 
 if __name__ == '__main__':
-    cmd_filter()
+    cmd_data_filter()

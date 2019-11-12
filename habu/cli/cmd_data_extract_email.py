@@ -25,13 +25,13 @@ def extract_email(data):
 @click.argument('infile', type=click.File('r'), default='-')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 @click.option('-j', 'jsonout', is_flag=True, default=False, help='JSON output')
-def cmd_extract_email(infile, verbose, jsonout):
+def cmd_data_extract_email(infile, verbose, jsonout):
     """Extract email addresses from a file or stdin.
 
     Example:
 
     \b
-    $ cat /var/log/auth.log | habu.extract.email
+    $ cat /var/log/auth.log | habu.data.extract.email
     john@securetia.com
     raven@acmecorp.net
     nmarks@fimax.com
@@ -53,4 +53,4 @@ def cmd_extract_email(infile, verbose, jsonout):
 
 
 if __name__ == '__main__':
-    cmd_extract_email()
+    cmd_data_extract_email()

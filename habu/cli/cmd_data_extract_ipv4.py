@@ -37,13 +37,13 @@ def extract_ipv4(data):
 @click.option('-j', '--json', 'json_output', is_flag=True, default=False, help='JSON output')
 @click.option('-u', '--unique', 'unique', is_flag=True, default=False, help='Remove duplicates')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_extract_ipv4(infile, json_output, unique, verbose):
+def cmd_data_extract_ipv4(infile, json_output, unique, verbose):
     """Extract IPv4 addresses from a file or stdin.
 
     Example:
 
     \b
-    $ cat /var/log/auth.log | habu.extract.ipv4
+    $ cat /var/log/auth.log | habu.data.extract.ipv4
     172.217.162.4
     23.52.213.96
     190.210.43.70
@@ -57,7 +57,7 @@ def cmd_extract_ipv4(infile, json_output, unique, verbose):
     result = extract_ipv4(data)
 
     if unique:
-        result = list(set(result))
+        result = list(sorted(set(result)))
 
     if not json_output:
         print('\n'.join(result))
@@ -67,4 +67,4 @@ def cmd_extract_ipv4(infile, json_output, unique, verbose):
     print(json.dumps(result_dict, indent=4))
 
 if __name__ == '__main__':
-    cmd_extract_ipv4()
+    cmd_data_extract_ipv4()

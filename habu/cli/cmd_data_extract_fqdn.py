@@ -8,7 +8,7 @@ import click
 import regex as re
 
 
-def extract_hostname(data):
+def extract_fqdn(data):
 
     regexp = re.compile(r"([a-zA-Z0-9_.-]+)")
 
@@ -38,13 +38,13 @@ def extract_hostname(data):
 @click.option('-c', 'check', is_flag=True, default=False, help='Check if hostname resolves')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 @click.option('-j', 'jsonout', is_flag=True, default=False, help='JSON output')
-def cmd_extract_hostname(infile, check, verbose, jsonout):
-    """Extract hostnames from a file or stdin.
+def cmd_data_extract_fqdn(infile, check, verbose, jsonout):
+    """Extract FQDNs (Fully Qualified Domain Names) from a file or stdin.
 
     Example:
 
     \b
-    $ cat /var/log/some.log | habu.extract.hostname
+    $ cat /var/log/some.log | habu.data.extract.fqdn
     www.google.com
     ibm.com
     fileserver.redhat.com
@@ -72,4 +72,4 @@ def cmd_extract_hostname(infile, check, verbose, jsonout):
 
 
 if __name__ == '__main__':
-    cmd_extract_hostname()
+    cmd_data_extract_fqdn()

@@ -5,10 +5,16 @@ from netifaces import (
 import requests
 import ipaddress
 
-def get_external_ip():
-    """Get the external IP address for the connection."""
-    ip_address = requests.get('https://api.ipify.org', timeout=5).text
-    return {'ip_external': ip_address}
+
+def get_public_ipv4():
+    """Get the public IPv4 address for the connection."""
+    ipv4 = requests.get('https://api.ipify.org', timeout=5).text
+    return ipv4
+
+def get_public_ipv6():
+    """Get the public IPv6 address for the connection."""
+    ipv6 = requests.get('https://api6.ipify.org', timeout=5).text
+    return ipv6
 
 
 def get_internal_ip():
