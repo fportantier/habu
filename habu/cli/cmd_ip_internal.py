@@ -9,8 +9,7 @@ from habu.lib.ip import get_internal_ip
 
 
 @click.command()
-@click.option('-v', 'verbose', is_flag=True, default=False,
-              help='Verbose output.')
+@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output.')
 def cmd_ip_internal(verbose):
     """Get the local IP address(es) of the local interfaces.
 
@@ -48,10 +47,11 @@ def cmd_ip_internal(verbose):
 
     result = get_internal_ip()
 
-    if result:
-        print(json.dumps(result, indent=4))
-    else:
+    if not result:
         print("[X] Unable to get detail about the interfaces")
+        return False
+
+    print(json.dumps(result, indent=4))
 
     return True
 

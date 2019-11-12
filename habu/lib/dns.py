@@ -58,3 +58,4 @@ def lookup_forward(name):
             ip_addresses['ipv6'] = address
 
     return ip_addresses
+

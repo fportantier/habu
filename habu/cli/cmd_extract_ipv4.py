@@ -34,9 +34,10 @@ def extract_ipv4(data):
 
 @click.command()
 @click.argument('infile', type=click.File('r'), default='-')
-@click.option('--json', 'jsonout', is_flag=True, default=False, help='JSON output')
+@click.option('-j', '--json', 'json_output', is_flag=True, default=False, help='JSON output')
+@click.option('-u', '--unique', 'unique', is_flag=True, default=False, help='Remove duplicates')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_extract_ipv4(infile, jsonout, verbose):
+def cmd_extract_ipv4(infile, json_output, unique, verbose):
     """Extract IPv4 addresses from a file or stdin.
 
     Example:
@@ -55,11 +56,15 @@ def cmd_extract_ipv4(infile, jsonout, verbose):
 
     result = extract_ipv4(data)
 
-    if jsonout:
-        print(json.dumps(result, indent=4))
-    else:
-        print('\n'.join(result))
+    if unique:
+        result = list(set(result))
 
+    if not json_output:
+        print('\n'.join(result))
+        return True
+
+    result_dict = [ { 'ipv4_address' : ip } for ip in result ]
+    print(json.dumps(result_dict, indent=4))
 
 if __name__ == '__main__':
     cmd_extract_ipv4()
