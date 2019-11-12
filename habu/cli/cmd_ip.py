@@ -7,23 +7,22 @@ from habu.lib.ip import get_external_ip
 
 
 @click.command()
-def cmd_ip():
+@click.option('-j', '--json', 'json_output', is_flag=True, default=False, help='Print the output in JSON format')
+def cmd_ip(json_output):
     """Get the public IP address of the connection from https://api.ipify.org.
 
     Example:
 
     \b
     $ habu.ip
-    {
-        "ip_external": "80.219.53.185"
-    }
+    80.219.53.185
     """
     answer = get_external_ip()
 
-    print(json.dumps(answer, indent=4))
-
-    return True
-
+    if json_output:
+        print(json.dumps(answer, indent=4))
+    else:
+        print(answer['ip_external'])
 
 if __name__ == '__main__':
     cmd_ip()
