@@ -12,12 +12,12 @@ from bs4 import BeautifulSoup
 
 DATADIR = Path(os.path.abspath(os.path.join(os.path.dirname(__file__), '../data')))
 
-def web_tech(url, no_cache=False, verbose=False):
+def http_tech(url, cache=True, verbose=False):
 
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
-    if not no_cache:
+    if cache:
         homedir = Path(os.path.expanduser('~'))
         requests_cache.install_cache(str(homedir / '.habu_requests_cache'), expire_after=3600)
 
@@ -167,5 +167,5 @@ def web_tech(url, no_cache=False, verbose=False):
     return response
 
 if __name__ == '__main__':
-    print(json.dumps(web_tech('https://www.woocommerce.com', verbose=True, no_cache=False), indent=4))
+    print(json.dumps(get_tech('https://woocommerce.com', verbose=True, cache=True), indent=4))
 
