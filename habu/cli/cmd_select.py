@@ -9,8 +9,8 @@ import click
 
 @click.command()
 @click.option('-i', 'infile', type=click.File('r'), default='-', help='Input file (Default: stdin)')
-@click.option('-j', 'json_output', is_flag=True, default=False, help='JSON output')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.option('--json', 'json_output', is_flag=True, default=False, help='JSON output')
 @click.argument('field', type=click.STRING)
 def cmd_select(infile, json_output, verbose, field):
     """Select a field from a JSON input.
@@ -36,14 +36,22 @@ def cmd_select(infile, json_output, verbose, field):
 
     result = []
 
+    if not isinstance(data, list):
+        data = [data]
+
     for item in data:
         if field in item:
             result.append(item[field])
 
     if json_output:
         print(json.dumps(result, indent=4))
-    else:
-        print('\n'.join(result))
+        return True
+
+    for r in result:
+        if isinstance(r, list):
+            print('\n'.join(sorted(r)))
+        else:
+            print(r)
 
 
 if __name__ == '__main__':

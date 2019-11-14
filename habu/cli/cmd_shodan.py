@@ -12,10 +12,10 @@ from habu.lib.shodan import shodan_get_result
 
 @click.command()
 @click.argument('ip')
-@click.option('-c', 'no_cache', is_flag=True, default=False, help='Disable cache')
+@click.option('--cache/--no-cache', 'cache', default=True)
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-@click.option('-o', 'output', type=click.File('w'), default='-', help='Output file (default: stdout)')
-def cmd_shodan(ip, no_cache, verbose, output):
+@click.option('--format', 'output_format', type=click.Choice(['txt', 'csv','json', 'nmap']), default='txt', help='Output format')
+def cmd_shodan(ip, cache, verbose, output_format):
     """Simple shodan API client.
 
     Prints the JSON result of a shodan query.
@@ -23,29 +23,15 @@ def cmd_shodan(ip, no_cache, verbose, output):
     Example:
 
     \b
-    $ habu.shodan 8.8.8.8
-    {
-        "hostnames": [
-            "google-public-dns-a.google.com"
-        ],
-        "country_code": "US",
-        "org": "Google",
-        "data": [
-            {
-                "isp": "Google",
-                "transport": "udp",
-                "data": "Recursion: enabled",
-                "asn": "AS15169",
-                "port": 53,
-                "hostnames": [
-                    "google-public-dns-a.google.com"
-                ]
-            }
-        ],
-        "ports": [
-            53
-        ]
-    }
+    $ habu.shodan 216.58.222.36
+    asn                      AS15169
+    isp                      Google
+    hostnames                eze04s06-in-f4.1e100.net, gru09s17-in-f36.1e100.net
+    country_code             US
+    region_code              CA
+    city                     Mountain View
+    org                      Google
+    open_ports               tcp/443, tcp/80
     """
 
     habucfg = loadcfg()
@@ -58,10 +44,50 @@ def cmd_shodan(ip, no_cache, verbose, output):
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
-    data = shodan_get_result(ip, habucfg['SHODAN_APIKEY'], no_cache, verbose)
+    data = shodan_get_result(ip, habucfg['SHODAN_APIKEY'], cache=cache, verbose=verbose)
 
-    output.write(json.dumps(data, indent=4))
-    output.write('\n')
+    if output_format == 'json':
+        print(json.dumps(data, indent=4))
+        return True
+
+    if output_format == 'nmap':
+        ports_string = ','.join(['{}:{}'.format(port['transport'][0].upper(), port['port']) for port in data['data']])
+        print(ports_string, end='')
+        return True
+
+    default_fields = [
+        'asn',
+        'isp',
+        'hostnames',
+        'country_code',
+        'region_code',
+        'city',
+        'org',
+        'os',
+    ]
+
+    for field in default_fields:
+        value = data.get(field, None)
+        if not value:
+            continue
+
+        if output_format == 'csv':
+            if not isinstance(value, list):
+                value = [value]
+            for v in sorted(value):
+                print('"{}","shodan.{}","{}"'.format(ip, field, v))
+        else:
+            if isinstance(value, list):
+                value = ', '.join(sorted(value))
+            print('{:<25}{}'.format(field, value))
+
+    if output_format == 'txt':
+        ports_string = ', '.join(['{}/{}'.format(port['transport'], port['port']) for port in data['data']])
+        print('{:<25}{}'.format('open_ports', ports_string))
+    else:
+        for port in data['data']:
+            print('"{}","shodan.open_port","{}/{}"'.format(ip, port['transport'], port['port']))
+
 
 if __name__ == '__main__':
     cmd_shodan()

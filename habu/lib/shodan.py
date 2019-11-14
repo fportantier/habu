@@ -9,12 +9,12 @@ import requests_cache
 
 from pathlib import Path
 
-def shodan_get_result(ip, api_key, no_cache=False, verbose=False):
+def shodan_get_result(ip, api_key, cache=True, verbose=False):
 
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
-    if not no_cache:
+    if cache:
         homedir = Path(os.path.expanduser('~'))
         requests_cache.install_cache(str(homedir / '.habu_requests_cache'), expire_after=3600)
 
@@ -34,12 +34,12 @@ def shodan_get_result(ip, api_key, no_cache=False, verbose=False):
     return data
 
 
-def shodan_query(query, api_key, no_cache=False, verbose=False):
+def shodan_query(query, api_key, cache=True, verbose=False):
 
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')
 
-    if not no_cache:
+    if cache:
         homedir = Path(os.path.expanduser('~'))
         requests_cache.install_cache(str(homedir / '.habu_requests_cache'), expire_after=3600)
 
