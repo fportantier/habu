@@ -4,26 +4,20 @@ import dns.resolver
 import dns.zone
 
 
-def resolve(name, server='8.8.8.8'):
+def resolve(name, server=None):
     """resolves the name"""
 
     my_resolver = dns.resolver.Resolver()
-    my_resolver.nameservers = [server]
+
+    if server:
+        my_resolver.nameservers = [server]
 
     result = []
 
-    #print('quering', name)
     try:
-        answers = my_resolver.query(str(name))
+        answers = my_resolver.query(str(name), lifetime=3)
     except Exception as e:
-        print('error', e)
         answers = []
-
-    #if not answers:
-    #    answers = []
-    #print(answers)
-    #for rdata in answers:
-    #    result.append(str(rdata.target).lower())
 
     return answers
 
@@ -74,7 +68,6 @@ def axfr(domain):
     allowed = []
 
     for server in ns(domain):
-
 
         try:
             z = dns.zone.from_xfr(dns.query.xfr(server, domain))

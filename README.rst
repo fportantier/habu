@@ -94,6 +94,11 @@ Commands Index
 * `cve.2018.9995 <#habucve20189995>`_
 * `cymon.ip <#habucymonip>`_
 * `cymon.ip.timeline <#habucymoniptimeline>`_
+* `data.extract.domain <#habudataextractdomain>`_
+* `data.extract.email <#habudataextractemail>`_
+* `data.extract.fqdn <#habudataextractfqdn>`_
+* `data.extract.ipv4 <#habudataextractipv4>`_
+* `data.filter <#habudatafilter>`_
 * `decrypt.gppref <#habudecryptgppref>`_
 * `dhcp.discover <#habudhcpdiscover>`_
 * `dhcp.starvation <#habudhcpstarvation>`_
@@ -101,19 +106,16 @@ Commands Index
 * `dns.lookup.reverse <#habudnslookupreverse>`_
 * `eicar <#habueicar>`_
 * `expand <#habuexpand>`_
-* `extract.domain <#habuextractdomain>`_
-* `extract.email <#habuextractemail>`_
-* `extract.hostname <#habuextracthostname>`_
-* `extract.ipv4 <#habuextractipv4>`_
 * `fernet <#habufernet>`_
 * `fernet.genkey <#habufernetgenkey>`_
-* `filter <#habufilter>`_
 * `forkbomb <#habuforkbomb>`_
+* `fqdn.finder <#habufqdnfinder>`_
 * `gateway.find <#habugatewayfind>`_
 * `hasher <#habuhasher>`_
 * `host <#habuhost>`_
 * `http.headers <#habuhttpheaders>`_
 * `http.options <#habuhttpoptions>`_
+* `http.tech <#habuhttptech>`_
 * `interfaces <#habuinterfaces>`_
 * `ip <#habuip>`_
 * `ip2asn <#habuip2asn>`_
@@ -133,18 +135,17 @@ Commands Index
 * `select <#habuselect>`_
 * `server.ftp <#habuserverftp>`_
 * `shodan <#habushodan>`_
-* `shodan.open <#habushodanopen>`_
 * `shodan.query <#habushodanquery>`_
 * `synflood <#habusynflood>`_
 * `tcpflags <#habutcpflags>`_
 * `tcpscan <#habutcpscan>`_
 * `traceroute <#habutraceroute>`_
 * `usercheck <#habuusercheck>`_
+* `version <#habuversion>`_
 * `vhosts <#habuvhosts>`_
 * `virustotal <#habuvirustotal>`_
 * `web.report <#habuwebreport>`_
 * `web.screenshot <#habuwebscreenshot>`_
-* `web.tech <#habuwebtech>`_
 * `whois.domain <#habuwhoisdomain>`_
 * `whois.ip <#habuwhoisip>`_
 * `xor <#habuxor>`_
@@ -394,7 +395,7 @@ habu.config.show
       }
     
     Options:
-      --show-keys       Show also the key values
+      -k, --show-keys   Show also the key values
       --option TEXT...  Write to the config(KEY VALUE)
       --help            Show this message and exit.
     
@@ -622,6 +623,130 @@ habu.cymon.ip.timeline
       --help       Show this message and exit.
     
 
+habu.data.extract.domain
+------------------------
+
+.. code-block::
+
+    Usage: habu.data.extract.domain [OPTIONS] [INFILE]
+    
+      Extract valid domains from a file or stdin.
+    
+      Optionally, check each domain for the presence of NS registers.
+    
+      Example:
+    
+      $ cat /var/log/some.log | habu.data.extract.domain -c
+      google.com
+      ibm.com
+      redhat.com
+    
+    Options:
+      -c      Check if domain has NS servers defined
+      -v      Verbose output
+      -j      JSON output
+      --help  Show this message and exit.
+    
+
+habu.data.extract.email
+-----------------------
+
+.. code-block::
+
+    Usage: habu.data.extract.email [OPTIONS] [INFILE]
+    
+      Extract email addresses from a file or stdin.
+    
+      Example:
+    
+      $ cat /var/log/auth.log | habu.data.extract.email
+      john@securetia.com
+      raven@acmecorp.net
+      nmarks@fimax.com
+    
+    Options:
+      -v      Verbose output
+      -j      JSON output
+      --help  Show this message and exit.
+    
+
+habu.data.extract.fqdn
+----------------------
+
+.. code-block::
+
+    Usage: habu.data.extract.fqdn [OPTIONS] [INFILE]
+    
+      Extract FQDNs (Fully Qualified Domain Names) from a file or stdin.
+    
+      Example:
+    
+      $ cat /var/log/some.log | habu.data.extract.fqdn
+      www.google.com
+      ibm.com
+      fileserver.redhat.com
+    
+    Options:
+      -c      Check if hostname resolves
+      -v      Verbose output
+      -j      JSON output
+      --help  Show this message and exit.
+    
+
+habu.data.extract.ipv4
+----------------------
+
+.. code-block::
+
+    Usage: habu.data.extract.ipv4 [OPTIONS] [INFILE]
+    
+      Extract IPv4 addresses from a file or stdin.
+    
+      Example:
+    
+      $ cat /var/log/auth.log | habu.data.extract.ipv4
+      172.217.162.4
+      23.52.213.96
+      190.210.43.70
+    
+    Options:
+      -j, --json    JSON output
+      -u, --unique  Remove duplicates
+      -v            Verbose output
+      --help        Show this message and exit.
+    
+
+habu.data.filter
+----------------
+
+.. code-block::
+
+    Usage: habu.data.filter [OPTIONS] FIELD OPERATOR [VALUE]
+    
+      Filter data based on operators.
+    
+      Example:
+    
+      $ cat /var/log/auth.log | habu.data.extract.ipv4 | habu.data.enrich | habu.data.filter cc eq US
+      [
+          {
+              "item": "8.8.8.8",
+              "family": "ipv4_address",
+              "asn": "15169",
+              "net": "8.8.8.0/24",
+              "cc": "US",
+              "rir": "ARIN",
+              "asname": "GOOGLE - Google LLC, US"
+          }
+      ]
+    
+    Options:
+      -i FILENAME  Input file (Default: stdin)
+      -v           Verbose output
+      --not        Negate the comparison
+      --help       Show this message and exit.
+    
+
 habu.decrypt.gppref
 -------------------
 
@@ -796,98 +921,6 @@ habu.expand
       --help       Show this message and exit.
     
 
-habu.extract.domain
--------------------
-
-.. code-block::
-
-    Usage: habu.extract.domain [OPTIONS] [INFILE]
-    
-      Extract valid domains from a file or stdin.
-    
-      Optionally, check each domain for the presence of NS registers.
-    
-      Example:
-    
-      $ cat /var/log/some.log | habu.extract.domain -c
-      google.com
-      ibm.com
-      redhat.com
-    
-    Options:
-      -c      Check if domain has NS servers defined
-      -v      Verbose output
-      -j      JSON output
-      --help  Show this message and exit.
-    
-
-habu.extract.email
-------------------
-
-.. code-block::
-
-    Usage: habu.extract.email [OPTIONS] [INFILE]
-    
-      Extract email addresses from a file or stdin.
-    
-      Example:
-    
-      $ cat /var/log/auth.log | habu.extract.email
-      john@securetia.com
-      raven@acmecorp.net
-      nmarks@fimax.com
-    
-    Options:
-      -v      Verbose output
-      -j      JSON output
-      --help  Show this message and exit.
-    
-
-habu.extract.hostname
----------------------
-
-.. code-block::
-
-    Usage: habu.extract.hostname [OPTIONS] [INFILE]
-    
-      Extract hostnames from a file or stdin.
-    
-      Example:
-    
-      $ cat /var/log/some.log | habu.extract.hostname
-      www.google.com
-      ibm.com
-      fileserver.redhat.com
-    
-    Options:
-      -c      Check if hostname resolves
-      -v      Verbose output
-      -j      JSON output
-      --help  Show this message and exit.
-    
-
-habu.extract.ipv4
------------------
-
-.. code-block::
-
-    Usage: habu.extract.ipv4 [OPTIONS] [INFILE]
-    
-      Extract IPv4 addresses from a file or stdin.
-    
-      Example:
-    
-      $ cat /var/log/auth.log | habu.extract.ipv4
-      172.217.162.4
-      23.52.213.96
-      190.210.43.70
-    
-    Options:
-      --json  JSON output
-      -v      Verbose output
-      --help  Show this message and exit.
-    
-
 habu.fernet
 -----------
 
@@ -943,44 +976,12 @@ habu.fernet.genkey
       --help  Show this message and exit.
     
 
-habu.filter
------------
-
-.. code-block::
-
-    Usage: habu.filter [OPTIONS] FIELD [gt|lt|eq|ne|ge|le|in|contains|defined|un
-                         defined|true|false] [VALUE]
-    
-      Filter data based on operators.
-    
-      Example:
-    
-      $ cat /var/log/auth.log | habu.extract.ipv4 | habu.expand | habu.filter cc eq US
-      [
-          {
-              "asset": "8.8.8.8",
-              "family": "IPAddress",
-              "asn": "15169",
-              "net": "8.8.8.0/24",
-              "cc": "US",
-              "rir": "ARIN",
-              "asname": "GOOGLE - Google LLC, US"
-          }
-      ]
-    
-    Options:
-      -i FILENAME  Input file (Default: stdin)
-      -v           Verbose output
-      --not        Negate the comparison
-      --help       Show this message and exit.
-    
-
 habu.forkbomb
 -------------
 
 .. code-block::
 
-    Usage: habu.forkbomb [OPTIONS] [bash|batch|c|haskell|perl|php|python|ruby]
+    Usage: habu.forkbomb [OPTIONS] BOMB
     
       A shortcut to remember how to use fork bombs in different languages.
     
@@ -1001,6 +1002,61 @@ habu.forkbomb
     
     Options:
       --help  Show this message and exit.
+    
+
+habu.fqdn.finder
+----------------
+
+.. code-block::
+
+    Usage: habu.fqdn.finder [OPTIONS] [DOMAINS]...
+    
+      Uses various techniques to obtain valid FQDNs for the specified domains.
+    
+      1. Check for Certificate Transparency Logs () 2. Connect to specified
+      ports, obtain SSL certificates and get FQDNs from them
+    
+      Next versions will also do the following:
+    
+      3. DNS Brute Force for common names 4. Try DNS Zone Transfer first
+    
+      The results are cleaned to remove FQDNs that does not resolve by DNS
+    
+      Example:
+    
+      $ habu.fqdn.finder educacionit.com
+      azure-001.educacionit.com
+      barometrosalarial.educacionit.com
+      blog.educacionit.com
+      blog2.educacionit.com
+      ci.educacionit.com
+      educacionit.com
+      freelancerday.educacionit.com
+      intranet.educacionit.com
+      lecdev.educacionit.com
+      lecdev2.educacionit.com
+      lecweb.educacionit.com
+      live.educacionit.com
+      mail.educacionit.com
+      noticias.educacionit.com
+      plantillas.educacionit.com
+      talentos.educacionit.com
+      tsg-001.educacionit.com
+      vmm-001.educacionit.com
+      www.barometrosalarial.educacionit.com
+      www.educacionit.com
+      www.intranet.educacionit.com
+      www.noticias.educacionit.com
+      www.plantillas.educacionit.com
+      www.talentos.educacionit.com
+    
+    Options:
+      -p TEXT   Ports to connect to check for SSL certificates (comma separated
+                list)
+      -t FLOAT  Time to wait for each connection
+      -v        Verbose output
+      --json    Print the output in JSON format
+      --help    Show this message and exit.
     
 
 habu.gateway.find
@@ -1166,6 +1222,39 @@ habu.http.options
       --help  Show this message and exit.
     
 
+habu.http.tech
+--------------
+
+.. code-block::
+
+    Usage: habu.http.tech [OPTIONS] URL
+    
+      Uses Wappalyzer apps.json database to identify technologies used on a web
+      application.
+    
+      Reference: https://github.com/AliasIO/Wappalyzer
+    
+      Note: This tool only sends one request. So, it's stealth and not
+      suspicious.
+    
+      $ habu.web.tech https://woocomerce.com
+      Google Tag Manager       unknown
+      MySQL                    unknown
+      Nginx                    unknown
+      PHP                      unknown
+      Prototype                unknown
+      RequireJS                unknown
+      WooCommerce              3.8.0
+      WordPress                5.2.4
+      Yoast SEO                10.0.1
+    
+    Options:
+      --cache / --no-cache
+      --format [txt|csv|json]  Output format
+      -v                       Verbose output
+      --help                   Show this message and exit.
+    
+
 habu.interfaces
 ---------------
 
@@ -1201,12 +1290,13 @@ habu.ip
       Example:
     
       $ habu.ip
-      {
-          "ip_external": "80.219.53.185"
-      }
+      80.219.53.185
     
     Options:
-      --help  Show this message and exit.
+      -4, --ipv4  Print your public IPv4 address (default)
+      -6, --ipv6  Print your public IPv6 address
+      -j, --json  Print the output in JSON format
+      --help      Show this message and exit.
     
 
 habu.ip2asn
@@ -1653,8 +1743,8 @@ habu.select
     
     Options:
       -i FILENAME  Input file (Default: stdin)
-      -j           JSON output
       -v           Verbose output
+      --json       JSON output
       --help       Show this message and exit.
     
 
@@ -1699,58 +1789,21 @@ habu.shodan
     
       Example:
     
-      $ habu.shodan 8.8.8.8
-      {
-          "hostnames": [
-              "google-public-dns-a.google.com"
-          ],
-          "country_code": "US",
-          "org": "Google",
-          "data": [
-              {
-                  "isp": "Google",
-                  "transport": "udp",
-                  "data": "Recursion: enabled",
-                  "asn": "AS15169",
-                  "port": 53,
-                  "hostnames": [
-                      "google-public-dns-a.google.com"
-                  ]
-              }
-          ],
-          "ports": [
-              53
-          ]
-      }
+      $ habu.shodan 216.58.222.36
+      asn                      AS15169
+      isp                      Google
+      hostnames                eze04s06-in-f4.1e100.net, gru09s17-in-f36.1e100.net
+      country_code             US
+      region_code              CA
+      city                     Mountain View
+      org                      Google
+      open_ports               tcp/443, tcp/80
     
     Options:
-      -c           Disable cache
-      -v           Verbose output
-      -o FILENAME  Output file (default: stdout)
-      --help       Show this message and exit.
-    
-
-habu.shodan.open
-----------------
-
-.. code-block::
-
-    Usage: habu.shodan.open [OPTIONS] IP
-    
-      Output the open ports for an IP against shodan (nmap format).
-    
-      Example:
-    
-      $ habu.shodan.open 8.8.8.8
-      T:53,U:53
-    
-    Options:
-      -c           Disable cache
-      -j           Output in JSON format
-      -x           Output an nmap command to scan open ports
-      -v           Verbose output
-      -o FILENAME  Output file (default: stdout)
-      --help       Show this message and exit.
+      --cache / --no-cache
+      -v                            Verbose output
+      --format [txt|csv|json|nmap]  Output format
+      --help                        Show this message and exit.
     
 
 habu.shodan.query
@@ -1980,6 +2033,17 @@ habu.usercheck
       --help  Show this message and exit.
     
 
+habu.version
+------------
+
+.. code-block::
+
+    Usage: habu.version [OPTIONS]
+    
+    Options:
+      --help  Show this message and exit.
+    
+
 habu.vhosts
 -----------
 
@@ -2091,53 +2155,6 @@ habu.web.screenshot
       --help                         Show this message and exit.
     
 
-habu.web.tech
--------------
-
-.. code-block::
-
-    Usage: habu.web.tech [OPTIONS] URL
-    
-      Use Wappalyzer apps.json database to identify technologies used on a web
-      application.
-    
-      Reference: https://github.com/AliasIO/Wappalyzer
-    
-      Note: This tool only sends one request. So, it's stealth and not
-      suspicious.
-    
-      $ habu.web.tech https://woocomerce.com
-      {
-          "Nginx": {
-              "categories": [
-                  "Web Servers"
-              ]
-          },
-          "PHP": {
-              "categories": [
-                  "Programming Languages"
-              ]
-          },
-          "WooCommerce": {
-              "categories": [
-                  "Ecommerce"
-              ],
-              "version": "6.3.1"
-          },
-          "WordPress": {
-              "categories": [
-                  "CMS",
-                  "Blogs"
-              ]
-          },
-      }
-    
-    Options:
-      -c      Disable cache
-      -v      Verbose output
-      --help  Show this message and exit.
-    
-
 habu.whois.domain
 -----------------
 
@@ -2149,14 +2166,21 @@ habu.whois.domain
     
       Example:
     
-      $ habu.whois.domain portantier.com
-      {
-          "domain_name": "portantier.com",
-          "registrar": "Amazon Registrar, Inc.",
-          "whois_server": "whois.registrar.amazon.com",
-          ...
+      $ habu.whois.domain google.com
+      registrar                MarkMonitor, Inc.
+      whois_server             whois.markmonitor.com
+      creation_date            1997-09-15 04:00:00
+      expiration_date          2028-09-14 04:00:00
+      name_servers             ns1.google.com, ns2.google.com, ns3.google.com, ns4.google.com
+      emails                   abusecomplaints@markmonitor.com, whoisrequest@markmonitor.com
+      dnssec                   unsigned
+      org                      Google LLC
+      country                  US
+      state                    CA
     
     Options:
+      --json  Print the output in JSON format
+      --csv   Print the output in CSV format
       --help  Show this message and exit.
     
 
@@ -2171,19 +2195,17 @@ habu.whois.ip
     
       Example:
     
-      $ habu.whois.ip 8.8.8.8
-      {
-          "nir": null,
-          "asn_registry": "arin",
-          "asn": "15169",
-          "asn_cidr": "8.8.8.0/24",
-          "asn_country_code": "US",
-          "asn_date": "1992-12-01",
-          "asn_description": "GOOGLE - Google LLC, US",
-          "query": "8.8.8.8",
-          ...
+      $ habu.whois.ip 8.8.4.4
+      asn                      15169
+      asn_registry             arin
+      asn_cidr                 8.8.4.0/24
+      asn_country_code         US
+      asn_description          GOOGLE - Google LLC, US
+      asn_date                 1992-12-01
     
     Options:
+      --json  Print the output in JSON format
+      --csv   Print the output in CSV format
       --help  Show this message and exit.
     
 
