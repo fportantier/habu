@@ -19,6 +19,8 @@ def resolve(name, server=None):
     except Exception as e:
         answers = []
 
+    answers = [ str(answer) for answer in answers ]
+
     return answers
 
 

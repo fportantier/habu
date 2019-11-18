@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import ipaddress
 import json
 import logging
 import os
@@ -8,15 +9,25 @@ import socket
 import ssl
 import sys
 from pathlib import Path
+from time import sleep
 
+import dns.resolver
+import dns.zone
 import requests
 import requests_cache
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from cryptography.x509 import NameOID
+import tldextract
 
+from habu.lib.shodan import shodan_get_result
+from habu.lib.tomorrow3 import threads
 from habu.lib import libdns
+from habu.lib.loadcfg import loadcfg
+from habu.lib.web_links import web_links
 
+
+config = loadcfg()
 
 def fqdns_from_ct_log(domain, cache=True, verbose=False):
 
@@ -47,27 +58,6 @@ def fqdns_from_ct_log(domain, cache=True, verbose=False):
 
     return fqdns
 
-    '''
-    subdomains = list(subdomains)
-
-    if no_validate:
-        print(json.dumps(sorted(subdomains), indent=4))
-        return True
-
-    if verbose:
-        print("Validating subdomains against DNS servers ...", file=sys.stderr)
-
-    answers = query_bulk(subdomains)
-
-    validated = []
-
-    for answer in answers:
-        if answer:
-            validated.append(str(answer.qname))
-
-    print(json.dumps(sorted(validated), indent=4))
-    return True
-    '''
 
 def fqdns_from_certificate(cert_data):
 
@@ -82,7 +72,7 @@ def fqdns_from_certificate(cert_data):
         raise ValueError("No recognized cert format. Allowed: PEM or DER")
 
     names = set()
-    names.add(cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[0].value.lower())
+    names.add(cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[0].value.lower().rstrip('.'))
 
     try:
         alt_names = cert.extensions.get_extension_for_class(x509.SubjectAlternativeName)
@@ -91,29 +81,40 @@ def fqdns_from_certificate(cert_data):
 
     if alt_names:
         for alt_name in alt_names.value.get_values_for_type(x509.DNSName):
-            names.add(alt_name.lower())
+            names.add(alt_name.lower().rstrip('.'))
 
     return list(sorted(names))
 
 
 
-def fqdns_from_hosts(hosts, domains, ports=[443], timeout=2):
+def fqdns_from_hosts(hosts, domains, timeout=2):
 
     result = set()
 
-    addrs = {} # host : [] for host in hosts }
+    addrs = {}
 
     for host in list(hosts):
         resolves_to = libdns.resolve(host)
         if resolves_to:
             for addr in resolves_to:
                 addrs[addr] = set(addrs.get(addr, [])) | set(host)
-        #else:
-        #    del hosts[host]
 
     for addr, fqdns in addrs.items():
 
-        for port in ports:
+        shodan_result = shodan_get_result(addr)
+
+        if not shodan_result:
+            continue
+
+        for port in shodan_result['data']:
+
+            if port['transport'] != 'tcp':
+                continue
+
+            if 'ssl' not in port:
+                continue
+
+            logging.info('connecting to {}:{}'.format(addr, port['port']))
 
             for fqdn in fqdns:
 
@@ -122,14 +123,13 @@ def fqdns_from_hosts(hosts, domains, ports=[443], timeout=2):
                 context.verify_mode = ssl.CERT_NONE
 
                 try:
-                    with socket.create_connection((str(addr), int(port)), timeout=timeout) as sock:
+                    with socket.create_connection((str(addr), int(port['port'])), timeout=timeout) as sock:
                         with context.wrap_socket(sock) as ssock:
                             cert = ssock.getpeercert(binary_form=True)
-                            result |= set(fqdns_from_certificate(cert))
-                            #all_names |= set(names)
-                            #print(' '.join(names))
+                            fqdns_in_cert = set(fqdns_from_certificate(cert))
+                            logging.debug('obtained fqdns: {}'.format(', '.join(fqdns_in_cert)))
+                            result |= fqdns_in_cert
                 except Exception as e:
-                    #print(e)
                     break
 
     # Remove FQDNs that are not in any of the domains
@@ -138,5 +138,101 @@ def fqdns_from_hosts(hosts, domains, ports=[443], timeout=2):
             result.remove(fqdn)
 
     return result
+
+
+
+@threads(20)
+def dns_query(hostname):
+    try:
+        answer = dns.resolver.query(hostname)
+        return answer
+    except Exception:
+        return None
+
+
+def fqdns_from_brute_force(domain):
+
+    fqdns = set()
+    nxdomain = None
+
+    try:
+        nxdomain = dns.resolver.query('nonexistent456789.' + domain)
+    except dns.resolver.NXDOMAIN:
+        nxdomain = None
+
+    with (config['DATADIR'] / 'subdomains.txt').open() as subdomains_file:
+        subdomains_txt = subdomains_file.read()
+
+    subdomains = { s + '.' + domain for s in subdomains_txt.split('\n') }
+
+    subdomains.add(domain)
+
+    jobs = [dns_query(sd) for sd in subdomains ]
+
+    while True:
+        if any([ job.running() for job in jobs]):
+            sleep(1)
+        else:
+            break
+
+    for job in jobs:
+
+        result = job.result()
+
+        if not hasattr(result, 'rrset'):
+            continue
+
+        if nxdomain and nxdomain.rrset[0] == result.rrset[0]:
+            continue
+
+        if str(result.rrset[0]).startswith('127.'):
+            continue
+
+        for r in result.rrset:
+            fqdns.add(str(result.qname).rstrip('.'))
+
+    return fqdns
+
+
+def fqdns_from_weblinks(hostname, domains, timeout=5):
+
+    fqdns = set()
+
+    addrs = libdns.resolve(hostname)
+
+    if not addrs:
+        return fqdns
+
+    addr = addrs[0]
+
+    shodan_result = shodan_get_result(addr)
+
+    if not shodan_result:
+        return fqdns
+
+    for port in shodan_result['data']:
+
+        if 'http' not in port:
+            continue
+
+        if 'ssl' in port:
+            scheme = 'https'
+        else:
+            scheme = 'http'
+
+        url = '{}://{}:{}'.format(scheme, hostname, port['port'])
+
+        logging.info('connecting to {}'.format(url))
+
+        links = web_links(url)
+
+        for link in links:
+            tld = tldextract.extract(link)
+            domain = '{}.{}'.format(tld.domain, tld.suffix)
+            if domain in domains:
+                if tld.subdomain:
+                    fqdns.add('{}.{}.{}'.format(tld.subdomain, tld.domain, tld.suffix))
+
+    return fqdns
 
 

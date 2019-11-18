@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 
+import ipaddress
 import json
 import logging
 import os
 import sys
 
 import click
+
+from habu.lib import libdns
 
 from habu.lib.loadcfg import loadcfg
 from habu.lib.shodan import shodan_get_result
@@ -34,6 +37,19 @@ def cmd_shodan(ip, cache, verbose, output_format):
     open_ports               tcp/443, tcp/80
     """
 
+    try:
+        ipaddress.ip_address(ip)
+    except ValueError:
+        ip = libdns.resolve(ip)
+
+    if ip and isinstance(ip, list):
+        ip = ip[0]
+        logging.info('Resolved to {}'.format(ip))
+
+    if not ip:
+        logging.error('Invalid IP address or unresolvable name')
+        return False
+
     habucfg = loadcfg()
 
     if 'SHODAN_APIKEY' not in habucfg:
@@ -49,6 +65,10 @@ def cmd_shodan(ip, cache, verbose, output_format):
     if output_format == 'json':
         print(json.dumps(data, indent=4))
         return True
+
+    if not data:
+        logging.error('Shodan seems to have no data for this host')
+        return False
 
     if output_format == 'nmap':
         ports_string = ','.join(['{}:{}'.format(port['transport'][0].upper(), port['port']) for port in data['data']])

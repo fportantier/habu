@@ -9,7 +9,11 @@ import requests_cache
 
 from pathlib import Path
 
-def shodan_get_result(ip, api_key, cache=True, verbose=False):
+from habu.lib.loadcfg import loadcfg
+
+config = loadcfg()
+
+def shodan_get_result(ip, api_key=None, cache=True, verbose=False):
 
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')
@@ -17,6 +21,9 @@ def shodan_get_result(ip, api_key, cache=True, verbose=False):
     if cache:
         homedir = Path(os.path.expanduser('~'))
         requests_cache.install_cache(str(homedir / '.habu_requests_cache'), expire_after=3600)
+
+    if not api_key:
+        api_key = config['SHODAN_APIKEY']
 
     url = 'https://api.shodan.io/shodan/host/{}?key={}'.format(ip, api_key)
 
@@ -44,7 +51,6 @@ def shodan_query(query, api_key, cache=True, verbose=False):
         requests_cache.install_cache(str(homedir / '.habu_requests_cache'), expire_after=3600)
 
     url = 'https://api.shodan.io/shodan/host/search?key={}&query={}'.format(api_key, query)
-    print(url)
 
     r = requests.get(url)
 
