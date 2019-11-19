@@ -16,7 +16,7 @@ def get_vhosts(ip, first=1, no_cache=False):
         homedir = Path(os.path.expanduser('~'))
         requests_cache.install_cache(str(homedir / '.habu_requests_cache'), expire_after=3600)
 
-    url = "http://www.bing.com/search?q=ip:{ip}&first={first}".format(ip=ip, first=first)
+    url = "http://www.bing.com/search?q=ip:{ip} &first={first}".format(ip=ip, first=first)
 
     response = requests.get(url)
 
