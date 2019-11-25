@@ -29,14 +29,11 @@ def cmd_fqdn_finder(domains, brute_force, connect, xfr, ctlog, weblinks, timeout
     Uses various techniques to obtain valid FQDNs for the specified domains.
 
     \b
-    1. Check for Certificate Transparency Logs
-    2. Connect to specified ports, obtain SSL certificates and get FQDNs from them
-
-    Next versions will also do the following:
-
-    \b
-    3. DNS Brute Force for common names
-    4. Try DNS Zone Transfer first
+    1. Try to all FQDNs with DNS zone transfers
+    2. Check for Certificate Transparency Logs
+    3. Connect to specified ports, obtain SSL certificates and get FQDNs from them
+    4. Connect to websites and get FQDNs based on the website links
+    5. DNS Brute Force for common names
 
     The results are cleaned to remove FQDNs that does not resolve by DNS
 
