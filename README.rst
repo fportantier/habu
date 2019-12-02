@@ -40,23 +40,19 @@ If you want to discuss some Habu features, possible improvements, etc,
 you can use the Habu Telegram Group: https://t.me/python_habu
 
 Issues and pull requests must be sent to github repo:
-https://github.com/portantier/habu
+https://github.com/fportantier/habu
 
 Installation
 ------------
-
-**Kali Linux:**
-
-You can install the package created for Kali Linux. See
-https://github.com/portantier/habu/releases
 
 **Python Package (PyPi):**
 
 Habu is on PyPi, so you can install it directly with pip:
 
-```
-$ pip3 install habu
-```
+::
+
+    $ pip3 install habu
+
 
 **Microsoft Windows**:
 
@@ -111,6 +107,7 @@ Commands Index
 * `forkbomb <#habuforkbomb>`_
 * `fqdn.finder <#habufqdnfinder>`_
 * `gateway.find <#habugatewayfind>`_
+* `h1.scope <#habuh1scope>`_
 * `hasher <#habuhasher>`_
 * `host <#habuhost>`_
 * `http.headers <#habuhttpheaders>`_
@@ -721,7 +718,8 @@ habu.data.filter
 
 .. code-block::
 
-    Usage: habu.data.filter [OPTIONS] FIELD OPERATOR [VALUE]
+    Usage: habu.data.filter [OPTIONS] FIELD [gt|lt|eq|ne|ge|le|in|contains|defin
+                              ed|undefined|true|false] [VALUE]
     
       Filter data based on operators.
     
@@ -981,7 +979,7 @@ habu.forkbomb
 
 .. code-block::
 
-    Usage: habu.forkbomb [OPTIONS] BOMB
+    Usage: habu.forkbomb [OPTIONS] [bash|batch|c|haskell|perl|php|python|ruby]
     
       A shortcut to remember how to use fork bombs in different languages.
     
@@ -1013,50 +1011,40 @@ habu.fqdn.finder
     
       Uses various techniques to obtain valid FQDNs for the specified domains.
     
-      1. Check for Certificate Transparency Logs () 2. Connect to specified
-      ports, obtain SSL certificates and get FQDNs from them
-    
-      Next versions will also do the following:
-    
-      3. DNS Brute Force for common names 4. Try DNS Zone Transfer first
+      1. Try to all FQDNs with DNS zone transfers
+      2. Check for Certificate Transparency Logs
+      3. Connect to specified ports, obtain SSL certificates and get FQDNs from them
+      4. Connect to websites and get FQDNs based on the website links
+      5. DNS Brute Force for common names
     
       The results are cleaned to remove FQDNs that does not resolve by DNS
     
       Example:
     
       $ habu.fqdn.finder educacionit.com
-      azure-001.educacionit.com
       barometrosalarial.educacionit.com
       blog.educacionit.com
-      blog2.educacionit.com
       ci.educacionit.com
       educacionit.com
-      freelancerday.educacionit.com
       intranet.educacionit.com
       lecdev.educacionit.com
-      lecdev2.educacionit.com
       lecweb.educacionit.com
-      live.educacionit.com
       mail.educacionit.com
-      noticias.educacionit.com
       plantillas.educacionit.com
-      talentos.educacionit.com
-      tsg-001.educacionit.com
-      vmm-001.educacionit.com
-      www.barometrosalarial.educacionit.com
       www.educacionit.com
-      www.intranet.educacionit.com
-      www.noticias.educacionit.com
-      www.plantillas.educacionit.com
-      www.talentos.educacionit.com
     
     Options:
-      -p TEXT   Ports to connect to check for SSL certificates (comma separated
-                list)
-      -t FLOAT  Time to wait for each connection
-      -v        Verbose output
-      --json    Print the output in JSON format
-      --help    Show this message and exit.
+      -t FLOAT                  Time to wait for each connection
+      -v                        Verbose output
+      --debug                   Debug output
+      --connect / --no-connect  Get from known FQDNs open ports SSL certificates
+      --brute / --no-brute      Run DNS brute force against domains
+      --links / --no-links      Extract FQDNs from web site links
+      --xfr / --no-xfr          Try to do a DNS zone transfer against domains
+      --ctlog / --no-ctlog      Try to get FQDNs from Certificate Transparency
+                                Logs
+      --json                    Print the output in JSON format
+      --help                    Show this message and exit.
     
 
 habu.gateway.find
@@ -1091,6 +1079,43 @@ habu.gateway.find
       --timeout INTEGER      Timeout in seconds (default: 5)
       -v                     Verbose output
       --help                 Show this message and exit.
+    
+
+habu.h1.scope
+-------------
+
+.. code-block::
+
+    Usage: habu.h1.scope [OPTIONS] [INFILE]
+    
+      Parse HackerOne scope specification in BurpSuite JSON format
+    
+      Example:
+    
+      $ habu.h1.scope starbucks.json
+      app.starbucks.com
+      card.starbucks.com.sg
+      cart.starbucks.co.jp
+      ec.starbucks.com.cn
+      gift.starbucks.co.jp
+      login.starbucks.co.jp
+      preview.starbucks.com
+      www.istarbucks.co.kr
+      www.starbucks.ca
+      www.starbucks.co.jp
+      www.starbucks.co.uk
+      www.starbucks.com
+      www.starbucks.com.br
+      www.starbucks.com.cn
+      www.starbucks.com.sg
+      www.starbucks.de
+      www.starbucks.fr
+      www.starbucksreserve.com
+      www.teavana.com
+    
+    Options:
+      -j      Output in JSON format
+      --help  Show this message and exit.
     
 
 habu.hasher

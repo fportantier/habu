@@ -40,23 +40,19 @@ If you want to discuss some Habu features, possible improvements, etc,
 you can use the Habu Telegram Group: https://t.me/python_habu
 
 Issues and pull requests must be sent to github repo:
-https://github.com/portantier/habu
+https://github.com/fportantier/habu
 
 Installation
 ------------
-
-**Kali Linux:**
-
-You can install the package created for Kali Linux. See
-https://github.com/portantier/habu/releases
 
 **Python Package (PyPi):**
 
 Habu is on PyPi, so you can install it directly with pip:
 
-```
-$ pip3 install habu
-```
+::
+
+    $ pip3 install habu
+
 
 **Microsoft Windows**:
 
