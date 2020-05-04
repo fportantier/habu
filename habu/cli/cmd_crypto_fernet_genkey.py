@@ -13,13 +13,13 @@ from cryptography.fernet import Fernet
 
 @click.command()
 @click.option('-w', 'writecfg', is_flag=True, default=False, help='Write this key to ~/.habu.json')
-def cmd_fernet_genkey(writecfg):
+def cmd_crypto_fernet_genkey(writecfg):
     """Generate a new Fernet Key, optionally write it to ~/.habu.json
 
     Example:
 
     \b
-    $ habu.fernet.genkey
+    $ habu.crypto.fernet.genkey
     xgvWCIvjwe9Uq7NBvwO796iI4dsGD623QOT9GWqnuhg=
     """
 
@@ -33,5 +33,5 @@ def cmd_fernet_genkey(writecfg):
             f.write(json.dumps(habucfg, indent=4, sort_keys=True))
 
 if __name__ == '__main__':
-    cmd_fernet_genkey()
+    cmd_crypto_fernet_genkey()
 

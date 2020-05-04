@@ -26,7 +26,7 @@ To generate a valid key, you can use habu.fernet.genkey
 @click.option('--ttl', 'ttl', default=0, type=click.INT, help='Time To Live for timestamp verification')
 @click.option('-i', type=click.File('rb'), default='-', help='Input file (default: stdin)')
 @click.option('-o', type=click.File('wb'), default='-', help='Output file (default: stdout)')
-def cmd_fernet(key, decrypt, ttl, i, o):
+def cmd_crypto_fernet(key, decrypt, ttl, i, o):
     """Fernet cipher.
 
     Uses AES-128-CBC with HMAC
@@ -35,18 +35,18 @@ def cmd_fernet(key, decrypt, ttl, i, o):
 
     Use the -k paramenter or set the FERNET_KEY configuration value.
 
-    The keys can be generated with the command habu.fernet.genkey
+    The keys can be generated with the command habu.crypto.fernet.genkey
 
     Reference: https://github.com/fernet/spec/blob/master/Spec.md
 
     Example:
 
     \b
-    $ "I want to protect this string" | habu.fernet
+    $ "I want to protect this string" | habu.crypto.fernet
     gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA...
 
     \b
-    $ echo gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA... | habu.fernet -d
+    $ echo gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA... | habu.crypto.fernet -d
     I want to protect this string
     """
 
@@ -78,5 +78,5 @@ def cmd_fernet(key, decrypt, ttl, i, o):
     print(token.decode(), end='')
 
 if __name__ == '__main__':
-    cmd_fernet()
+    cmd_crypto_fernet()
 
