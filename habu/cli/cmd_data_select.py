@@ -12,13 +12,13 @@ import click
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
 @click.option('--json', 'json_output', is_flag=True, default=False, help='JSON output')
 @click.argument('field', type=click.STRING)
-def cmd_select(infile, json_output, verbose, field):
+def cmd_data_select(infile, json_output, verbose, field):
     """Select a field from a JSON input.
 
     Example:
 
     \b
-    $ cat /var/log/auth.log | habu.extract.ipv4 | habu.expand | habu.filter cc eq US | habu.select asset
+    $ cat /var/log/auth.log | habu.data.extract.ipv4 | habu.data.enrich | habu.data.filter cc eq US | habu.data.select asset
     8.8.8.7
     8.8.8.8
     8.8.8.9
@@ -55,4 +55,4 @@ def cmd_select(infile, json_output, verbose, field):
 
 
 if __name__ == '__main__':
-    cmd_select()
+    cmd_data_select()

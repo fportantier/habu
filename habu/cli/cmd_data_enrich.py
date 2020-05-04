@@ -5,19 +5,19 @@ import logging
 
 import click
 
-from habu.lib.expand import expand
+from habu.lib.enrich import enrich
 
 
 @click.command()
 @click.option('-i', 'infile', type=click.File('r'), default='-', help='Input file (Default: stdin)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_expand(infile, verbose):
-    """Expand data to add interesting information.
+def cmd_data_enrich(infile, verbose):
+    """Enrich data adding interesting information.
 
     Example:
 
     \b
-    $ cat /var/log/auth.log | habu.extract.ipv4 | habu.expand
+    $ cat /var/log/auth.log | habu.data.extract.ipv4 | habu.data.enrich
     [
         {
             "asset": "8.8.8.8",
@@ -45,10 +45,10 @@ def cmd_expand(infile, verbose):
 
     lines = infile.read().split('\n')
 
-    result = [ expand(line) for line in lines if line ]
+    result = [ enrich(line) for line in lines if line ]
 
     print(json.dumps(result, indent=4))
 
 
 if __name__ == '__main__':
-    cmd_expand()
+    cmd_data_enrich()
