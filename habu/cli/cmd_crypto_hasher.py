@@ -8,13 +8,13 @@ from habu.lib.hasher import ALGOS, hasher
 @click.command()
 @click.argument('f', type=click.File('rb'), default='-')
 @click.option('-a', 'algorithm', default=None, type=click.Choice(ALGOS), help='Only this algorithm (Default: all)')
-def cmd_hasher(f, algorithm):
+def cmd_crypto_hasher(f, algorithm):
     """Compute various hashes for the input data, that can be a file or a stream.
 
     Example:
 
     \b
-    $ habu.hasher README.rst
+    $ habu.crypto.hasher README.rst
     md5          992a833cd162047daaa6a236b8ac15ae README.rst
     ripemd160    0566f9141e65e57cae93e0e3b70d1d8c2ccb0623 README.rst
     sha1         d7dbfd2c5e2828eb22f776550c826e4166526253 README.rst
@@ -44,4 +44,4 @@ def cmd_hasher(f, algorithm):
 
 
 if __name__ == '__main__':
-    cmd_hasher()
+    cmd_crypto_hasher()
