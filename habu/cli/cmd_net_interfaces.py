@@ -10,7 +10,7 @@ from habu.lib.iface import get_ifaces
 
 @click.command()
 @click.option('-j', 'json_output', is_flag=True, default=False, help='Output in JSON format')
-def cmd_interfaces(json_output):
+def cmd_net_interfaces(json_output):
     """
     Show the network interfaces available on the system.
 
@@ -43,4 +43,4 @@ def cmd_interfaces(json_output):
 
 
 if __name__ == '__main__':
-    cmd_interfaces()
+    cmd_net_interfaces()
