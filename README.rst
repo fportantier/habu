@@ -79,6 +79,7 @@ Commands Index
 * `asydns <#habuasydns>`_
 * `b64 <#habub64>`_
 * `cert.clone <#habucertclone>`_
+* `cert.crtsh <#habucertcrtsh>`_
 * `cert.names <#habucertnames>`_
 * `config.del <#habuconfigdel>`_
 * `config.set <#habuconfigset>`_
@@ -86,7 +87,6 @@ Commands Index
 * `contest <#habucontest>`_
 * `crack.luhn <#habucrackluhn>`_
 * `crack.snmp <#habucracksnmp>`_
-* `crtsh <#habucrtsh>`_
 * `crypto.fernet <#habucryptofernet>`_
 * `crypto.fernet.genkey <#habucryptofernetgenkey>`_
 * `crypto.gppref <#habucryptogppref>`_
@@ -111,28 +111,28 @@ Commands Index
 * `http.headers <#habuhttpheaders>`_
 * `http.options <#habuhttpoptions>`_
 * `http.tech <#habuhttptech>`_
-* `interfaces <#habuinterfaces>`_
-* `ip <#habuip>`_
-* `ip2asn <#habuip2asn>`_
+* `icmp.ping <#habuicmpping>`_
+* `ip.asn <#habuipasn>`_
 * `ip.geolocation <#habuipgeolocation>`_
 * `ip.internal <#habuipinternal>`_
-* `isn <#habuisn>`_
+* `ip.public <#habuippublic>`_
 * `jshell <#habujshell>`_
 * `karma <#habukarma>`_
 * `karma.bulk <#habukarmabulk>`_
 * `land <#habuland>`_
 * `nc <#habunc>`_
+* `net.interfaces <#habunetinterfaces>`_
 * `nmap.excluded <#habunmapexcluded>`_
 * `nmap.open <#habunmapopen>`_
 * `nmap.ports <#habunmapports>`_
-* `ping <#habuping>`_
 * `protoscan <#habuprotoscan>`_
 * `server.ftp <#habuserverftp>`_
 * `shodan <#habushodan>`_
 * `shodan.query <#habushodanquery>`_
-* `synflood <#habusynflood>`_
-* `tcpflags <#habutcpflags>`_
-* `tcpscan <#habutcpscan>`_
+* `tcp.flags <#habutcpflags>`_
+* `tcp.isn <#habutcpisn>`_
+* `tcp.scan <#habutcpscan>`_
+* `tcp.synflood <#habutcpsynflood>`_
 * `traceroute <#habutraceroute>`_
 * `usercheck <#habuusercheck>`_
 * `version <#habuversion>`_
@@ -289,6 +289,33 @@ habu.cert.clone
       --expired          Generate an expired certificate (default: False)
       -v                 Verbose
       --help             Show this message and exit.
+    
+
+habu.cert.crtsh
+---------------
+
+.. code-block::
+
+    Usage: habu.cert.crtsh [OPTIONS] DOMAIN
+    
+      Downloads the certificate transparency logs for a domain and check with
+      DNS queries if each subdomain exists.
+    
+      Uses multithreading to improve the performance of the DNS queries.
+    
+      Example:
+    
+      $ sudo habu.crtsh securetia.com
+      [
+          "karma.securetia.com.",
+          "www.securetia.com."
+      ]
+    
+    Options:
+      -c      Disable cache
+      -n      Disable DNS subdomain validation
+      -v      Verbose output
+      --help  Show this message and exit.
     
 
 habu.cert.names
@@ -482,33 +509,6 @@ habu.crack.snmp
       -s          Stop after first match
       -v          Verbose
       --help      Show this message and exit.
-    
-
-habu.crtsh
-----------
-
-.. code-block::
-
-    Usage: habu.crtsh [OPTIONS] DOMAIN
-    
-      Downloads the certificate transparency logs for a domain and check with
-      DNS queries if each subdomain exists.
-    
-      Uses multithreading to improve the performance of the DNS queries.
-    
-      Example:
-    
-      $ sudo habu.crtsh securetia.com
-      [
-          "karma.securetia.com.",
-          "www.securetia.com."
-      ]
-    
-    Options:
-      -c      Disable cache
-      -n      Disable DNS subdomain validation
-      -v      Verbose output
-      --help  Show this message and exit.
     
 
 habu.crypto.fernet
@@ -1185,62 +1185,42 @@ habu.http.tech
       --help                   Show this message and exit.
     
 
-habu.interfaces
----------------
+habu.icmp.ping
+--------------
 
 .. code-block::
 
-    Usage: habu.interfaces [OPTIONS]
+    Usage: habu.icmp.ping [OPTIONS] IP
     
-      Show the network interfaces available on the system.
+      The classic ping tool that send ICMP echo requests.
     
-      Example:
-    
-      # habu.interfaces
-      #  NAME                            MAC                INET             INET6
-      0  eth0                            80:fa:5b:4b:f9:18  None             None
-      1  lo                              00:00:00:00:00:00  127.0.0.1        ::1
-      2  wlan0                           f4:96:34:e5:ae:1b  192.168.0.6      None
-      3  vboxnet0                        0a:00:27:00:00:00  192.168.56.1     fe80::800:27ff:fe00:0
+      # habu.icmp.ping 8.8.8.8
+      IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+      IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+      IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+      IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
     
     Options:
-      -j      Output in JSON format
-      --help  Show this message and exit.
-    
-
-habu.ip
--------
-
-.. code-block::
-
-    Usage: habu.ip [OPTIONS]
-    
-      Get the public IP address of the connection from https://api.ipify.org.
-    
-      Example:
-    
-      $ habu.ip
-      80.219.53.185
-    
-    Options:
-      -4, --ipv4  Print your public IPv4 address (default)
-      -6, --ipv6  Print your public IPv6 address
-      -j, --json  Print the output in JSON format
+      -i TEXT     Wich interface to use (default: auto)
+      -c INTEGER  How many packets send (default: infinit)
+      -t INTEGER  Timeout in seconds (default: 2)
+      -w INTEGER  How many seconds between packets (default: 1)
+      -v          Verbose
       --help      Show this message and exit.
     
 
-habu.ip2asn
+habu.ip.asn
 -----------
 
 .. code-block::
 
-    Usage: habu.ip2asn [OPTIONS] IP
+    Usage: habu.ip.asn [OPTIONS] IP
     
       Use Team Cymru ip2asn service to get information about a public IPv4/IPv6.
     
       Reference: https://www.team-cymru.com/IP-ASN-mapping.html
     
-      $ habu.ip2asn 8.8.8.8
+      $ habu.ip.asn 8.8.8.8
       {
           "asn": "15169",
           "net": "8.8.8.0/24",
@@ -1320,32 +1300,24 @@ habu.ip.internal
       --help  Show this message and exit.
     
 
-habu.isn
---------
+habu.ip.public
+--------------
 
 .. code-block::
 
-    Usage: habu.isn [OPTIONS] IP
+    Usage: habu.ip.public [OPTIONS]
     
-      Create TCP connections and print the TCP initial sequence numbers for each
-      one.
+      Get the public IP address of the connection from https://api.ipify.org.
     
-      $ sudo habu.isn -c 5 www.portantier.com
-      1962287220
-      1800895007
-      589617930
-      3393793979
-      469428558
+      Example:
     
-      Note: You can get a graphical representation (needs the matplotlib
-      package) using the '-g' option to better understand the randomness.
+      $ habu.ip.public
+      80.219.53.185
     
     Options:
-      -p INTEGER  Port to use (default: 80)
-      -c INTEGER  How many packets to send/receive (default: 5)
-      -i TEXT     Interface to use
-      -g          Graph (requires matplotlib)
-      -v          Verbose output
+      -4, --ipv4  Print your public IPv4 address (default)
+      -6, --ipv6  Print your public IPv6 address
+      -j, --json  Print the output in JSON format
       --help      Show this message and exit.
     
 
@@ -1514,6 +1486,29 @@ habu.nc
       --help                       Show this message and exit.
     
 
+habu.net.interfaces
+-------------------
+
+.. code-block::
+
+    Usage: habu.net.interfaces [OPTIONS]
+    
+      Show the network interfaces available on the system.
+    
+      Example:
+    
+      # habu.interfaces
+      #  NAME                            MAC                INET             INET6
+      0  eth0                            80:fa:5b:4b:f9:18  None             None
+      1  lo                              00:00:00:00:00:00  127.0.0.1        ::1
+      2  wlan0                           f4:96:34:e5:ae:1b  192.168.0.6      None
+      3  vboxnet0                        0a:00:27:00:00:00  192.168.56.1     fe80::800:27ff:fe00:0
+    
+    Options:
+      -j      Output in JSON format
+      --help  Show this message and exit.
+    
+
 habu.nmap.excluded
 ------------------
 
@@ -1589,30 +1584,6 @@ habu.nmap.ports
     Options:
       -p [tcp|udp|sctp]  The protocol (default=tcp)
       --help             Show this message and exit.
-    
-
-habu.ping
----------
-
-.. code-block::
-
-    Usage: habu.ping [OPTIONS] IP
-    
-      The classic ping tool that send ICMP echo requests.
-    
-      # habu.ping 8.8.8.8
-      IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-      IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-      IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-      IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-    
-    Options:
-      -i TEXT     Wich interface to use (default: auto)
-      -c INTEGER  How many packets send (default: infinit)
-      -t INTEGER  Timeout in seconds (default: 2)
-      -w INTEGER  How many seconds between packets (default: 1)
-      -v          Verbose
-      --help      Show this message and exit.
     
 
 habu.protoscan
@@ -1757,12 +1728,118 @@ habu.shodan.query
       --help       Show this message and exit.
     
 
-habu.synflood
+habu.tcp.flags
+--------------
+
+.. code-block::
+
+    Usage: habu.tcp.flags [OPTIONS] IP
+    
+      Send TCP packets with different flags and tell what responses receives.
+    
+      It can be used to analyze how the different TCP/IP stack implementations
+      and configurations responds to packet with various flag combinations.
+    
+      Example:
+    
+      # habu.tcp_flags www.portantier.com
+      S  -> SA
+      FS -> SA
+      FA -> R
+      SA -> R
+    
+      By default, the command sends all possible flag combinations. You can
+      specify which flags must ever be present (reducing the quantity of
+      possible combinations), with the option '-f'.
+    
+      Also, you can specify which flags you want to be present on the response
+      packets to show, with the option '-r'.
+    
+      With the next command, you see all the possible combinations that have the
+      FIN (F) flag set and generates a response that contains the RST (R) flag.
+    
+      Example:
+    
+      # habu.tcp_flags -f F -r R www.portantier.com
+      FPA  -> R
+      FSPA -> R
+      FAU  -> R
+    
+    Options:
+      -p INTEGER  Port to use (default: 80)
+      -f TEXT     Flags that must be sent ever (default: fuzz with all flags)
+      -r TEXT     Filter by response flags (default: show all responses)
+      -v          Verbose
+      --help      Show this message and exit.
+    
+
+habu.tcp.isn
+------------
+
+.. code-block::
+
+    Usage: habu.tcp.isn [OPTIONS] IP
+    
+      Create TCP connections and print the TCP initial sequence numbers for each
+      one.
+    
+      $ sudo habu.tcp.isn -c 5 www.portantier.com
+      1962287220
+      1800895007
+      589617930
+      3393793979
+      469428558
+    
+      Note: You can get a graphical representation (needs the matplotlib
+      package) using the '-g' option to better understand the randomness.
+    
+    Options:
+      -p INTEGER  Port to use (default: 80)
+      -c INTEGER  How many packets to send/receive (default: 5)
+      -i TEXT     Interface to use
+      -g          Graph (requires matplotlib)
+      -v          Verbose output
+      --help      Show this message and exit.
+    
+
+habu.tcp.scan
 -------------
 
 .. code-block::
 
-    Usage: habu.synflood [OPTIONS] IP
+    Usage: habu.tcp.scan [OPTIONS] IP
+    
+      TCP Port Scanner.
+    
+      Print the ports that generated a response with the SYN flag or (if show
+      use -a) all the ports that generated a response.
+    
+      It's really basic compared with nmap, but who is comparing?
+    
+      Example:
+    
+      # habu.tcp.scan -p 22,23,80,443 -s 1 45.77.113.133
+      22 S -> SA
+      80 S -> SA
+      443 S -> SA
+    
+    Options:
+      -p TEXT     Ports to use (default: 80) example: 20-23,80,135
+      -i TEXT     Interface to use
+      -f TEXT     Flags to use (default: S)
+      -s TEXT     Time between probes (default: send all together)
+      -t INTEGER  Timeout for each probe (default: 2 seconds)
+      -a          Show all responses (default: Only containing SYN flag)
+      -v          Verbose output
+      --help      Show this message and exit.
+    
+
+habu.tcp.synflood
+-----------------
+
+.. code-block::
+
+    Usage: habu.tcp.synflood [OPTIONS] IP
     
       Launch a lot of TCP connections and keeps them opened.
     
@@ -1772,7 +1849,7 @@ habu.synflood
     
       Example:
     
-      # sudo habu.synflood 172.16.0.10
+      # sudo habu.tcp.synflood 172.16.0.10
       .................
     
       Each dot is a packet sent.
@@ -1796,83 +1873,6 @@ habu.synflood
       -2          Forge layer2/MAC address (default: No)
       -3          Forge layer3/IP address (default: No)
       -v          Verbose
-      --help      Show this message and exit.
-    
-
-habu.tcpflags
--------------
-
-.. code-block::
-
-    Usage: habu.tcpflags [OPTIONS] IP
-    
-      Send TCP packets with different flags and tell what responses receives.
-    
-      It can be used to analyze how the different TCP/IP stack implementations
-      and configurations responds to packet with various flag combinations.
-    
-      Example:
-    
-      # habu.tcpflags www.portantier.com
-      S  -> SA
-      FS -> SA
-      FA -> R
-      SA -> R
-    
-      By default, the command sends all possible flag combinations. You can
-      specify which flags must ever be present (reducing the quantity of
-      possible combinations), with the option '-f'.
-    
-      Also, you can specify which flags you want to be present on the response
-      packets to show, with the option '-r'.
-    
-      With the next command, you see all the possible combinations that have the
-      FIN (F) flag set and generates a response that contains the RST (R) flag.
-    
-      Example:
-    
-      # habu.tcpflags -f F -r R www.portantier.com
-      FPA  -> R
-      FSPA -> R
-      FAU  -> R
-    
-    Options:
-      -p INTEGER  Port to use (default: 80)
-      -f TEXT     Flags that must be sent ever (default: fuzz with all flags)
-      -r TEXT     Filter by response flags (default: show all responses)
-      -v          Verbose
-      --help      Show this message and exit.
-    
-
-habu.tcpscan
-------------
-
-.. code-block::
-
-    Usage: habu.tcpscan [OPTIONS] IP
-    
-      TCP Port Scanner.
-    
-      Print the ports that generated a response with the SYN flag or (if show
-      use -a) all the ports that generated a response.
-    
-      It's really basic compared with nmap, but who is comparing?
-    
-      Example:
-    
-      # habu.tcpscan -p 22,23,80,443 -s 1 45.77.113.133
-      22 S -> SA
-      80 S -> SA
-      443 S -> SA
-    
-    Options:
-      -p TEXT     Ports to use (default: 80) example: 20-23,80,135
-      -i TEXT     Interface to use
-      -f TEXT     Flags to use (default: S)
-      -s TEXT     Time between probes (default: send all together)
-      -t INTEGER  Timeout for each probe (default: 2 seconds)
-      -a          Show all responses (default: Only containing SYN flag)
-      -v          Verbose output
       --help      Show this message and exit.
     
 
