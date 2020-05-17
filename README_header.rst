@@ -6,22 +6,14 @@ Network Hacking.
 
 Some techniques implemented in the current version are:
 
-* ARP Poisoning
-* ARP Sniffing
-* DHCP Discover
-* DHCP Starvation
-* Fake FTP Server
-* LAND Attack
-* SNMP Cracking
+* ARP Poisoning and Sniffing
+* DHCP Discover and Starvation
 * Subdomains Identification
-* SSL/TLS Certificate Cloner
-* SYN Flooding
-* TCP Flags Analysis
-* TCP ISN Analysis
-* TCP Port Scan
+* Certificate Cloning
+* TCP Analysis (ISN, Flags)
 * Username check on social networks
-* Virtual Hosts Identification
 * Web Techonologies Identification
+* and a lot more!
 
 The development of this software is supported by Securetia SRL (https://www.securetia.com/)
 
@@ -46,6 +38,10 @@ Telegram Group
 
 If you want to discuss some Habu features, possible improvements, etc,
 you can use the Habu Telegram Group: https://t.me/python_habu
+
+
+Contributing
+------------
 
 Issues and pull requests must be sent to github repo:
 https://github.com/fportantier/habu
