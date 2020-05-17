@@ -6,18 +6,17 @@ from habu.lib import contest
 
 
 @click.command()
-def cmd_contest():
+def cmd_net_contest():
     """Try to connect to various services and check if can
     reach them using your internet connection.
 
     Example:
 
     \b
-    $ habu.contest
+    $ habu.net.contest
     IP:    True
     DNS:   True
     FTP:   True
-    SSH:   True
     HTTP:  True
     HTTPS: True"""
 
@@ -29,4 +28,4 @@ def cmd_contest():
 
 
 if __name__ == '__main__':
-    cmd_contest()
+    cmd_net_contest()
