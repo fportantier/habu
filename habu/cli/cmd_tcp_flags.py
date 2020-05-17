@@ -15,7 +15,7 @@ from scapy.all import IP, TCP, conf, sr1
 @click.option('-f', 'flags', default=None, help='Flags that must be sent ever (default: fuzz with all flags)')
 @click.option('-r', 'rflags', default=None, help='Filter by response flags (default: show all responses)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_tcpflags(ip, port, flags, rflags, verbose):
+def cmd_tcp_flags(ip, port, flags, rflags, verbose):
     """Send TCP packets with different flags and tell what responses receives.
 
     It can be used to analyze how the different TCP/IP stack implementations
@@ -24,7 +24,7 @@ def cmd_tcpflags(ip, port, flags, rflags, verbose):
     Example:
 
     \b
-    # habu.tcpflags www.portantier.com
+    # habu.tcp_flags www.portantier.com
     S  -> SA
     FS -> SA
     FA -> R
@@ -44,7 +44,7 @@ def cmd_tcpflags(ip, port, flags, rflags, verbose):
     Example:
 
     \b
-    # habu.tcpflags -f F -r R www.portantier.com
+    # habu.tcp_flags -f F -r R www.portantier.com
     FPA  -> R
     FSPA -> R
     FAU  -> R
@@ -66,4 +66,4 @@ def cmd_tcpflags(ip, port, flags, rflags, verbose):
     return True
 
 if __name__ == '__main__':
-    cmd_tcpflags()
+    cmd_tcp_flags()
