@@ -1,72 +1,56 @@
 import ipaddress
-import dns
+
+from habu.lib.identify import identify
+from habu.lib.extract import guess_item_type
+
+from habu.lib.ip2asn import ip2asn
+
+def enrich_ip(addr):
+
+    result = {}
+
+    ip = ipaddress.ip_network(addr, strict=False)
+
+    prop_host = [ 'version', 'is_multicast', 'is_global', 'is_unspecified', 'is_reserved', 'is_loopback', 'is_link_local' ]
+
+    prop_network = [ 'prefixlen', 'netmask', 'network_address', 'broadcast_address', 'num_addresses' ]
+
+    for prop in prop_host:
+        result[prop] = getattr(ip, prop)
+
+    if ip.num_addresses > 1:
+        for prop in prop_network:
+            result[prop] = getattr(ip, prop)
+
+    return result
 
 
-def is_ipaddress(item):
-    try:
-        ipaddress.ip_address(item)
-        return True
-    except Exception:
-        return False
-
-
-def is_ipnetwork(item):
-    try:
-        ipaddress.ip_network(item)
-        return True
-    except Exception:
-        return False
-
-
-def is_domain(item):
-    dns.name.from_text(item)
-
-
-
-# We need to do more work on this function, because can fail on a lot of circumstances
-def item_type(item):
-
-    if item.startswith('http://') or item.startswith('https://'):
-        return ['web']
-
-    if '@' in item:
-        return ['email']
-
-        pass
-    try:
-        ipaddress.ip_network(item)
-        return ['network']
-    except Exception:
-        pass
-
-    # Si tiene servidores NS asociados, es un dominio o subdominio
-
-
-    if habu.lib.dns.ns(item):
-        return ['domain']
-
-    # Si resuelve por DNS, es un hostname
-    if habu.lib.dns.resolve(item):
-        return ['fqdn']
-
-    # Si no, no sabemos qué es.
-    return None
+enrichers = {}
+enrichers['ipv4_address'] = []
+enrichers['ipv4_network'] = []
+enrichers['ipv6_address'] = []
+enrichers['ipv6_network'] = []
+enrichers['unknown'] = []
+#enrichers['IPAddress'].append(ip2asn)
+enrichers['ipv4_address'].append(enrich_ip)
+enrichers['ipv4_network'].append(enrich_ip)
+enrichers['ipv6_address'].append(enrich_ip)
+enrichers['ipv6_network'].append(enrich_ip)
 
 
 
-if __name__ == '__main__':
+def enrich(item):
 
-    test_items = [
-        'asd@asd.com',
-        'microsoft.com',
-        'invalid!domain.com',
-        '8.8.8.8',
-        '2001:0db8:85a3:0000:0000:8a2e:0370:7334',
-        '8.8.8.0/24',
-        'www.microsoft.com',
-    ]
+    family = guess_item_type(item)
 
-    for item in test_items:
-        print(item, item_type(item))
+    result = {
+        'item': item,
+        'family' : family,
+    }
+
+    for enricher in enrichers[family]:
+        result.update(enricher(item))
+
+    return result
 
 
