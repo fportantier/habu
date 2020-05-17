@@ -1,5 +1,5 @@
-Habu: Hacking Toolkit
-=====================
+Habu Hacking Toolkit
+====================
 
 I'm developing Habu to teach (and learn) some concepts about Python and
 Network Hacking.
@@ -56,7 +56,7 @@ Habu is on PyPi, so you can install it directly with pip:
 
 **Microsoft Windows**:
 
-Install it with the pip method.
+Install with the pip method.
 
 Get Help
 --------
@@ -87,28 +87,26 @@ Commands Index
 * `crack.luhn <#habucrackluhn>`_
 * `crack.snmp <#habucracksnmp>`_
 * `crtsh <#habucrtsh>`_
-* `cve.2018.9995 <#habucve20189995>`_
-* `cymon.ip <#habucymonip>`_
-* `cymon.ip.timeline <#habucymoniptimeline>`_
+* `crypto.fernet <#habucryptofernet>`_
+* `crypto.fernet.genkey <#habucryptofernetgenkey>`_
+* `crypto.gppref <#habucryptogppref>`_
+* `crypto.hasher <#habucryptohasher>`_
+* `data.enrich <#habudataenrich>`_
 * `data.extract.domain <#habudataextractdomain>`_
 * `data.extract.email <#habudataextractemail>`_
 * `data.extract.fqdn <#habudataextractfqdn>`_
 * `data.extract.ipv4 <#habudataextractipv4>`_
 * `data.filter <#habudatafilter>`_
-* `decrypt.gppref <#habudecryptgppref>`_
+* `data.select <#habudataselect>`_
 * `dhcp.discover <#habudhcpdiscover>`_
 * `dhcp.starvation <#habudhcpstarvation>`_
 * `dns.lookup.forward <#habudnslookupforward>`_
 * `dns.lookup.reverse <#habudnslookupreverse>`_
 * `eicar <#habueicar>`_
-* `expand <#habuexpand>`_
-* `fernet <#habufernet>`_
-* `fernet.genkey <#habufernetgenkey>`_
+* `file.entropy <#habufileentropy>`_
 * `forkbomb <#habuforkbomb>`_
 * `fqdn.finder <#habufqdnfinder>`_
 * `gateway.find <#habugatewayfind>`_
-* `h1.scope <#habuh1scope>`_
-* `hasher <#habuhasher>`_
 * `host <#habuhost>`_
 * `http.headers <#habuhttpheaders>`_
 * `http.options <#habuhttpoptions>`_
@@ -129,7 +127,6 @@ Commands Index
 * `nmap.ports <#habunmapports>`_
 * `ping <#habuping>`_
 * `protoscan <#habuprotoscan>`_
-* `select <#habuselect>`_
 * `server.ftp <#habuserverftp>`_
 * `shodan <#habushodan>`_
 * `shodan.query <#habushodanquery>`_
@@ -508,115 +505,150 @@ habu.crtsh
       --help  Show this message and exit.
     
 
-habu.cve.2018.9995
+habu.crypto.fernet
 ------------------
 
 .. code-block::
 
-    Usage: habu.cve.2018.9995 [OPTIONS] IP
+    Usage: habu.crypto.fernet [OPTIONS]
     
-      Exploit the CVE-2018-9995 vulnerability, present on various DVR systems.
+      Fernet cipher.
     
-      Note: Based on the original code from Ezequiel Fernandez (@capitan_alfa).
+      Uses AES-128-CBC with HMAC
     
-      Reference: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-9995
+      Note: You must use a key to cipher with Fernet.
+    
+      Use the -k paramenter or set the FERNET_KEY configuration value.
+    
+      The keys can be generated with the command habu.crypto.fernet.genkey
+    
+      Reference: https://github.com/fernet/spec/blob/master/Spec.md
     
       Example:
     
-      $ python habu.cve.2018-9995 82.202.102.42
+      $ "I want to protect this string" | habu.crypto.fernet
+      gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA...
+    
+      $ echo gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA... | habu.crypto.fernet -d
+      I want to protect this string
+    
+    Options:
+      -k TEXT        Key
+      -d             Decrypt instead of encrypt
+      --ttl INTEGER  Time To Live for timestamp verification
+      -i FILENAME    Input file (default: stdin)
+      -o FILENAME    Output file (default: stdout)
+      --help         Show this message and exit.
+    
+
+habu.crypto.fernet.genkey
+-------------------------
+
+.. code-block::
+
+    Usage: habu.crypto.fernet.genkey [OPTIONS]
+    
+      Generate a new Fernet Key, optionally write it to ~/.habu.json
+    
+      Example:
+    
+      $ habu.crypto.fernet.genkey
+      xgvWCIvjwe9Uq7NBvwO796iI4dsGD623QOT9GWqnuhg=
+    
+    Options:
+      -w      Write this key to ~/.habu.json
+      --help  Show this message and exit.
+    
+
+habu.crypto.gppref
+------------------
+
+.. code-block::
+
+    Usage: habu.crypto.gppref [OPTIONS] PASSWORD
+    
+      Decrypt the password of local users added via Windows 2008 Group Policy
+      Preferences.
+    
+      This value is the 'cpassword' attribute embedded in the Groups.xml file,
+      stored in the domain controller's Sysvol share.
+    
+      Example:
+    
+      # habu.crypto.gppref AzVJmXh/J9KrU5n0czX1uBPLSUjzFE8j7dOltPD8tLk
+      testpassword
+    
+    Options:
+      --help  Show this message and exit.
+    
+
+habu.crypto.hasher
+------------------
+
+.. code-block::
+
+    Usage: habu.crypto.hasher [OPTIONS] [F]
+    
+      Compute various hashes for the input data, that can be a file or a stream.
+    
+      Example:
+    
+      $ habu.crypto.hasher README.rst
+      md5          992a833cd162047daaa6a236b8ac15ae README.rst
+      ripemd160    0566f9141e65e57cae93e0e3b70d1d8c2ccb0623 README.rst
+      sha1         d7dbfd2c5e2828eb22f776550c826e4166526253 README.rst
+      sha256       6bb22d927e1b6307ced616821a1877b6cc35e... README.rst
+      sha512       8743f3eb12a11cf3edcc16e400fb14d599b4a... README.rst
+      whirlpool    96bcc083242e796992c0f3462f330811f9e8c... README.rst
+    
+      You can also specify which algorithm to use. In such case, the output is
+      only the value of the calculated hash:
+    
+      $ habu.hasher -a md5 README.rst
+      992a833cd162047daaa6a236b8ac15ae README.rst
+    
+    Options:
+      -a [md5|sha1|sha256|sha512|ripemd160|whirlpool]
+                                      Only this algorithm (Default: all)
+      --help                          Show this message and exit.
+    
+
+habu.data.enrich
+----------------
+
+.. code-block::
+
+    Usage: habu.data.enrich [OPTIONS]
+    
+      Enrich data adding interesting information.
+    
+      Example:
+    
+      $ cat /var/log/auth.log | habu.data.extract.ipv4 | habu.data.enrich
       [
           {
-              "uid": "admin",
-              "pwd": "securepassword",
-              "role": 2,
-              "enmac": 0,
-              "mac": "00:00:00:00:00:00",
-              "playback": 4294967295,
-              "view": 4294967295,
-              "rview": 4294967295,
-              "ptz": 4294967295,
-              "backup": 4294967295,
-              "opt": 4294967295
+              "asset": "8.8.8.8",
+              "family": "IPAddress",
+              "asn": "15169",
+              "net": "8.8.8.0/24",
+              "cc": "US",
+              "rir": "ARIN",
+              "asname": "GOOGLE - Google LLC, US"
+          },
+          {
+              "asset": "8.8.4.4",
+              "family": "IPAddress",
+              "asn": "15169",
+              "net": "8.8.4.0/24",
+              "cc": "US",
+              "rir": "ARIN",
+              "asname": "GOOGLE - Google LLC, US"
           }
       ]
     
     Options:
-      -p INTEGER  Port to use (default: 80)
-      -v          Verbose
-      --help      Show this message and exit.
-    
-
-habu.cymon.ip
--------------
-
-.. code-block::
-
-    Usage: habu.cymon.ip [OPTIONS] IP
-    
-      Simple cymon API client.
-    
-      Prints the JSON result of a cymon IP query.
-    
-      Example:
-    
-      $ habu.cymon.ip 8.8.8.8
-      {
-          "addr": "8.8.8.8",
-          "created": "2015-03-23T12:03:42Z",
-          "updated": "2018-08-24T04:06:07Z",
-          "sources": [
-              "safeweb.norton.com",
-              "botscout.com",
-              "virustotal.com",
-              "phishtank"
-          ],
-          "events": "https://www.cymon.io/api/nexus/v1/ip/8.8.8.8/events",
-          "domains": "https://www.cymon.io/api/nexus/v1/ip/8.8.8.8/domains",
-          "urls": "https://www.cymon.io/api/nexus/v1/ip/8.8.8.8/urls"
-      }
-    
-    Options:
-      -c           Disable cache
+      -i FILENAME  Input file (Default: stdin)
       -v           Verbose output
-      -o FILENAME  Output file (default: stdout)
-      --help       Show this message and exit.
-    
-
-habu.cymon.ip.timeline
-----------------------
-
-.. code-block::
-
-    Usage: habu.cymon.ip.timeline [OPTIONS] IP
-    
-      Simple cymon API client.
-    
-      Prints the JSON result of a cymon IP timeline query.
-    
-      Example:
-    
-      $ habu.cymon.ip.timeline 8.8.8.8
-      {
-          "timeline": [
-              {
-                  "time_label": "Aug. 18, 2018",
-                  "events": [
-                      {
-                          "description": "Posted: 2018-08-18 23:37:39 CEST IDS Alerts: 0 URLQuery Alerts: 1 ...",
-                          "created": "2018-08-18T21:39:07Z",
-                          "title": "Malicious activity reported by urlquery.net",
-                          "details_url": "http://urlquery.net/report/b1393866-9b1f-4a8e-b02b-9636989050f3",
-                          "tag": "malicious activity"
-                      }
-                  ]
-              },
-              ...
-    
-    Options:
-      -c           Disable cache
-      -v           Verbose output
-      -o FILENAME  Output file (default: stdout)
-      -p           Pretty output
       --help       Show this message and exit.
     
 
@@ -745,26 +777,27 @@ habu.data.filter
       --help       Show this message and exit.
     
 
-habu.decrypt.gppref
--------------------
+habu.data.select
+----------------
 
 .. code-block::
 
-    Usage: habu.decrypt.gppref [OPTIONS] PASSWORD
+    Usage: habu.data.select [OPTIONS] FIELD
     
-      Decrypt the password of local users added via Windows 2008 Group Policy
-      Preferences.
-    
-      This value is the 'cpassword' attribute embedded in the Groups.xml file,
-      stored in the domain controller's Sysvol share.
+      Select a field from a JSON input.
     
       Example:
     
-      # habu.decrypt.gppref AzVJmXh/J9KrU5n0czX1uBPLSUjzFE8j7dOltPD8tLk
-      testpassword
+      $ cat /var/log/auth.log | habu.data.extract.ipv4 | habu.data.enrich | habu.data.filter cc eq US | habu.data.select asset
+      8.8.8.7
+      8.8.8.8
+      8.8.8.9
     
     Options:
-      --help  Show this message and exit.
+      -i FILENAME  Input file (Default: stdin)
+      -v           Verbose output
+      --json       JSON output
+      --help       Show this message and exit.
     
 
 habu.dhcp.discover
@@ -880,98 +913,30 @@ habu.eicar
       --help  Show this message and exit.
     
 
-habu.expand
------------
+habu.file.entropy
+-----------------
 
 .. code-block::
 
-    Usage: habu.expand [OPTIONS]
+    Usage: habu.file.entropy [OPTIONS]
     
-      Expand data to add interesting information.
+      XOR cipher.
+    
+      Note: XOR is not a 'secure cipher'. If you need strong crypto you must use
+      algorithms like AES. You can use habu.fernet for that.
     
       Example:
     
-      $ cat /var/log/auth.log | habu.extract.ipv4 | habu.expand
-      [
-          {
-              "asset": "8.8.8.8",
-              "family": "IPAddress",
-              "asn": "15169",
-              "net": "8.8.8.0/24",
-              "cc": "US",
-              "rir": "ARIN",
-              "asname": "GOOGLE - Google LLC, US"
-          },
-          {
-              "asset": "8.8.4.4",
-              "family": "IPAddress",
-              "asn": "15169",
-              "net": "8.8.4.0/24",
-              "cc": "US",
-              "rir": "ARIN",
-              "asname": "GOOGLE - Google LLC, US"
-          }
-      ]
+      $ habu.xor -k mysecretkey -i /bin/ls > xored
+      $ habu.xor -k mysecretkey -i xored > uxored
+      $ sha1sum /bin/ls uxored
+      $ 6fcf930fcee1395a1c95f87dd38413e02deff4bb  /bin/ls
+      $ 6fcf930fcee1395a1c95f87dd38413e02deff4bb  uxored
     
     Options:
-      -i FILENAME  Input file (Default: stdin)
-      -v           Verbose output
+      -i FILENAME  Input file (default: stdin)
+      -o FILENAME  Output file (default: stdout)
       --help       Show this message and exit.
-    
-
-habu.fernet
------------
-
-.. code-block::
-
-    Usage: habu.fernet [OPTIONS]
-    
-      Fernet cipher.
-    
-      Uses AES-128-CBC with HMAC
-    
-      Note: You must use a key to cipher with Fernet.
-    
-      Use the -k paramenter or set the FERNET_KEY configuration value.
-    
-      The keys can be generated with the command habu.fernet.genkey
-    
-      Reference: https://github.com/fernet/spec/blob/master/Spec.md
-    
-      Example:
-    
-      $ "I want to protect this string" | habu.fernet
-      gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA...
-    
-      $ echo gAAAAABbXnCGoCULLuVNRElYTbEcwnek9iq5jBKq9JAN3wiiBUzPqpUgV5oWvnC6xfIA... | habu.fernet -d
-      I want to protect this string
-    
-    Options:
-      -k TEXT        Key
-      -d             Decrypt instead of encrypt
-      --ttl INTEGER  Time To Live for timestamp verification
-      -i FILENAME    Input file (default: stdin)
-      -o FILENAME    Output file (default: stdout)
-      --help         Show this message and exit.
-    
-
-habu.fernet.genkey
-------------------
-
-.. code-block::
-
-    Usage: habu.fernet.genkey [OPTIONS]
-    
-      Generate a new Fernet Key, optionally write it to ~/.habu.json
-    
-      Example:
-    
-      $ habu.fernet.genkey
-      xgvWCIvjwe9Uq7NBvwO796iI4dsGD623QOT9GWqnuhg=
-    
-    Options:
-      -w      Write this key to ~/.habu.json
-      --help  Show this message and exit.
     
 
 habu.forkbomb
@@ -1043,6 +1008,7 @@ habu.fqdn.finder
       --xfr / --no-xfr          Try to do a DNS zone transfer against domains
       --ctlog / --no-ctlog      Try to get FQDNs from Certificate Transparency
                                 Logs
+    
       --json                    Print the output in JSON format
       --help                    Show this message and exit.
     
@@ -1079,74 +1045,6 @@ habu.gateway.find
       --timeout INTEGER      Timeout in seconds (default: 5)
       -v                     Verbose output
       --help                 Show this message and exit.
-    
-
-habu.h1.scope
--------------
-
-.. code-block::
-
-    Usage: habu.h1.scope [OPTIONS] [INFILE]
-    
-      Parse HackerOne scope specification in BurpSuite JSON format
-    
-      Example:
-    
-      $ habu.h1.scope starbucks.json
-      app.starbucks.com
-      card.starbucks.com.sg
-      cart.starbucks.co.jp
-      ec.starbucks.com.cn
-      gift.starbucks.co.jp
-      login.starbucks.co.jp
-      preview.starbucks.com
-      www.istarbucks.co.kr
-      www.starbucks.ca
-      www.starbucks.co.jp
-      www.starbucks.co.uk
-      www.starbucks.com
-      www.starbucks.com.br
-      www.starbucks.com.cn
-      www.starbucks.com.sg
-      www.starbucks.de
-      www.starbucks.fr
-      www.starbucksreserve.com
-      www.teavana.com
-    
-    Options:
-      -j      Output in JSON format
-      --help  Show this message and exit.
-    
-
-habu.hasher
------------
-
-.. code-block::
-
-    Usage: habu.hasher [OPTIONS] [F]
-    
-      Compute various hashes for the input data, that can be a file or a stream.
-    
-      Example:
-    
-      $ habu.hasher README.rst
-      md5          992a833cd162047daaa6a236b8ac15ae README.rst
-      ripemd160    0566f9141e65e57cae93e0e3b70d1d8c2ccb0623 README.rst
-      sha1         d7dbfd2c5e2828eb22f776550c826e4166526253 README.rst
-      sha256       6bb22d927e1b6307ced616821a1877b6cc35e... README.rst
-      sha512       8743f3eb12a11cf3edcc16e400fb14d599b4a... README.rst
-      whirlpool    96bcc083242e796992c0f3462f330811f9e8c... README.rst
-    
-      You can also specify which algorithm to use. In such case, the output is
-      only the value of the calculated hash:
-    
-      $ habu.hasher -a md5 README.rst
-      992a833cd162047daaa6a236b8ac15ae README.rst
-    
-    Options:
-      -a [md5|sha1|sha256|sha512|ripemd160|whirlpool]
-                                      Only this algorithm (Default: all)
-      --help                          Show this message and exit.
     
 
 habu.host
@@ -1748,29 +1646,6 @@ habu.protoscan
       --all       Probe all protocols (default: Defined in /etc/protocols)
       -v          Verbose output
       --help      Show this message and exit.
-    
-
-habu.select
------------
-
-.. code-block::
-
-    Usage: habu.select [OPTIONS] FIELD
-    
-      Select a field from a JSON input.
-    
-      Example:
-    
-      $ cat /var/log/auth.log | habu.extract.ipv4 | habu.expand | habu.filter cc eq US | habu.select asset
-      8.8.8.7
-      8.8.8.8
-      8.8.8.9
-    
-    Options:
-      -i FILENAME  Input file (Default: stdin)
-      -v           Verbose output
-      --json       JSON output
-      --help       Show this message and exit.
     
 
 habu.server.ftp
