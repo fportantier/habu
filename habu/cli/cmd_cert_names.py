@@ -49,7 +49,7 @@ def cmd_cert_names(infile, ports, timeout, verbose, network):
 
     The hosts to connect to are taken from two possible options:
 
-    1. -i option (stdin by default). A file where each line is a host or network
+    1. "-i" option (stdin by default). A file where each line is a host or network
     2. An argument that can be a host or network
 
     If you use both methods, the hosts and networks are merged into one list.
