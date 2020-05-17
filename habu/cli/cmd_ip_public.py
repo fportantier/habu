@@ -16,7 +16,7 @@ def cmd_ip_public(ipv4, ipv6, json_output):
     Example:
 
     \b
-    $ habu.ip
+    $ habu.ip.public
     80.219.53.185
     """
 
