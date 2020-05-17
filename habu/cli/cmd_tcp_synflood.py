@@ -19,7 +19,7 @@ from scapy.all import IP, TCP, Ether, RandMAC, conf, sendp
 @click.option('-2', 'forgemac', is_flag=True, default=False, help='Forge layer2/MAC address (default: No)')
 @click.option('-3', 'forgeip', is_flag=True, default=False, help='Forge layer3/IP address (default: No)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
+def cmd_tcp_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
     """Launch a lot of TCP connections and keeps them opened.
 
     Some very old systems can suffer a Denial of Service with this.
@@ -29,7 +29,7 @@ def cmd_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
     Example:
 
     \b
-    # sudo habu.synflood 172.16.0.10
+    # sudo habu.tcp.synflood 172.16.0.10
     .................
 
     Each dot is a packet sent.
@@ -89,4 +89,4 @@ def cmd_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
     return True
 
 if __name__ == '__main__':
-    cmd_synflood()
+    cmd_tcp_synflood()
