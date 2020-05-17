@@ -20,7 +20,7 @@ from scapy.all import IP, TCP, conf, sr, sr1
 @click.option('-t', 'timeout', default=2, help='Timeout for each probe (default: 2 seconds)')
 @click.option('-a', 'show_all', is_flag=True, default=False, help='Show all responses (default: Only containing SYN flag)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_tcpscan(ip, port, iface, flags, sleeptime, timeout, show_all, verbose):
+def cmd_tcp_scan(ip, port, iface, flags, sleeptime, timeout, show_all, verbose):
     """TCP Port Scanner.
 
     Print the ports that generated a response with the SYN flag or (if show use -a) all the
@@ -31,7 +31,7 @@ def cmd_tcpscan(ip, port, iface, flags, sleeptime, timeout, show_all, verbose):
     Example:
 
     \b
-    # habu.tcpscan -p 22,23,80,443 -s 1 45.77.113.133
+    # habu.tcp.scan -p 22,23,80,443 -s 1 45.77.113.133
     22 S -> SA
     80 S -> SA
     443 S -> SA
@@ -90,4 +90,4 @@ def cmd_tcpscan(ip, port, iface, flags, sleeptime, timeout, show_all, verbose):
             ))
 
 if __name__ == '__main__':
-    cmd_tcpscan()
+    cmd_tcp_scan()
