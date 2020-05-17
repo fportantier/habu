@@ -25,6 +25,13 @@ Some techniques implemented in the current version are:
 
 The development of this software is supported by Securetia SRL (https://www.securetia.com/)
 
+
+Hacking with Habu
+-----------------
+
+Various useful usage scenarios are detailed in https://fportantier.github.io/hacking-with-habu/
+
+
 Usage Videos
 ------------
 
@@ -32,6 +39,7 @@ The following Youtube Playlist has videos that shows the installation
 and usage:
 
 https://www.youtube.com/watch?v=rgp9seLLyqE&list=PL4HZnX8VnFXqSvNw7x-bXOn0dgxNdfnVD
+
 
 Telegram Group
 --------------
@@ -41,6 +49,7 @@ you can use the Habu Telegram Group: https://t.me/python_habu
 
 Issues and pull requests must be sent to github repo:
 https://github.com/fportantier/habu
+
 
 Installation
 ------------
@@ -58,17 +67,20 @@ Habu is on PyPi, so you can install it directly with pip:
 
 Install with the pip method.
 
+
 Get Help
 --------
 
 All the commands implement the option '--help', that shows the help,
 arguments, options, and default values.
 
+
 Verbose Mode
 ------------
 
 Almost all commands implement the verbose mode with the '-v' option.
 This can give you some extra info about what habu is doing.
+
 
 Commands Index
 --------------
@@ -84,7 +96,6 @@ Commands Index
 * `config.del <#habuconfigdel>`_
 * `config.set <#habuconfigset>`_
 * `config.show <#habuconfigshow>`_
-* `contest <#habucontest>`_
 * `crack.luhn <#habucrackluhn>`_
 * `crack.snmp <#habucracksnmp>`_
 * `crypto.fernet <#habucryptofernet>`_
@@ -121,6 +132,7 @@ Commands Index
 * `karma.bulk <#habukarmabulk>`_
 * `land <#habuland>`_
 * `nc <#habunc>`_
+* `net.contest <#habunetcontest>`_
 * `net.interfaces <#habunetinterfaces>`_
 * `nmap.excluded <#habunmapexcluded>`_
 * `nmap.open <#habunmapopen>`_
@@ -425,30 +437,6 @@ habu.config.show
       -k, --show-keys   Show also the key values
       --option TEXT...  Write to the config(KEY VALUE)
       --help            Show this message and exit.
-    
-
-habu.contest
-------------
-
-.. code-block::
-
-    Usage: habu.contest [OPTIONS]
-    
-      Try to connect to various services and check if can reach them using your
-      internet connection.
-    
-      Example:
-    
-      $ habu.contest
-      IP:    True
-      DNS:   True
-      FTP:   True
-      SSH:   True
-      HTTP:  True
-      HTTPS: True
-    
-    Options:
-      --help  Show this message and exit.
     
 
 habu.crack.luhn
@@ -1484,6 +1472,29 @@ habu.nc
       --source-ip TEXT             Source IP to use
       --source-port INTEGER RANGE  Source port to use
       --help                       Show this message and exit.
+    
+
+habu.net.contest
+----------------
+
+.. code-block::
+
+    Usage: habu.net.contest [OPTIONS]
+    
+      Try to connect to various services and check if can reach them using your
+      internet connection.
+    
+      Example:
+    
+      $ habu.net.contest
+      IP:    True
+      DNS:   True
+      FTP:   True
+      HTTP:  True
+      HTTPS: True
+    
+    Options:
+      --help  Show this message and exit.
     
 
 habu.net.interfaces

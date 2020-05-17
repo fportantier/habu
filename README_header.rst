@@ -25,6 +25,13 @@ Some techniques implemented in the current version are:
 
 The development of this software is supported by Securetia SRL (https://www.securetia.com/)
 
+
+Hacking with Habu
+-----------------
+
+Various useful usage scenarios are detailed in https://fportantier.github.io/hacking-with-habu/
+
+
 Usage Videos
 ------------
 
@@ -32,6 +39,7 @@ The following Youtube Playlist has videos that shows the installation
 and usage:
 
 https://www.youtube.com/watch?v=rgp9seLLyqE&list=PL4HZnX8VnFXqSvNw7x-bXOn0dgxNdfnVD
+
 
 Telegram Group
 --------------
@@ -41,6 +49,7 @@ you can use the Habu Telegram Group: https://t.me/python_habu
 
 Issues and pull requests must be sent to github repo:
 https://github.com/fportantier/habu
+
 
 Installation
 ------------
@@ -58,17 +67,20 @@ Habu is on PyPi, so you can install it directly with pip:
 
 Install with the pip method.
 
+
 Get Help
 --------
 
 All the commands implement the option '--help', that shows the help,
 arguments, options, and default values.
 
+
 Verbose Mode
 ------------
 
 Almost all commands implement the verbose mode with the '-v' option.
 This can give you some extra info about what habu is doing.
+
 
 Commands Index
 --------------
