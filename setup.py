@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-"""Habu Python Wrapper setup script."""
-
 import os
 import sys
 import glob
@@ -23,8 +21,8 @@ for file in sorted(Path('habu/cli/').glob('cmd_*.py')):
 
 setup(
     name='habu',
-    version='0.1.35',
-    description='Python Hacking Toolkit',
+    version='0.1.36',
+    description='Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/x-rst',
     author='Fabian Martinez Portantier',
@@ -66,7 +64,7 @@ setup(
         "Topic :: Security",
         "Topic :: System :: Networking",
         "Programming Language :: Python :: 3.0",
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     packages=['habu', 'habu.lib', 'habu.lib.completeme', 'habu.cli'],
     include_package_data=True,

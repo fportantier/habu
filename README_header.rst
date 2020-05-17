@@ -1,5 +1,5 @@
-Habu: Hacking Toolkit
-=====================
+Habu Hacking Toolkit
+====================
 
 I'm developing Habu to teach (and learn) some concepts about Python and
 Network Hacking.
@@ -56,7 +56,7 @@ Habu is on PyPi, so you can install it directly with pip:
 
 **Microsoft Windows**:
 
-Install it with the pip method.
+Install with the pip method.
 
 Get Help
 --------
