@@ -8,17 +8,7 @@ When you need to use external modules, please, check this:
 
 1. If the module is currently a habu dependency, it's ok, use it.
 2. If habu currently uses a similar module, try to use that.
-3. If you will generate a new dependency, please, check the following section.
-
-# New dependencies
-
-1. When your code generates a new dependency, check that the module is available as an official package
-for the following distributions:
-
-- Debian latest release (https://www.debian.org/distrib/packages)
-- Fedora latest release (https://apps.fedoraproject.org/packages/)
-
-2. Check if the module it's really necessary, we're trying to mantain the project as light as possible.
+3. If you need to generate a new dependency, please, ask before continue with your development
 
 ## Testing
 

@@ -1,8 +1,0 @@
-#!/bin/sh
-
-./readme_generate
-
-python3 setup.py sdist
-rm -Rf deb_dist
-python3 setup.py --command-packages=stdeb.command bdist_deb
-
