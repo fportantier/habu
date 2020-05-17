@@ -49,8 +49,8 @@ def cmd_cert_names(infile, ports, timeout, verbose, network):
 
     The hosts to connect to are taken from two possible options:
 
-    1) -i option (stdin by default). A file where each line is a host or network
-    2) An argument that can be a host or network
+    1. -i option (stdin by default). A file where each line is a host or network
+    2. An argument that can be a host or network
 
     If you use both methods, the hosts and networks are merged into one list.
 
@@ -65,6 +65,7 @@ def cmd_cert_names(infile, ports, timeout, verbose, network):
     2.18.60.245         443 cert2-cn-public-ubiservices.ubi.com cert2-cn-public-ws-ubiservices.ubi.com
     2.18.60.246         443 *.blog.sina.com.cn *.dmp.sina.cn
 
+    \b
     aod.itunes.apple.com
     aodp-ssl.itunes.apple.com
     aod-ssl.itunes.apple.com

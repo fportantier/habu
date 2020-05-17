@@ -91,6 +91,7 @@ Commands Index
 * `crypto.fernet.genkey <#habucryptofernetgenkey>`_
 * `crypto.gppref <#habucryptogppref>`_
 * `crypto.hasher <#habucryptohasher>`_
+* `crypto.xor <#habucryptoxor>`_
 * `data.enrich <#habudataenrich>`_
 * `data.extract.domain <#habudataextractdomain>`_
 * `data.extract.email <#habudataextractemail>`_
@@ -103,7 +104,6 @@ Commands Index
 * `dns.lookup.forward <#habudnslookupforward>`_
 * `dns.lookup.reverse <#habudnslookupreverse>`_
 * `eicar <#habueicar>`_
-* `file.entropy <#habufileentropy>`_
 * `forkbomb <#habuforkbomb>`_
 * `fqdn.finder <#habufqdnfinder>`_
 * `gateway.find <#habugatewayfind>`_
@@ -142,7 +142,6 @@ Commands Index
 * `web.screenshot <#habuwebscreenshot>`_
 * `whois.domain <#habuwhoisdomain>`_
 * `whois.ip <#habuwhoisip>`_
-* `xor <#habuxor>`_
 
 habu.arp.ping
 -------------
@@ -303,8 +302,8 @@ habu.cert.names
     
       The hosts to connect to are taken from two possible options:
     
-      1) -i option (stdin by default). A file where each line is a host or
-      network 2) An argument that can be a host or network
+      1. -i option (stdin by default). A file where each line is a host or
+      network 2. An argument that can be a host or network
     
       If you use both methods, the hosts and networks are merged into one list.
     
@@ -318,10 +317,16 @@ habu.cert.names
       2.18.60.245         443 cert2-cn-public-ubiservices.ubi.com cert2-cn-public-ws-ubiservices.ubi.com
       2.18.60.246         443 *.blog.sina.com.cn *.dmp.sina.cn
     
-      aod.itunes.apple.com aodp-ssl.itunes.apple.com aod-ssl.itunes.apple.com
-      *.blog.sina.com.cn cert2-cn-public-ubiservices.ubi.com cert2-cn-public-ws-
-      ubiservices.ubi.com *.dmp.sina.cn i.s-microsoft.com microsoft.com
-      *.mlb.com mlb.com privacy.microsoft.com
+      aod.itunes.apple.com
+      aodp-ssl.itunes.apple.com
+      aod-ssl.itunes.apple.com
+      *.blog.sina.com.cn
+      cert2-cn-public-ubiservices.ubi.com
+      cert2-cn-public-ws-ubiservices.ubi.com
+      *.dmp.sina.cn
+      i.s-microsoft.com microsoft.com
+      *.mlb.com mlb.com
+      privacy.microsoft.com
     
     Options:
       -p TEXT      Ports to connect to (comma separated list)
@@ -611,6 +616,33 @@ habu.crypto.hasher
       -a [md5|sha1|sha256|sha512|ripemd160|whirlpool]
                                       Only this algorithm (Default: all)
       --help                          Show this message and exit.
+    
+
+habu.crypto.xor
+---------------
+
+.. code-block::
+
+    Usage: habu.crypto.xor [OPTIONS]
+    
+      XOR cipher.
+    
+      Note: XOR is not a 'secure cipher'. If you need strong crypto you must use
+      algorithms like AES. You can use habu.fernet for that.
+    
+      Example:
+    
+      $ habu.xor -k mysecretkey -i /bin/ls > xored
+      $ habu.xor -k mysecretkey -i xored > uxored
+      $ sha1sum /bin/ls uxored
+      $ 6fcf930fcee1395a1c95f87dd38413e02deff4bb  /bin/ls
+      $ 6fcf930fcee1395a1c95f87dd38413e02deff4bb  uxored
+    
+    Options:
+      -k TEXT      Encryption key
+      -i FILENAME  Input file (default: stdin)
+      -o FILENAME  Output file (default: stdout)
+      --help       Show this message and exit.
     
 
 habu.data.enrich
@@ -911,32 +943,6 @@ habu.eicar
     
     Options:
       --help  Show this message and exit.
-    
-
-habu.file.entropy
------------------
-
-.. code-block::
-
-    Usage: habu.file.entropy [OPTIONS]
-    
-      XOR cipher.
-    
-      Note: XOR is not a 'secure cipher'. If you need strong crypto you must use
-      algorithms like AES. You can use habu.fernet for that.
-    
-      Example:
-    
-      $ habu.xor -k mysecretkey -i /bin/ls > xored
-      $ habu.xor -k mysecretkey -i xored > uxored
-      $ sha1sum /bin/ls uxored
-      $ 6fcf930fcee1395a1c95f87dd38413e02deff4bb  /bin/ls
-      $ 6fcf930fcee1395a1c95f87dd38413e02deff4bb  uxored
-    
-    Options:
-      -i FILENAME  Input file (default: stdin)
-      -o FILENAME  Output file (default: stdout)
-      --help       Show this message and exit.
     
 
 habu.forkbomb
@@ -2107,32 +2113,5 @@ habu.whois.ip
       --json  Print the output in JSON format
       --csv   Print the output in CSV format
       --help  Show this message and exit.
-    
-
-habu.xor
---------
-
-.. code-block::
-
-    Usage: habu.xor [OPTIONS]
-    
-      XOR cipher.
-    
-      Note: XOR is not a 'secure cipher'. If you need strong crypto you must use
-      algorithms like AES. You can use habu.fernet for that.
-    
-      Example:
-    
-      $ habu.xor -k mysecretkey -i /bin/ls > xored
-      $ habu.xor -k mysecretkey -i xored > uxored
-      $ sha1sum /bin/ls uxored
-      $ 6fcf930fcee1395a1c95f87dd38413e02deff4bb  /bin/ls
-      $ 6fcf930fcee1395a1c95f87dd38413e02deff4bb  uxored
-    
-    Options:
-      -k TEXT      Encryption key
-      -i FILENAME  Input file (default: stdin)
-      -o FILENAME  Output file (default: stdout)
-      --help       Show this message and exit.
     
 
