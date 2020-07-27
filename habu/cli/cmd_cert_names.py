@@ -20,7 +20,7 @@ def cert_get_names(cert_data):
     try:
         cert = x509.load_der_x509_certificate(cert_data, default_backend())
     except ValueError:
-        raise ValueError("No recognized cert format. Allowed: PEM or DER")
+        raise ValueError("Not recognized cert format. Allowed: PEM or DER")
 
     names = set()
     names.add(cert.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[0].value.lower())
@@ -28,7 +28,7 @@ def cert_get_names(cert_data):
     try:
         alt_names = cert.extensions.get_extension_for_class(x509.SubjectAlternativeName)
     except x509.extensions.ExtensionNotFound:
-        alt_names = None
+        alt_names = []
 
     if alt_names:
         for alt_name in alt_names.value.get_values_for_type(x509.DNSName):
@@ -108,9 +108,14 @@ def cmd_cert_names(infile, ports, timeout, verbose, network):
     hosts = sorted(hosts)
     all_names = set()
 
+    if not hosts:
+        ctx = click.get_current_context()
+        click.echo(ctx.get_help())
+        ctx.exit()
+        return False
+
     for host in hosts:
         for port in ports:
-            print('{:<16} {:>6}'.format(str(host), port), end=' ')
 
             context = ssl.create_default_context()
             context.check_hostname = False
@@ -122,11 +127,9 @@ def cmd_cert_names(infile, ports, timeout, verbose, network):
                         cert = ssock.getpeercert(binary_form=True)
                         names = cert_get_names(cert)
                         all_names |= set(names)
-                        print(' '.join(names))
             except Exception as e:
                 print(e)
 
-    print('')
     print('\n'.join(sorted(all_names)))
 
 
