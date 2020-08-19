@@ -1,28 +1,13 @@
 import requests
 import socket
 
-dns_servers = ['8.8.8.8', '8.8.4.4']
-ftp_servers = ['ftp.debian.org', 'ftp.redhat.com']
-http_servers = ['www.google.com', 'www.ibm.com']
-ssh_servers = ['www.github.com']
+socket.setdefaulttimeout(1)
 
-socket.setdefaulttimeout(2)
 
-def check_ip():
-    for server in dns_servers:
+def check_dns(hostnames=['www.google.com', 'www.microsoft.com']):
+    for hostname in hostnames:
         try:
-            socket.create_connection((server, 53), 5)
-            return True
-        except socket.timeout:
-            pass
-
-    return False
-
-
-def check_dns():
-    for server in http_servers:
-        try:
-            socket.gethostbyname(server)
+            socket.gethostbyname(hostname)
             return True
         except Exception:
             pass
@@ -30,10 +15,10 @@ def check_dns():
     return False
 
 
-def check_http():
-    for server in http_servers:
+def check_http(urls=['http://www.google.com', 'http://www.microsoft.com']):
+    for url in urls:
         try:
-            requests.get('http://' + server)
+            requests.get(url, timeout=1)
             return True
         except Exception:
             pass
@@ -41,10 +26,10 @@ def check_http():
     return False
 
 
-def check_https():
-    for server in http_servers:
+def check_https(urls=['https://www.google.com', 'https://www.microsoft.com']):
+    for url in urls:
         try:
-            requests.get('https://' + server)
+            requests.get(url, timeout=1)
             return True
         except Exception:
             pass
@@ -52,8 +37,8 @@ def check_https():
     return False
 
 
-def check_ftp():
-    for server in ftp_servers:
+def check_ftp(servers=['ftp.debian.org', 'ftp.redhat.com']):
+    for server in servers:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((server, 21))
@@ -64,8 +49,8 @@ def check_ftp():
     return False
 
 
-def check_ssh():
-    for server in ssh_servers:
+def check_ssh(servers=['www.github.com', 'www.gitlab.com']):
+    for server in servers:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((server, 22))
@@ -77,7 +62,6 @@ def check_ssh():
 
 
 if __name__ == '__main__':
-    print(check_ip())
     print(check_dns())
     print(check_ftp())
     print(check_http())

@@ -14,15 +14,15 @@ def cmd_net_contest():
 
     \b
     $ habu.net.contest
-    IP:    True
     DNS:   True
     FTP:   True
+    SSH:   True
     HTTP:  True
     HTTPS: True"""
 
-    print("IP:    %s" % contest.check_ip())
     print("DNS:   %s" % contest.check_dns())
     print("FTP:   %s" % contest.check_ftp())
+    print("SSH:   %s" % contest.check_ssh())
     print("HTTP:  %s" % contest.check_http())
     print("HTTPS: %s" % contest.check_https())
 
