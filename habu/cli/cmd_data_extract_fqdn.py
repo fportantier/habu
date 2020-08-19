@@ -55,7 +55,7 @@ def cmd_data_extract_fqdn(infile, check, verbose, jsonout):
 
     data = infile.read()
 
-    result = extract_hostname(data)
+    result = extract_fqdn(data)
 
     if check:
         logging.info('Checking against DNS...')
