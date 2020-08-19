@@ -68,7 +68,7 @@ def check_ssh():
     for server in ssh_servers:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect(('sdf.org', 22))
+            s.connect((server, 22))
             return True
         except Exception:
             pass
