@@ -2,7 +2,7 @@
 import requests
 import urllib3
 
-urllib3.disable_warnings()
+#urllib3.disable_warnings()
 
 
 def get_headers(server):
