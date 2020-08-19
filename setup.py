@@ -27,7 +27,7 @@ setup(
     long_description_content_type='text/x-rst',
     author='Fabian Martinez Portantier',
     author_email='fabian@portantier.com',
-    url='https://github.com/portantier/habu',
+    url='https://github.com/fportantier/habu',
     license='BSD 3-clause',
     install_requires=[
         'beautifulsoup4',
