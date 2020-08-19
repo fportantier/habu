@@ -21,7 +21,7 @@ for file in sorted(Path('habu/cli/').glob('cmd_*.py')):
 
 setup(
     name='habu',
-    version='0.1.36',
+    version='0.1.37',
     description='Hacking Toolkit',
     long_description=readme,
     long_description_content_type='text/x-rst',
