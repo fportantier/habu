@@ -26,6 +26,8 @@ def enrich_ip(addr):
 
 
 enrichers = {}
+enrichers['domain'] = []
+enrichers['hostname'] = []
 enrichers['ipv4_address'] = []
 enrichers['ipv4_network'] = []
 enrichers['ipv6_address'] = []
