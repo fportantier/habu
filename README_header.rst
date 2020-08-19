@@ -50,18 +50,28 @@ https://github.com/fportantier/habu
 Installation
 ------------
 
-**Python Package (PyPi):**
-
-Habu is on PyPi, so you can install it directly with pip:
+Recommended way to install:
 
 ::
 
-    $ pip3 install habu
+    $ python3 -m pip install --upgrade git+https://github.com/fportantier/habu.git
 
 
-**Microsoft Windows**:
+This must works on any system that has Python 3 installed. 
 
-Install with the pip method.
+**Note:** On some systems (like Microsoft Windows) you must adjust the command to
+point to the correct path of the Python executable.
+
+
+Upgrade
+-------
+
+Now we have a command to upgrade directly from the Git repo and clean any old
+command that not longer exists or that has been renamed.
+
+::
+
+    $ habu.upgrade
 
 
 Get Help
