@@ -5,7 +5,7 @@ import sys
 
 import click
 
-from habu.lib.http import get_headers
+from habu.lib.httpx import get_headers
 
 
 @click.command()

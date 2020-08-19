@@ -5,7 +5,7 @@ import sys
 
 import click
 
-from habu.lib.http import get_options
+from habu.lib.httpx import get_options
 
 
 @click.command()
