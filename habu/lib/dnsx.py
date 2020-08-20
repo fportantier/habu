@@ -6,6 +6,8 @@ from time import sleep
 
 import dns.resolver
 import dns.zone
+import dns
+
 from dns import resolver, reversename
 
 from habu.lib.tomorrow3 import threads
@@ -22,7 +24,7 @@ def resolve(name, server=None):
     result = []
 
     try:
-        answers = my_resolver.query(str(name), lifetime=3)
+        answers = my_resolver.resolve(str(name), lifetime=3)
     except Exception as e:
         answers = []
 
@@ -37,7 +39,7 @@ def ns(domain):
     result = []
 
     try:
-        answers = dns.resolver.query(domain, 'NS')
+        answers = dns.resolver.resolve(domain, 'NS')
     except Exception:
         answers = []
 
@@ -53,7 +55,7 @@ def mx(domain):
     result = []
 
     try:
-        answers = dns.resolver.query(domain, 'MX')
+        answers = dns.resolver.resolve(domain, 'MX')
     except Exception:
         answers = []
 
@@ -70,8 +72,13 @@ def axfr(domain):
 
     for server in ns(domain):
 
+        server_ip = resolve(server)
+
+        if not server_ip:
+            continue
+
         try:
-            z = dns.zone.from_xfr(dns.query.xfr(server, domain))
+            z = dns.zone.from_xfr(dns.query.xfr(server_ip[0], domain))
             if z.nodes.keys():
                 allowed.append(server)
         except Exception as e:
@@ -84,7 +91,7 @@ def axfr(domain):
 def __threaded_query(hostname):
     """Perform the requests to the DNS server."""
     try:
-        answer = resolver.query(hostname)
+        answer = resolver.resolve(hostname)
         return answer
     except Exception:
         return None
@@ -110,7 +117,7 @@ def lookup_reverse(ip_address):
         return {}
 
     record = reversename.from_address(ip_address)
-    hostname = str(resolver.query(record, "PTR")[0])[:-1]
+    hostname = str(resolver.resolve(record, "PTR")[0])[:-1]
     return {'hostname': hostname}
 
 
