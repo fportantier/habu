@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import ipaddress
+import json
 import socket
 import ssl
 
@@ -42,8 +43,9 @@ def cert_get_names(cert_data):
 @click.option('-i', 'infile', type=click.File('r'), default='-', help='Input file (Default: stdin)')
 @click.option('-t', 'timeout', type=click.FLOAT, default=1, help='Time to wait for each connection')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.option('--json', 'json_output', is_flag=True, default=False, help='Print the output in JSON format')
 @click.argument('network', default=None, required=False)
-def cmd_cert_names(infile, ports, timeout, verbose, network):
+def cmd_cert_names(infile, ports, timeout, verbose, network, json_output):
     """
     Connects to each host/port and shows a summary of the certificate names.
 
@@ -130,7 +132,10 @@ def cmd_cert_names(infile, ports, timeout, verbose, network):
             except Exception as e:
                 print(e)
 
-    print('\n'.join(sorted(all_names)))
+    if json_output:
+        print(json.dumps(sorted(all_names), indent=4))
+    else:
+        print('\n'.join(sorted(all_names)))
 
 
 if __name__ == '__main__':
