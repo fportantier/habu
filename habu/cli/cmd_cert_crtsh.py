@@ -19,7 +19,8 @@ from habu.lib.dnsx import query_bulk
 @click.option('-c', 'no_cache', is_flag=True, default=False, help='Disable cache')
 @click.option('-n', 'no_validate', is_flag=True, default=False, help='Disable DNS subdomain validation')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-def cmd_cert_crtsh(domain, no_cache, no_validate, verbose):
+@click.option('--json', 'json_output', is_flag=True, default=False, help='Print the output in JSON format')
+def cmd_cert_crtsh(domain, no_cache, no_validate, verbose, json_output):
     """Downloads the certificate transparency logs for a domain
     and check with DNS queries if each subdomain exists.
 
@@ -28,11 +29,10 @@ def cmd_cert_crtsh(domain, no_cache, no_validate, verbose):
     Example:
 
     \b
-    $ sudo habu.crtsh securetia.com
-    [
-        "karma.securetia.com.",
-        "www.securetia.com."
-    ]
+    $ habu.crtsh securetia.com
+    alt.securetia.com
+    other.securetia.com
+    www.securetia.com
     """
 
     if verbose:
@@ -62,23 +62,27 @@ def cmd_cert_crtsh(domain, no_cache, no_validate, verbose):
 
     subdomains = list(subdomains)
 
-    if no_validate:
+    if not no_validate:
+        if verbose:
+            print("Validating subdomains against DNS servers ...", file=sys.stderr)
+
+        answers = query_bulk(subdomains)
+
+        validated = []
+
+        for answer in answers:
+            if answer:
+                validated.append(str(answer.qname))
+
+        subdomains = validated
+
+    if json_output:
         print(json.dumps(sorted(subdomains), indent=4))
-        return True
+    else:
+        print('\n'.join(sorted(subdomains)))
 
-    if verbose:
-        print("Validating subdomains against DNS servers ...", file=sys.stderr)
-
-    answers = query_bulk(subdomains)
-
-    validated = []
-
-    for answer in answers:
-        if answer:
-            validated.append(str(answer.qname))
-
-    print(json.dumps(sorted(validated), indent=4))
     return True
+
 
 
 if __name__ == '__main__':
