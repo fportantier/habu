@@ -1,6 +1,5 @@
 import ipaddress
 
-from habu.lib.identify import identify
 from habu.lib.extract import guess_item_type
 
 from habu.lib.ip2asn import ip2asn

@@ -22,7 +22,7 @@ import tldextract
 
 from habu.lib.shodan import shodan_get_result
 from habu.lib.tomorrow3 import threads
-from habu.lib import libdns
+from habu.lib import dnsx
 from habu.lib.loadcfg import loadcfg
 from habu.lib.web_links import web_links
 
@@ -94,7 +94,7 @@ def fqdns_from_hosts(hosts, domains, timeout=2):
     addrs = {}
 
     for host in list(hosts):
-        resolves_to = libdns.resolve(host)
+        resolves_to = dnsx.resolve(host)
         if resolves_to:
             for addr in resolves_to:
                 addrs[addr] = set(addrs.get(addr, [])) | set(host)
@@ -198,7 +198,7 @@ def fqdns_from_weblinks(hostname, domains, timeout=5):
 
     fqdns = set()
 
-    addrs = libdns.resolve(hostname)
+    addrs = dnsx.resolve(hostname)
 
     if not addrs:
         return fqdns
