@@ -9,7 +9,7 @@ import dns.zone
 
 import click
 
-from habu.lib import libdns
+from habu.lib import dnsx
 from habu.lib.fqdn_finder import fqdns_from_ct_log, fqdns_from_hosts, fqdns_from_brute_force, fqdns_from_weblinks
 
 
@@ -68,7 +68,7 @@ def cmd_fqdn_finder(domains, brute_force, connect, xfr, ctlog, weblinks, timeout
     if xfr:
         logging.info('Trying to get DNS Zones with a Zone Transfer..')
         for domain in list(domains):
-            for ns_server in libdns.ns(domain):
+            for ns_server in dnsx.ns(domain):
                 try:
                     z = dns.zone.from_xfr(dns.query.xfr(ns_server, domain, lifetime=5))
                 except Exception as e:
@@ -89,7 +89,7 @@ def cmd_fqdn_finder(domains, brute_force, connect, xfr, ctlog, weblinks, timeout
 
     logging.info('Removing FQDNs that does not resolve by DNS...')
     for fqdn in list(fqdns):
-        if not libdns.resolve(fqdn):
+        if not dnsx.resolve(fqdn):
             logging.info('Removing {} because does not resolves by DNS'.format(fqdn))
             fqdns.remove(fqdn)
 

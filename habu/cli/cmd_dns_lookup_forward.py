@@ -5,7 +5,7 @@ import sys
 
 import click
 
-from habu.lib.dns import lookup_forward
+from habu.lib.dnsx import lookup_forward
 
 
 @click.command()

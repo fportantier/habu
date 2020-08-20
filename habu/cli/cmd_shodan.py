@@ -8,7 +8,7 @@ import sys
 
 import click
 
-from habu.lib import libdns
+from habu.lib import dnsx
 
 from habu.lib.loadcfg import loadcfg
 from habu.lib.shodan import shodan_get_result
@@ -40,7 +40,7 @@ def cmd_shodan(ip, cache, verbose, output_format):
     try:
         ipaddress.ip_address(ip)
     except ValueError:
-        ip = libdns.resolve(ip)
+        ip = dnsx.resolve(ip)
 
     if ip and isinstance(ip, list):
         ip = ip[0]

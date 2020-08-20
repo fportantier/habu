@@ -8,7 +8,7 @@ import tldextract
 import click
 import regex as re
 
-from habu.lib import libdns
+from habu.lib import dnsx
 
 
 def extract_domain(data):
@@ -67,7 +67,7 @@ def cmd_data_extract_domain(infile, check, verbose, jsonout):
 
     if check:
         logging.info('Checking against DNS...')
-        result = [ domain for domain in result if libdns.ns(domain) ]
+        result = [ domain for domain in result if dnsx.ns(domain) ]
 
     if jsonout:
         print(json.dumps(result, indent=4))

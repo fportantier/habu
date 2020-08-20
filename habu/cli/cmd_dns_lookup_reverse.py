@@ -5,7 +5,7 @@ import sys
 
 import click
 
-from habu.lib.dns import lookup_reverse
+from habu.lib.dnsx import lookup_reverse
 
 
 @click.command()

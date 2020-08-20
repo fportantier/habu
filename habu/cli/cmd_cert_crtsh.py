@@ -12,7 +12,7 @@ import click
 import requests
 import requests_cache
 
-from habu.lib.dns import query_bulk
+from habu.lib.dnsx import query_bulk
 
 @click.command()
 @click.argument('domain')
