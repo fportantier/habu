@@ -15,7 +15,8 @@ from scapy.all import IP, TCP, conf, sr1
 @click.option('-f', 'flags', default=None, help='Flags that must be sent ever (default: fuzz with all flags)')
 @click.option('-r', 'rflags', default=None, help='Filter by response flags (default: show all responses)')
 @click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_tcp_flags(ip, port, flags, rflags, verbose):
+@click.option('--first', 'first', is_flag=True, default=False, help='Stop on first response that matches')
+def cmd_tcp_flags(ip, port, flags, rflags, verbose, first):
     """Send TCP packets with different flags and tell what responses receives.
 
     It can be used to analyze how the different TCP/IP stack implementations
@@ -64,6 +65,8 @@ def cmd_tcp_flags(ip, port, flags, rflags, verbose):
             if ans:
                 if not rflags or all(i in ans.sprintf(r"%TCP.flags%") for i in rflags):
                     print(out.format(pkt.sprintf(r"%TCP.flags%"), ans.sprintf(r"%TCP.flags%")))
+                    if first:
+                        break
 
     return True
 
