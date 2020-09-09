@@ -52,12 +52,14 @@ def cmd_tcp_flags(ip, port, flags, rflags, verbose):
 
     conf.verb = False
 
-    pkts = IP(dst=ip) / TCP(flags=(0, 255), dport=port)
+    pkts = [ (IP(dst=ip) / TCP(flags=f, dport=port)) for f in range(0, 512) ]
 
     out = "{:>8} -> {:<8}"
 
     for pkt in pkts:
         if not flags or all(i in pkt.sprintf(r"%TCP.flags%") for i in flags):
+            if verbose:
+                print(pkt.summary())
             ans = sr1(pkt, timeout=0.2)
             if ans:
                 if not rflags or all(i in ans.sprintf(r"%TCP.flags%") for i in rflags):
