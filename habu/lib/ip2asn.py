@@ -53,7 +53,7 @@ def ip2asn(ipaddr):
         name = "%s.origin6.asn.cymru.com" % (reversed)
 
     try:
-        response = dns.resolver.query(name, 'TXT')
+        response = dns.resolver.resolve(name, 'TXT')
     except:
         return {}
 
@@ -69,7 +69,7 @@ def ip2asn(ipaddr):
     # "15169 | US | arin | 2000-03-30 | GOOGLE - Google Inc.,US"
     try:
         name = "AS%s.asn.cymru.com" % (r['asn'])
-        response = dns.resolver.query(name, 'TXT')
+        response = dns.resolver.resolve(name, 'TXT')
         r['asname'] = response[0].to_text().split('|')[4].strip(" \"")
     except:
         pass
