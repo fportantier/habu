@@ -52,9 +52,10 @@ def fqdns_from_ct_log(domain, cache=True, verbose=False):
     json_data = json.loads(req.text)
 
     for data in json_data:
-        name = data['name_value'].lower()
-        if '*' not in name:
-            fqdns.add(name)
+        names = data['name_value'].lower().split('\n')
+        for name in names:
+            if name and '*' not in name:
+                fqdns.add(name)
 
     return fqdns
 
