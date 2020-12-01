@@ -3,6 +3,8 @@ import ipaddress
 from habu.lib.extract import guess_item_type
 
 from habu.lib.ip2asn import ip2asn
+from habu.lib import dnsx
+
 
 def enrich_ip(addr):
 
@@ -24,9 +26,19 @@ def enrich_ip(addr):
     return result
 
 
+
+def enrich_fqdn(fqdn):
+
+    result = {}
+
+    result['resolves_to'] = dnsx.resolve(fqdn)
+
+    return result
+
+
 enrichers = {}
 enrichers['domain'] = []
-enrichers['hostname'] = []
+enrichers['fqdn'] = [enrich_fqdn]
 enrichers['ipv4_address'] = []
 enrichers['ipv4_network'] = []
 enrichers['ipv6_address'] = []
@@ -49,7 +61,7 @@ def enrich(item):
         'family' : family,
     }
 
-    for enricher in enrichers[family]:
+    for enricher in enrichers.get(family, []):
         result.update(enricher(item))
 
     return result
