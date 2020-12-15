@@ -189,5 +189,4 @@ def http_tech(url, cache=True, verbose=False):
     return response
 
 if __name__ == '__main__':
-    print(json.dumps(get_tech('https://woocommerce.com', verbose=True, cache=True), indent=4))
-
+    print(json.dumps(http_tech('https://woocommerce.com', verbose=True, cache=True), indent=4))
