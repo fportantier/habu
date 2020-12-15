@@ -22,7 +22,7 @@ def http_tech(url, cache=True, verbose=False):
         requests_cache.install_cache(str(homedir / '.habu_requests_cache'), expire_after=3600)
 
     try:
-        r = requests.get(url)
+        r = requests.get(url, verify=False)
     except Exception as e:
         logging.error(e)
         return False
