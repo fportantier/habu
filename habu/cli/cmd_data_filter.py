@@ -137,6 +137,9 @@ def cmd_data_filter(infile, verbose, negated, field, operator, value):
             "asname": "GOOGLE - Google LLC, US"
         }
     ]
+
+    \b
+    Docs: https://fportantier.github.io/hacking-with-habu/user/data-manipulation.html#data-enrichment
     """
 
     if verbose:
