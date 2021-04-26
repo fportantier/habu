@@ -30,7 +30,6 @@ def cmd_data_select(infile, json_output, verbose, field):
     try:
         data = json.loads(infile.read())
     except ValueError as e:
-        print(e)
         click.echo('Invalid input data. Whe expect JSON here.', err=True)
         return False
 
