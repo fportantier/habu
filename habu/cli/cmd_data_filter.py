@@ -8,22 +8,22 @@ import click
 
 
 def operator_gt(item, field, value):
-    return field in item and item[field] > value
+    return field in item and float(item[field]) > float(value)
 
 def operator_ge(item, field, value):
-    return field in item and item[field] >= value
+    return field in item and float(item[field]) >= float(value)
 
 def operator_lt(item, field, value):
-    return field in item and item[field] < value
+    return field in item and float(item[field]) < float(value)
 
 def operator_le(item, field, value):
-    return field in item and item[field] >= value
+    return field in item and float(item[field]) >= float(value)
 
 def operator_eq(item, field, value):
-    return field in item and item[field] == value
+    return field in item and str(item[field]) == str(value)
 
 def operator_ne(item, field, value):
-    return field in item and item[field] != value
+    return field in item and str(item[field]) != str(value)
 
 def operator_in_network(value1, value2):
     net1 = ipaddress.ip_network(value1)
@@ -106,6 +106,22 @@ def operate(item, field, operator, value):
 def cmd_data_filter(infile, verbose, negated, field, operator, value):
     """Filter data based on operators.
 
+    Operator Reference:
+
+    \b
+    gt:         Greater than
+    lt:         Lesser than
+    eq:         Equal to
+    ne:         Not equal to
+    ge:         Greather or equal than
+    le:         Lesser or equal than
+    in:         Inside the list of values (or inside the network)
+    contains:   Contains the value (or the network address)
+    defined:    The value is defined
+    undefined:  The value is not defined
+    true:       The value is True
+    false:      The value is False
+
     Example:
 
     \b
@@ -139,12 +155,15 @@ def cmd_data_filter(infile, verbose, negated, field, operator, value):
     result = []
 
     for item in data:
-        if negated:
-            if not operate(item, field, operator, value):
-                result.append(item)
-        else:
-            if operate(item, field, operator, value):
-                result.append(item)
+
+        try:
+            r = operate(item, field, operator, value)
+        except Exception as e:
+            click.echo(e, err=True)
+            continue
+
+        if r or (negated and not r):
+            result.append(item)
 
     print(json.dumps(result, indent=4))
 
