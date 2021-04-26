@@ -99,7 +99,6 @@ Commands Index
 * `cert.clone <#habucertclone>`_
 * `cert.crtsh <#habucertcrtsh>`_
 * `cert.names <#habucertnames>`_
-* `clean <#habuclean>`_
 * `config.del <#habuconfigdel>`_
 * `config.set <#habuconfigset>`_
 * `config.show <#habuconfigshow>`_
@@ -324,16 +323,16 @@ habu.cert.crtsh
     
       Example:
     
-      $ sudo habu.crtsh securetia.com
-      [
-          "karma.securetia.com.",
-          "www.securetia.com."
-      ]
+      $ habu.crtsh securetia.com
+      alt.securetia.com
+      other.securetia.com
+      www.securetia.com
     
     Options:
       -c      Disable cache
       -n      Disable DNS subdomain validation
       -v      Verbose output
+      --json  Print the output in JSON format
       --help  Show this message and exit.
     
 
@@ -380,20 +379,8 @@ habu.cert.names
       -i FILENAME  Input file (Default: stdin)
       -t FLOAT     Time to wait for each connection
       -v           Verbose output
+      --json       Print the output in JSON format
       --help       Show this message and exit.
-    
-
-habu.clean
-----------
-
-.. code-block::
-
-    Usage: habu.clean [OPTIONS]
-    
-      Clean old habu entrypoints.
-    
-    Options:
-      --help  Show this message and exit.
     
 
 habu.config.del
@@ -482,7 +469,17 @@ habu.crack.luhn
     
       Example:
     
-      $ habu.crack.luhn 4509-xxxx-3160-6445
+      $ habu.crack.luhn 4509-xx08-3160-6445
+      4509000831606445
+      4509180831606445
+      4509260831606445
+      4509340831606445
+      4509420831606445
+      4509590831606445
+      4509670831606445
+      4509750831606445
+      4509830831606445
+      4509910831606445
     
     Options:
       --help  Show this message and exit.
@@ -796,6 +793,21 @@ habu.data.filter
     
       Filter data based on operators.
     
+      Operator Reference:
+    
+      gt:         Greater than
+      lt:         Lesser than
+      eq:         Equal to
+      ne:         Not equal to
+      ge:         Greather or equal than
+      le:         Lesser or equal than
+      in:         Inside the list of values (or inside the network)
+      contains:   Contains the value (or the network address)
+      defined:    The value is defined
+      undefined:  The value is not defined
+      true:       The value is True
+      false:      The value is False
+    
       Example:
     
       $ cat /var/log/auth.log | habu.data.extract.ipv4 | habu.data.enrich | habu.data.filter cc eq US
@@ -810,6 +822,8 @@ habu.data.filter
               "asname": "GOOGLE - Google LLC, US"
           }
       ]
+    
+      Docs: https://fportantier.github.io/hacking-with-habu/user/data-manipulation.html#data-enrichment
     
     Options:
       -i FILENAME  Input file (Default: stdin)
@@ -1749,6 +1763,7 @@ habu.tcp.flags
       -f TEXT     Flags that must be sent ever (default: fuzz with all flags)
       -r TEXT     Filter by response flags (default: show all responses)
       -v          Verbose
+      --first     Stop on first response that matches
       --help      Show this message and exit.
     
 
