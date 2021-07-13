@@ -50,6 +50,9 @@ def web_links(url, cache=True):
 
     for css in soup.findAll('link', attrs={'rel': 'stylesheet'}):
 
+        if 'href' not in css.attrs:
+            continue
+
         file_url = css.attrs['href']
         file_url = urllib.parse.urljoin(url, file_url)
 
