@@ -6,14 +6,15 @@ import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from habu.lib.iface import search_iface
 from scapy.all import IP, TCP, conf, sr1
+
+from habu.lib.iface import search_iface
 
 
 @click.command()
-@click.argument('ip')
-@click.option('-p', 'port', default=80, help='Port to use (default: 80)')
-@click.option('-i', 'iface', default=None, help='Interface to use')
+@click.argument("ip")
+@click.option("-p", "port", default=80, help="Port to use (default: 80)")
+@click.option("-i", "iface", default=None, help="Interface to use")
 def cmd_traceroute(ip, port, iface):
     """TCP traceroute.
 
@@ -41,9 +42,13 @@ def cmd_traceroute(ip, port, iface):
     if iface:
         iface = search_iface(iface)
         if iface:
-            conf.iface = iface['name']
+            conf.iface = iface["name"]
         else:
-            logging.error('Interface {} not found. Use habu.interfaces to show valid network interfaces'.format(iface))
+            logging.error(
+                "Interface {} not found. Use habu.interfaces to show valid network interfaces".format(
+                    iface
+                )
+            )
             return False
 
     pkts = IP(dst=ip, ttl=(1, 16)) / TCP(dport=port)
@@ -53,7 +58,7 @@ def cmd_traceroute(ip, port, iface):
         ans = sr1(pkt, timeout=1, iface=conf.iface)
 
         if not ans:
-            print('.')
+            print(".")
             continue
 
         print(ans.summary())
@@ -64,5 +69,5 @@ def cmd_traceroute(ip, port, iface):
     return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_traceroute()

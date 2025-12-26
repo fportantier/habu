@@ -11,7 +11,7 @@ def valid_domain(item):
         return False
 
     x = tldextract.extract(item)
-    return x.subdomain is ''
+    return x.subdomain is ""
 
 
 def valid_fqdn(item):
@@ -20,7 +20,7 @@ def valid_fqdn(item):
         return False
 
     x = tldextract.extract(item)
-    return x.subdomain is not ''
+    return x.subdomain is not ""
 
 
 def valid_ipv4_address(item):
@@ -60,21 +60,21 @@ def valid_ipv6_network(item):
 
 
 validator_functions = OrderedDict()
-validator_functions['ipv4_address'] = valid_ipv4_address
-validator_functions['ipv4_network'] = valid_ipv4_network
-validator_functions['ipv6_address'] = valid_ipv6_address
-validator_functions['ipv6_network'] = valid_ipv6_network
-validator_functions['url'] = validators.url
-validator_functions['fqdn'] = valid_fqdn
-validator_functions['domain'] = valid_domain
-validator_functions['email'] = validators.email
-validator_functions['mac_address'] = validators.mac_address
-validator_functions['md5'] = validators.md5
-validator_functions['sha1'] = validators.sha1
-validator_functions['sha224'] = validators.sha224
-validator_functions['sha256'] = validators.sha256
-validator_functions['sha512'] = validators.sha512
-validator_functions['pan'] = validators.card.card_number
+validator_functions["ipv4_address"] = valid_ipv4_address
+validator_functions["ipv4_network"] = valid_ipv4_network
+validator_functions["ipv6_address"] = valid_ipv6_address
+validator_functions["ipv6_network"] = valid_ipv6_network
+validator_functions["url"] = validators.url
+validator_functions["fqdn"] = valid_fqdn
+validator_functions["domain"] = valid_domain
+validator_functions["email"] = validators.email
+validator_functions["mac_address"] = validators.mac_address
+validator_functions["md5"] = validators.md5
+validator_functions["sha1"] = validators.sha1
+validator_functions["sha224"] = validators.sha224
+validator_functions["sha256"] = validators.sha256
+validator_functions["sha512"] = validators.sha512
+validator_functions["pan"] = validators.card.card_number
 
 
 def guess_item_type(item):

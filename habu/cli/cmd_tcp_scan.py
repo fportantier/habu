@@ -7,19 +7,35 @@ import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from habu.lib.iface import search_iface
 from scapy.all import IP, TCP, conf, sr, sr1
+
+from habu.lib.iface import search_iface
 
 
 @click.command()
-@click.argument('ip')
-@click.option('-p', 'port', default='80', help='Ports to use (default: 80) example: 20-23,80,135')
-@click.option('-i', 'iface', default=None, help='Interface to use')
-@click.option('-f', 'flags', default='S', help='Flags to use (default: S)')
-@click.option('-s', 'sleeptime', default=None, help='Time between probes (default: send all together)')
-@click.option('-t', 'timeout', default=2, help='Timeout for each probe (default: 2 seconds)')
-@click.option('-a', 'show_all', is_flag=True, default=False, help='Show all responses (default: Only containing SYN flag)')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.argument("ip")
+@click.option(
+    "-p", "port", default="80", help="Ports to use (default: 80) example: 20-23,80,135"
+)
+@click.option("-i", "iface", default=None, help="Interface to use")
+@click.option("-f", "flags", default="S", help="Flags to use (default: S)")
+@click.option(
+    "-s",
+    "sleeptime",
+    default=None,
+    help="Time between probes (default: send all together)",
+)
+@click.option(
+    "-t", "timeout", default=2, help="Timeout for each probe (default: 2 seconds)"
+)
+@click.option(
+    "-a",
+    "show_all",
+    is_flag=True,
+    default=False,
+    help="Show all responses (default: Only containing SYN flag)",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
 def cmd_tcp_scan(ip, port, iface, flags, sleeptime, timeout, show_all, verbose):
     """TCP Port Scanner.
 
@@ -38,19 +54,23 @@ def cmd_tcp_scan(ip, port, iface, flags, sleeptime, timeout, show_all, verbose):
     """
 
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     conf.verb = False
 
     if iface:
         iface = search_iface(iface)
         if iface:
-            conf.iface = iface['name']
+            conf.iface = iface["name"]
         else:
-            logging.error('Interface {} not found. Use habu.interfaces to show valid network interfaces'.format(iface))
+            logging.error(
+                "Interface {} not found. Use habu.interfaces to show valid network interfaces".format(
+                    iface
+                )
+            )
             return False
 
-    port_regex = r'^[0-9,-]+$'
+    port_regex = r"^[0-9,-]+$"
 
     if not re.match(port_regex, port):
         logging.critical("Invalid port specification")
@@ -58,17 +78,17 @@ def cmd_tcp_scan(ip, port, iface, flags, sleeptime, timeout, show_all, verbose):
 
     ports = []
 
-    for p in str(port).split(','):
-        if '-' in p:
-            first, last = p.split('-')
-            for n in range(int(first), int(last)+1):
+    for p in str(port).split(","):
+        if "-" in p:
+            first, last = p.split("-")
+            for n in range(int(first), int(last) + 1):
                 ports.append(n)
         else:
             ports.append(int(p))
 
     out = "{port} {sflags} -> {rflags}"
 
-    pkts = IP(dst=ip)/TCP(flags=flags, dport=ports)
+    pkts = IP(dst=ip) / TCP(flags=flags, dport=ports)
 
     if sleeptime:
         res = []
@@ -81,13 +101,16 @@ def cmd_tcp_scan(ip, port, iface, flags, sleeptime, timeout, show_all, verbose):
     else:
         res, unans = sr(pkts, verbose=verbose)
 
-    for s,r in res:
-        if show_all or 'S' in r.sprintf(r"%TCP.flags%"):
-            print(out.format(
-                port=s[TCP].dport,
-                sflags=s.sprintf(r"%TCP.flags%"),
-                rflags=r.sprintf(r"%TCP.flags%")
-            ))
+    for s, r in res:
+        if show_all or "S" in r.sprintf(r"%TCP.flags%"):
+            print(
+                out.format(
+                    port=s[TCP].dport,
+                    sflags=s.sprintf(r"%TCP.flags%"),
+                    rflags=r.sprintf(r"%TCP.flags%"),
+                )
+            )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_tcp_scan()

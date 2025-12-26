@@ -9,9 +9,8 @@ from habu.lib.ip import geo_location
 
 
 @click.command()
-@click.argument('ip_address')
-@click.option('-v', 'verbose', is_flag=True, default=False,
-              help='Verbose output.')
+@click.argument("ip_address")
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output.")
 def cmd_ip_geolocation(ip_address, verbose):
     """Get the geolocation of an IP adddress from https://ipapi.co/.
 
@@ -28,7 +27,7 @@ def cmd_ip_geolocation(ip_address, verbose):
     }
     """
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
         print("Looking up %s..." % ip_address, file=sys.stderr)
 
     results = geo_location(ip_address)
@@ -41,5 +40,5 @@ def cmd_ip_geolocation(ip_address, verbose):
     return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_ip_geolocation()

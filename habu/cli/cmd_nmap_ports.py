@@ -8,17 +8,17 @@ import click
 
 def detect_format(data):
     if data.startswith('<?xml version="1.0" encoding="UTF-8"?>'):
-        return 'xml'
+        return "xml"
 
-    lines = data.split('\n')
+    lines = data.split("\n")
 
-    if lines[1].startswith('Host'):
-        return 'gnmap'
+    if lines[1].startswith("Host"):
+        return "gnmap"
 
-    if lines[1].startswith('Nmap scan report'):
-        return 'nmap'
+    if lines[1].startswith("Nmap scan report"):
+        return "nmap"
 
-    return 'unknown'
+    return "unknown"
 
 
 def parse_format_xml(data, protocol):
@@ -30,23 +30,22 @@ def parse_format_xml(data, protocol):
 
     ports = set()
 
-    for line in data.split('\n'):
+    for line in data.split("\n"):
         m = line_regex.match(line)
         if m:
             ports.add(int(m.group(1)))
 
     return sorted(ports)
-
 
 
 def parse_format_nmap(data, protocol):
 
-    line_regex_str = r'(?P<port>\d+)/{}'.format(protocol)
+    line_regex_str = r"(?P<port>\d+)/{}".format(protocol)
     line_regex = re.compile(line_regex_str)
 
     ports = set()
 
-    for line in data.split('\n'):
+    for line in data.split("\n"):
         m = line_regex.match(line)
         if m:
             ports.add(int(m.group(1)))
@@ -54,20 +53,19 @@ def parse_format_nmap(data, protocol):
     return sorted(ports)
 
 
-
 def parse_format_gnmap(data, protocol):
 
-    line_regex_str = r'(?P<port>\d+)/\w+/{}'.format(protocol)
+    line_regex_str = r"(?P<port>\d+)/\w+/{}".format(protocol)
     line_regex = re.compile(line_regex_str)
 
     ports = set()
 
-    for line in data.split('\n'):
-        if 'Ports:' not in line:
+    for line in data.split("\n"):
+        if "Ports:" not in line:
             continue
 
-        content = line.split('Ports: ')[1]
-        for c in content.split(','):
+        content = line.split("Ports: ")[1]
+        for c in content.split(","):
             c = c.strip()
             m = line_regex.match(c)
             if m:
@@ -76,10 +74,15 @@ def parse_format_gnmap(data, protocol):
     return sorted(ports)
 
 
-
 @click.command()
-@click.argument('scanfile', type=click.File())
-@click.option('-p', 'protocol', default='tcp', type=click.Choice(['tcp', 'udp', 'sctp']), help='The protocol (default=tcp)')
+@click.argument("scanfile", type=click.File())
+@click.option(
+    "-p",
+    "protocol",
+    default="tcp",
+    type=click.Choice(["tcp", "udp", "sctp"]),
+    help="The protocol (default=tcp)",
+)
 def cmd_nmap_ports(scanfile, protocol):
     """Read an nmap report and print the tested ports.
 
@@ -99,21 +102,21 @@ def cmd_nmap_ports(scanfile, protocol):
     data = scanfile.read()
     fmt = detect_format(data)
 
-    if fmt not in ['xml', 'nmap', 'gnmap']:
-        print('Unknown file format.', file=sys.stdout)
+    if fmt not in ["xml", "nmap", "gnmap"]:
+        print("Unknown file format.", file=sys.stdout)
         return 1
 
-    if fmt == 'nmap':
+    if fmt == "nmap":
         result = parse_format_nmap(data, protocol)
-    elif fmt == 'gnmap':
+    elif fmt == "gnmap":
         result = parse_format_gnmap(data, protocol)
-    elif fmt == 'xml':
+    elif fmt == "xml":
         result = parse_format_xml(data, protocol)
 
-    print(','.join([ str(r) for r in result]), end='')
+    print(",".join([str(r) for r in result]), end="")
 
     return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_nmap_ports()

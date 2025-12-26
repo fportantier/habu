@@ -38,24 +38,22 @@ def lookup_reverse(ip_address):
 
     record = reversename.from_address(ip_address)
     hostname = str(resolver.query(record, "PTR")[0])[:-1]
-    return {'hostname': hostname}
+    return {"hostname": hostname}
 
 
 def lookup_forward(name):
     """Perform a forward lookup of a hostname."""
     ip_addresses = {}
 
-    addresses = list(set(str(ip[4][0]) for ip in socket.getaddrinfo(
-        name, None)))
+    addresses = list(set(str(ip[4][0]) for ip in socket.getaddrinfo(name, None)))
 
     if addresses is None:
         return ip_addresses
 
     for address in addresses:
         if type(ipaddress.ip_address(address)) is ipaddress.IPv4Address:
-            ip_addresses['ipv4'] = address
+            ip_addresses["ipv4"] = address
         if type(ipaddress.ip_address(address)) is ipaddress.IPv6Address:
-            ip_addresses['ipv6'] = address
+            ip_addresses["ipv6"] = address
 
     return ip_addresses
-

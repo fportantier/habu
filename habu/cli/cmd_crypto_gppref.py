@@ -9,9 +9,8 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 
 @click.command()
-@click.argument('password')
+@click.argument("password")
 def cmd_crypto_gppref(password):
-
     """
     Decrypt the password of local users added via Windows 2008 Group Policy Preferences.
 
@@ -33,7 +32,11 @@ def cmd_crypto_gppref(password):
     key = """
     4e 99 06 e8  fc b6 6c c9  fa f4 93 10  62 0f fe e8
     f4 96 e8 06  cc 05 79 90  20 9b 09 a4  33 b6 6c 1b
-    """.replace(" ","").replace("\n","")
+    """.replace(
+        " ", ""
+    ).replace(
+        "\n", ""
+    )
 
     key = unhexlify(key)
 
@@ -41,8 +44,8 @@ def cmd_crypto_gppref(password):
     decryptor = cipher.decryptor()
     plain = decryptor.update(password) + decryptor.finalize()
 
-    print(plain.decode(errors='ignore'))
+    print(plain.decode(errors="ignore"))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_crypto_gppref()

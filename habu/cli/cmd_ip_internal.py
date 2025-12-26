@@ -9,7 +9,7 @@ from habu.lib.ip import get_internal_ip
 
 
 @click.command()
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output.')
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output.")
 def cmd_ip_internal(verbose):
     """Get the local IP address(es) of the local interfaces.
 
@@ -42,7 +42,7 @@ def cmd_ip_internal(verbose):
     ...
     """
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
         print("Gathering NIC details...", file=sys.stderr)
 
     result = get_internal_ip()
@@ -56,5 +56,5 @@ def cmd_ip_internal(verbose):
     return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_ip_internal()

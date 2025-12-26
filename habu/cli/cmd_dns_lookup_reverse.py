@@ -1,4 +1,5 @@
 """Perform a reverse lookup of an IP address."""
+
 import json
 import logging
 import sys
@@ -9,8 +10,8 @@ from habu.lib.dnsx import lookup_reverse
 
 
 @click.command()
-@click.argument('ip_address')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.argument("ip_address")
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
 def cmd_dns_lookup_reverse(ip_address, verbose):
     """Perform a reverse lookup of a given IP address.
 
@@ -23,7 +24,7 @@ def cmd_dns_lookup_reverse(ip_address, verbose):
     }
     """
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
         print("Looking up %s..." % ip_address, file=sys.stderr)
 
     answer = lookup_reverse(ip_address)
@@ -36,5 +37,5 @@ def cmd_dns_lookup_reverse(ip_address, verbose):
     return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_dns_lookup_reverse()

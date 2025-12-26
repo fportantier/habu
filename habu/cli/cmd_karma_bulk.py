@@ -9,21 +9,27 @@ import requests
 
 
 def karma(ip):
-    URL = 'https://karma.securetia.com/api/ip/'
-    r = requests.get(URL + ip, headers={'Accept': 'application/json'})
+    URL = "https://karma.securetia.com/api/ip/"
+    r = requests.get(URL + ip, headers={"Accept": "application/json"})
 
     if r.status_code != 200:
-        logging.error('HTTP Error code received: {}'.format(r.status_code))
+        logging.error("HTTP Error code received: {}".format(r.status_code))
         sys.exit(1)
 
     return r.json()
 
 
 @click.command()
-@click.argument('infile', type=click.File('r'), default='-')
-@click.option('--json', 'jsonout', is_flag=True, default=False, help='JSON output')
-@click.option('--bad', 'badonly', is_flag=True, default=False, help='Show only entries in blacklists')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.argument("infile", type=click.File("r"), default="-")
+@click.option("--json", "jsonout", is_flag=True, default=False, help="JSON output")
+@click.option(
+    "--bad",
+    "badonly",
+    is_flag=True,
+    default=False,
+    help="Show only entries in blacklists",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
 def cmd_karma_bulk(infile, jsonout, badonly, verbose):
     """Show which IP addresses are inside blacklists using the Karma online service.
 
@@ -37,27 +43,27 @@ def cmd_karma_bulk(infile, jsonout, badonly, verbose):
     """
 
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     data = infile.read()
 
     result = {}
 
-    for ip in data.split('\n'):
+    for ip in data.split("\n"):
         if ip:
-            logging.info('Checking ' + ip)
+            logging.info("Checking " + ip)
             response = karma(ip)
             if response:
                 result[ip] = response
             elif not badonly:
-                result[ip] = ['CLEAN']
+                result[ip] = ["CLEAN"]
 
     if jsonout:
         print(json.dumps(result, indent=4))
     else:
-        for k,v in result.items():
-            print(k, '\t', ','.join(v))
+        for k, v in result.items():
+            print(k, "\t", ",".join(v))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_karma_bulk()

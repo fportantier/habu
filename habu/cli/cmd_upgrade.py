@@ -8,7 +8,11 @@ import pkg_resources
 
 
 def find_console_scripts(package_name):
-    entrypoints = [ ep.name for ep in pkg_resources.iter_entry_points('console_scripts') if ep.module_name.startswith(package_name) ]
+    entrypoints = [
+        ep.name
+        for ep in pkg_resources.iter_entry_points("console_scripts")
+        if ep.module_name.startswith(package_name)
+    ]
     return entrypoints
 
 
@@ -17,16 +21,16 @@ def clean_old_entrypoints():
 
     logging.basicConfig(level=logging.INFO)
 
-    entrypoints = find_console_scripts('habu')
+    entrypoints = find_console_scripts("habu")
 
-    for dirname in os.environ['PATH'].split(':'):
-        for filename in Path(dirname).glob('habu.*'):
+    for dirname in os.environ["PATH"].split(":"):
+        for filename in Path(dirname).glob("habu.*"):
             if filename.name not in entrypoints:
                 try:
                     filename.unlink()
-                    logging.info(f'Deleted entrypoint {filename}')
+                    logging.info(f"Deleted entrypoint {filename}")
                 except Exception as e:
-                    logging.error(f'Error deleting {filename}: {e}')
+                    logging.error(f"Error deleting {filename}: {e}")
 
 
 @click.command()
@@ -36,12 +40,12 @@ def cmd_upgrade():
     logging.basicConfig(level=logging.INFO)
 
     command = [
-        'python3',
-        '-m',
-        'pip',
-        'install',
-        '--upgrade',
-        'git+https://github.com/fportantier/habu.git'
+        "python3",
+        "-m",
+        "pip",
+        "install",
+        "--upgrade",
+        "git+https://github.com/fportantier/habu.git",
     ]
 
     p = subprocess.Popen(command)
@@ -49,5 +53,6 @@ def cmd_upgrade():
 
     clean_old_entrypoints()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_upgrade()

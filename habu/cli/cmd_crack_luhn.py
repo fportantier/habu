@@ -6,7 +6,7 @@ import click
 
 
 def luhn_validate(number):
-    """ Source code from: https://en.wikipedia.org/wiki/Luhn_algorithm"""
+    """Source code from: https://en.wikipedia.org/wiki/Luhn_algorithm"""
 
     sum = 0
     parity = len(number) % 2
@@ -20,7 +20,7 @@ def luhn_validate(number):
 
 
 @click.command()
-@click.argument('number')
+@click.argument("number")
 def cmd_crack_luhn(number):
     """Having known values for a Luhn validated number, obtain the possible unknown numbers.
 
@@ -50,21 +50,20 @@ def cmd_crack_luhn(number):
     4509910831606445
     """
 
-    number = number.replace('-', '')
-    unknown_count = number.count('x')
+    number = number.replace("-", "")
+    unknown_count = number.count("x")
 
-    if not number.replace('x', '').isdigit():
-        print('Invalid format. Please, read the documentation.', file=sys.stderr)
+    if not number.replace("x", "").isdigit():
+        print("Invalid format. Please, read the documentation.", file=sys.stderr)
         sys.exit(1)
 
-    for n in range(10 ** unknown_count):
+    for n in range(10**unknown_count):
         candidate = number
-        for item in '{:0{count}}'.format(n, count=unknown_count):
-            candidate = candidate.replace('x', item, 1)
+        for item in "{:0{count}}".format(n, count=unknown_count):
+            candidate = candidate.replace("x", item, 1)
         if luhn_validate(candidate):
             print(candidate)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_crack_luhn()
-

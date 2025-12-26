@@ -14,8 +14,8 @@ from habu.lib.loadcfg import loadcfg
 
 
 @click.command()
-@click.argument('input', type=click.File('rb'))
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.argument("input", type=click.File("rb"))
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
 def cmd_virustotal(input, verbose):
     """Send a file to VirusTotal https://www.virustotal.com/ and print the report in JSON format.
 
@@ -54,12 +54,14 @@ def cmd_virustotal(input, verbose):
 
     habucfg = loadcfg()
 
-    if 'VIRUSTOTAL_APIKEY' not in habucfg:
-        logging.error('You must provide a virustotal apikey. Use the ~/.habu.json file (variable VIRUSTOTAL_APIKEY), or export the variable HABU_VIRUSTOTAL_APIKEY')
+    if "VIRUSTOTAL_APIKEY" not in habucfg:
+        logging.error(
+            "You must provide a virustotal apikey. Use the ~/.habu.json file (variable VIRUSTOTAL_APIKEY), or export the variable HABU_VIRUSTOTAL_APIKEY"
+        )
         sys.exit(1)
 
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     filename = Path(input.name).name
 
@@ -67,32 +69,39 @@ def cmd_virustotal(input, verbose):
 
     sha256 = hashlib.sha256(data).hexdigest()
 
-    logging.info('Verifying if hash already submitted: {}'.format(sha256))
+    logging.info("Verifying if hash already submitted: {}".format(sha256))
 
-    params = {'apikey': habucfg['VIRUSTOTAL_APIKEY'], 'resource': sha256}
-    response = requests.post('https://www.virustotal.com/vtapi/v2/file/rescan', params=params)
+    params = {"apikey": habucfg["VIRUSTOTAL_APIKEY"], "resource": sha256}
+    response = requests.post(
+        "https://www.virustotal.com/vtapi/v2/file/rescan", params=params
+    )
 
-    if response.status_code != 200 or response.json()['response_code'] == 0:
-        logging.info('Sending file for analysis')
-        files = {'file': (filename, data)}
-        params = {'apikey': habucfg['VIRUSTOTAL_APIKEY']}
-        response = requests.post('https://www.virustotal.com/vtapi/v2/file/scan', files=files, params=params)
+    if response.status_code != 200 or response.json()["response_code"] == 0:
+        logging.info("Sending file for analysis")
+        files = {"file": (filename, data)}
+        params = {"apikey": habucfg["VIRUSTOTAL_APIKEY"]}
+        response = requests.post(
+            "https://www.virustotal.com/vtapi/v2/file/scan", files=files, params=params
+        )
         json_response = response.json()
 
-    logging.info('Waiting/retrieving the report...')
+    logging.info("Waiting/retrieving the report...")
 
     while True:
-        params = {'apikey': habucfg['VIRUSTOTAL_APIKEY'], 'resource': sha256}
-        response = requests.get('https://www.virustotal.com/vtapi/v2/file/report', params=params)
+        params = {"apikey": habucfg["VIRUSTOTAL_APIKEY"], "resource": sha256}
+        response = requests.get(
+            "https://www.virustotal.com/vtapi/v2/file/report", params=params
+        )
 
         if response.status_code == 200:
             json_response = response.json()
-            if json_response['response_code'] == 1:
+            if json_response["response_code"] == 1:
                 break
 
         sleep(5)
 
     print(json.dumps(json_response, indent=4, sort_keys=True))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_virustotal()

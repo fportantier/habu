@@ -8,10 +8,16 @@ import click
 
 
 @click.command()
-@click.option('-i', 'infile', type=click.File('r'), default='-', help='Input file (Default: stdin)')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-@click.option('--json', 'json_output', is_flag=True, default=False, help='JSON output')
-@click.argument('field', type=click.STRING)
+@click.option(
+    "-i",
+    "infile",
+    type=click.File("r"),
+    default="-",
+    help="Input file (Default: stdin)",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
+@click.option("--json", "json_output", is_flag=True, default=False, help="JSON output")
+@click.argument("field", type=click.STRING)
 def cmd_data_select(infile, json_output, verbose, field):
     """Select a field from a JSON input.
 
@@ -25,12 +31,12 @@ def cmd_data_select(infile, json_output, verbose, field):
     """
 
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     try:
         data = json.loads(infile.read())
     except ValueError as e:
-        click.echo('Invalid input data. Whe expect JSON here.', err=True)
+        click.echo("Invalid input data. Whe expect JSON here.", err=True)
         return False
 
     result = []
@@ -48,10 +54,10 @@ def cmd_data_select(infile, json_output, verbose, field):
 
     for r in result:
         if isinstance(r, list):
-            print('\n'.join(sorted(r)))
+            print("\n".join(sorted(r)))
         else:
             print(r)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_data_select()

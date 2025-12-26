@@ -20,5 +20,6 @@ def cmd_eicar():
 
     print(eicar())
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_eicar()

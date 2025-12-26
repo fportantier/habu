@@ -8,10 +8,16 @@ from habu.lib.http_tech import http_tech
 
 
 @click.command()
-@click.argument('url')
-@click.option('--cache/--no-cache', 'cache', default=True)
-@click.option('--format', 'output_format', type=click.Choice(['txt', 'csv','json']), default='txt', help='Output format')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.argument("url")
+@click.option("--cache/--no-cache", "cache", default=True)
+@click.option(
+    "--format",
+    "output_format",
+    type=click.Choice(["txt", "csv", "json"]),
+    default="txt",
+    help="Output format",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
 def cmd_http_tech(url, cache, output_format, verbose):
     """Uses Wappalyzer apps.json database to identify technologies used on a web application.
 
@@ -34,19 +40,19 @@ def cmd_http_tech(url, cache, output_format, verbose):
 
     response = http_tech(url, cache=cache, verbose=verbose)
 
-    if output_format == 'json':
+    if output_format == "json":
         print(json.dumps(response, indent=4))
         return True
 
     for tech, data in response.items():
-        if 'version' not in data:
-            data['version'] = 'unknown'
+        if "version" not in data:
+            data["version"] = "unknown"
 
-        if output_format == 'csv':
-            print('"{}","{}","{}"'.format(url, tech, data['version']))
+        if output_format == "csv":
+            print('"{}","{}","{}"'.format(url, tech, data["version"]))
         else:
-            print('{:<25}{}'.format(tech, data['version']))
+            print("{:<25}{}".format(tech, data["version"]))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_http_tech()

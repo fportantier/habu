@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 
 import json
+from pathlib import Path
 
 import click
-
-from pathlib import Path
 
 from habu.lib.loadcfg import loadcfg
 
 
 @click.command()
-@click.argument('key')
+@click.argument("key")
 def cmd_config_del(key):
     """Delete a KEY from the configuration.
 
@@ -24,10 +23,9 @@ def cmd_config_del(key):
 
     habucfg = loadcfg(environment=False)
     habucfg.pop(key.upper(), None)
-    with Path('~/.habu.json').expanduser().open('w') as f:
+    with Path("~/.habu.json").expanduser().open("w") as f:
         f.write(json.dumps(habucfg, indent=4, sort_keys=True, default=str))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_config_del()
-

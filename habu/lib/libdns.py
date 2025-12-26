@@ -19,11 +19,9 @@ def resolve(name, server=None):
     except Exception as e:
         answers = []
 
-    answers = [ str(answer) for answer in answers ]
+    answers = [str(answer) for answer in answers]
 
     return answers
-
-
 
 
 def ns(domain):
@@ -32,11 +30,11 @@ def ns(domain):
     result = []
 
     try:
-        answers = dns.resolver.query(domain, 'NS')
+        answers = dns.resolver.query(domain, "NS")
     except Exception:
         answers = []
 
-    #if not answers:
+    # if not answers:
     #    answers = []
 
     for rdata in answers:
@@ -51,11 +49,11 @@ def mx(domain):
     result = []
 
     try:
-        answers = dns.resolver.query(domain, 'MX')
+        answers = dns.resolver.query(domain, "MX")
     except Exception:
         answers = []
 
-    #if not answers:
+    # if not answers:
     #    answers = []
 
     for rdata in answers:
@@ -65,7 +63,7 @@ def mx(domain):
 
 
 def axfr(domain):
-    """ returns a list with the ns that allows zone transfers"""
+    """returns a list with the ns that allows zone transfers"""
 
     allowed = []
 
@@ -81,8 +79,7 @@ def axfr(domain):
     return allowed
 
 
-if __name__ == '__main__':
-    print(ns('securetia.com'))
-    print(mx('securetia.com'))
-    print(axfr('securetia.com'))
-
+if __name__ == "__main__":
+    print(ns("securetia.com"))
+    print(mx("securetia.com"))
+    print(axfr("securetia.com"))

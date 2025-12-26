@@ -1,10 +1,11 @@
-import requests
 import socket
+
+import requests
 
 socket.setdefaulttimeout(1)
 
 
-def check_dns(hostnames=['www.google.com', 'www.microsoft.com']):
+def check_dns(hostnames=["www.google.com", "www.microsoft.com"]):
     for hostname in hostnames:
         try:
             socket.gethostbyname(hostname)
@@ -15,7 +16,7 @@ def check_dns(hostnames=['www.google.com', 'www.microsoft.com']):
     return False
 
 
-def check_http(urls=['http://www.google.com', 'http://www.microsoft.com']):
+def check_http(urls=["http://www.google.com", "http://www.microsoft.com"]):
     for url in urls:
         try:
             requests.get(url, timeout=1)
@@ -26,7 +27,7 @@ def check_http(urls=['http://www.google.com', 'http://www.microsoft.com']):
     return False
 
 
-def check_https(urls=['https://www.google.com', 'https://www.microsoft.com']):
+def check_https(urls=["https://www.google.com", "https://www.microsoft.com"]):
     for url in urls:
         try:
             requests.get(url, timeout=1)
@@ -37,7 +38,7 @@ def check_https(urls=['https://www.google.com', 'https://www.microsoft.com']):
     return False
 
 
-def check_ftp(servers=['ftp.debian.org', 'ftp.redhat.com']):
+def check_ftp(servers=["ftp.debian.org", "ftp.redhat.com"]):
     for server in servers:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -49,7 +50,7 @@ def check_ftp(servers=['ftp.debian.org', 'ftp.redhat.com']):
     return False
 
 
-def check_ssh(servers=['www.github.com', 'www.gitlab.com']):
+def check_ssh(servers=["www.github.com", "www.gitlab.com"]):
     for server in servers:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -61,9 +62,8 @@ def check_ssh(servers=['www.github.com', 'www.gitlab.com']):
     return False
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(check_dns())
     print(check_ftp())
     print(check_http())
     print(check_https())
-

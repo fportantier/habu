@@ -22,9 +22,9 @@ def extract_email(data):
 
 
 @click.command()
-@click.argument('infile', type=click.File('r'), default='-')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-@click.option('-j', 'jsonout', is_flag=True, default=False, help='JSON output')
+@click.argument("infile", type=click.File("r"), default="-")
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
+@click.option("-j", "jsonout", is_flag=True, default=False, help="JSON output")
 def cmd_data_extract_email(infile, verbose, jsonout):
     """Extract email addresses from a file or stdin.
 
@@ -38,7 +38,7 @@ def cmd_data_extract_email(infile, verbose, jsonout):
     """
 
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     data = infile.read()
 
@@ -49,8 +49,8 @@ def cmd_data_extract_email(infile, verbose, jsonout):
     if jsonout:
         print(json.dumps(result, indent=4))
     else:
-        print('\n'.join(result))
+        print("\n".join(result))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_data_extract_email()

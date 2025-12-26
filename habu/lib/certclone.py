@@ -26,10 +26,8 @@ def certclone(cert_data, copy_extensions=False, expired=False):
     # Todo: Code to mimic the private key type of original cert
     # maybe based on pubkey.__class__
     key = rsa.generate_private_key(
-        public_exponent=65537,
-        key_size=2048,
-        backend=default_backend()
-        )
+        public_exponent=65537, key_size=2048, backend=default_backend()
+    )
 
     cert = x509.CertificateBuilder()
     cert = cert.subject_name(original.subject)
@@ -48,15 +46,18 @@ def certclone(cert_data, copy_extensions=False, expired=False):
         for ext in original.extensions:
             cert = cert.add_extension(ext.value, critical=ext.critical)
 
-    cert = cert.sign(private_key=key, algorithm=original.signature_hash_algorithm, backend=default_backend())
+    cert = cert.sign(
+        private_key=key,
+        algorithm=original.signature_hash_algorithm,
+        backend=default_backend(),
+    )
 
     key_pem = key.private_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PrivateFormat.TraditionalOpenSSL,
-        encryption_algorithm=serialization.NoEncryption()
+        encryption_algorithm=serialization.NoEncryption(),
     ).decode()
 
     cert_pem = cert.public_bytes(serialization.Encoding.PEM).decode()
 
     return (key_pem, cert_pem)
-

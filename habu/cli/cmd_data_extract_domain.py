@@ -3,10 +3,10 @@
 import json
 import logging
 import socket
-import tldextract
 
 import click
 import regex as re
+import tldextract
 
 from habu.lib import dnsx
 
@@ -23,27 +23,33 @@ def extract_domain(data):
 
         candidate = m.group(0).lower()
 
-        if '.' not in candidate:
+        if "." not in candidate:
             continue
 
-        if not re.match('[a-z]+', candidate):
+        if not re.match("[a-z]+", candidate):
             continue
 
-        if not re.match('[a-z0-9]+\.[a-z0-9]', candidate):
+        if not re.match("[a-z0-9]+\.[a-z0-9]", candidate):
             continue
 
         tld = tldextract.extract(candidate)
         if tld.suffix:
-            result.add(tld.domain + '.' + tld.suffix.rstrip('.'))
+            result.add(tld.domain + "." + tld.suffix.rstrip("."))
 
     return list(result)
 
 
 @click.command()
-@click.argument('infile', type=click.File('r'), default='-')
-@click.option('-c', 'check', is_flag=True, default=False, help='Check if domain has NS servers defined')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-@click.option('-j', 'jsonout', is_flag=True, default=False, help='JSON output')
+@click.argument("infile", type=click.File("r"), default="-")
+@click.option(
+    "-c",
+    "check",
+    is_flag=True,
+    default=False,
+    help="Check if domain has NS servers defined",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
+@click.option("-j", "jsonout", is_flag=True, default=False, help="JSON output")
 def cmd_data_extract_domain(infile, check, verbose, jsonout):
     """Extract valid domains from a file or stdin.
 
@@ -59,21 +65,21 @@ def cmd_data_extract_domain(infile, check, verbose, jsonout):
     """
 
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     data = infile.read()
 
     result = extract_domain(data)
 
     if check:
-        logging.info('Checking against DNS...')
-        result = [ domain for domain in result if dnsx.ns(domain) ]
+        logging.info("Checking against DNS...")
+        result = [domain for domain in result if dnsx.ns(domain)]
 
     if jsonout:
         print(json.dumps(result, indent=4))
     else:
-        print('\n'.join(result))
+        print("\n".join(result))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_data_extract_domain()

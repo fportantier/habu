@@ -4,10 +4,9 @@ import ipaddress
 import socket
 from time import sleep
 
+import dns
 import dns.resolver
 import dns.zone
-import dns
-
 from dns import resolver, reversename
 
 from habu.lib.tomorrow3 import threads
@@ -28,7 +27,7 @@ def resolve(name, server=None):
     except Exception as e:
         answers = []
 
-    answers = [ str(answer) for answer in answers ]
+    answers = [str(answer) for answer in answers]
 
     return answers
 
@@ -39,7 +38,7 @@ def ns(domain):
     result = []
 
     try:
-        answers = dns.resolver.resolve(domain, 'NS')
+        answers = dns.resolver.resolve(domain, "NS")
     except Exception:
         answers = []
 
@@ -55,7 +54,7 @@ def mx(domain):
     result = []
 
     try:
-        answers = dns.resolver.resolve(domain, 'MX')
+        answers = dns.resolver.resolve(domain, "MX")
     except Exception:
         answers = []
 
@@ -66,7 +65,7 @@ def mx(domain):
 
 
 def axfr(domain):
-    """ returns a list with the ns that allows zone transfers"""
+    """returns a list with the ns that allows zone transfers"""
 
     allowed = []
 
@@ -118,29 +117,28 @@ def lookup_reverse(ip_address):
 
     record = reversename.from_address(ip_address)
     hostname = str(resolver.resolve(record, "PTR")[0])[:-1]
-    return {'hostname': hostname}
+    return {"hostname": hostname}
 
 
 def lookup_forward(name):
     """Perform a forward lookup of a hostname."""
     ip_addresses = {}
 
-    addresses = list(set(str(ip[4][0]) for ip in socket.getaddrinfo(
-        name, None)))
+    addresses = list(set(str(ip[4][0]) for ip in socket.getaddrinfo(name, None)))
 
     if addresses is None:
         return ip_addresses
 
     for address in addresses:
         if type(ipaddress.ip_address(address)) is ipaddress.IPv4Address:
-            ip_addresses['ipv4'] = address
+            ip_addresses["ipv4"] = address
         if type(ipaddress.ip_address(address)) is ipaddress.IPv6Address:
-            ip_addresses['ipv6'] = address
+            ip_addresses["ipv6"] = address
 
     return ip_addresses
 
 
-if __name__ == '__main__':
-    print(ns('securetia.com'))
-    print(mx('securetia.com'))
-    print(axfr('securetia.com'))
+if __name__ == "__main__":
+    print(ns("securetia.com"))
+    print(mx("securetia.com"))
+    print(axfr("securetia.com"))

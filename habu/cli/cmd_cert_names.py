@@ -39,12 +39,32 @@ def cert_get_names(cert_data):
 
 
 @click.command()
-@click.option('-p', 'ports', default='443', help='Ports to connect to (comma separated list)')
-@click.option('-i', 'infile', type=click.File('r'), default='-', help='Input file (Default: stdin)')
-@click.option('-t', 'timeout', type=click.FLOAT, default=1, help='Time to wait for each connection')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-@click.option('--json', 'json_output', is_flag=True, default=False, help='Print the output in JSON format')
-@click.argument('network', default=None, required=False)
+@click.option(
+    "-p", "ports", default="443", help="Ports to connect to (comma separated list)"
+)
+@click.option(
+    "-i",
+    "infile",
+    type=click.File("r"),
+    default="-",
+    help="Input file (Default: stdin)",
+)
+@click.option(
+    "-t",
+    "timeout",
+    type=click.FLOAT,
+    default=1,
+    help="Time to wait for each connection",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
+@click.option(
+    "--json",
+    "json_output",
+    is_flag=True,
+    default=False,
+    help="Print the output in JSON format",
+)
+@click.argument("network", default=None, required=False)
 def cmd_cert_names(infile, ports, timeout, verbose, network, json_output):
     """
     Connects to each host/port and shows a summary of the certificate names.
@@ -81,7 +101,9 @@ def cmd_cert_names(infile, ports, timeout, verbose, network, json_output):
     privacy.microsoft.com
     """
 
-    ports = [ int(port) for port in ports.split(',') if int(port) > 0 and int(port) <= 65535 ]
+    ports = [
+        int(port) for port in ports.split(",") if int(port) > 0 and int(port) <= 65535
+    ]
 
     hosts = set()
 
@@ -93,18 +115,20 @@ def cmd_cert_names(infile, ports, timeout, verbose, network, json_output):
             return False
 
         if len(list(network.hosts())) == 0:
-            hosts |= set([ipaddress.ip_address(str(network).split('/')[0])])
+            hosts |= set([ipaddress.ip_address(str(network).split("/")[0])])
         else:
-            hosts |= { host for host in network.hosts() }
+            hosts |= {host for host in network.hosts()}
 
     if not infile.isatty():
-        for network in infile.read().split('\n'):
+        for network in infile.read().split("\n"):
             if network:
                 try:
                     network = ipaddress.ip_network(network, strict=False)
-                    hosts |= { host for host in network.hosts() }
+                    hosts |= {host for host in network.hosts()}
                 except Exception:
-                    click.echo('Ignoring invalid host/network: {}'.format(network), err=True)
+                    click.echo(
+                        "Ignoring invalid host/network: {}".format(network), err=True
+                    )
                     continue
 
     hosts = sorted(hosts)
@@ -124,7 +148,9 @@ def cmd_cert_names(infile, ports, timeout, verbose, network, json_output):
             context.verify_mode = ssl.CERT_NONE
 
             try:
-                with socket.create_connection((str(host), int(port)), timeout=timeout) as sock:
+                with socket.create_connection(
+                    (str(host), int(port)), timeout=timeout
+                ) as sock:
                     with context.wrap_socket(sock) as ssock:
                         cert = ssock.getpeercert(binary_form=True)
                         names = cert_get_names(cert)
@@ -135,8 +161,8 @@ def cmd_cert_names(infile, ports, timeout, verbose, network, json_output):
     if json_output:
         print(json.dumps(sorted(all_names), indent=4))
     else:
-        print('\n'.join(sorted(all_names)))
+        print("\n".join(sorted(all_names)))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_cert_names()

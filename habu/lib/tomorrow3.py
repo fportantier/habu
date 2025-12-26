@@ -1,8 +1,8 @@
 import sys
 import traceback
+from concurrent.futures import ThreadPoolExecutor
 from functools import wraps
 from threading import Semaphore
-from concurrent.futures import ThreadPoolExecutor
 
 
 def threads(n, queue_max=None):
@@ -30,7 +30,7 @@ def threads(n, queue_max=None):
             try:
                 return f(*args, **kwargs)
             except Exception:
-                print('[tomorrow3] Caught exception.', file=sys.stderr)
+                print("[tomorrow3] Caught exception.", file=sys.stderr)
                 traceback.print_exc()
                 sys.exit(-1)
 

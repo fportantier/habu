@@ -6,8 +6,14 @@ from habu.lib.hasher import ALGOS, hasher
 
 
 @click.command()
-@click.argument('f', type=click.File('rb'), default='-')
-@click.option('-a', 'algorithm', default=None, type=click.Choice(ALGOS), help='Only this algorithm (Default: all)')
+@click.argument("f", type=click.File("rb"), default="-")
+@click.option(
+    "-a",
+    "algorithm",
+    default=None,
+    type=click.Choice(ALGOS),
+    help="Only this algorithm (Default: all)",
+)
 def cmd_crypto_hasher(f, algorithm):
     """Compute various hashes for the input data, that can be a file or a stream.
 
@@ -43,5 +49,5 @@ def cmd_crypto_hasher(f, algorithm):
             print("{:<12} {} {}".format(algo, result, f.name))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_crypto_hasher()

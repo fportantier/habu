@@ -1,13 +1,15 @@
 import sys
+
 from scapy.all import conf, get_if_hwaddr
 
-
-if sys.platform.startswith('win'):
+if sys.platform.startswith("win"):
     from scapy.all import get_windows_if_list
+
     interfaces = get_windows_if_list()
     windows = True
 else:
     from scapy.all import get_if_list
+
     interfaces = get_if_list()
     windows = False
 
@@ -46,30 +48,30 @@ def get_ifaces():
         if isinstance(i, str):
             name = i
         elif isinstance(i, dict):
-            name = i['name']
+            name = i["name"]
         else:
-            print('Unexpected result', file=sys.stderr)
+            print("Unexpected result", file=sys.stderr)
             return {}
 
-        result[name] = { 'name' : name, 'index' : index }
+        result[name] = {"name": name, "index": index}
         if windows:
-            result[name]['mac'] = i['mac']
+            result[name]["mac"] = i["mac"]
         else:
-            result[name]['mac'] = get_if_hwaddr(name)
+            result[name]["mac"] = get_if_hwaddr(name)
 
-        if not result[name]['mac']:
-            result[name]['mac'] = None
+        if not result[name]["mac"]:
+            result[name]["mac"] = None
 
-        result[name]['inet'] = None
+        result[name]["inet"] = None
         for route in conf.route.routes:
-            if getattr(route[3], 'name', route[3]) == name:
-                result[name]['inet'] = route[4]
+            if getattr(route[3], "name", route[3]) == name:
+                result[name]["inet"] = route[4]
                 break
 
-        result[name]['inet6'] = None
+        result[name]["inet6"] = None
         for route in conf.route6.routes:
-            if getattr(route[3], 'name', route[3]) == name:
-                result[name]['inet6'] = route[4][0]
+            if getattr(route[3], "name", route[3]) == name:
+                result[name]["inet6"] = route[4][0]
                 break
 
         index += 1
@@ -92,12 +94,13 @@ def search_iface(term):
         if term in iface.values():
             return iface
 
-        if str(term) == str(iface['index']):
+        if str(term) == str(iface["index"]):
             return iface
 
     return None
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from pprint import pprint
+
     pprint(get_ifaces())

@@ -10,21 +10,33 @@ import whois
 def remove_duplicates(data):
     for key in data.keys():
         if isinstance(data[key], list):
-            if hasattr(data[key][0], 'lower'):
-                data[key] = list(set([ item.lower() for item in data[key] ]))
+            if hasattr(data[key][0], "lower"):
+                data[key] = list(set([item.lower() for item in data[key]]))
             else:
                 data[key] = data[key][0]
 
-    if isinstance(data['domain_name'], list):
-        data['domain_name'] = data['domain_name'][0]
+    if isinstance(data["domain_name"], list):
+        data["domain_name"] = data["domain_name"][0]
 
     return data
 
 
 @click.command()
-@click.argument('domain')
-@click.option('--json', 'json_output', is_flag=True, default=False, help='Print the output in JSON format')
-@click.option('--csv', 'csv_output', is_flag=True, default=False, help='Print the output in CSV format')
+@click.argument("domain")
+@click.option(
+    "--json",
+    "json_output",
+    is_flag=True,
+    default=False,
+    help="Print the output in JSON format",
+)
+@click.option(
+    "--csv",
+    "csv_output",
+    is_flag=True,
+    default=False,
+    help="Print the output in CSV format",
+)
 def cmd_whois_domain(domain, json_output, csv_output):
     """Simple whois client to check domain names.
 
@@ -45,21 +57,20 @@ def cmd_whois_domain(domain, json_output, csv_output):
     """
 
     default_fields = [
-        'registrar',
-        'whois_server',
-        'update_date',
-        'creation_date',
-        'expiration_date',
-        'name_servers',
-        'emails',
-        'dnssec',
-        'org',
-        'country',
-        'state',
-        'city',
-        'address',
+        "registrar",
+        "whois_server",
+        "update_date",
+        "creation_date",
+        "expiration_date",
+        "name_servers",
+        "emails",
+        "dnssec",
+        "org",
+        "country",
+        "state",
+        "city",
+        "address",
     ]
-
 
     warnings.filterwarnings("ignore")
 
@@ -82,9 +93,9 @@ def cmd_whois_domain(domain, json_output, csv_output):
                 print('"{}","whois.{}","{}"'.format(domain, field, v))
         else:
             if isinstance(value, list):
-                value = ', '.join(sorted(value))
-            print('{:<25}{}'.format(field, value))
+                value = ", ".join(sorted(value))
+            print("{:<25}{}".format(field, value))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_whois_domain()

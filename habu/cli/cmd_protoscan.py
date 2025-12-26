@@ -6,16 +6,25 @@ import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from habu.lib.iface import search_iface
 from scapy.all import IP, conf, sr
+
+from habu.lib.iface import search_iface
 
 
 @click.command()
-@click.argument('ip')
-@click.option('-i', 'iface', default=None, help='Interface to use')
-@click.option('-t', 'timeout', default=2, help='Timeout for each probe (default: 2 seconds)')
-@click.option('--all', 'all_protocols', is_flag=True, default=False, help='Probe all protocols (default: Defined in /etc/protocols)')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.argument("ip")
+@click.option("-i", "iface", default=None, help="Interface to use")
+@click.option(
+    "-t", "timeout", default=2, help="Timeout for each probe (default: 2 seconds)"
+)
+@click.option(
+    "--all",
+    "all_protocols",
+    is_flag=True,
+    default=False,
+    help="Probe all protocols (default: Defined in /etc/protocols)",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
 def cmd_protoscan(ip, iface, timeout, all_protocols, verbose):
     """
     Send IP packets with different protocol field content to guess what
@@ -46,31 +55,46 @@ def cmd_protoscan(ip, iface, timeout, all_protocols, verbose):
     """
 
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     conf.verb = False
 
     if iface:
         iface = search_iface(iface)
         if iface:
-            conf.iface = iface['name']
+            conf.iface = iface["name"]
         else:
-            logging.error('Interface {} not found. Use habu.interfaces to show valid network interfaces'.format(iface))
+            logging.error(
+                "Interface {} not found. Use habu.interfaces to show valid network interfaces".format(
+                    iface
+                )
+            )
             return False
 
     if all_protocols:
-        protocols = (0,255)
+        protocols = (0, 255)
     else:
         # convert "{name:num}" to {num:name}"
-        protocols = { num:name for name,num in conf.protocols.__dict__.items() if isinstance(num, int) }
+        protocols = {
+            num: name
+            for name, num in conf.protocols.__dict__.items()
+            if isinstance(num, int)
+        }
 
-    ans,unans=sr(IP(dst=ip, proto=[ int(p) for p in protocols.keys()])/"SCAPY", retry=0, timeout=timeout, verbose=verbose)
+    ans, unans = sr(
+        IP(dst=ip, proto=[int(p) for p in protocols.keys()]) / "SCAPY",
+        retry=0,
+        timeout=timeout,
+        verbose=verbose,
+    )
 
-    allowed_protocols = [ pkt['IP'].proto for pkt in unans ]
+    allowed_protocols = [pkt["IP"].proto for pkt in unans]
 
     for proto in sorted(allowed_protocols):
-        print('{:<4} {}'.format(proto, protocols[proto])) #conf.protocols._find(str(proto))))
+        print(
+            "{:<4} {}".format(proto, protocols[proto])
+        )  # conf.protocols._find(str(proto))))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_protoscan()

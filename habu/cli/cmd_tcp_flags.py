@@ -10,12 +10,28 @@ from scapy.all import IP, TCP, conf, sr1
 
 
 @click.command()
-@click.argument('ip')
-@click.option('-p', 'port', default=80, help='Port to use (default: 80)')
-@click.option('-f', 'flags', default=None, help='Flags that must be sent ever (default: fuzz with all flags)')
-@click.option('-r', 'rflags', default=None, help='Filter by response flags (default: show all responses)')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-@click.option('--first', 'first', is_flag=True, default=False, help='Stop on first response that matches')
+@click.argument("ip")
+@click.option("-p", "port", default=80, help="Port to use (default: 80)")
+@click.option(
+    "-f",
+    "flags",
+    default=None,
+    help="Flags that must be sent ever (default: fuzz with all flags)",
+)
+@click.option(
+    "-r",
+    "rflags",
+    default=None,
+    help="Filter by response flags (default: show all responses)",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose")
+@click.option(
+    "--first",
+    "first",
+    is_flag=True,
+    default=False,
+    help="Stop on first response that matches",
+)
 def cmd_tcp_flags(ip, port, flags, rflags, verbose, first):
     """Send TCP packets with different flags and tell what responses receives.
 
@@ -53,7 +69,7 @@ def cmd_tcp_flags(ip, port, flags, rflags, verbose, first):
 
     conf.verb = False
 
-    pkts = [ (IP(dst=ip) / TCP(flags=f, dport=port)) for f in range(0, 512) ]
+    pkts = [(IP(dst=ip) / TCP(flags=f, dport=port)) for f in range(0, 512)]
 
     out = "{:>8} -> {:<8}"
 
@@ -64,11 +80,16 @@ def cmd_tcp_flags(ip, port, flags, rflags, verbose, first):
             ans = sr1(pkt, timeout=0.2)
             if ans:
                 if not rflags or all(i in ans.sprintf(r"%TCP.flags%") for i in rflags):
-                    print(out.format(pkt.sprintf(r"%TCP.flags%"), ans.sprintf(r"%TCP.flags%")))
+                    print(
+                        out.format(
+                            pkt.sprintf(r"%TCP.flags%"), ans.sprintf(r"%TCP.flags%")
+                        )
+                    )
                     if first:
                         break
 
     return True
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_tcp_flags()

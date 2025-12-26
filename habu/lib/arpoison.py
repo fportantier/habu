@@ -1,7 +1,9 @@
-from scapy.all import arpcachepoison, conf
 import ipaddress
 
+from scapy.all import arpcachepoison, conf
+
 conf.verb = 0
+
 
 def arpoison(target1, target2, interval=5):
 
@@ -15,5 +17,5 @@ def arpoison(target1, target2, interval=5):
     arpcachepoison(target1, target2, interval)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass

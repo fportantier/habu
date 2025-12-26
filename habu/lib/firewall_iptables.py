@@ -1,66 +1,76 @@
-
-from habu.lib import delegator
 import ipaddress
 import sys
 
-class FirewallIPTables():
+from habu.lib import delegator
+
+
+class FirewallIPTables:
 
     def __init__(self):
         self.verbose = False
 
     def disable(self):
         commands = [
-            'iptables -X',
-            'iptables -F',
-            'iptables -Z',
-            'iptables -P INPUT ACCEPT',
-            'iptables -P OUTPUT ACCEPT',
-            'iptables -P FORWARD ACCEPT',
+            "iptables -X",
+            "iptables -F",
+            "iptables -Z",
+            "iptables -P INPUT ACCEPT",
+            "iptables -P OUTPUT ACCEPT",
+            "iptables -P FORWARD ACCEPT",
         ]
 
         for command in commands:
             if self.verbose:
                 print(command)
             if delegator.run(command, block=True).return_code != 0:
-                sys.stderr.write('Error. Do you have sufficient privileges?\n')
+                sys.stderr.write("Error. Do you have sufficient privileges?\n")
                 return False
 
         return True
 
     def stealth(self):
-        delegator.run('iptables -X')
-        delegator.run('iptables -F')
-        delegator.run('iptables -Z')
-        delegator.run('iptables -P INPUT DROP')
-        delegator.run('iptables -P OUTPUT ACCEPT')
-        delegator.run('iptables -P FORWARD DROP')
-        delegator.run('iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT')
+        delegator.run("iptables -X")
+        delegator.run("iptables -F")
+        delegator.run("iptables -Z")
+        delegator.run("iptables -P INPUT DROP")
+        delegator.run("iptables -P OUTPUT ACCEPT")
+        delegator.run("iptables -P FORWARD DROP")
+        delegator.run(
+            "iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT"
+        )
 
     def no_rst(self):
         commands = [
-            'iptables -A OUTPUT -p tcp --tcp-flags rst rst -j DROP',
+            "iptables -A OUTPUT -p tcp --tcp-flags rst rst -j DROP",
         ]
 
         for command in commands:
             if self.verbose:
                 print(command)
             if delegator.run(command, block=True).return_code != 0:
-                sys.stderr.write('Error. Do you have sufficient privileges?\n')
+                sys.stderr.write("Error. Do you have sufficient privileges?\n")
                 return False
 
         return True
 
     def forward_enable():
-        for f in ['/proc/sys/net/ipv4/ip_forward', '/proc/sys/net/ipv6/conf/all/forwarding']:
-            with open(f, 'w') as target:
+        for f in [
+            "/proc/sys/net/ipv4/ip_forward",
+            "/proc/sys/net/ipv6/conf/all/forwarding",
+        ]:
+            with open(f, "w") as target:
                 target.write(1)
 
     def forward_disable():
-        for f in ['/proc/sys/net/ipv4/ip_forward', '/proc/sys/net/ipv6/conf/all/forwarding']:
-            with open(f, 'w') as target:
+        for f in [
+            "/proc/sys/net/ipv4/ip_forward",
+            "/proc/sys/net/ipv6/conf/all/forwarding",
+        ]:
+            with open(f, "w") as target:
                 target.write(0)
 
-'''
+
+"""
     def disable(self):
 
 
@@ -138,4 +148,4 @@ class FirewallIPTables():
 end
 end
 end
-'''
+"""

@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 
 import json
+from pathlib import Path
 
 import click
-
-from pathlib import Path
+from cryptography.fernet import Fernet
 
 from habu.lib.loadcfg import loadcfg
 
-from cryptography.fernet import Fernet
-
 
 @click.command()
-@click.option('-w', 'writecfg', is_flag=True, default=False, help='Write this key to ~/.habu.json')
+@click.option(
+    "-w", "writecfg", is_flag=True, default=False, help="Write this key to ~/.habu.json"
+)
 def cmd_crypto_fernet_genkey(writecfg):
     """Generate a new Fernet Key, optionally write it to ~/.habu.json
 
@@ -28,10 +28,10 @@ def cmd_crypto_fernet_genkey(writecfg):
 
     if writecfg:
         habucfg = loadcfg(environment=False)
-        habucfg['FERNET_KEY'] = key.decode()
-        with Path('~/.habu.json').expanduser().open('w') as f:
+        habucfg["FERNET_KEY"] = key.decode()
+        with Path("~/.habu.json").expanduser().open("w") as f:
             f.write(json.dumps(habucfg, indent=4, sort_keys=True))
 
-if __name__ == '__main__':
-    cmd_crypto_fernet_genkey()
 
+if __name__ == "__main__":
+    cmd_crypto_fernet_genkey()

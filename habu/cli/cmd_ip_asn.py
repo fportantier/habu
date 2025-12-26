@@ -11,7 +11,7 @@ from habu.lib.ip2asn import ip2asn
 
 
 @click.command()
-@click.argument('ip')
+@click.argument("ip")
 def cmd_ip_asn(ip):
     """Use Team Cymru ip2asn service to get information about a public IPv4/IPv6.
 
@@ -32,11 +32,12 @@ def cmd_ip_asn(ip):
     try:
         ipaddress.ip_address(ip)
     except ValueError:
-        logging.error('Invalid IP address')
+        logging.error("Invalid IP address")
         sys.exit(1)
 
     data = ip2asn(ip)
     print(json.dumps(data, indent=4))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_ip_asn()

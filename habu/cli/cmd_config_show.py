@@ -8,8 +8,10 @@ from habu.lib.loadcfg import loadcfg
 
 
 @click.command()
-@click.option('-k', '--show-keys', is_flag=True, default=False, help='Show also the key values')
-@click.option('--option', nargs=2, help='Write to the config(KEY VALUE)')
+@click.option(
+    "-k", "--show-keys", is_flag=True, default=False, help="Show also the key values"
+)
+@click.option("--option", nargs=2, help="Write to the config(KEY VALUE)")
 def cmd_config_show(option, show_keys):
     """Show the current config.
 
@@ -29,12 +31,11 @@ def cmd_config_show(option, show_keys):
 
     if not show_keys:
         for key in habucfg.keys():
-            if 'KEY' in key:
-                habucfg[key] = '*************'
+            if "KEY" in key:
+                habucfg[key] = "*************"
 
     print(json.dumps(habucfg, indent=4, sort_keys=True, default=str))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_config_show()
-

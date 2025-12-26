@@ -9,7 +9,7 @@ from habu.lib.host import gather_details
 
 
 @click.command()
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output.')
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output.")
 def cmd_host(verbose):
     """
     Collect information about the host where habu is running.
@@ -45,7 +45,7 @@ def cmd_host(verbose):
     }
     """
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
         print("Gather information about the host...", file=sys.stderr)
 
     result = gather_details()
@@ -58,5 +58,5 @@ def cmd_host(verbose):
     return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_host()

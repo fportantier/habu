@@ -5,7 +5,6 @@ import logging
 import os
 import os.path
 import sys
-
 from pathlib import Path
 
 import click
@@ -14,12 +13,25 @@ import requests_cache
 
 from habu.lib.dnsx import query_bulk
 
+
 @click.command()
-@click.argument('domain')
-@click.option('-c', 'no_cache', is_flag=True, default=False, help='Disable cache')
-@click.option('-n', 'no_validate', is_flag=True, default=False, help='Disable DNS subdomain validation')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-@click.option('--json', 'json_output', is_flag=True, default=False, help='Print the output in JSON format')
+@click.argument("domain")
+@click.option("-c", "no_cache", is_flag=True, default=False, help="Disable cache")
+@click.option(
+    "-n",
+    "no_validate",
+    is_flag=True,
+    default=False,
+    help="Disable DNS subdomain validation",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
+@click.option(
+    "--json",
+    "json_output",
+    is_flag=True,
+    default=False,
+    help="Print the output in JSON format",
+)
 def cmd_cert_crtsh(domain, no_cache, no_validate, verbose, json_output):
     """Downloads the certificate transparency logs for a domain
     and check with DNS queries if each subdomain exists.
@@ -36,11 +48,13 @@ def cmd_cert_crtsh(domain, no_cache, no_validate, verbose, json_output):
     """
 
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     if not no_cache:
-        homedir = Path(os.path.expanduser('~'))
-        requests_cache.install_cache(str((homedir / '.habu_requests_cache')), expire_after=3600)
+        homedir = Path(os.path.expanduser("~"))
+        requests_cache.install_cache(
+            str((homedir / ".habu_requests_cache")), expire_after=3600
+        )
 
     subdomains = set()
 
@@ -56,8 +70,8 @@ def cmd_cert_crtsh(domain, no_cache, no_validate, verbose, json_output):
     json_data = json.loads(req.text)
 
     for data in json_data:
-        name = data['name_value'].lower()
-        if '*' not in name:
+        name = data["name_value"].lower()
+        if "*" not in name:
             subdomains.add(name)
 
     subdomains = list(subdomains)
@@ -79,11 +93,10 @@ def cmd_cert_crtsh(domain, no_cache, no_validate, verbose, json_output):
     if json_output:
         print(json.dumps(sorted(subdomains), indent=4))
     else:
-        print('\n'.join(sorted(subdomains)))
+        print("\n".join(sorted(subdomains)))
 
     return True
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_cert_crtsh()

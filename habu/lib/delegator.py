@@ -1,9 +1,9 @@
+import locale
 import os
-import subprocess
 import shlex
 import signal
+import subprocess
 import sys
-import locale
 
 from pexpect.popen_spawn import PopenSpawn
 
@@ -11,9 +11,10 @@ from pexpect.popen_spawn import PopenSpawn
 try:
     STR_TYPES = (str, unicode)
 except NameError:
-    STR_TYPES = (str, )
+    STR_TYPES = (str,)
 
 TIMEOUT = 30
+
 
 class Command(object):
 
@@ -28,7 +29,7 @@ class Command(object):
         self.__err = None
 
     def __repr__(self):
-        return '<Command {!r}>'.format(self.cmd)
+        return "<Command {!r}>".format(self.cmd)
 
     @property
     def _popen_args(self):
@@ -37,27 +38,23 @@ class Command(object):
     @property
     def _default_popen_kwargs(self):
         return {
-            'env': os.environ.copy(),
-            'stdin': subprocess.PIPE,
-            'stdout': subprocess.PIPE,
-            'stderr': subprocess.PIPE,
-            'shell': True,
-            'universal_newlines': True,
-            'bufsize': 0
+            "env": os.environ.copy(),
+            "stdin": subprocess.PIPE,
+            "stdout": subprocess.PIPE,
+            "stderr": subprocess.PIPE,
+            "shell": True,
+            "universal_newlines": True,
+            "bufsize": 0,
         }
 
     @property
     def _default_pexpect_kwargs(self):
-        encoding = 'utf-8'
-        if sys.platform == 'win32':
+        encoding = "utf-8"
+        if sys.platform == "win32":
             default_encoding = locale.getdefaultlocale()[1]
             if default_encoding is not None:
                 encoding = default_encoding
-        return {
-            'env': os.environ.copy(),
-            'encoding': encoding,
-            'timeout': self.timeout
-        }
+        return {"env": os.environ.copy(), "encoding": encoding, "timeout": self.timeout}
 
     @property
     def _uses_subprocess(self):
@@ -74,9 +71,9 @@ class Command(object):
     @property
     def _pexpect_out(self):
         if self.subprocess.encoding:
-            result = ''
+            result = ""
         else:
-            result = b''
+            result = b""
 
         if self.subprocess.before:
             result += self.subprocess.before
@@ -120,7 +117,7 @@ class Command(object):
     def pid(self):
         """The process' PID."""
         # Support for pexpect's functionality.
-        if hasattr(self.subprocess, 'proc'):
+        if hasattr(self.subprocess, "proc"):
             return self.subprocess.proc.pid
         # Standard subprocess method.
         return self.subprocess.pid
@@ -144,19 +141,19 @@ class Command(object):
         # Use subprocess.
         if self.blocking:
             popen_kwargs = self._default_popen_kwargs.copy()
-            popen_kwargs['universal_newlines'] = not binary
+            popen_kwargs["universal_newlines"] = not binary
             if cwd:
-                popen_kwargs['cwd'] = cwd
+                popen_kwargs["cwd"] = cwd
             s = subprocess.Popen(self._popen_args, **popen_kwargs)
         # Otherwise, use pexpect.
         else:
             pexpect_kwargs = self._default_pexpect_kwargs.copy()
             if binary:
-                pexpect_kwargs['encoding'] = None
+                pexpect_kwargs["encoding"] = None
             if cwd:
-                pexpect_kwargs['cwd'] = cwd
+                pexpect_kwargs["cwd"] = cwd
             # Enable Python subprocesses to work with expect functionality.
-            pexpect_kwargs['env']['PYTHONUNBUFFERED'] = '1'
+            pexpect_kwargs["env"]["PYTHONUNBUFFERED"] = "1"
             s = PopenSpawn(self._popen_args, **pexpect_kwargs)
         self.subprocess = s
         self.was_run = True
@@ -165,7 +162,7 @@ class Command(object):
         """Waits on the given pattern to appear in std_out"""
 
         if self.blocking:
-            raise RuntimeError('expect can only be used on non-blocking commands.')
+            raise RuntimeError("expect can only be used on non-blocking commands.")
 
         self.subprocess.expect(pattern=pattern, timeout=timeout)
 
@@ -173,7 +170,7 @@ class Command(object):
         """Sends the given string or signal to std_in."""
 
         if self.blocking:
-            raise RuntimeError('send can only be used on non-blocking commands.')
+            raise RuntimeError("send can only be used on non-blocking commands.")
 
         if not signal:
             if self._uses_subprocess:
@@ -233,12 +230,12 @@ def _expand_args(command):
     # Prepare arguments.
     if isinstance(command, STR_TYPES):
         if sys.version_info[0] == 2:
-            splitter = shlex.shlex(command.encode('utf-8'))
+            splitter = shlex.shlex(command.encode("utf-8"))
         elif sys.version_info[0] == 3:
             splitter = shlex.shlex(command)
         else:
-            splitter = shlex.shlex(command.encode('utf-8'))
-        splitter.whitespace = '|'
+            splitter = shlex.shlex(command.encode("utf-8"))
+        splitter.whitespace = "|"
         splitter.whitespace_split = True
         command = []
 

@@ -27,5 +27,5 @@ def cmd_net_contest():
     print("HTTPS: %s" % contest.check_https())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_net_contest()

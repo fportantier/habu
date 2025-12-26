@@ -3,29 +3,39 @@
 import sys
 
 import click
-
-from habu.lib.xor import xor
-from habu.config import config
-
-from habu.lib.loadcfg import loadcfg
-
 from cryptography.fernet import Fernet
 
-ERROR_NOKEY = '''A key must be provided. You have the following options:
+from habu.config import config
+from habu.lib.loadcfg import loadcfg
+from habu.lib.xor import xor
+
+ERROR_NOKEY = """A key must be provided. You have the following options:
     1. Use the -k option with a valid key
     2. Save an existing key to ~/.habu.json file (variable FERNET_KEY)
     3. Export the environment variable HABU_FERNET_KEY
 
 To generate a valid key, you can use habu.fernet.genkey
-'''
+"""
 
 
 @click.command()
-@click.option('-k', 'key', default=None, help='Key')
-@click.option('-d', 'decrypt', is_flag=True, default=False, help='Decrypt instead of encrypt')
-@click.option('--ttl', 'ttl', default=0, type=click.INT, help='Time To Live for timestamp verification')
-@click.option('-i', type=click.File('rb'), default='-', help='Input file (default: stdin)')
-@click.option('-o', type=click.File('wb'), default='-', help='Output file (default: stdout)')
+@click.option("-k", "key", default=None, help="Key")
+@click.option(
+    "-d", "decrypt", is_flag=True, default=False, help="Decrypt instead of encrypt"
+)
+@click.option(
+    "--ttl",
+    "ttl",
+    default=0,
+    type=click.INT,
+    help="Time To Live for timestamp verification",
+)
+@click.option(
+    "-i", type=click.File("rb"), default="-", help="Input file (default: stdin)"
+)
+@click.option(
+    "-o", type=click.File("wb"), default="-", help="Output file (default: stdout)"
+)
 def cmd_crypto_fernet(key, decrypt, ttl, i, o):
     """Fernet cipher.
 
@@ -53,14 +63,14 @@ def cmd_crypto_fernet(key, decrypt, ttl, i, o):
     habucfg = loadcfg()
 
     if not key:
-        if 'FERNET_KEY' in habucfg:
-            key = habucfg['FERNET_KEY']
+        if "FERNET_KEY" in habucfg:
+            key = habucfg["FERNET_KEY"]
         else:
             print(ERROR_NOKEY, file=sys.stderr)
             sys.exit(1)
 
     if not ttl:
-        ttl=None
+        ttl = None
 
     cipher = Fernet(key)
 
@@ -75,8 +85,8 @@ def cmd_crypto_fernet(key, decrypt, ttl, i, o):
     else:
         token = cipher.encrypt(data)
 
-    print(token.decode(), end='')
+    print(token.decode(), end="")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_crypto_fernet()
-

@@ -19,13 +19,13 @@ def extract_fqdn(data):
     for m in match:
         candidate = m.group(0).lower()
 
-        if '.' not in candidate:
+        if "." not in candidate:
             continue
 
-        if not re.match('[a-z]+', candidate):
+        if not re.match("[a-z]+", candidate):
             continue
 
-        if not re.match('[a-z0-9]+\.[a-z0-9]', candidate):
+        if not re.match("[a-z0-9]+\.[a-z0-9]", candidate):
             continue
 
         result.add(candidate)
@@ -34,10 +34,12 @@ def extract_fqdn(data):
 
 
 @click.command()
-@click.argument('infile', type=click.File('r'), default='-')
-@click.option('-c', 'check', is_flag=True, default=False, help='Check if hostname resolves')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
-@click.option('-j', 'jsonout', is_flag=True, default=False, help='JSON output')
+@click.argument("infile", type=click.File("r"), default="-")
+@click.option(
+    "-c", "check", is_flag=True, default=False, help="Check if hostname resolves"
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
+@click.option("-j", "jsonout", is_flag=True, default=False, help="JSON output")
 def cmd_data_extract_fqdn(infile, check, verbose, jsonout):
     """Extract FQDNs (Fully Qualified Domain Names) from a file or stdin.
 
@@ -51,14 +53,14 @@ def cmd_data_extract_fqdn(infile, check, verbose, jsonout):
     """
 
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     data = infile.read()
 
     result = extract_fqdn(data)
 
     if check:
-        logging.info('Checking against DNS...')
+        logging.info("Checking against DNS...")
         for candidate in result:
             try:
                 socket.getaddrinfo(candidate, None)
@@ -68,8 +70,8 @@ def cmd_data_extract_fqdn(infile, check, verbose, jsonout):
     if jsonout:
         print(json.dumps(result, indent=4))
     else:
-        print('\n'.join(result))
+        print("\n".join(result))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_data_extract_fqdn()

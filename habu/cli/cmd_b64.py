@@ -8,8 +8,10 @@ import click
 
 
 @click.command()
-@click.argument('f', type=click.File('rb'), default='-')
-@click.option('-d', 'do_decode', is_flag=True, default=False, help='decode instead of encode')
+@click.argument("f", type=click.File("rb"), default="-")
+@click.option(
+    "-d", "do_decode", is_flag=True, default=False, help="decode instead of encode"
+)
 def cmd_b64(f, do_decode):
     """
     Encodes or decode data in base64, just like the command base64.
@@ -35,5 +37,5 @@ def cmd_b64(f, do_decode):
         os.write(sys.stdout.fileno(), base64.b64encode(data))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_b64()

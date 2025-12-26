@@ -1,8 +1,18 @@
-import click
 import json
 import operator
 
-def pwdpolicy(passwords, minlength=0, need_lower=0, need_upper=0, need_number=0, need_special=0, need_families=0):
+import click
+
+
+def pwdpolicy(
+    passwords,
+    minlength=0,
+    need_lower=0,
+    need_upper=0,
+    need_number=0,
+    need_special=0,
+    need_families=0,
+):
 
     valid = []
 
@@ -14,7 +24,7 @@ def pwdpolicy(passwords, minlength=0, need_lower=0, need_upper=0, need_number=0,
         if len(password) < minlength:
             continue
 
-        password = password.decode(errors='ignore')
+        password = password.decode(errors="ignore")
 
         are_lower = 0
         are_upper = 0
@@ -25,8 +35,8 @@ def pwdpolicy(passwords, minlength=0, need_lower=0, need_upper=0, need_number=0,
 
         for ch in password:
 
-            #print(str(ch))
-            #ch = ch.decode()
+            # print(str(ch))
+            # ch = ch.decode()
 
             if ch.islower():
                 are_lower += 1
@@ -51,11 +61,16 @@ def pwdpolicy(passwords, minlength=0, need_lower=0, need_upper=0, need_number=0,
                 families += 1
 
             print(
-                'lower:', are_lower,
-                'upper:', are_upper,
-                'number:', are_number,
-                'special:', are_special,
-                'families:', families
+                "lower:",
+                are_lower,
+                "upper:",
+                are_upper,
+                "number:",
+                are_number,
+                "special:",
+                are_special,
+                "families:",
+                families,
             )
 
         if need_families > families:
@@ -76,28 +91,36 @@ def pwdpolicy(passwords, minlength=0, need_lower=0, need_upper=0, need_number=0,
 
 
 @click.command()
-@click.argument('infile', type=click.File('rb', errors='ignore'), default='-')
-@click.option('--length', 'minlength', default=0)
-@click.option('--number', 'need_number', default=0)
-@click.option('--lower', 'need_lower', default=0)
-@click.option('--upper', 'need_upper', default=0)
-@click.option('--special', 'need_special', default=0)
-@click.option('--families', 'need_families', default=0)
-def cmd_pwd_policy(infile, minlength, need_number, need_lower, need_upper, need_special, need_families):
+@click.argument("infile", type=click.File("rb", errors="ignore"), default="-")
+@click.option("--length", "minlength", default=0)
+@click.option("--number", "need_number", default=0)
+@click.option("--lower", "need_lower", default=0)
+@click.option("--upper", "need_upper", default=0)
+@click.option("--special", "need_special", default=0)
+@click.option("--families", "need_families", default=0)
+def cmd_pwd_policy(
+    infile, minlength, need_number, need_lower, need_upper, need_special, need_families
+):
 
-    passwords = infile.read().split(b'\n')
+    passwords = infile.read().split(b"\n")
 
-    valid = pwdpolicy(passwords, minlength=minlength, need_number=need_number, need_lower=need_lower, need_upper=need_upper, need_special=need_special, need_families=need_families)
+    valid = pwdpolicy(
+        passwords,
+        minlength=minlength,
+        need_number=need_number,
+        need_lower=need_lower,
+        need_upper=need_upper,
+        need_special=need_special,
+        need_families=need_families,
+    )
 
-    print('\n'.join(valid))
+    print("\n".join(valid))
 
-if __name__ == '__main__':
-    #with open('/home/f/code/SecLists/Passwords/darkc0de.txt', encoding='utf-8', errors='ignore') as pwdfile:
+
+if __name__ == "__main__":
+    # with open('/home/f/code/SecLists/Passwords/darkc0de.txt', encoding='utf-8', errors='ignore') as pwdfile:
     #    passwords = pwdfile.read().split('\n')
 
-    #print(json.dumps(pwdlyze(passwords), indent=4))
-
+    # print(json.dumps(pwdlyze(passwords), indent=4))
 
     cmd_pwd_policy()
-
-

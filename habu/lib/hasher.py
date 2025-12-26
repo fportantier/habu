@@ -1,13 +1,14 @@
 """Create the hash(es) of a string or a file."""
+
 import hashlib
 
 ALGOS = [
-    'md5',
-    'sha1',
-    'sha256',
-    'sha512',
-    'ripemd160',
-    'whirlpool',
+    "md5",
+    "sha1",
+    "sha256",
+    "sha512",
+    "ripemd160",
+    "whirlpool",
 ]
 
 
@@ -29,6 +30,7 @@ def hasher(data, algos=ALGOS):
     return result
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from pprint import pprint
-    pprint(hasher('password'))
+
+    pprint(hasher("password"))

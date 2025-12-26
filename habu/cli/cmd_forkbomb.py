@@ -6,7 +6,7 @@ from habu.lib.forkbomb import bombs, get_bomb
 
 
 @click.command()
-@click.argument('bomb', type=click.Choice(bombs))
+@click.argument("bomb", type=click.Choice(bombs))
 def cmd_forkbomb(bomb):
     """A shortcut to remember how to use fork bombs in different languages.
 
@@ -27,7 +27,8 @@ def cmd_forkbomb(bomb):
     }
     """
 
-    print(get_bomb(bomb), end='')
+    print(get_bomb(bomb), end="")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_forkbomb()

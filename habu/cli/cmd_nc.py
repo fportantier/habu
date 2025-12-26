@@ -19,14 +19,29 @@ def which_source_for(ip):
 
 
 @click.command()
-@click.argument('host')
-@click.argument('port', type=click.IntRange(1, 65535))
-@click.option('--family', 'family', type=click.Choice(['4', '6', '46']), default='46', help='IP Address Family')
-@click.option('--ssl', 'ssl_enable', is_flag=True, default=False, help='Enable SSL')
-@click.option('--crlf', 'crlf', is_flag=True, default=False, help='Use CRLF for EOL sequence')
-@click.option('--protocol', type=click.Choice(['tcp', 'udp']), default='tcp', help='Layer 4 protocol to use')
-@click.option('--source-ip', type=click.STRING, default=None, help='Source IP to use')
-@click.option('--source-port', type=click.IntRange(0, 65535), default=0, help='Source port to use')
+@click.argument("host")
+@click.argument("port", type=click.IntRange(1, 65535))
+@click.option(
+    "--family",
+    "family",
+    type=click.Choice(["4", "6", "46"]),
+    default="46",
+    help="IP Address Family",
+)
+@click.option("--ssl", "ssl_enable", is_flag=True, default=False, help="Enable SSL")
+@click.option(
+    "--crlf", "crlf", is_flag=True, default=False, help="Use CRLF for EOL sequence"
+)
+@click.option(
+    "--protocol",
+    type=click.Choice(["tcp", "udp"]),
+    default="tcp",
+    help="Layer 4 protocol to use",
+)
+@click.option("--source-ip", type=click.STRING, default=None, help="Source IP to use")
+@click.option(
+    "--source-port", type=click.IntRange(0, 65535), default=0, help="Source port to use"
+)
 def cmd_nc(host, port, family, ssl_enable, crlf, source_ip, source_port, protocol):
     """Some kind of netcat/ncat replacement.
 
@@ -52,26 +67,31 @@ def cmd_nc(host, port, family, ssl_enable, crlf, source_ip, source_port, protoco
     resolved = socket.getaddrinfo(host, port)
 
     families = {
-        '4' :  [ socket.AF_INET ],
-        '6' :  [ socket.AF_INET6 ],
-        '46':  [ socket.AF_INET, socket.AF_INET6]
+        "4": [socket.AF_INET],
+        "6": [socket.AF_INET6],
+        "46": [socket.AF_INET, socket.AF_INET6],
     }
 
     address = None
     for r in resolved:
         if r[0] in families[family]:
-            address = r # (<AddressFamily.AF_INET6: 10>, <SocketType.SOCK_STREAM: 1>, 6, '', ('2606:2800:220:1:248:1893:25c8:1946', 80, 0, 0))
+            address = r  # (<AddressFamily.AF_INET6: 10>, <SocketType.SOCK_STREAM: 1>, 6, '', ('2606:2800:220:1:248:1893:25c8:1946', 80, 0, 0))
 
     if not address:
-        print('Could not resolve {} to the ip address family selected ({})'.format(host, family), file=sys.stderr)
+        print(
+            "Could not resolve {} to the ip address family selected ({})".format(
+                host, family
+            ),
+            file=sys.stderr,
+        )
         sys.exit(1)
 
-    to_send = b''
+    to_send = b""
 
     if not source_ip:
         source_ip = which_source_for(address[4][0])
 
-    if protocol == 'tcp':
+    if protocol == "tcp":
         s = socket.socket(address[0], socket.SOCK_STREAM)
     else:
         s = socket.socket(address[0], socket.SOCK_DGRAM)
@@ -86,7 +106,7 @@ def cmd_nc(host, port, family, ssl_enable, crlf, source_ip, source_port, protoco
     try:
         s.connect((address[4][0], port))
 
-        print('Connected to', address[4][0], port, file=sys.stderr)
+        print("Connected to", address[4][0], port, file=sys.stderr)
     except Exception as e:
         print(e, file=sys.stderr)
         sys.exit(1)
@@ -98,7 +118,7 @@ def cmd_nc(host, port, family, ssl_enable, crlf, source_ip, source_port, protoco
         for i in iready:
             if i == sys.stdin:
                 if crlf:
-                    to_send += i.readline().replace('\n', '\r\n').encode()
+                    to_send += i.readline().replace("\n", "\r\n").encode()
                 else:
                     to_send += i.readline().encode()
             else:
@@ -113,10 +133,10 @@ def cmd_nc(host, port, family, ssl_enable, crlf, source_ip, source_port, protoco
         for o in oready:
             if to_send:
                 o.send(to_send)
-                to_send = b''
+                to_send = b""
 
     s.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_nc()

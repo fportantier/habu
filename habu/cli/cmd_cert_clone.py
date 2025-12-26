@@ -9,14 +9,28 @@ from habu.lib.certclone import certclone
 
 
 @click.command()
-@click.argument('hostname')
-@click.argument('port')
-@click.argument('keyfile', type=click.File('w'))
-@click.argument('certfile', type=click.File('w'))
-@click.option('--copy-extensions', 'copy_extensions', is_flag=True, default=False, help='Copy certificate extensions (default: False)')
-@click.option('--expired', 'expired', is_flag=True, default=False, help='Generate an expired certificate (default: False)')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
-def cmd_cert_clone(hostname, port, keyfile, certfile, copy_extensions, expired, verbose):
+@click.argument("hostname")
+@click.argument("port")
+@click.argument("keyfile", type=click.File("w"))
+@click.argument("certfile", type=click.File("w"))
+@click.option(
+    "--copy-extensions",
+    "copy_extensions",
+    is_flag=True,
+    default=False,
+    help="Copy certificate extensions (default: False)",
+)
+@click.option(
+    "--expired",
+    "expired",
+    is_flag=True,
+    default=False,
+    help="Generate an expired certificate (default: False)",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose")
+def cmd_cert_clone(
+    hostname, port, keyfile, certfile, copy_extensions, expired, verbose
+):
     """
     Connect to an SSL/TLS server, get the certificate and generate
     a certificate with the same options and field values.
@@ -41,5 +55,5 @@ def cmd_cert_clone(hostname, port, keyfile, certfile, copy_extensions, expired, 
     certfile.write(cert)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_cert_clone()

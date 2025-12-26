@@ -8,9 +8,21 @@ from ipwhois import IPWhois
 
 
 @click.command()
-@click.argument('ip')
-@click.option('--json', 'json_output', is_flag=True, default=False, help='Print the output in JSON format')
-@click.option('--csv', 'csv_output', is_flag=True, default=False, help='Print the output in CSV format')
+@click.argument("ip")
+@click.option(
+    "--json",
+    "json_output",
+    is_flag=True,
+    default=False,
+    help="Print the output in JSON format",
+)
+@click.option(
+    "--csv",
+    "csv_output",
+    is_flag=True,
+    default=False,
+    help="Print the output in CSV format",
+)
 def cmd_whois_ip(ip, json_output, csv_output):
     """Simple whois client to check IP addresses (IPv4 and IPv6).
 
@@ -29,12 +41,12 @@ def cmd_whois_ip(ip, json_output, csv_output):
     warnings.filterwarnings("ignore")
 
     default_fields = [
-        'asn',
-        'asn_registry',
-        'asn_cidr',
-        'asn_country_code',
-        'asn_description',
-        'asn_date',
+        "asn",
+        "asn_registry",
+        "asn_cidr",
+        "asn_country_code",
+        "asn_description",
+        "asn_date",
     ]
 
     obj = IPWhois(ip)
@@ -52,8 +64,8 @@ def cmd_whois_ip(ip, json_output, csv_output):
         if csv_output:
             print('"{}","whois.{}","{}"'.format(ip, field, value))
         else:
-            print('{:<25}{}'.format(field, value))
+            print("{:<25}{}".format(field, value))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_whois_ip()

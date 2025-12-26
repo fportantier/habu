@@ -13,11 +13,13 @@ from scapy.all import ASN1_OID, IP, SNMP, UDP, SNMPget, SNMPvarbind, conf, sr1
 
 
 @click.command()
-@click.argument('ip')
-@click.option('-p', 'port', default=161, help='Port to use')
-@click.option('-c', 'community', default=None, help='Community (default: list of most used)')
-@click.option('-s', 'stop', is_flag=True, default=False, help='Stop after first match')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose')
+@click.argument("ip")
+@click.option("-p", "port", default=161, help="Port to use")
+@click.option(
+    "-c", "community", default=None, help="Community (default: list of most used)"
+)
+@click.option("-s", "stop", is_flag=True, default=False, help="Stop after first match")
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose")
 def cmd_crack_snmp(ip, community, port, stop, verbose):
     """Launches snmp-get queries against an IP, and tells you when
     finds a valid community string (is a simple SNMP cracker).
@@ -38,18 +40,25 @@ def cmd_crack_snmp(ip, community, port, stop, verbose):
     """
 
     FILEDIR = os.path.dirname(os.path.abspath(__file__))
-    DATADIR = os.path.abspath(os.path.join(FILEDIR, '../data'))
-    COMMFILE = Path(os.path.abspath(os.path.join(DATADIR, 'dict_snmp.txt')))
+    DATADIR = os.path.abspath(os.path.join(FILEDIR, "../data"))
+    COMMFILE = Path(os.path.abspath(os.path.join(DATADIR, "dict_snmp.txt")))
 
     if community:
         communities = [community]
     else:
         with COMMFILE.open() as cf:
-            communities = cf.read().split('\n')
+            communities = cf.read().split("\n")
 
     conf.verb = False
 
-    for pkt in IP(dst=ip)/UDP(sport=port, dport=port)/SNMP(community="public", PDU=SNMPget(varbindlist=[SNMPvarbind(oid=ASN1_OID("1.3.6.1"))])):
+    for pkt in (
+        IP(dst=ip)
+        / UDP(sport=port, dport=port)
+        / SNMP(
+            community="public",
+            PDU=SNMPget(varbindlist=[SNMPvarbind(oid=ASN1_OID("1.3.6.1"))]),
+        )
+    ):
 
         if verbose:
             print(pkt[IP].dst)
@@ -57,18 +66,19 @@ def cmd_crack_snmp(ip, community, port, stop, verbose):
         for community in communities:
 
             if verbose:
-                print('.', end='')
+                print(".", end="")
                 sys.stdout.flush()
 
-            pkt[SNMP].community=community
+            pkt[SNMP].community = community
             ans = sr1(pkt, timeout=0.5, verbose=0)
 
             if ans and UDP in ans:
-                print('\n{} - Community found: {}'.format(pkt[IP].dst, community))
+                print("\n{} - Community found: {}".format(pkt[IP].dst, community))
                 if stop:
                     break
 
     return True
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_crack_snmp()

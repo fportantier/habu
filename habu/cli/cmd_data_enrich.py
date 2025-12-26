@@ -9,8 +9,14 @@ from habu.lib.enrich import enrich
 
 
 @click.command()
-@click.option('-i', 'infile', type=click.File('r'), default='-', help='Input file (Default: stdin)')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.option(
+    "-i",
+    "infile",
+    type=click.File("r"),
+    default="-",
+    help="Input file (Default: stdin)",
+)
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
 def cmd_data_enrich(infile, verbose):
     """Enrich data adding interesting information.
 
@@ -41,14 +47,14 @@ def cmd_data_enrich(infile, verbose):
     """
 
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
 
-    lines = infile.read().split('\n')
+    lines = infile.read().split("\n")
 
-    result = [ enrich(line) for line in lines if line ]
+    result = [enrich(line) for line in lines if line]
 
     print(json.dumps(result, indent=4))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_data_enrich()

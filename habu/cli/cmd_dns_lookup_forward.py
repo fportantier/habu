@@ -1,4 +1,5 @@
 """Perform a forward lookup of a hostname."""
+
 import json
 import logging
 import sys
@@ -9,8 +10,8 @@ from habu.lib.dnsx import lookup_forward
 
 
 @click.command()
-@click.argument('hostname')
-@click.option('-v', 'verbose', is_flag=True, default=False, help='Verbose output')
+@click.argument("hostname")
+@click.option("-v", "verbose", is_flag=True, default=False, help="Verbose output")
 def cmd_dns_lookup_forward(hostname, verbose):
     """Perform a forward lookup of a given hostname.
 
@@ -24,7 +25,7 @@ def cmd_dns_lookup_forward(hostname, verbose):
     }
     """
     if verbose:
-        logging.basicConfig(level=logging.INFO, format='%(message)s')
+        logging.basicConfig(level=logging.INFO, format="%(message)s")
         print("Looking up %s..." % hostname, file=sys.stderr)
 
     answer = lookup_forward(hostname)
@@ -34,5 +35,5 @@ def cmd_dns_lookup_forward(hostname, verbose):
     return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cmd_dns_lookup_forward()

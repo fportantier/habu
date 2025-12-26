@@ -10,7 +10,7 @@ import requests
 
 
 @click.command()
-@click.argument('host')
+@click.argument("host")
 def cmd_karma(host):
     """Use the Karma service https://karma.securetia.com to check an IP
     against various Threat Intelligence / Reputation lists.
@@ -27,24 +27,25 @@ def cmd_karma(host):
     Note: You can use the hostname or the IP of the host to query.
     """
 
-    URL = 'https://karma.securetia.com/api/ip/'
+    URL = "https://karma.securetia.com/api/ip/"
 
     try:
         resolved = socket.gethostbyname(host)
     except Exception:
-        logging.error('Invalid IP address or hostname')
+        logging.error("Invalid IP address or hostname")
         sys.exit(1)
 
     if host != resolved:
-        print(host, '->', resolved, file=sys.stderr)
+        print(host, "->", resolved, file=sys.stderr)
 
-    r = requests.get(URL + resolved, headers={'Accept': 'application/json'})
+    r = requests.get(URL + resolved, headers={"Accept": "application/json"})
 
     if r.status_code != 200:
-        logging.error('HTTP Error code received: {}'.format(r.status_code))
+        logging.error("HTTP Error code received: {}".format(r.status_code))
         sys.exit(1)
 
     print(json.dumps(r.json(), indent=4))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cmd_karma()
