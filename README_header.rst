@@ -33,13 +33,6 @@ and usage:
 https://www.youtube.com/watch?v=rgp9seLLyqE&list=PL4HZnX8VnFXqSvNw7x-bXOn0dgxNdfnVD
 
 
-Telegram Group
---------------
-
-If you want to discuss some Habu features, possible improvements, etc,
-you can use the Habu Telegram Group: https://t.me/python_habu
-
-
 Contributing
 ------------
 
@@ -61,17 +54,6 @@ This must works on any system that has Python 3 installed.
 
 **Note:** On some systems (like Microsoft Windows) you must adjust the command to
 point to the correct path of the Python executable.
-
-
-Upgrade
--------
-
-Now we have a command to upgrade directly from the Git repo and clean any old
-command that not longer exists or that has been renamed.
-
-::
-
-    $ habu.upgrade
 
 
 Get Help
