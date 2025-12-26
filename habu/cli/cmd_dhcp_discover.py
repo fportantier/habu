@@ -3,12 +3,12 @@
 import logging
 
 import click
-
-logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
-
-from scapy.all import BOOTP, DHCP, IP, UDP, Ether, conf, get_if_raw_hwaddr, srp
+from scapy.all import BOOTP, DHCP, IP, UDP, Ether, conf, get_if_hwaddr, srp
 
 from habu.lib.iface import search_iface
+from habu.lib.run_as_root import run_as_root
+
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
 
 @click.command()
@@ -24,6 +24,8 @@ def cmd_dhcp_discover(iface, timeout, verbose):
     # habu.dhcp_discover
     Ether / IP / UDP 192.168.0.1:bootps > 192.168.0.5:bootpc / BOOTP / DHCP
     """
+
+    run_as_root()
 
     conf.verb = False
 
@@ -41,7 +43,7 @@ def cmd_dhcp_discover(iface, timeout, verbose):
 
     conf.checkIPaddr = False
 
-    hw = get_if_raw_hwaddr(conf.iface)
+    hw = get_if_hwaddr(conf.iface)
 
     ether = Ether(dst="ff:ff:ff:ff:ff:ff")
     ip = IP(src="0.0.0.0", dst="255.255.255.255")
@@ -59,7 +61,7 @@ def cmd_dhcp_discover(iface, timeout, verbose):
         if verbose:
             print(pkt.show())
         else:
-            print(pkt.summary())
+            print(pkt.sprintf("%IP.src%"))
 
 
 if __name__ == "__main__":
