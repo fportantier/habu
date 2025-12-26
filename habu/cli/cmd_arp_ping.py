@@ -3,11 +3,12 @@
 import logging
 
 import click
-
-logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+from scapy.all import ARP, Ether, conf, srp
 
 from habu.lib.iface import search_iface
-from scapy.all import ARP, Ether, conf, srp
+from habu.lib.run_as_root import run_as_root
+
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
 
 @click.command()
@@ -24,6 +25,8 @@ def cmd_arp_ping(ip, iface, verbose):
     # habu.arp.ping 192.168.0.1
     Ether / ARP is at a4:08:f5:19:17:a4 says 192.168.0.1 / Padding
     """
+
+    run_as_root()
 
     if verbose:
         logging.basicConfig(level=logging.INFO, format='%(message)s')
