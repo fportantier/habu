@@ -4,10 +4,11 @@ import logging
 from time import sleep
 
 import click
+from scapy.all import ICMP, IP, conf, sr1
+
+from habu.lib.run_as_root import run_as_root
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
-
-from scapy.all import ICMP, IP, L3RawSocket, conf, sr1
 
 
 @click.command()
@@ -25,45 +26,36 @@ def cmd_icmp_ping(ip, interface, count, timeout, wait, verbose):
     """The classic ping tool that send ICMP echo requests.
 
     \b
-    # habu.icmp.ping 8.8.8.8
-    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
-    IP / ICMP 8.8.8.8 > 192.168.0.5 echo-reply 0 / Padding
+    # habu.icmp.ping dns.google.com
+    IPv4 8.8.4.4 > 192.168.0.8 ICMP seq=0x0
+    IPv4 8.8.4.4 > 192.168.0.8 ICMP seq=0x1
+    IPv4 8.8.4.4 > 192.168.0.8 ICMP seq=0x2
+    IPv4 8.8.4.4 > 192.168.0.8 ICMP seq=0x3
     """
+
+    run_as_root()
 
     if interface:
         conf.iface = interface
 
     conf.verb = False
-    conf.L3socket = L3RawSocket
-
-    layer3 = IP()
-    layer3.dst = ip
-    layer3.tos = 0
-    layer3.id = 1
-    layer3.flags = 0
-    layer3.frag = 0
-    layer3.ttl = 64
-    layer3.proto = 1  # icmp
-
-    layer4 = ICMP()
-    layer4.type = 8  # echo-request
-    layer4.code = 0
-    layer4.id = 0
-    layer4.seq = 0
-
-    pkt = layer3 / layer4
 
     counter = 0
 
+    layer3 = IP(dst=ip)
+    layer4 = ICMP()
+
     while True:
+
+        layer4.seq = counter
+        pkt = layer3 / layer4
+
         ans = sr1(pkt, timeout=timeout)
         if ans:
             if verbose:
                 ans.show()
             else:
-                print(ans.summary())
+                print(ans.sprintf("IPv4 %IP.src% > %IP.dst% ICMP seq=%ICMP.seq%"))
             del ans
         else:
             print("Timeout")
