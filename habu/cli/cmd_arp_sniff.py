@@ -5,12 +5,13 @@ import sys
 from time import time
 
 import click
-
-logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
-
 from scapy.all import ARP, conf, sniff
 
 from habu.lib.iface import search_iface
+from habu.lib.run_as_root import run_as_root
+
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+
 
 hosts = {}
 
@@ -66,6 +67,8 @@ def cmd_arp_sniff(iface):
     2   192.168.0.5     00:c2:c6:30:2c:58   Intel Corporate
     6   192.168.0.7     54:f2:01:db:35:58   Samsung Electronics Co.,Ltd
     """
+
+    run_as_root()
 
     conf.verb = False
 
